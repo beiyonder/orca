@@ -483,6 +483,7 @@ export class GitHandler {
     return this.maybeStreamResponse(result, params, context)
   }
 
+  /** Stages one path without interpreting Git pathspec syntax. */
   private async stage(params: Record<string, unknown>) {
     this.clearGitMutationReadCaches()
     const worktreePath = params.worktreePath as string
@@ -507,6 +508,7 @@ export class GitHandler {
     }
   }
 
+  /** Unstages one path without interpreting Git pathspec syntax. */
   private async unstage(params: Record<string, unknown>) {
     this.clearGitMutationReadCaches()
     const worktreePath = params.worktreePath as string
@@ -518,6 +520,7 @@ export class GitHandler {
     }
   }
 
+  /** Stages paths in bounded batches while treating every path as literal. */
   private async bulkStage(params: Record<string, unknown>) {
     this.clearGitMutationReadCaches()
     const worktreePath = params.worktreePath as string
@@ -535,6 +538,7 @@ export class GitHandler {
     }
   }
 
+  /** Unstages paths in bounded batches while treating every path as literal. */
   private async bulkUnstage(params: Record<string, unknown>) {
     this.clearGitMutationReadCaches()
     const worktreePath = params.worktreePath as string
