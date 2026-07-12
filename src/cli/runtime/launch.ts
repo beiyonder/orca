@@ -1,5 +1,10 @@
 import { spawn as spawnProcess, type SpawnOptions } from 'node:child_process'
 import { dirname, resolve } from 'node:path'
+import {
+  getEphemeralVmRecipeResultConnection,
+  parseEphemeralVmRecipeResult,
+  redactEphemeralVmRecipeDiagnosticText
+} from '../../shared/ephemeral-vm-recipes'
 import { RuntimeClientError } from './types'
 
 export function launchOrcaApp(): void {
@@ -155,7 +160,7 @@ function waitForRecipeJson(child: ReturnType<typeof spawnProcess>): Promise<numb
       clearTimeout(timeout)
       child.stdout?.off('data', onData)
       child.off('error', onError)
-      child.off('exit', onExit)
+      child.off('close', onClose)
       if (error) {
         reject(error)
         return
@@ -164,42 +169,63 @@ function waitForRecipeJson(child: ReturnType<typeof spawnProcess>): Promise<numb
       child.unref()
       resolve(0)
     }
-    const emitLine = (line: string): void => {
-      process.stdout.write(`${line}\n`)
+    const processRecipeOutputLine = (line: string): void => {
+      const normalizedLine = line.endsWith('\r') ? line.slice(0, -1) : line
+      if (!normalizedLine.trim()) {
+        return
+      }
+      const parsed = parseEphemeralVmRecipeResult(normalizedLine)
+      if (
+        !parsed.ok ||
+        getEphemeralVmRecipeResultConnection(parsed.result).type !== 'orca-server'
+      ) {
+        // Why: serve can only produce Orca-server readiness. Other recipe shapes
+        // and headless startup chatter are diagnostics that belong on stderr.
+        process.stderr.write(`${redactEphemeralVmRecipeDiagnosticText(normalizedLine)}\n`)
+        return
+      }
+      process.stdout.write(`${normalizedLine.trim()}\n`)
       finish()
     }
     const onData = (chunk: Buffer | string): void => {
       output += chunk.toString()
-      const newlineIndex = output.indexOf('\n')
-      if (newlineIndex === -1) {
-        return
+      while (!settled) {
+        const newlineIndex = output.indexOf('\n')
+        if (newlineIndex === -1) {
+          return
+        }
+        const line = output.slice(0, newlineIndex)
+        output = output.slice(newlineIndex + 1)
+        processRecipeOutputLine(line)
       }
-      emitLine(output.slice(0, newlineIndex))
     }
     const onError = (error: Error): void => {
       finish(error)
     }
-    const onExit = (code: number | null, signal: NodeJS.Signals | null): void => {
+    const onClose = (code: number | null, signal: NodeJS.Signals | null): void => {
       if (settled) {
         return
       }
-      const trimmed = output.trim()
-      if (trimmed) {
-        emitLine(trimmed)
+      if (output.trim()) {
+        processRecipeOutputLine(output)
+      }
+      if (settled) {
         return
       }
       finish(
         new RuntimeClientError(
           'runtime_serve_failed',
           typeof code === 'number'
-            ? `Orca serve exited before printing recipe JSON with code ${code}.`
-            : `Orca serve exited before printing recipe JSON via ${signal}.`
+            ? `Orca serve exited before printing valid recipe JSON with code ${code}.`
+            : `Orca serve exited before printing valid recipe JSON via ${signal}.`
         )
       )
     }
     child.stdout?.on('data', onData)
     child.once('error', onError)
-    child.once('exit', onExit)
+    // Why: `exit` can precede the final piped stdout data. `close` waits until
+    // stdio closes so a last recipe chunk is not mistaken for missing output.
+    child.once('close', onClose)
   })
 }
 
