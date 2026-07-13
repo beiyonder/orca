@@ -1,11 +1,13 @@
 import { spawn as spawnProcess, type SpawnOptions } from 'node:child_process'
 import { dirname, resolve } from 'node:path'
+import { StringDecoder } from 'node:string_decoder'
 import {
   getEphemeralVmRecipeResultConnection,
-  parseEphemeralVmRecipeResult,
-  redactEphemeralVmRecipeDiagnosticText
+  parseEphemeralVmRecipeResult
 } from '../../shared/ephemeral-vm-recipes'
 import { RuntimeClientError } from './types'
+
+const IGNORED_NON_RECIPE_STDOUT = '[serve] ignored non-recipe stdout'
 
 export function launchOrcaApp(): void {
   const overrideCommand = process.env.ORCA_OPEN_COMMAND
@@ -169,26 +171,31 @@ function waitForRecipeJson(child: ReturnType<typeof spawnProcess>): Promise<numb
       child.unref()
       resolve(0)
     }
+    const writeIgnoredRecipeStdout = (): void => {
+      // Why: non-readiness child stdout is untrusted and cannot be safely
+      // redacted, including schema-valid results with arbitrary user data.
+      process.stderr.write(`${IGNORED_NON_RECIPE_STDOUT}\n`)
+    }
     const processRecipeOutputLine = (line: string): void => {
       const normalizedLine = line.endsWith('\r') ? line.slice(0, -1) : line
       if (!normalizedLine.trim()) {
         return
       }
       const parsed = parseEphemeralVmRecipeResult(normalizedLine)
-      if (
-        !parsed.ok ||
-        getEphemeralVmRecipeResultConnection(parsed.result).type !== 'orca-server'
-      ) {
-        // Why: serve can only produce Orca-server readiness. Other recipe shapes
-        // and headless startup chatter are diagnostics that belong on stderr.
-        process.stderr.write(`${redactEphemeralVmRecipeDiagnosticText(normalizedLine)}\n`)
+      if (!parsed.ok) {
+        writeIgnoredRecipeStdout()
+        return
+      }
+      if (getEphemeralVmRecipeResultConnection(parsed.result).type !== 'orca-server') {
+        writeIgnoredRecipeStdout()
         return
       }
       process.stdout.write(`${normalizedLine.trim()}\n`)
       finish()
     }
+    const stdoutDecoder = new StringDecoder('utf8')
     const onData = (chunk: Buffer | string): void => {
-      output += chunk.toString()
+      output += typeof chunk === 'string' ? chunk : stdoutDecoder.write(chunk)
       while (!settled) {
         const newlineIndex = output.indexOf('\n')
         if (newlineIndex === -1) {
@@ -206,6 +213,7 @@ function waitForRecipeJson(child: ReturnType<typeof spawnProcess>): Promise<numb
       if (settled) {
         return
       }
+      output += stdoutDecoder.end()
       if (output.trim()) {
         processRecipeOutputLine(output)
       }

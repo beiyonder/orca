@@ -30,8 +30,33 @@ const RECIPE_JSON = JSON.stringify({
   projectRoot: '/workspace/repo'
 })
 const SERVE_INSTALL_STATUS = '[serve] orca CLI install: installed'
-const SSH_RECIPE_JSON =
-  '{"schemaVersion":1,"connection":{"type":"ssh","target":{"label":"Sandbox","host":"sandbox.example.com","port":22,"username":"root"},"projectRoot":"/workspace/repo"}}'
+const SSH_PRIVATE_KEY = 'TOP-SECRET-PRIVATE-KEY'
+const SSH_AUTHORIZATION = 'Bearer TOP-SECRET-AUTHORIZATION'
+const SSH_PASSPHRASE = 'TOP-SECRET-PASSPHRASE'
+const SSH_COOKIE = 'session=TOP-SECRET-COOKIE'
+const SSH_RECIPE_JSON = JSON.stringify({
+  schemaVersion: 1,
+  connection: {
+    type: 'ssh',
+    target: {
+      label: 'Sandbox',
+      host: 'sandbox.example.com',
+      port: 22,
+      username: 'root'
+    },
+    projectRoot: '/workspace/repo'
+  },
+  userData: {
+    credentials: {
+      privateKey: SSH_PRIVATE_KEY,
+      authorization: SSH_AUTHORIZATION,
+      passphrase: SSH_PASSPHRASE,
+      cookie: SSH_COOKIE
+    }
+  }
+})
+const INVALID_SSH_RECIPE_JSON = SSH_RECIPE_JSON.replace('/workspace/repo', 'relative/repo')
+const IGNORED_NON_RECIPE_STDOUT = '[serve] ignored non-recipe stdout'
 
 function startRecipeJsonServer() {
   const child = new FakeChildProcess()
@@ -190,24 +215,52 @@ describe('serveOrcaApp', () => {
     queueMicrotask(() => {
       child.stdout.emit(
         'data',
-        `${SERVE_INSTALL_STATUS}\n${SSH_RECIPE_JSON}\n${RECIPE_JSON.slice(0, 40)}`
+        `${SERVE_INSTALL_STATUS}\n${INVALID_SSH_RECIPE_JSON}\n${SSH_RECIPE_JSON}\n${RECIPE_JSON.slice(0, 40)}`
       )
       child.stdout.emit('data', `${RECIPE_JSON.slice(40)}\n`)
     })
 
     await expect(result).resolves.toBe(0)
 
-    expect(stderrSpy).toHaveBeenCalledWith(`${SERVE_INSTALL_STATUS}\n`)
-    expect(stderrSpy).toHaveBeenCalledWith(`${SSH_RECIPE_JSON}\n`)
+    expect(stderrSpy).toHaveBeenNthCalledWith(1, `${IGNORED_NON_RECIPE_STDOUT}\n`)
+    expect(stderrSpy).toHaveBeenNthCalledWith(2, `${IGNORED_NON_RECIPE_STDOUT}\n`)
+    expect(stderrSpy).toHaveBeenNthCalledWith(3, `${IGNORED_NON_RECIPE_STDOUT}\n`)
+    for (const secret of [SSH_PRIVATE_KEY, SSH_AUTHORIZATION, SSH_PASSPHRASE, SSH_COOKIE]) {
+      expect(stderrSpy).not.toHaveBeenCalledWith(expect.stringContaining(secret))
+    }
     expect(stdoutSpy).toHaveBeenCalledTimes(1)
     expect(stdoutSpy).toHaveBeenCalledWith(`${RECIPE_JSON}\n`)
     expect(child.unref).toHaveBeenCalledOnce()
   })
 
+  it('preserves UTF-8 recipe JSON split across Buffer chunks', async () => {
+    const { child, result, stdoutSpy } = startRecipeJsonServer()
+    const unicodeRecipeJson = RECIPE_JSON.replace('/workspace/repo', '/workspace/café')
+    const recipeBuffer = Buffer.from(`${unicodeRecipeJson}\n`)
+    const splitIndex = recipeBuffer.indexOf(Buffer.from('é')) + 1
+    queueMicrotask(() => {
+      child.stdout.emit('data', recipeBuffer.subarray(0, splitIndex))
+      child.stdout.emit('data', recipeBuffer.subarray(splitIndex))
+    })
+
+    await expect(result).resolves.toBe(0)
+
+    expect(stdoutSpy).toHaveBeenCalledWith(`${unicodeRecipeJson}\n`)
+    expect(child.unref).toHaveBeenCalledOnce()
+  })
+
   it('rejects when the server exits without valid recipe JSON', async () => {
     const { child, result, stdoutSpy, stderrSpy } = startRecipeJsonServer()
+    const secrets = ['UPPER-SECRET', 'SLASH-SECRET', 'LEGACY-SECRET', 'PRIVATE-SECRET']
+    const untrustedLines = [
+      'ORCA://pair?code=UPPER-SECRET',
+      'orca://pair/?code=SLASH-SECRET',
+      'orca://pair#LEGACY-SECRET',
+      '"embedded privateKey PRIVATE-SECRET"',
+      '{privateKey:"PRIVATE-SECRET"}'
+    ].join('\n')
     queueMicrotask(() => {
-      child.stdout.emit('data', `${SERVE_INSTALL_STATUS}\nnot recipe JSON\n`)
+      child.stdout.emit('data', `${untrustedLines}\n`)
       child.emit('exit', 0, null)
       child.emit('close', 0, null)
     })
@@ -217,8 +270,11 @@ describe('serveOrcaApp', () => {
       message: 'Orca serve exited before printing valid recipe JSON with code 0.'
     })
     expect(stdoutSpy).not.toHaveBeenCalled()
-    expect(stderrSpy).toHaveBeenCalledWith(`${SERVE_INSTALL_STATUS}\n`)
-    expect(stderrSpy).toHaveBeenCalledWith('not recipe JSON\n')
+    expect(stderrSpy).toHaveBeenCalledTimes(5)
+    expect(stderrSpy).toHaveBeenCalledWith(`${IGNORED_NON_RECIPE_STDOUT}\n`)
+    for (const secret of secrets) {
+      expect(stderrSpy).not.toHaveBeenCalledWith(expect.stringContaining(secret))
+    }
     expect(child.unref).not.toHaveBeenCalled()
   })
 
