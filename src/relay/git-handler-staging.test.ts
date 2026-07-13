@@ -36,7 +36,6 @@ const PATHSPEC_MUTATION_CASES = [
   }
 ] as const
 
-/** Builds the collision that proves staging does not expand Git pathspec syntax. */
 function createPathspecCollisionChanges(dir: string): void {
   gitInit(dir)
   writeFileSync(path.join(dir, PATHSPEC_SELECTED_FILE), 'selected')
