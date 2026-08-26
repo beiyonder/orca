@@ -2,14 +2,14 @@
 
 ## Current coordinate
 
-**`P0-ARCH-05` — Review the first-principles technical baseline.**
+**`P1-RSCH-01` — Define the characteristics and maturity model of the agentic substrate.**
 
 Current artifacts already exist:
 
 - `docs/healthcare-autonomous-migration-research-plan.md`
 - `docs/healthcare-system-design-mvp.html`
 
-The next move is not implementation. It is to review the baseline architecture, resolve the open load/consistency/deployment questions, and freeze the narrow prototype boundary.
+The product and technical architecture are provisional pressure maps, not final specifications. The current move is to define what a top-tier stateful, evidence-seeking, self-correcting, self-improving agentic system must do; research how those capabilities are implemented; then audit Orca and OMP against that progression line before choosing the first substrate build slice.
 
 ## How to use coordinates
 
@@ -64,14 +64,83 @@ Rules:
 
 1. Keep exactly one `CURRENT` coordinate.
 2. A task is not `DONE` because code exists. Its exit evidence must pass.
-3. A phase gate must pass before the next phase becomes the default path.
-4. Independent research tasks may run early, but they cannot silently lock architecture.
+3. A phase gate means “safe to learn at the next layer,” not “final specification complete.” Later evidence may reopen it.
+4. Keep only the current wave and the next wave granular. Later phases are directional backlog until evidence pulls them closer.
 5. If an experiment breaks an assumption, move to the corresponding loop coordinate before continuing.
 6. At the end of every work session, report:
    - current coordinate;
    - coordinates completed;
    - failed gate or active loop;
    - next dependency-ready coordinate.
+
+
+## Adaptive project model
+
+The project evolves through three coupled layers:
+
+1. **Agentic substrate** — durable state, evidence-seeking reasoning, orchestration, tools, evaluation, correction, memory, learning, and recovery.
+2. **Migration capability pack** — source discovery, data engineering, platform knowledge, CDC, mappings, target adapters, and migration evaluators.
+3. **Mission product** — customer intake, operator surface, security, policy, execution, evidence, and deployment.
+
+The substrate comes first, but it must be pressure-tested with migration-shaped fixtures early. Building a completely generic “super agent” without a concrete environment creates vague goals, weak evaluators, and architecture bloat. Building migration automation without the substrate creates brittle scripted demos. The two layers co-evolve.
+
+### Rolling-wave planning
+
+- The current wave has executable tasks and thresholds.
+- The next wave has research-backed candidate tasks.
+- Later waves retain coordinates and outcomes but may be rewritten as earlier experiments teach us.
+- New evidence creates a discovery record, names impacted coordinates/ADRs, and either:
+  - leaves the path unchanged;
+  - adds a task;
+  - moves a task;
+  - enters a rework loop;
+  - invalidates a hypothesis.
+- Roadmap edits are expected. Silent scope drift is not.
+
+### Capability maturity levels
+
+| Level | Meaning | Required evidence |
+| --- | --- | --- |
+| `M0 — Named` | Capability is described. | Responsibility and failure consequence. |
+| `M1 — Researched` | Credible implementation approaches are understood. | Primary sources, alternatives, known failures, cheapest experiment. |
+| `M2 — Isolated proof` | One component works in a controlled fixture. | Repeatable experiment and threshold. |
+| `M3 — Integrated proof` | Capability works with adjacent state/tools/agents. | Cross-component test and failure recovery. |
+| `M4 — Domain pressure` | Capability survives migration-shaped cases. | Seeded legacy/data/platform fixtures and independent evaluation. |
+| `M5 — Prototype ready` | Capability is safe and observable in the complete POC. | End-to-end evidence, faults, repeatability, and rollback. |
+
+Every major capability should carry both a roadmap coordinate and a maturity level.
+
+## Agentic substrate progression line
+
+| Level | System characteristic | Current Orca / OMP position |
+| --- | --- | --- |
+| `A0 — Tool agent` | Model can reason, call tools, observe results, and return structured output. | **Strong:** OMP already provides the core model/tool loop and coding tools. |
+| `A1 — Stateful worker` | Sessions, context compaction, resumable working history, scoped memory. | **Partial/strong mechanics:** OMP sessions, compaction, Mnemopi, recall/retain/reflect. Memory quality and authority separation are not product-proven. |
+| `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **Patterns only:** Orca has durable task/dispatch/run semantics; no migration mission kernel or evidence-backed world model exists. |
+| `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **Partial primitives:** OMP subagents and Orca orchestration exist; no proven apex controller or evidence-based disagreement loop. |
+| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **Mostly missing:** tools exist, but no durable epistemic state, gap engine, or retrieval acceptance contract. |
+| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Missing as a system:** tests/tools exist; no product evaluation coordinator or closed correction loop. |
+| `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Primitive only:** OMP memory/skills exist; certification, promotion, drift, demotion, and harm tracing are missing. |
+| `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **Patterns only:** Orca has capabilities, receipts, relay, stale-attempt rejection, and recovery patterns; no migration effect protocol exists. |
+| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Not started beyond architecture/research inventory.** |
+| `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
+
+### Honest current position
+
+We are not at zero, and we are not yet at a durable intelligent system.
+
+```text
+A0 Tool agent                 OMP: strong
+A1 Stateful worker            OMP: partial/strong mechanics
+A2 Durable mission            Orca: useful patterns, product layer missing
+A3 Specialist orchestration   OMP + Orca: partial primitives
+A4–A6 Intelligence loops      mostly missing
+A7 Bounded execution          Orca patterns only
+A8–A10 Integrated product     not built
+```
+
+The next research wave must turn A0–A7 into a capability contract, then map exact Orca/OMP symbols and tests onto it. Only then do we pick the smallest A2–A6 integration slice to build.
 
 ## Working prototype definition
 
@@ -116,55 +185,62 @@ The working prototype does **not** require:
 | `DONE` | `P0-ARCH-02` | Write research and build plan. | Tracked research plan names atomic capabilities and phased approach. |
 | `DONE` | `P0-ARCH-03` | Produce six-part architecture MVP atlas. | Component, reuse, research, corpus, experiment, and decision registers exist. |
 | `DONE` | `P0-ARCH-04` | Add first-principles technical baseline. | Load model, deployables, stores, protocols, consistency, security, scaling, and recovery documented. |
-| `CURRENT` | `P0-ARCH-05` | Review first-principles technical baseline. | Explicit accept/change/reject notes for each technical section. |
-| `WAIT` | `P0-ARCH-06` | Resolve architecture review questions. | Raw-data path, load envelope, deployable cuts, protocol cuts, and RTO/RPO assumptions updated. |
-| `WAIT` | `P0-ARCH-07` | Freeze prototype capabilities and non-goals. | Prototype definition above is accepted or edited; one source fixture and one target operation class selected. |
-| `WAIT` | `P0-ARCH-08` | Prioritize architecture risks. | Six highest-risk hypotheses ranked by impact × uncertainty × experiment cost. |
-| `WAIT` | `P0-ARCH-09` | Update architecture decision register. | Every baseline choice has status, evidence need, and reversal condition. |
+| `DONE` | `P0-ARCH-05` | Accept the technical baseline as a provisional POC pressure map. | User direction confirms that the POC may proceed without an exhaustive final-product specification. |
+| `READY` | `P0-ARCH-06` | Resolve architecture questions as experiments expose them. | Raw-data path, load envelope, deployable cuts, protocols, and RTO/RPO stay versioned hypotheses. |
+| `DONE` | `P0-ARCH-07` | Define provisional prototype capabilities and non-goals. | Working prototype criteria and exclusions are explicit and may mature through experiments. |
+| `DONE` | `P0-ARCH-08` | Prioritize architecture risks. | Durable state, apex orchestration, memory, evaluation, OMP containment, and unknown effects are named first risks. |
+| `DONE` | `P0-ARCH-09` | Record technical architecture hypotheses. | Baseline choices have status, evidence need, and reversal condition. |
 
-### `G0-ARCH` — Architecture review gate
+### `G0-ARCH` — Safe-to-learn architecture gate
 
-Pass when:
+**Status: passed provisionally.** It authorizes research and POC learning, not production implementation.
 
-- the prototype boundary is explicit;
-- no required behavior lacks a logical owner;
-- no state has two authoritative owners;
-- no external effect lacks a recovery path;
-- all numeric assumptions are labeled and reviewable;
-- the first six architecture experiments are agreed.
+Pass condition:
+
+- the product direction is understandable;
+- the agentic substrate, migration capability pack, and mission product are separated;
+- required behaviors have provisional owners;
+- obvious safety/authority boundaries exist;
+- architecture assumptions are labeled and reversible;
+- experiments are allowed to rewrite the design.
 
 Failure route: `L-ARCH-01`.
 
 ---
 
-# Phase 1 — Deep research cards and architecture alternatives
+# Phase 1 — Agentic substrate research and Orca/OMP placement
 
-**Goal:** replace shallow project-name comparisons with primary-source research and discriminating alternatives for the hard components.
+**Goal:** define the characteristics of a top-tier stateful agentic system, understand credible implementations, then map exact Orca/OMP code and tests onto that progression before selecting the first integrated build slice.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P1-RSCH-01` | Research durable workflow alternatives. | Postgres reconciler, Temporal, and strongest simpler alternative compared on replay, timers, effects, operability, and authority. |
-| `WAIT` | `P1-RSCH-02` | Research OMP RPC and SDK boundaries. | Current protocol, isolation, cancellation, host-tool, subagent, persistence, and failure facts verified. |
-| `WAIT` | `P1-RSCH-03` | Research apex orchestration patterns. | Hierarchical, graph, blackboard, market/debate, and state-machine approaches compared. |
-| `WAIT` | `P1-RSCH-04` | Research knowledge and retrieval architecture. | FTS, vector, relational graph, GraphRAG, and dedicated graph alternatives compared using required query types. |
-| `WAIT` | `P1-RSCH-05` | Research long-term agent memory systems. | OMP/Mnemopi, Letta/MemGPT, Hindsight, and candidate stores compared on provenance, invalidation, isolation, and evaluation. |
-| `WAIT` | `P1-RSCH-06` | Research agent evaluation frameworks. | Inspect AI and strongest alternatives compared on custom agents, environments, scoring, traces, limits, and human baselines. |
-| `WAIT` | `P1-RSCH-07` | Research connector and CDC ecosystems. | Debezium, Airbyte, cloud migration tools, and source-native methods compared on semantics, tests, licensing, and embedding. |
-| `WAIT` | `P1-RSCH-08` | Research sandbox and remote execution systems. | OpenHands, Kubernetes Jobs, container/microVM options, and Orca relay patterns compared. |
-| `WAIT` | `P1-RSCH-09` | Research policy and workload identity. | OPA-style policy, SPIFFE-compatible identity, secret leases, and capability envelope approaches compared. |
-| `WAIT` | `P1-RSCH-10` | Produce reuse/build/adapt decisions. | Each hard component has a primary recommendation and strongest rejected alternative. |
-| `WAIT` | `P1-RSCH-11` | Update technical ADR hypotheses. | Research changes are reflected without marking untested choices selected. |
+| `CURRENT` | `P1-RSCH-01` | Define agentic substrate capability contracts. | A0–A7 each has responsibilities, inputs/outputs, failure modes, evaluator, and maturity criteria. |
+| `WAIT` | `P1-RSCH-02` | Research durable state and workflow implementations. | Mission identity, replay, timers, attempts, effects, and crash recovery approaches compared. |
+| `WAIT` | `P1-RSCH-03` | Research epistemic world models and gap resolution. | Fact/claim/hypothesis/unknown state, active information gathering, uncertainty, and abstention approaches compared. |
+| `WAIT` | `P1-RSCH-04` | Research apex and specialist orchestration. | Hierarchical, graph, blackboard, planner/executor, debate, and state-machine approaches compared. |
+| `WAIT` | `P1-RSCH-05` | Research context, retrieval, and live research. | Context assembly, provenance, freshness, tool research, GraphRAG/hybrid retrieval, and citation evaluation compared. |
+| `WAIT` | `P1-RSCH-06` | Research long-term agent memory. | Working, episodic, semantic, procedural, failure, and evaluation memory implementations compared on help/harm and invalidation. |
+| `WAIT` | `P1-RSCH-07` | Research evaluation and self-correction. | Verifiers, process supervision, mutation tests, critics, search/refinement, external feedback, and closed correction loops compared. |
+| `WAIT` | `P1-RSCH-08` | Research self-improvement and skill learning. | Skill libraries, curriculum, prompt/tool/model optimization, held-out promotion, drift, demotion, and rollback compared. |
+| `WAIT` | `P1-RSCH-09` | Research bounded action and recovery. | Capability security, sandboxing, idempotency, receipts, external-effect reconciliation, and fault containment compared. |
+| `WAIT` | `P1-RSCH-10` | Audit OMP code against A0–A7. | Exact packages, symbols, protocols, tests, limitations, and extension points mapped to each capability. |
+| `WAIT` | `P1-RSCH-11` | Audit Orca code against A0–A7. | Exact orchestration, task/attempt, relay, artifact, process, recovery, and UI code mapped to each capability. |
+| `WAIT` | `P1-RSCH-12` | Build combined capability-to-code map. | Each capability is classified reuse, adapt, pattern, replace, or missing with evidence. |
+| `WAIT` | `P1-RSCH-13` | Place Orca/OMP on maturity progression. | A0–A7 carry M0–M5 maturity, proven behavior, missing behavior, and next experiment. |
+| `WAIT` | `P1-RSCH-14` | Research strongest open-source gap fillers. | Missing capabilities have credible external candidates or explicit build rationale. |
+| `WAIT` | `P1-RSCH-15` | Select first integrated substrate slice. | Smallest slice exercises durable state + OMP worker + evidence + evaluator + correction under one repeatable fixture. |
+| `WAIT` | `P1-RSCH-16` | Update ADRs and executable experiment queue. | Research/code-audit findings change the roadmap without locking untested architecture. |
 
-### `G1-RSCH` — Research sufficiency gate
+### `G1-RSCH` — Substrate understanding gate
 
-Pass when each high-risk component has:
+Pass when:
 
-- primary sources;
-- at least two credible approaches;
-- known failure modes;
-- build/reuse/adapt recommendation;
-- cheapest discriminating experiment;
-- explicit reason to stop researching and start testing.
+- A0–A7 capability contracts exist;
+- primary-source implementation research covers every capability;
+- exact Orca and OMP symbols/tests are mapped;
+- current maturity and gaps are explicit;
+- strongest reuse/adapt/build alternatives are named;
+- the first integrated substrate POC slice and its evaluator are selected.
 
 Failure route: `L-RSCH-01`.
 
@@ -530,8 +606,8 @@ A completed coordinate remains historically completed, but its phase gate become
 
 | Phase | Gate | Current state |
 | --- | --- | --- |
-| Phase 0 — Architecture | `G0-ARCH` | `CURRENT` at `P0-ARCH-05` |
-| Phase 1 — Research | `G1-RSCH` | `WAIT` |
+| Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
+| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `WAIT` |
 | Phase 3 — Kernel | `G3-KERN` | `WAIT` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
@@ -544,6 +620,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P0-ARCH-05`** — Review the first-principles technical baseline.
-2. **`P0-ARCH-06`** — Resolve review findings and assumptions.
-3. **`P0-ARCH-07`** — Freeze the exact prototype capability and non-goals.
+1. **`P1-RSCH-01`** — Define A0–A7 agentic substrate capability contracts and M0–M5 maturity criteria.
+2. **`P1-RSCH-02`** — Research durable state and workflow implementations.
+3. **`P1-RSCH-03`** — Research epistemic world models, active gap resolution, uncertainty, and abstention.
