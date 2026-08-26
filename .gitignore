@@ -96,6 +96,7 @@ docs/**
 !docs/STYLEGUIDE.md
 !docs/healthcare-autonomous-migration-research-plan.md
 !docs/healthcare-system-design-mvp.html
+!docs/healthcare-prototype-roadmap.md
 !docs/agent-skill-sharing-implementation-checklist.md
 !docs/agent-skill-sharing-installation-plan.md
 !docs/ai-vault-process-isolation-plan.md
