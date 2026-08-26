@@ -39,6 +39,61 @@ It is:
 
 The durable engine must therefore preserve **domain truth and evidence**, not merely resume code at the last checkpoint.
 
+## Adaptive reasoning, deterministic authority
+
+The architecture is intentionally asymmetric:
+
+| Adaptive and nondeterministic | Strict and deterministic |
+| --- | --- |
+| What to investigate next | Whether the caller has current authority |
+| Which hypothesis best explains evidence | Whether the proposal cites admissible evidence |
+| How to decompose or reorder work | Whether the proposal is based on the current mission version |
+| Whether to add, remove, split, merge, or supersede tasks | Whether task/effect state transitions are legal |
+| Which specialist/model/tool to try | Whether tool, budget, tenant, scope, expiry, and fence are valid |
+| How to revise architecture or mappings | Whether an external effect has a stable identity and recovery contract |
+| Whether a new evaluator or skill is needed | Whether required independent evaluation passed |
+| How to respond to new source/target reality | Whether history, evidence, and receipts remain immutable and attributable |
+
+The kernel does not decide the best migration plan. It decides whether a proposed change may become durable state or a real effect.
+
+### Mission control loop
+
+```text
+read current mission/evidence state
+→ run nondeterministic apex assignment
+→ receive typed plan delta + rationale + evidence refs
+→ deterministic validation against current version/policy
+→ atomically commit accepted delta
+→ dispatch bounded tasks
+→ ingest observations/evaluations/effects
+→ repeat from the new state
+```
+
+The apex assignment is never replayed to reconstruct state. Its exact input manifest and output are recorded. After a crash, a new apex worker reads the current durable state and may make a different—but still valid—next decision.
+
+### Dynamic plan model
+
+- A `PlanRevision` is immutable after commit.
+- A new revision points to its base revision, reason, evidence, and authoring attempt.
+- The active plan pointer advances only from the expected base version.
+- A revision carries deltas: add task, split task, merge task, add/remove dependency, block, cancel, quarantine, or supersede.
+- Completed/issued history is never rewritten.
+- A task already producing an external effect cannot simply disappear; its effect must be reconciled and then accepted, repaired, compensated, or quarantined.
+- Superseded tasks retain their attempts/results as evidence and cannot later advance the new plan.
+- Unaffected runnable branches continue while one scope is replanned or quarantined.
+
+### Where a durable workflow framework may fit
+
+A framework may execute bounded, deterministic subflows such as:
+
+- retry one source metadata scan;
+- wait for a timer or callback;
+- run a fixed evaluator fan-out;
+- upload and verify evidence;
+- monitor one effect reconciliation.
+
+It must not encode the entire evolving migration mission as one replayed workflow function. Product mission state remains the input and output of those bounded subflows.
+
 ## Required contracts
 
 | ID | Priority | Requirement | Failure if absent |
@@ -58,6 +113,8 @@ The durable engine must therefore preserve **domain truth and evidence**, not me
 | `DUR-REQ-13` | SHOULD | Go and Bun workers can participate through versioned contracts. | Runtime choice becomes an accidental architecture lock. |
 | `DUR-REQ-14` | SHOULD | Fault injection can stop at every persistence, dispatch, execution, receipt, and evaluation boundary. | Recovery remains theoretical. |
 | `DUR-REQ-15` | SHOULD | Long history can archive/compact without losing reconstructability. | Multi-month missions exceed storage/history limits. |
+| `DUR-REQ-16` | MUST | Nondeterministic reasoning is persisted as an assignment/result, never re-executed to reconstruct committed mission state. | Replay demands the model make the same decision and freezes adaptive planning. |
+| `DUR-REQ-17` | MUST | Plans are immutable revisions with validated deltas and explicit supersession. | Replanning rewrites history or allows obsolete tasks to regain authority. |
 
 ## First-principles split
 
@@ -537,6 +594,27 @@ Pass:
 - no duplicate mutation;
 - engine-level “exactly once” claim is not used as target proof;
 - final state is applied, absent, failed, or quarantined with evidence.
+
+## `DUR-EXP-05` — Adaptive replan across crash
+
+Fixture:
+
+- mission starts with plan revision R1;
+- one specialist observation invalidates a core assumption;
+- apex attempt A proposes revision R2-A;
+- crash before or after the plan-delta transaction;
+- replacement apex attempt B reads current state and may propose a different valid R2-B;
+- old R1 tasks report late results.
+
+Pass:
+
+- zero or one R2 revision commits from expected base R1, never two;
+- a pre-commit crash permits a different valid replacement proposal;
+- a post-commit crash preserves the committed revision without replaying apex reasoning;
+- late superseded-task output remains evidence and cannot advance R2;
+- already-issued effects are reconciled rather than erased;
+- unaffected branches remain runnable;
+- history shows why R1 was superseded and which evidence justified R2.
 
 ## Current environment prerequisite
 
