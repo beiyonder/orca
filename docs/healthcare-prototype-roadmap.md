@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P1-RSCH-03` — Research epistemic world models and gap resolution.**
+**`P1-RSCH-04` — Research apex and specialist orchestration.**
 
 Current artifacts already exist:
 
@@ -10,6 +10,7 @@ Current artifacts already exist:
 - `docs/healthcare-system-design-mvp.html`
 - `docs/agentic-substrate-codebase-study.md`
 - `docs/agentic-substrate-durable-state-research.md`
+- `docs/agentic-substrate-epistemic-state-research.md`
 
 The product and technical architecture are provisional pressure maps, not final specifications. The current move is to define what a top-tier stateful, evidence-seeking, self-correcting, self-improving agentic system must do; research how those capabilities are implemented; then audit Orca and OMP against that progression line before choosing the first substrate build slice.
 
@@ -218,8 +219,8 @@ Failure route: `L-ARCH-01`.
 | --- | --- | --- | --- |
 | `DONE` | `P1-RSCH-01` | Define agentic substrate capability contracts. | A0–A7 responsibilities, inputs/outputs, state, authority, failures, evaluation, isolation, maturity, and next experiments are recorded in the codebase study. |
 | `DONE` | `P1-RSCH-02` | Research durable state and workflow implementations. | Product-owned PostgreSQL state machine selected as S1 baseline; DBOS selected challenger; Temporal, Restate, Hatchet, River, LangGraph, and Inngest dispositions recorded. |
-| `CURRENT` | `P1-RSCH-03` | Research epistemic world models and gap resolution. | Fact/claim/hypothesis/unknown state, active information gathering, uncertainty, and abstention approaches compared. |
-| `WAIT` | `P1-RSCH-04` | Research apex and specialist orchestration. | Hierarchical, graph, blackboard, planner/executor, debate, and state-machine approaches compared. |
+| `DONE` | `P1-RSCH-03` | Research epistemic world models and gap resolution. | Event-sourced epistemic ledger, justification graph, evidence vector, contradiction/invalidation rules, probe ranking, abstention, reuse map, and seven experiments recorded. |
+| `CURRENT` | `P1-RSCH-04` | Research apex and specialist orchestration. | Hierarchical, graph, blackboard, planner/executor, debate, and state-machine approaches compared. |
 | `WAIT` | `P1-RSCH-05` | Research context, retrieval, and live research. | Context assembly, provenance, freshness, tool research, GraphRAG/hybrid retrieval, and citation evaluation compared. |
 | `WAIT` | `P1-RSCH-06` | Research long-term agent memory. | Working, episodic, semantic, procedural, failure, and evaluation memory implementations compared on help/harm and invalidation. |
 | `WAIT` | `P1-RSCH-07` | Research evaluation and self-correction. | Verifiers, process supervision, mutation tests, critics, search/refinement, external feedback, and closed correction loops compared. |
@@ -609,7 +610,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase | Gate | Current state |
 | --- | --- | --- |
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
-| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-03` |
+| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-04` |
 | Phase 2 — Lab | `G2-LAB` | `WAIT` |
 | Phase 3 — Kernel | `G3-KERN` | `WAIT` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
@@ -622,6 +623,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P1-RSCH-03`** — Research epistemic world models, active gap resolution, uncertainty, and abstention.
-2. **`P1-RSCH-04`** — Research apex and specialist orchestration.
-3. **`P1-RSCH-05`** — Research context assembly, retrieval, citations, and live research.
+1. **`P1-RSCH-04`** — Research apex and specialist orchestration.
+2. **`P1-RSCH-05`** — Research context assembly, retrieval, citations, and live research.
+3. **`P1-RSCH-06`** — Research working, episodic, semantic, procedural, failure, and evaluation memory.

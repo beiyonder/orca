@@ -99,6 +99,7 @@ docs/**
 !docs/healthcare-prototype-roadmap.md
 !docs/agentic-substrate-codebase-study.md
 !docs/agentic-substrate-durable-state-research.md
+!docs/agentic-substrate-epistemic-state-research.md
 !docs/agent-skill-sharing-implementation-checklist.md
 !docs/agent-skill-sharing-installation-plan.md
 !docs/ai-vault-process-isolation-plan.md
