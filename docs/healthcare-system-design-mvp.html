@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Working MVP atlas for the autonomous migration engineering system: logical architecture, reuse inventory, research landscape, corpus plan, experiments, and architecture hypotheses." />
+  <title>Autonomous Migration Engineering System — MVP Architecture Atlas</title>
+  <style>
+    @font-face {
+      font-family: 'Geist';
+      src: url('../src/renderer/src/assets/fonts/Geist-Variable.woff2') format('woff2');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      color-scheme: light;
+      --background: #fff;
+      --foreground: #0a0a0a;
+      --card: #fff;
+      --card-foreground: #0a0a0a;
+      --primary: #171717;
+      --primary-foreground: #fafafa;
+      --secondary: #f5f5f5;
+      --secondary-foreground: #171717;
+      --muted: #f5f5f5;
+      --muted-foreground: #737373;
+      --accent: #f5f5f5;
+      --accent-foreground: #171717;
+      --destructive: #e40014;
+      --border: #e5e5e5;
+      --ring: #a1a1a1;
+      --status-positive: #166534;
+      --status-caution: #854d0e;
+      --status-research: #1d4ed8;
+      --radius: 0.625rem;
+      --sidebar-width: 286px;
+      --content-width: 1320px;
+      --font-mono: 'SF Mono', SFMono-Regular, ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    }
+    html[data-theme='dark'] {
+      color-scheme: dark;
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --card: #171717;
+      --card-foreground: #fafafa;
+      --primary: #e5e5e5;
+      --primary-foreground: #171717;
+      --secondary: #262626;
+      --secondary-foreground: #fafafa;
+      --muted: #262626;
+      --muted-foreground: #a1a1a1;
+      --accent: #404040;
+      --accent-foreground: #fafafa;
+      --destructive: #ff6568;
+      --border: rgb(255 255 255 / 0.08);
+      --ring: #737373;
+      --status-positive: #86efac;
+      --status-caution: #facc15;
+      --status-research: #93c5fd;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--foreground);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      line-height: 1.55;
+    }
+    button, input, select { font: inherit; }
+    a { color: inherit; }
+    :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 8px 12px;
+      background: var(--foreground);
+      color: var(--background);
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .reading-progress { position: fixed; inset: 0 0 auto 0; z-index: 60; height: 2px; background: var(--border); }
+    .reading-progress > span { display: block; width: 0; height: 100%; background: var(--foreground); transition: width 80ms linear; }
+    .shell { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); min-height: 100vh; }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      min-width: 0;
+      padding: 20px 14px;
+      border-right: 1px solid var(--border);
+      background: var(--card);
+      overflow-y: auto;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; margin-bottom: 18px; }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--foreground); color: var(--background); font-size: 10px; font-weight: 760; flex: 0 0 auto; }
+    .brand-copy { min-width: 0; }
+    .brand-title { font-weight: 680; line-height: 1.2; }
+    .brand-subtitle { color: var(--muted-foreground); font-size: 11px; }
+    .nav-group + .nav-group { margin-top: 14px; }
+    .nav-group-title, .meta-label { color: var(--muted-foreground); font-size: 10px; font-weight: 680; letter-spacing: 0.06em; text-transform: uppercase; }
+    .nav-group-title { padding: 0 9px; }
+    .nav { display: grid; gap: 1px; margin-top: 6px; }
+    .nav a { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 6px 9px; border-radius: calc(var(--radius) * 0.8); color: var(--muted-foreground); text-decoration: none; font-size: 12px; }
+    .nav a:hover { background: var(--accent); color: var(--accent-foreground); }
+    .nav a[aria-current='true'] { background: var(--accent); color: var(--accent-foreground); box-shadow: inset 0 0 0 1px var(--border); }
+    .nav-index { width: 22px; color: var(--muted-foreground); font-family: var(--font-mono); font-size: 9px; flex: 0 0 auto; }
+    .sidebar-footer { display: grid; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .sidebar-button, .sidebar-link { display: grid; place-items: center; width: 100%; min-height: 32px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 0.8); background: transparent; color: var(--foreground); cursor: pointer; text-align: center; text-decoration: none; font-size: 12px; }
+    .sidebar-button:hover, .sidebar-link:hover { background: var(--accent); }
+    main { min-width: 0; width: 100%; max-width: var(--content-width); padding: 48px 42px 96px; margin: 0 auto; }
+    section { margin: 0 0 74px; scroll-margin-top: 22px; }
+    h1, h2, h3, h4 { margin: 0; line-height: 1.2; letter-spacing: -0.025em; }
+    h1 { max-width: 1050px; font-size: clamp(34px, 5vw, 60px); font-weight: 730; }
+    h2 { font-size: clamp(25px, 3vw, 36px); font-weight: 690; }
+    h3 { font-size: 17px; font-weight: 660; }
+    h4 { font-size: 14px; font-weight: 650; letter-spacing: -0.01em; }
+    p { margin: 0; }
+    ul, ol { margin-top: 8px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--muted-foreground); font-size: 10px; font-weight: 680; letter-spacing: 0.06em; text-transform: uppercase; }
+    .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--ring); }
+    .lede { max-width: 940px; margin-top: 18px; color: var(--muted-foreground); font-size: clamp(16px, 2vw, 20px); line-height: 1.5; }
+    .section-head { display: grid; gap: 10px; margin-bottom: 24px; }
+    .section-copy { max-width: 920px; color: var(--muted-foreground); font-size: 15px; }
+    .subhead { margin: 30px 0 12px; }
+    .stack { display: grid; gap: 12px; }
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 14px; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .card { min-width: 0; padding: 18px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 1.4); background: var(--card); }
+    .card p { margin-top: 8px; color: var(--muted-foreground); }
+    .card ul { padding-left: 18px; color: var(--muted-foreground); }
+    .card li + li { margin-top: 5px; }
+    .stat { display: grid; gap: 7px; padding: 16px; border: 1px solid var(--border); background: var(--card); }
+    .stat strong { font-size: 21px; }
+    .stat span:last-child { color: var(--muted-foreground); font-size: 12px; }
+    .decision-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 30px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 1.4); background: var(--card); overflow: hidden; }
+    .decision-strip > div { min-width: 0; padding: 18px; }
+    .decision-strip > div + div { border-left: 1px solid var(--border); }
+    .decision-strip strong { display: block; margin-top: 7px; }
+    .decision-strip p { margin-top: 5px; color: var(--muted-foreground); font-size: 12px; }
+    .label, .chip { display: inline-flex; align-items: center; min-height: 22px; padding: 2px 7px; border: 1px solid var(--border); border-radius: 999px; background: var(--card); color: var(--muted-foreground); font-size: 10px; font-weight: 660; letter-spacing: 0.05em; text-transform: uppercase; }
+    .label.selected, .label.reuse, .label.measured { color: var(--status-positive); }
+    .label.hypothesis, .label.adapt, .label.caution { color: var(--status-caution); }
+    .label.research, .label.pattern { color: var(--status-research); }
+    .label.blocked, .label.replace, .label.critical { color: var(--destructive); }
+    .callout { padding: 18px 20px; border-left: 3px solid var(--foreground); background: var(--muted); color: var(--muted-foreground); }
+    .callout strong { color: var(--foreground); }
+    .callout.caution { border-left-color: var(--status-caution); }
+    .callout.stop { border-left-color: var(--destructive); }
+    code, .mono { font-family: var(--font-mono); font-size: 0.9em; overflow-wrap: anywhere; }
+    code { padding: 2px 5px; border-radius: 5px; background: var(--muted); color: var(--foreground); }
+    .toolbar { display: grid; grid-template-columns: minmax(220px, 1fr) 190px auto; gap: 10px; margin: 0 0 14px; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+    .toolbar label { display: grid; gap: 5px; color: var(--muted-foreground); font-size: 10px; font-weight: 650; letter-spacing: 0.05em; text-transform: uppercase; }
+    .toolbar input, .toolbar select { width: 100%; min-height: 34px; padding: 6px 9px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 0.8); background: var(--background); color: var(--foreground); }
+    .toolbar button { align-self: end; min-height: 34px; padding: 6px 12px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 0.8); background: var(--secondary); color: var(--secondary-foreground); cursor: pointer; }
+    .toolbar button:hover { background: var(--accent); }
+    .filter-status { margin-bottom: 10px; color: var(--muted-foreground); font-size: 11px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: calc(var(--radius) * 1.4); background: var(--card); }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    th, td { padding: 11px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { background: var(--muted); color: var(--muted-foreground); font-size: 10px; font-weight: 680; letter-spacing: 0.06em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    td { color: var(--muted-foreground); }
+    td:first-child { color: var(--foreground); font-weight: 620; }
+    tr[hidden], article[hidden] { display: none; }
+    .diagram-scroll { overflow-x: auto; padding-bottom: 4px; }
+    .diagram { min-width: 980px; padding: 18px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 1.4); background: var(--muted); }
+    .boundary { padding: 14px; border: 1px dashed var(--ring); border-radius: var(--radius); background: color-mix(in srgb, var(--card) 84%, transparent); }
+    .boundary + .boundary { margin-top: 12px; }
+    .boundary-title { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; margin-bottom: 12px; }
+    .boundary-title span { color: var(--muted-foreground); font-size: 11px; }
+    .lane { display: grid; grid-template-columns: 165px minmax(0, 1fr); min-width: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+    .lane + .lane { margin-top: 8px; }
+    .lane-title { display: grid; align-content: center; padding: 12px; border-right: 1px solid var(--border); font-weight: 660; }
+    .nodes { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; min-width: 0; }
+    .node { display: grid; gap: 3px; min-width: 140px; max-width: 230px; padding: 9px 10px; border: 1px solid var(--border); border-radius: calc(var(--radius) * 0.8); background: var(--background); text-decoration: none; }
+    .node:hover { background: var(--accent); }
+    .node strong { font-size: 12px; }
+    .node small { color: var(--muted-foreground); font-size: 10px; }
+    .node.state-owner { border-color: var(--foreground); box-shadow: inset 0 0 0 1px var(--foreground); }
+    .node.untrusted { border-left: 3px solid var(--destructive); }
+    .flow { display: grid; grid-template-columns: repeat(9, minmax(130px, 1fr)); min-width: 1220px; }
+    .flow-step { position: relative; min-width: 0; padding: 13px 14px; border: 1px solid var(--border); background: var(--card); }
+    .flow-step + .flow-step { border-left: 0; }
+    .flow-step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .flow-step:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+    .flow-step:not(:last-child)::after { content: '→'; position: absolute; top: 50%; right: -9px; z-index: 2; display: grid; place-items: center; width: 18px; height: 18px; margin-top: -9px; border: 1px solid var(--border); border-radius: 999px; background: var(--background); color: var(--muted-foreground); font-size: 10px; }
+    .flow-step b { display: block; font-size: 12px; }
+    .flow-step span { display: block; margin-top: 5px; color: var(--muted-foreground); font-size: 10px; line-height: 1.4; }
+    .decision-tree { display: grid; gap: 10px; min-width: 920px; }
+    .tree-row { display: grid; grid-template-columns: 210px repeat(3, minmax(180px, 1fr)); gap: 10px; align-items: stretch; }
+    .tree-question, .tree-answer { padding: 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+    .tree-question { font-weight: 660; }
+    .tree-answer b { display: block; font-size: 11px; }
+    .tree-answer span { display: block; margin-top: 4px; color: var(--muted-foreground); font-size: 11px; }
+    .component-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .component { min-width: 0; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); scroll-margin-top: 86px; }
+    .component-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .component-id { color: var(--muted-foreground); font-family: var(--font-mono); font-size: 10px; }
+    .component h3 { margin-top: 4px; font-size: 16px; }
+    .component-badges { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
+    .component > p { margin-top: 9px; color: var(--muted-foreground); }
+    .component dl { display: grid; grid-template-columns: 94px minmax(0, 1fr); gap: 5px 10px; margin: 12px 0 0; font-size: 11px; }
+    .component dt { color: var(--foreground); font-weight: 650; }
+    .component dd { min-width: 0; margin: 0; color: var(--muted-foreground); }
+    details { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); }
+    details + details { margin-top: 8px; }
+    summary { padding: 13px 15px; cursor: pointer; font-weight: 630; }
+    summary:hover { background: var(--accent); }
+    details > div { padding: 0 15px 15px; color: var(--muted-foreground); }
+    .sources { display: grid; gap: 8px; padding: 0; list-style: none; }
+    .sources a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 11px 13px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); text-decoration: none; }
+    .sources a:hover { background: var(--accent); }
+    .sources small { color: var(--muted-foreground); text-align: right; }
+    .footer { display: flex; justify-content: space-between; gap: 24px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 12px; }
+    @media (max-width: 1040px) {
+      html { scroll-padding-top: 72px; }
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: sticky; top: 0; z-index: 40; width: 100%; height: auto; padding: 10px 14px; border-right: 0; border-bottom: 1px solid var(--border); overflow-x: auto; }
+      .brand, .sidebar-footer, .nav-group-title { display: none; }
+      .nav-groups { display: flex; width: max-content; }
+      .nav-group, .nav-group + .nav-group { margin: 0; }
+      .nav { display: flex; margin: 0; }
+      .nav a { white-space: nowrap; }
+      main { padding: 38px 24px 80px; }
+      .decision-strip, .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .decision-strip > div:nth-child(3) { border-left: 0; border-top: 1px solid var(--border); }
+      .decision-strip > div:nth-child(4) { border-top: 1px solid var(--border); }
+    }
+    @media (max-width: 720px) {
+      main { padding: 30px 16px 64px; }
+      section { margin-bottom: 58px; }
+      .grid-2, .grid-3, .grid-4, .decision-strip, .component-grid, .toolbar { grid-template-columns: 1fr; }
+      .decision-strip > div + div, .decision-strip > div:nth-child(3) { border-left: 0; border-top: 1px solid var(--border); }
+      .lane { grid-template-columns: 1fr; }
+      .lane-title { border-right: 0; border-bottom: 1px solid var(--border); }
+      .component-head { display: grid; }
+      .component-badges { justify-content: flex-start; }
+      .component dl { grid-template-columns: 1fr; gap: 2px; }
+      .component dd { margin-bottom: 5px; }
+      .sources a { grid-template-columns: 1fr; gap: 3px; }
+      .sources small { text-align: left; }
+      .footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { .reading-progress > span { transition: none; } }
+    @media print {
+      .sidebar, .reading-progress, .toolbar, .skip-link { display: none !important; }
+      .shell { display: block; }
+      main { max-width: none; padding: 0; }
+      section { break-inside: avoid; }
+      tr[hidden], article[hidden] { display: table-row; }
+      article[hidden] { display: block; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to architecture atlas</a>
+  <div class="reading-progress" aria-hidden="true"><span id="progress"></span></div>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Atlas navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">M0</div>
+        <div class="brand-copy"><div class="brand-title">Architecture MVP</div><div class="brand-subtitle">Working hypotheses · review artifact</div></div>
+      </div>
+      <div class="nav-groups" id="nav">
+        <div class="nav-group"><div class="nav-group-title">Orientation</div><nav class="nav" aria-label="Orientation"><a href="#overview"><span class="nav-index">01</span>Purpose &amp; status</a><a href="#method"><span class="nav-index">02</span>Method &amp; legend</a><a href="#architecture"><span class="nav-index">03</span>Vanilla architecture</a><a href="#mission-loop"><span class="nav-index">04</span>Mission loop</a></nav></div>
+        <div class="nav-group"><div class="nav-group-title">System map</div><nav class="nav" aria-label="System map"><a href="#components"><span class="nav-index">05</span>Components</a><a href="#interfaces"><span class="nav-index">06</span>Interfaces</a><a href="#state"><span class="nav-index">07</span>State owners</a><a href="#failure-boundaries"><span class="nav-index">08</span>Failure boundaries</a></nav></div>
+        <div class="nav-group"><div class="nav-group-title">Six deliverables</div><nav class="nav" aria-label="MVP deliverables"><a href="#reuse"><span class="nav-index">09</span>Orca / OMP reuse</a><a href="#research"><span class="nav-index">10</span>Research landscape</a><a href="#corpus"><span class="nav-index">11</span>Corpus plan</a><a href="#experiments"><span class="nav-index">12</span>Experiments</a><a href="#decisions"><span class="nav-index">13</span>Decision register</a></nav></div>
+        <div class="nav-group"><div class="nav-group-title">Review</div><nav class="nav" aria-label="Review"><a href="#review"><span class="nav-index">14</span>Review gate</a><a href="#sources"><span class="nav-index">15</span>Primary sources</a></nav></div>
+      </div>
+      <div class="sidebar-footer">
+        <a class="sidebar-link" href="healthcare-autonomous-migration-research-plan.md">Research plan</a>
+        <button class="sidebar-button" id="theme-toggle" type="button" aria-label="Switch color theme">Use light theme</button>
+      </div>
+    </aside>
+
+    <main id="main-content">
+      <section id="overview" aria-labelledby="overview-title">
+        <div class="eyebrow">MVP architecture atlas · Working draft</div>
+        <h1 id="overview-title">Map the machine before asking it to migrate anything.</h1>
+        <p class="lede">This is a deliberately simple first pass over the system: logical components, interfaces, state ownership, failure boundaries, reuse candidates, research leads, corpus inputs, experiments, and architecture hypotheses. It is not a production design and does not lock a technology stack.</p>
+        <div class="decision-strip" aria-label="Current design status">
+          <div><span class="label selected">Format selected</span><strong>One self-contained HTML atlas.</strong><p>Offline, searchable, printable, stable anchors, no framework or backend.</p></div>
+          <div><span class="label hypothesis">Architecture</span><strong>Logical shape only.</strong><p>Go, PostgreSQL, Temporal, NATS, Kubernetes, graph storage, and deployment cuts remain hypotheses.</p></div>
+          <div><span class="label research">Evidence level</span><strong>Primary-source screen.</strong><p>External projects are candidates to test, not chosen dependencies.</p></div>
+          <div><span class="label caution">Next gate</span><strong>Review before expansion.</strong><p>Agree on component cuts and experiments before deeper research or implementation.</p></div>
+        </div>
+        <div class="grid-4" style="margin-top: 14px" aria-label="Atlas inventory">
+          <div class="stat"><span class="meta-label">Components</span><strong>24</strong><span>Logical responsibilities, not deployables.</span></div>
+          <div class="stat"><span class="meta-label">Interfaces</span><strong>16</strong><span>Candidate typed contracts.</span></div>
+          <div class="stat"><span class="meta-label">Experiments</span><strong>12</strong><span>Atomic proofs before full dry run.</span></div>
+          <div class="stat"><span class="meta-label">Architecture records</span><strong>12</strong><span>One format decision; eleven hypotheses.</span></div>
+        </div>
+      </section>
+
+      <section id="method" aria-labelledby="method-title">
+        <div class="section-head"><div class="meta-label">Method</div><h2 id="method-title">Facts, hypotheses, and decisions stay separate.</h2><p class="section-copy">The system and this design use the same discipline: supplied information is not promoted to fact without evidence, and popular architecture patterns are not selected without experiments.</p></div>
+        <div class="grid-3">
+          <article class="card"><span class="label measured">Observed</span><h3 style="margin-top: 10px">Current evidence</h3><p>Verified repository code, installed OMP documentation, or a primary external source.</p></article>
+          <article class="card"><span class="label hypothesis">Hypothesis</span><h3 style="margin-top: 10px">Proposed design</h3><p>A useful answer to test. Not a commitment and not a claim that the component works.</p></article>
+          <article class="card"><span class="label selected">Selected</span><h3 style="margin-top: 10px">Evidence-backed choice</h3><p>A reversible choice with a reason, experiment evidence, and reversal condition.</p></article>
+        </div>
+        <div class="callout caution" style="margin-top: 14px"><strong>Scope rule.</strong> The MVP maps responsibilities and cheapest discriminating tests. It does not pretend that a diagram proves orchestration, memory, self-correction, platform expertise, or migration correctness.</div>
+        <div class="toolbar" style="margin-top: 18px" aria-label="Atlas filters">
+          <label>Search this atlas<input id="atlas-search" type="search" placeholder="component, project, failure, experiment…" autocomplete="off" /></label>
+          <label>Record type<select id="atlas-kind"><option value="all">All records</option><option value="component">Components</option><option value="reuse">Reuse</option><option value="research">Research</option><option value="corpus">Corpus</option><option value="experiment">Experiments</option><option value="decision">Decisions</option></select></label>
+          <button id="clear-filter" type="button">Clear</button>
+        </div>
+        <p class="filter-status" id="filter-status" role="status" aria-live="polite">Showing all searchable records.</p>
+      </section>
+
+      <section id="architecture" aria-labelledby="architecture-title">
+        <div class="section-head"><div class="meta-label">Logical architecture · Technology neutral</div><h2 id="architecture-title">Apex reasoning around durable state, independent proof, and bounded execution.</h2><p class="section-copy">Workers reason. Product-owned state records what is known and decided. Independent evaluation decides acceptance. Effect gates constrain real actions. Technology and deployable boundaries remain open.</p></div>
+        <div class="diagram-scroll"><div class="diagram" aria-label="Layered logical architecture">
+          <div class="boundary"><div class="boundary-title"><h3>Customer and environment</h3><span>loose goal · partial artifacts · read access · exceptions</span></div><div class="nodes"><a class="node untrusted" href="#sys-01"><strong>Mission intake</strong><small>unverified claims and desired outcome</small></a><span class="node untrusted"><strong>Legacy estate</strong><small>systems, data, code, operations</small></span><span class="node untrusted"><strong>Target platforms</strong><small>cloud, Databricks, Snowflake, others</small></span></div></div>
+          <div class="boundary"><div class="boundary-title"><h3>Mission control and state</h3><span>authoritative for product workflow</span></div><div class="lane"><div class="lane-title">Reason and decide</div><div class="nodes"><a class="node" href="#sys-03"><strong>Apex controller</strong><small>chooses next best action</small></a><a class="node" href="#sys-04"><strong>Gap engine</strong><small>facts, claims, hypotheses, contradictions</small></a><a class="node" href="#sys-05"><strong>Plan compiler</strong><small>tasks, dependencies, proof obligations</small></a></div></div><div class="lane"><div class="lane-title">Own state</div><div class="nodes"><a class="node state-owner" href="#sys-02"><strong>Mission / estate model</strong><small>current evidence-backed picture</small></a><a class="node state-owner" href="#sys-06"><strong>Workflow ledger</strong><small>tasks, attempts, effects, recovery</small></a><a class="node state-owner" href="#sys-07"><strong>Policy / effect gate</strong><small>identity, scope, budgets, fences</small></a></div></div></div>
+          <div class="boundary"><div class="boundary-title"><h3>Intelligence and knowledge</h3><span>replaceable workers · non-authoritative memory</span></div><div class="lane"><div class="lane-title">Agent runtime</div><div class="nodes"><a class="node untrusted" href="#sys-09"><strong>Specialist agents</strong><small>forensics, architecture, mapping, research</small></a><a class="node" href="#sys-08"><strong>Context assembler</strong><small>bounded cited inputs</small></a><a class="node" href="#sys-10"><strong>Model router</strong><small>policy, cost, capability</small></a></div></div><div class="lane"><div class="lane-title">Knowledge</div><div class="nodes"><a class="node" href="#sys-11"><strong>Research retrieval</strong><small>current primary sources</small></a><a class="node" href="#sys-12"><strong>Reference corpus</strong><small>versioned source material</small></a><a class="node" href="#sys-14"><strong>Memory manager</strong><small>mission, episodic, procedural, failure</small></a><a class="node" href="#sys-15"><strong>Skill registry</strong><small>tested executable capabilities</small></a></div></div></div>
+          <div class="boundary"><div class="boundary-title"><h3>Discovery, execution, and assurance</h3><span>sandboxes · receipts · independent evaluation</span></div><div class="lane"><div class="lane-title">Engineering</div><div class="nodes"><a class="node untrusted" href="#sys-17"><strong>Source adapters</strong><small>read, profile, trace, probe</small></a><a class="node" href="#sys-18"><strong>Artifact builder</strong><small>design, mappings, code, tests</small></a><a class="node untrusted" href="#sys-19"><strong>Execution broker</strong><small>relay and isolated tools</small></a><a class="node untrusted" href="#sys-20"><strong>Target adapters</strong><small>read, mutate, reconcile</small></a></div></div><div class="lane"><div class="lane-title">Assurance</div><div class="nodes"><a class="node state-owner" href="#sys-21"><strong>Evaluation coordinator</strong><small>independent assignments and verdicts</small></a><a class="node" href="#sys-22"><strong>Deterministic evaluators</strong><small>contracts, replay, readback, faults</small></a><a class="node untrusted" href="#sys-23"><strong>Semantic evaluators</strong><small>calibrated domain judgment</small></a><a class="node state-owner" href="#sys-24"><strong>Evidence store</strong><small>observations, artifacts, receipts</small></a></div></div></div>
+        </div></div>
+      </section>
+
+      <section id="mission-loop" aria-labelledby="mission-loop-title">
+        <div class="section-head"><div class="meta-label">Core operating loop</div><h2 id="mission-loop-title">Discover first. Decide from evidence. Execute only after proof is defined.</h2></div>
+        <div class="diagram-scroll"><div class="flow" aria-label="Mission learning and delivery loop">
+          <div class="flow-step"><b>Loose outcome</b><span>Capture desired result, access, priorities, and known exceptions.</span></div>
+          <div class="flow-step"><b>Discover</b><span>Inspect systems, data, code, behavior, history, and target constraints.</span></div>
+          <div class="flow-step"><b>Model estate</b><span>Record facts, claims, provenance, dependencies, and freshness.</span></div>
+          <div class="flow-step"><b>Find gaps</b><span>Detect contradictions, unknowns, hidden assets, and unsupported assumptions.</span></div>
+          <div class="flow-step"><b>Resolve</b><span>Retrieve, compare, probe, experiment, or ask a specialist.</span></div>
+          <div class="flow-step"><b>Decide &amp; plan</b><span>Choose technical and functional path plus proof and recovery obligations.</span></div>
+          <div class="flow-step"><b>Build &amp; evaluate</b><span>Generate artifacts and independently test before mutation.</span></div>
+          <div class="flow-step"><b>Execute &amp; reconcile</b><span>Bound effects, read target state, handle unknown outcomes.</span></div>
+          <div class="flow-step"><b>Learn</b><span>Retain accepted evidence; revise or demote failed knowledge and skills.</span></div>
+        </div></div>
+        <h3 class="subhead">Gap-resolution decision tree</h3>
+        <div class="diagram-scroll"><div class="decision-tree" aria-label="Gap resolution decision tree">
+          <div class="tree-row"><div class="tree-question">Is the claim directly observed and current?</div><div class="tree-answer"><b>Yes</b><span>Record evidence, applicability, and freshness.</span></div><div class="tree-answer"><b>No</b><span>Keep it as a claim or hypothesis.</span></div><div class="tree-answer"><b>Conflict</b><span>Create an explicit contradiction gap.</span></div></div>
+          <div class="tree-row"><div class="tree-question">Can trusted retrieval resolve the gap?</div><div class="tree-answer"><b>Yes</b><span>Cite source/version and test local applicability.</span></div><div class="tree-answer"><b>No</b><span>Inspect code, data, logs, and consumers.</span></div><div class="tree-answer"><b>Stale source</b><span>Do not silently apply it.</span></div></div>
+          <div class="tree-row"><div class="tree-question">Can a safe probe separate the hypotheses?</div><div class="tree-answer"><b>Yes</b><span>Run the cheapest discriminating experiment.</span></div><div class="tree-answer"><b>No</b><span>Ask independent specialists and compare evidence.</span></div><div class="tree-answer"><b>Risky</b><span>Design a safer proxy or sandbox case.</span></div></div>
+          <div class="tree-row"><div class="tree-question">Is one path now materially better supported?</div><div class="tree-answer"><b>Yes</b><span>Decide, prove, record, and continue.</span></div><div class="tree-answer"><b>True tie</b><span>Escalate the smallest irreducible question.</span></div><div class="tree-answer"><b>Unknown risk</b><span>Quarantine affected scope; unrelated work continues.</span></div></div>
+        </div></div>
+      </section>
+
+      <section id="components" aria-labelledby="components-title">
+        <div class="section-head"><div class="meta-label">Deliverable 1 · System component map</div><h2 id="components-title">Twenty-four responsibilities with explicit inputs, outputs, state, and failure edges.</h2><p class="section-copy">These are logical components. Several may live in one process; one may later split. The MVP deliberately avoids choosing deployables.</p></div>
+        <div class="component-grid">
+          <article class="component" id="sys-01" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-01 · Interaction</span><h3>Mission intake and operator console</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Captures loose outcomes and shows discovered reality, gaps, decisions, evidence, execution, and exceptions.</p><dl><dt>Inputs</dt><dd>Goals, access, artifacts, priorities, exceptions.</dd><dt>Outputs</dt><dd><code>MissionBrief</code>, operator views, exception replies.</dd><dt>State owner</dt><dd>None; reads/writes through mission APIs.</dd><dt>Failure edge</dt><dd>Bad customer input remains an unverified claim.</dd></dl></article>
+          <article class="component" id="sys-02" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-02 · Control</span><h3>Mission and estate model</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Maintains the current evidence-backed picture of systems, assets, dependencies, claims, scope, and objectives.</p><dl><dt>Inputs</dt><dd>Mission brief, evidence observations, decisions.</dd><dt>Outputs</dt><dd><code>EstateSnapshot</code>, scoped mission projections.</dd><dt>State owner</dt><dd>Mission/estate records and versions.</dd><dt>Failure edge</dt><dd>Projection can be stale; evidence history remains reconstructable.</dd></dl></article>
+          <article class="component" id="sys-03" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-03 · Control</span><h3>Apex mission controller</h3></div><div class="component-badges"><span class="label hypothesis">Core hypothesis</span></div></div><p>Chooses the next highest-value discovery, research, build, validation, execution, or recovery action.</p><dl><dt>Inputs</dt><dd>Mission state, gaps, evidence, budgets, results.</dd><dt>Outputs</dt><dd>Assignments, decisions, revised plan.</dd><dt>State owner</dt><dd>None; working context is disposable.</dd><dt>Failure edge</dt><dd>Cannot directly accept results or execute effects.</dd></dl></article>
+          <article class="component" id="sys-04" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-04 · Control</span><h3>Gap and hypothesis engine</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Types facts, claims, contradictions, hypotheses, open questions, and disproven assumptions.</p><dl><dt>Inputs</dt><dd>Evidence, research, specialist results.</dd><dt>Outputs</dt><dd><code>GapRecord</code>, ranked hypotheses, test requests.</dd><dt>State owner</dt><dd>Gap/hypothesis records through mission state.</dd><dt>Failure edge</dt><dd>Untracked uncertainty becomes false certainty.</dd></dl></article>
+          <article class="component" id="sys-05" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-05 · Control</span><h3>Plan and DAG compiler</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Turns current decisions into bounded tasks with dependencies, proof obligations, budgets, and recovery rules.</p><dl><dt>Inputs</dt><dd>Decisions, skills, estate version, policy.</dd><dt>Outputs</dt><dd><code>PlanGraph</code>, validation errors.</dd><dt>State owner</dt><dd>Immutable plan versions.</dd><dt>Failure edge</dt><dd>Invalid or incomplete plans remain non-runnable.</dd></dl></article>
+          <article class="component" id="sys-06" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-06 · Control</span><h3>Durable workflow ledger and reconciler</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Owns tasks, attempts, leases, transitions, effects, receipts, evaluation gates, and recovery after restart.</p><dl><dt>Inputs</dt><dd>Validated plans, worker observations, evaluator verdicts.</dd><dt>Outputs</dt><dd>Runnable attempts, accepted transitions, recovery work.</dd><dt>State owner</dt><dd>Workflow and effect history.</dd><dt>Failure edge</dt><dd>No other component may advance workflow truth.</dd></dl></article>
+          <article class="component" id="sys-07" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-07 · Control</span><h3>Policy and effect gate</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Checks tenant, identity, expected state, skill, tool, scope, budget, expiry, and fencing before effects.</p><dl><dt>Inputs</dt><dd><code>EffectIntent</code>, plan, policy, active attempt.</dd><dt>Outputs</dt><dd><code>CapabilityEnvelope</code> or deterministic rejection.</dd><dt>State owner</dt><dd>Policy versions and authorization decisions.</dd><dt>Failure edge</dt><dd>Models and tools cannot grant themselves authority.</dd></dl></article>
+          <article class="component" id="sys-08" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-08 · Intelligence</span><h3>Context assembler</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Builds a bounded, tenant-scoped, cited context for one assignment from current state and allowed knowledge.</p><dl><dt>Inputs</dt><dd>Assignment, estate version, corpus, memory, skills.</dd><dt>Outputs</dt><dd><code>ContextManifest</code>.</dd><dt>State owner</dt><dd>Context manifest only; no source ownership.</dd><dt>Failure edge</dt><dd>Cross-tenant, stale, or uncited context invalidates work.</dd></dl></article>
+          <article class="component" id="sys-09" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-09 · Intelligence</span><h3>Specialist agent pool</h3></div><div class="component-badges"><span class="label hypothesis">Untrusted worker</span></div></div><p>Runs source forensics, architecture, CDC, mapping, domain, security, research, build, evaluation, and recovery specialists.</p><dl><dt>Inputs</dt><dd><code>AgentAssignment</code>, context, allowed tools.</dd><dt>Outputs</dt><dd><code>AgentResult</code>, evidence refs, gaps.</dd><dt>State owner</dt><dd>Disposable OMP/session state.</dd><dt>Failure edge</dt><dd>Outputs are proposals until independently checked.</dd></dl></article>
+          <article class="component" id="sys-10" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-10 · Intelligence</span><h3>Model router and gateway</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Selects approved models by task, data class, capability, cost, latency, and evaluator separation.</p><dl><dt>Inputs</dt><dd>Assignment policy, data classification, model telemetry.</dd><dt>Outputs</dt><dd>Bound model invocation and usage evidence.</dd><dt>State owner</dt><dd>Model policy and measured capability matrix.</dd><dt>Failure edge</dt><dd>Fallback cannot weaken data or evaluator policy.</dd></dl></article>
+          <article class="component" id="sys-11" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-11 · Knowledge</span><h3>Research and retrieval service</h3></div><div class="component-badges"><span class="label research">Research</span></div></div><p>Retrieves current primary sources, known answers, analogous cases, and contradictory material with citations.</p><dl><dt>Inputs</dt><dd><code>ResearchRequest</code>, access policy, query context.</dd><dt>Outputs</dt><dd><code>ResearchResult</code>, citations, coverage gaps.</dd><dt>State owner</dt><dd>Search traces, not source truth.</dd><dt>Failure edge</dt><dd>Retrieval relevance does not prove local applicability.</dd></dl></article>
+          <article class="component" id="sys-12" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-12 · Knowledge</span><h3>Versioned reference corpus</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Stores approved vendor docs, standards, schemas, examples, runbooks, cases, and benchmark fixtures.</p><dl><dt>Inputs</dt><dd>Acquired sources with owner, license, class, version.</dd><dt>Outputs</dt><dd>Citable source versions and corpus manifests.</dd><dt>State owner</dt><dd>Reference artifacts and metadata.</dd><dt>Failure edge</dt><dd>Stale, unlicensed, or unscoped items are excluded.</dd></dl></article>
+          <article class="component" id="sys-13" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-13 · Knowledge</span><h3>Knowledge and evidence index</h3></div><div class="component-badges"><span class="label research">Storage open</span></div></div><p>Projects entities, relationships, time, versions, provenance, and retrieval indexes over corpus and evidence.</p><dl><dt>Inputs</dt><dd>Corpus metadata, observations, accepted decisions.</dd><dt>Outputs</dt><dd>Scoped graph/text/vector queries.</dd><dt>State owner</dt><dd>Rebuildable indexes and typed projections.</dd><dt>Failure edge</dt><dd>Index answers must resolve back to source evidence.</dd></dl></article>
+          <article class="component" id="sys-14" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-14 · Knowledge</span><h3>Memory manager</h3></div><div class="component-badges"><span class="label research">Research</span></div></div><p>Manages mission, episodic, semantic, procedural, failure, and evaluation memory with provenance and invalidation.</p><dl><dt>Inputs</dt><dd>Accepted run traces, corrections, failures, explicit lessons.</dd><dt>Outputs</dt><dd>Scoped memory candidates and recall traces.</dd><dt>State owner</dt><dd>Non-authoritative memory records.</dd><dt>Failure edge</dt><dd>Poisoned or stale memory cannot silently become fact.</dd></dl></article>
+          <article class="component" id="sys-15" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-15 · Knowledge</span><h3>Skill and capability registry</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Owns versioned executable skills, supported envelope, tools, evaluators, benchmark status, promotion, and demotion.</p><dl><dt>Inputs</dt><dd><code>SkillManifest</code>, benchmark and production evidence.</dd><dt>Outputs</dt><dd>Assignable skill versions and revocations.</dd><dt>State owner</dt><dd>Skill lifecycle and compatibility state.</dd><dt>Failure edge</dt><dd>A prompt file alone is never certified capability.</dd></dl></article>
+          <article class="component" id="sys-16" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-16 · Engineering</span><h3>Discovery coordinator</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Plans least-privilege inventory, profiling, code analysis, lineage, operational, and contradiction-discovery work.</p><dl><dt>Inputs</dt><dd>Mission scope, current estate, source capabilities.</dd><dt>Outputs</dt><dd>Probe assignments and coverage report.</dd><dt>State owner</dt><dd>Discovery coverage projection.</dd><dt>Failure edge</dt><dd>Access denial is not evidence that an asset is absent.</dd></dl></article>
+          <article class="component" id="sys-17" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-17 · Engineering</span><h3>Source adapters and probe sandbox</h3></div><div class="component-badges"><span class="label research">Build / reuse</span></div></div><p>Executes version-aware reads, metadata scans, profiles, traces, code extraction, and bounded experiments near sources.</p><dl><dt>Inputs</dt><dd>Probe plan, temporary credential, source contract.</dd><dt>Outputs</dt><dd><code>EvidenceObservation</code>, artifacts, denials, errors.</dd><dt>State owner</dt><dd>None; local bounded spool only.</dd><dt>Failure edge</dt><dd>Source quirks remain adapter-specific and testable.</dd></dl></article>
+          <article class="component" id="sys-18" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-18 · Engineering</span><h3>Artifact builder and target designer</h3></div><div class="component-badges"><span class="label hypothesis">Hypothesis</span></div></div><p>Creates target architecture, mappings, pipeline code, infrastructure, tests, runbooks, and migration packages.</p><dl><dt>Inputs</dt><dd>Compiled decisions, estate snapshot, target capability, skills.</dd><dt>Outputs</dt><dd>Versioned reproducible artifacts and provenance.</dd><dt>State owner</dt><dd>Artifact metadata; bodies in evidence store.</dd><dt>Failure edge</dt><dd>Generated output is rejected if it cannot build or prove contracts.</dd></dl></article>
+          <article class="component" id="sys-19" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-19 · Engineering</span><h3>Execution broker, relay, and sandbox</h3></div><div class="component-badges"><span class="label hypothesis">Critical boundary</span></div></div><p>Routes leased work to isolated customer-zone tools, stages artifacts, leases secrets, and returns signed receipts.</p><dl><dt>Inputs</dt><dd>Capability envelope, artifacts, execution provider.</dd><dt>Outputs</dt><dd>Runner observations, receipts, evidence chunks.</dd><dt>State owner</dt><dd>No mission authority; bounded encrypted spool.</dd><dt>Failure edge</dt><dd>Partition and timeout create explicit unknown outcomes.</dd></dl></article>
+          <article class="component" id="sys-20" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-20 · Engineering</span><h3>Target adapters and reconcilers</h3></div><div class="component-badges"><span class="label research">Build / reuse</span></div></div><p>Performs selected platform operations and independently reads target identity and state after success or uncertainty.</p><dl><dt>Inputs</dt><dd>Effect envelope, target credential lease, expected state.</dd><dt>Outputs</dt><dd><code>EffectReceipt</code>, target readback, unknown status.</dd><dt>State owner</dt><dd>None; target remains external reality.</dd><dt>Failure edge</dt><dd>No blind retry after a possibly applied write.</dd></dl></article>
+          <article class="component" id="sys-21" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-21 · Assurance</span><h3>Evaluation coordinator</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Assigns independent checks against pinned inputs, thresholds, evaluators, and protected invariants.</p><dl><dt>Inputs</dt><dd>Subject artifact/effect, evaluator contract, evidence.</dd><dt>Outputs</dt><dd><code>EvaluationResult</code> and acceptance coverage.</dd><dt>State owner</dt><dd>Evaluation assignments and verdict history.</dd><dt>Failure edge</dt><dd>Missing or contradictory evaluation keeps subject unaccepted.</dd></dl></article>
+          <article class="component" id="sys-22" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-22 · Assurance</span><h3>Deterministic evaluators</h3></div><div class="component-badges"><span class="label hypothesis">Preferred oracle</span></div></div><p>Runs schema, contract, build, replay, control-total, lineage, target-readback, property, and fault checks.</p><dl><dt>Inputs</dt><dd>Exact subject and fixture versions.</dd><dt>Outputs</dt><dd>Measures, failures, reproducible evidence.</dd><dt>State owner</dt><dd>None; results owned by evaluation coordinator.</dd><dt>Failure edge</dt><dd>Evaluator defects require their own regression corpus.</dd></dl></article>
+          <article class="component" id="sys-23" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-23 · Assurance</span><h3>Semantic and expert-calibrated evaluators</h3></div><div class="component-badges"><span class="label research">Research</span></div></div><p>Evaluates meaning where deterministic checks are insufficient, using held-out labels, disagreement rules, and calibration.</p><dl><dt>Inputs</dt><dd>Semantic cases, subject output, independent context.</dd><dt>Outputs</dt><dd>Measures, disagreement, abstention, evidence.</dd><dt>State owner</dt><dd>Evaluator version and calibration records.</dd><dt>Failure edge</dt><dd>Producer self-review cannot substitute.</dd></dl></article>
+          <article class="component" id="sys-24" data-search-item data-kind="component"><div class="component-head"><div><span class="component-id">SYS-24 · Assurance</span><h3>Evidence and artifact store</h3></div><div class="component-badges"><span class="label hypothesis">State owner</span></div></div><p>Stores immutable observations, inputs, generated artifacts, receipts, evaluations, failures, provenance, and integrity metadata.</p><dl><dt>Inputs</dt><dd>Evidence bodies, artifact metadata, digests, classifications.</dd><dt>Outputs</dt><dd>Citable versioned evidence references.</dd><dt>State owner</dt><dd>Evidence metadata and immutable bodies.</dd><dt>Failure edge</dt><dd>Missing required evidence prevents acceptance.</dd></dl></article>
+        </div>
+      </section>
+
+      <section id="interfaces" aria-labelledby="interfaces-title">
+        <div class="section-head"><div class="meta-label">Component contracts</div><h2 id="interfaces-title">Candidate interfaces make responsibilities testable.</h2><p class="section-copy">These names are placeholders for schema work. The important decision is to separate observation, decision, assignment, evaluation, effect, and learning records.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>ID / contract</th><th>Producer</th><th>Consumer</th><th>Minimum content</th><th>Owner / invariant</th></tr></thead><tbody>
+          <tr><td>IF-01 · <code>MissionBrief</code></td><td>Mission intake</td><td>Apex, mission model</td><td>Loose outcome, priorities, access, exceptions, input provenance.</td><td>Mission state; technical design is not required.</td></tr>
+          <tr><td>IF-02 · <code>EvidenceObservation</code></td><td>Adapters, research, evaluators</td><td>Evidence store, estate model</td><td>Source, time, scope, version, observation, data class, confidence basis.</td><td>Evidence store; immutable after ingest.</td></tr>
+          <tr><td>IF-03 · <code>EstateSnapshot</code></td><td>Mission/estate model</td><td>Apex, discovery, plan compiler</td><td>Assets, dependencies, versions, coverage, evidence positions.</td><td>Mission state; rebuildable from evidence.</td></tr>
+          <tr><td>IF-04 · <code>GapRecord</code></td><td>Gap engine</td><td>Apex, research, discovery</td><td>Claim, competing hypotheses, impact, evidence, next test, disposition.</td><td>Mission state; unknown cannot silently become fact.</td></tr>
+          <tr><td>IF-05 · <code>ResearchRequest/Result</code></td><td>Apex/specialist</td><td>Research service</td><td>Question, scope, source policy; results, citations, freshness, gaps.</td><td>Search trace; cited sources remain separate.</td></tr>
+          <tr><td>IF-06 · <code>AgentAssignment/Result</code></td><td>Apex/workflow</td><td>Specialist agents</td><td>Goal, schema, context manifest, tools, budget; output, evidence, uncertainty.</td><td>Workflow ledger; result is not acceptance.</td></tr>
+          <tr><td>IF-07 · <code>ContextManifest</code></td><td>Context assembler</td><td>Agent/model gateway</td><td>Exact source versions, exclusions, redactions, token budget, tenant.</td><td>Evidence metadata; reproducible invocation.</td></tr>
+          <tr><td>IF-08 · <code>DecisionRecord</code></td><td>Apex/control kernel</td><td>Plan compiler, console</td><td>Options, selected path, evidence, assumptions, impact, reversal condition.</td><td>Mission ledger; append-only revisions.</td></tr>
+          <tr><td>IF-09 · <code>PlanGraph</code></td><td>Plan compiler</td><td>Workflow ledger</td><td>Tasks, dependencies, inputs, skills, effects, proof, recovery, budget.</td><td>Immutable plan version; DAG validated.</td></tr>
+          <tr><td>IF-10 · <code>SkillManifest</code></td><td>Skill registry</td><td>Context, plan, agents</td><td>Typed contract, tools, authority, evaluator, corpus, envelope, lifecycle.</td><td>Skill registry; only certified versions assignable.</td></tr>
+          <tr><td>IF-11 · <code>EvaluationAssignment/Result</code></td><td>Evaluation coordinator</td><td>Evaluators/workflow</td><td>Subject/version, measures, thresholds; verdict, evidence, disagreement.</td><td>Evaluation registry; producer identity excluded where required.</td></tr>
+          <tr><td>IF-12 · <code>EffectIntent</code></td><td>Worker or plan</td><td>Policy/effect gate</td><td>Tool, target, parameters, expected state, identity, proof and recovery needs.</td><td>Workflow ledger; proposal only.</td></tr>
+          <tr><td>IF-13 · <code>CapabilityEnvelope</code></td><td>Policy/effect gate</td><td>Execution broker/adapter</td><td>Tenant, attempt, scope, expiry, budget, fence, digests, effect identity.</td><td>Workflow ledger; immutable and expiring.</td></tr>
+          <tr><td>IF-14 · <code>EffectReceipt</code></td><td>Target adapter/relay</td><td>Ledger, evaluator</td><td>Effect ID, target IDs, applied/absent/unknown/failed, before/after evidence.</td><td>Evidence store; receipt alone is not acceptance.</td></tr>
+          <tr><td>IF-15 · <code>RecoveryDisposition</code></td><td>Reconciler</td><td>Workflow, console</td><td>Observed state, selected retry/rollback/repair/quarantine, evidence.</td><td>Workflow ledger; unknown remains explicit.</td></tr>
+          <tr><td>IF-16 · <code>LearningCandidate</code></td><td>Learning loop</td><td>Memory/skill/model evaluation</td><td>Proposed change, source runs, baseline, held-out corpus, risks, rollback.</td><td>Learning registry; no promotion without independent gain.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="state" aria-labelledby="state-title">
+        <div class="section-head"><div class="meta-label">State ownership</div><h2 id="state-title">Agent memory helps reasoning; it never becomes migration truth by itself.</h2></div>
+        <div class="table-wrap"><table><thead><tr><th>State class</th><th>Canonical owner</th><th>Writers</th><th>Recovery source</th><th>What must not own it</th></tr></thead><tbody>
+          <tr><td>Mission intent and exceptions</td><td>Mission state</td><td>Intake API, accountable exception response</td><td>Versioned mission records</td><td>Prompt text or UI local state</td></tr>
+          <tr><td>Observed estate and provenance</td><td>Evidence store + estate projection</td><td>Discovery/research ingest</td><td>Immutable evidence replay</td><td>Customer diagram, one agent summary</td></tr>
+          <tr><td>Gaps, hypotheses, and decisions</td><td>Mission ledger</td><td>Gap engine and controlled decision API</td><td>Decision/event history</td><td>Apex private chain of thought</td></tr>
+          <tr><td>Plans, tasks, attempts, effects</td><td>Workflow ledger</td><td>Compiler, reconciler, effect gate</td><td>Workflow event history</td><td>Message bus, terminal process, worker completion prose</td></tr>
+          <tr><td>Worker working context</td><td>OMP/session runtime</td><td>Agent loop and context assembler</td><td>Recreate from context manifest and ledger</td><td>Product projections</td></tr>
+          <tr><td>Long-term learned memory</td><td>Memory manager</td><td>Accepted learning pipeline</td><td>Memory records plus provenance</td><td>Unreviewed auto-retain alone</td></tr>
+          <tr><td>Reference knowledge</td><td>Reference corpus</td><td>Corpus acquisition process</td><td>Versioned source artifacts</td><td>Vector index alone</td></tr>
+          <tr><td>Skill capability and certification</td><td>Skill registry</td><td>Certification/promotion process</td><td>Manifest and benchmark history</td><td>Discovered <code>SKILL.md</code> alone</td></tr>
+          <tr><td>Artifacts, receipts, evaluations</td><td>Evidence/artifact store</td><td>Builders, adapters, evaluators</td><td>Immutable bodies and digests</td><td>Logs or sampled telemetry</td></tr>
+          <tr><td>Operational telemetry</td><td>Observability system</td><td>All runtime components</td><td>Telemetry backend</td><td>Acceptance state; telemetry may be sampled</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="failure-boundaries" aria-labelledby="failure-title">
+        <div class="section-head"><div class="meta-label">Failure boundaries</div><h2 id="failure-title">Every uncertain boundary has containment and a proof path.</h2></div>
+        <div class="table-wrap"><table><thead><tr><th>Boundary</th><th>Failure</th><th>Containment</th><th>Recovery / proof</th><th>Atomic experiment</th></tr></thead><tbody>
+          <tr><td>FB-01 · Human artifacts</td><td>Stale, incomplete, contradictory, politically convenient.</td><td>Store as claims; never compile directly into fact.</td><td>Discovery, retrieval, contradiction record, smallest exception.</td><td><a href="#exp-02">EXP-02</a></td></tr>
+          <tr><td>FB-02 · Model worker</td><td>Hallucination, tool misuse, context overflow, crash.</td><td>Typed assignment, narrow tools, process isolation, independent evaluation.</td><td>Recreate from context manifest; reject unsupported output.</td><td><a href="#exp-10">EXP-10</a></td></tr>
+          <tr><td>FB-03 · Retrieval and memory</td><td>Irrelevant, stale, poisoned, cross-tenant, uncited.</td><td>Source/version policy, tenant scope, provenance, recall trace.</td><td>Known-answer and poison tests; invalidate/demote bad memory.</td><td><a href="#exp-06">EXP-06</a>, <a href="#exp-07">EXP-07</a></td></tr>
+          <tr><td>FB-04 · Source connector</td><td>Denied access, source quirks, partial reads, changing state.</td><td>Read-only envelopes, bounded probes, adapter version matrix.</td><td>Coverage and denial evidence; replay against seeded fixtures.</td><td><a href="#exp-03">EXP-03</a>, <a href="#exp-04">EXP-04</a></td></tr>
+          <tr><td>FB-05 · External effect</td><td>Target applies write but response is lost.</td><td>Effect identity, fence, no blind retry, explicit unknown state.</td><td>Read reconciliation and independent postcondition evaluation.</td><td><a href="#exp-11">EXP-11</a></td></tr>
+          <tr><td>FB-06 · Evaluator</td><td>Wrong oracle, outage, contradiction, leakage.</td><td>Pinned evaluator/version, held-out corpus, disagreement state.</td><td>Evaluator regression suite and independent retry.</td><td><a href="#exp-08">EXP-08</a></td></tr>
+          <tr><td>FB-07 · Relay/partition</td><td>Stale work continues while disconnected; receipt backlog.</td><td>Expiry, fencing, bounded spool, no mission authority at edge.</td><td>Reconnect, deduplicate, reconcile every active effect.</td><td><a href="#exp-11">EXP-11</a></td></tr>
+          <tr><td>FB-08 · Ledger/object gap</td><td>State references missing/corrupt evidence.</td><td>Stage, digest, verify, then commit metadata.</td><td>Inventory and orphan/reference reconciliation.</td><td><a href="#exp-01">EXP-01</a></td></tr>
+          <tr><td>FB-09 · Tenant/secret boundary</td><td>Cross-customer context, memory, tool, cache, or artifact leak.</td><td>Tenant keys everywhere, short-lived secrets, negative authorization.</td><td>Cross-tenant suite; quarantine and evidence export.</td><td><a href="#exp-12">EXP-12</a></td></tr>
+          <tr><td>FB-10 · Learning/promotion</td><td>Overfit or regressed skill/model promotes itself.</td><td>Frozen baseline, held-out corpus, independent promotion authority.</td><td>Automatic demotion, prior-version rollback, re-evaluation.</td><td><a href="#exp-09">EXP-09</a></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="reuse" aria-labelledby="reuse-title">
+        <div class="section-head"><div class="meta-label">Deliverable 2 · Orca / OMP reuse inventory</div><h2 id="reuse-title">Reuse worker mechanics and proven semantics; replace desktop authority.</h2><p class="section-copy">This inventory is grounded in current repository code at this branch and installed OMP 18.0.4 documentation. Every reuse decision still has an experiment.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>ID / asset</th><th>Observed surface</th><th>Disposition</th><th>Why</th><th>Required experiment</th></tr></thead><tbody>
+          <tr data-search-item data-kind="reuse"><td>RU-01 · OMP RPC worker</td><td><code>omp://rpc.md</code>: JSONL protocol, ready/response/events, host tools, subagent frames, bounded/chunked frames.</td><td><span class="label adapt">Adapt</span></td><td>Best current process-isolated intelligence boundary.</td><td><a href="#exp-10">Malformed frames, cancellation, backpressure, crash, host-tool revocation.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-02 · OMP SDK</td><td><code>omp://sdk.md</code>: sessions, event streaming, tool wiring, registries, persistent or in-memory sessions; Bun runtime.</td><td><span class="label research">Research</span></td><td>Useful contingency behind the same worker contract; broader failure surface.</td><td>Measure latency and isolation against RPC with identical assignments.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-03 · OMP task agents</td><td><code>omp://task-agent-discovery.md</code>: typed definitions, tools, model lists, schemas, spawn/depth controls.</td><td><span class="label adapt">Adapt</span></td><td>Good bounded specialist execution inside one assignment; not a durable mission graph.</td><td><a href="#exp-05">Typed disagreement and evidence-resolution experiment.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-04 · OMP memory</td><td><code>omp://memory.md</code>, <code>omp://mnemosyne-memory-backend.md</code>: recall, retain, reflect, edit/invalidate, scoping, compaction context.</td><td><span class="label adapt">Adapt</span></td><td>Useful reasoning memory; OMP explicitly treats recall as heuristic context.</td><td><a href="#exp-07">Measure help, harm, poison rejection, invalidation, tenant scope.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-05 · Agent launch catalog</td><td><a href="../src/shared/tui-agent-config.ts"><code>src/shared/tui-agent-config.ts</code></a>: detection, launch, prompt injection, resume behavior.</td><td><span class="label pattern">Pattern</span></td><td>Useful engineering-console adapter; ambient CLI discovery is not service-grade model/runtime policy.</td><td>Launch OMP with explicit clean config and prove no ambient credential/tool inheritance.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-06 · OMP shell wrapper</td><td><a href="../src/main/pty/omp-shell-wrapper.ts"><code>src/main/pty/omp-shell-wrapper.ts</code></a>: explicit extension injection without redirecting OMP home.</td><td><span class="label pattern">Pattern</span></td><td>Correct for interactive Orca terminals; not the product worker integration.</td><td>Keep only in optional authoring console; compare with RPC gateway.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-07 · Task/dispatch split</td><td><a href="../src/main/runtime/orchestration/types.ts"><code>orchestration/types.ts</code></a>: task, dispatch, run, delivery, worker and federation states.</td><td><span class="label adapt">Adapt</span></td><td>Separates intended work from one worker attempt and models unknown start/stop.</td><td><a href="#exp-01">Crash/replay and stale-attempt convergence.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-08 · Dispatch capability</td><td><a href="../src/main/runtime/orchestration/db/worker-dispatch/worker-dispatch-authority.ts"><code>worker-dispatch-authority.ts</code></a>: transactional capability hash, process incarnation, guarded state.</td><td><span class="label adapt">Adapt</span></td><td>Strong narrow authority pattern; current scope is terminal workers.</td><td>Generalize to tenant/workload/tool/target envelope and test revocation.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-09 · Mutation receipts</td><td><a href="../src/main/runtime/orchestration/db/mutation-receipts/mutation-receipt-store.ts"><code>mutation-receipt-store.ts</code></a>: caller/request/payload keyed pending/completed receipts.</td><td><span class="label adapt">Adapt</span></td><td>Good idempotent command precedent; external effects need target reconciliation too.</td><td><a href="#exp-11">Lost-response target-effect experiment.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-10 · Lifecycle reconciliation</td><td><a href="../src/main/runtime/orchestration/lifecycle-reconciliation.ts"><code>lifecycle-reconciliation.ts</code></a>: capability, assignee, task/dispatch, active/stale rejection.</td><td><span class="label adapt">Adapt</span></td><td>Correctly rejects stale or unauthorized completion instead of trusting worker messages.</td><td><a href="#exp-01">Duplicate, stale, wrong-assignee, and restart cases.</a></td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-11 · Federation delivery</td><td><a href="../src/main/runtime/rpc/methods/orchestration-federation-relay.ts"><code>orchestration-federation-relay.ts</code></a>: sequence pull/ack/import; durable watermarks.</td><td><span class="label adapt">Adapt</span></td><td>Useful replay and reconnect semantics; migration relay identity/effects are stricter.</td><td>Partition, replay, duplicate, epoch-change, and backpressure experiment.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-12 · Worker output archive</td><td><a href="../src/main/runtime/orchestration/worker-output-archive.ts"><code>worker-output-archive.ts</code></a>: bounded transcript pin/snapshot or redacted terminal tail before release.</td><td><span class="label pattern">Pattern</span></td><td>Useful troubleshooting evidence capture; raw output is not certified proof.</td><td>Prove redaction, source pinning, size bounds, and evidence classification.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-13 · Relay protocols</td><td><a href="../src/main/runtime/rpc/relay-transport.ts"><code>relay-transport.ts</code></a>, <a href="../src/main/runtime/relay/relay-control-protocol.ts"><code>relay-control-protocol.ts</code></a>: bounded WebSocket transport, generations, strict schemas.</td><td><span class="label pattern">Pattern</span></td><td>Strong reconnect/bounds precedent; current mobile relay is not a customer execution identity model.</td><td>Prototype outbound workload relay with mTLS identity, leases, fence, and spool.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-14 · Artifact surfaces</td><td><a href="../src/main/runtime/rpc/methods/artifacts.ts"><code>rpc/methods/artifacts.ts</code></a>: bounded HTML/Markdown list/share/publish/update/delete RPC.</td><td><span class="label reuse">Reuse UI pattern</span></td><td>Good operator artifact viewing/sharing boundary; evidence storage needs immutability and classification.</td><td>Render a signed run reconstruction without making shared artifacts authoritative.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-15 · AI Vault scanner</td><td><a href="../src/main/ai-vault/session-scanner-source-discovery.ts"><code>session-scanner-source-discovery.ts</code></a>: multi-agent transcript source discovery.</td><td><span class="label pattern">Pattern</span></td><td>Useful import/visibility pattern; transcript discovery cannot own mission state or learning quality.</td><td>Ingest one transcript as untrusted evidence and verify no facts auto-promote.</td></tr>
+          <tr data-search-item data-kind="reuse"><td>RU-16 · Orca UI and workspaces</td><td><a href="STYLEGUIDE.md"><code>docs/STYLEGUIDE.md</code></a> plus existing React/web, terminal, worktree, remote-host surfaces.</td><td><span class="label adapt">Adapt narrowly</span></td><td>Strong operator and authoring experience; desktop lifecycle and worktrees are optional clients/tools.</td><td>Operator prototype that survives UI disconnect while mission state continues.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="research" aria-labelledby="research-title">
+        <div class="section-head"><div class="meta-label">Deliverable 3 · Initial research landscape</div><h2 id="research-title">Primary-source leads, not dependency selections.</h2><p class="section-copy">This is a screen for the first review. Each candidate needs a deeper research card and discriminating experiment before reuse.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>Area / candidate</th><th>Primary-source observation</th><th>Potential use</th><th>Does not prove</th><th>MVP action</th></tr></thead><tbody>
+          <tr data-search-item data-kind="research"><td>RS-01 · OMP</td><td><code>omp://sdk.md</code>, <code>omp://rpc.md</code>, task and memory docs expose process/SDK worker loops, tools, subagents, sessions, and memory.</td><td>Primary worker harness and tool runtime candidate.</td><td>Long-duration migration orchestration or correctness.</td><td><span class="label measured">Inspect + EXP-10</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-02 · Orca</td><td>Current repository contains durable orchestration, relay, artifact, remote-host, process, and operator UI precedents.</td><td>Operator surface, worker lifecycle, reconnect, artifacts, authoring.</td><td>Customer control-plane authority or migration expertise.</td><td><span class="label measured">Reuse inventory</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-03 · LangGraph</td><td><a href="https://docs.langchain.com/oss/python/langgraph/persistence" target="_blank" rel="noreferrer">Official persistence docs</a> separate thread checkpoints from cross-thread stores.</td><td>Compare explicit graph state, pause/resume, checkpoint and memory abstractions.</td><td>External-effect reconciliation or domain evaluation.</td><td><span class="label research">Research card</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-04 · Temporal</td><td><a href="https://docs.temporal.io/" target="_blank" rel="noreferrer">Official docs</a> define event-history-based durable execution that resumes after failures.</td><td>Compare durable workflow/activity execution with a custom ledger/reconciler.</td><td>Agent knowledge, migration semantics, or acceptance evidence.</td><td><span class="label research">Durability spike</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-05 · Letta / MemGPT</td><td><a href="https://docs.letta.com/v1-sdk/concepts/stateful-agents" target="_blank" rel="noreferrer">Letta stateful-agent docs</a> persist messages, memory blocks, tools, runs, and steps; <a href="https://arxiv.org/abs/2310.08560" target="_blank" rel="noreferrer">MemGPT</a> proposes tiered virtual context.</td><td>Memory taxonomy, persistent agent state, context paging comparisons.</td><td>Memory correctness, provenance, or safe self-improvement.</td><td><span class="label research">Memory bake-off</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-06 · Microsoft GraphRAG</td><td><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noreferrer">Official repository</a> is modular graph-based RAG and warns that it is a research project with indexing cost.</td><td>Study entity/relationship extraction and global/local retrieval patterns.</td><td>Need for a dedicated graph database or local fact correctness.</td><td><span class="label research">Small corpus only</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-07 · OpenHands</td><td><a href="https://docs.openhands.dev/sdk/arch/overview" target="_blank" rel="noreferrer">Official architecture docs</a> separate SDK agents, tools, agent server, clients, and workspace/sandbox providers.</td><td>Compare agent/workspace separation, remote sandbox, and event-driven execution.</td><td>Migration control state or multi-agent proof.</td><td><span class="label research">Sandbox research card</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-08 · MCP</td><td><a href="https://github.com/modelcontextprotocol/modelcontextprotocol" target="_blank" rel="noreferrer">Official specification repository</a> standardizes model-facing tools and resources.</td><td>Adapter/tool interoperability behind our policy boundary.</td><td>Tool trust, idempotency, authorization, or evidence quality.</td><td><span class="label research">Threat + fit review</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-09 · Debezium</td><td><a href="https://debezium.io/documentation/reference/stable/architecture.html" target="_blank" rel="noreferrer">Official architecture</a> supports Kafka Connect, server, or embedded-engine CDC shapes and source-specific log access.</td><td>Reuse connector semantics, CDC fixtures, event envelopes, source-version expertise.</td><td>Universal source behavior, backfill correctness, or target acceptance.</td><td><span class="label research">Connector spike</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-10 · Airbyte</td><td><a href="https://docs.airbyte.com/integrations/" target="_blank" rel="noreferrer">Official connector catalog</a> separates sources/destinations and publishes varying support levels.</td><td>Survey connector breadth, specs, tests, and reuse economics.</td><td>Equivalent correctness across connectors or acceptable licensing for every component.</td><td><span class="label research">Catalog audit</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-11 · OpenLineage</td><td><a href="https://openlineage.io/docs/spec/object-model/" target="_blank" rel="noreferrer">Official object model</a> distinguishes run, job, and dataset events and builds lineage from observations.</td><td>Lineage/evidence interoperability and runtime vs design-time event semantics.</td><td>Complete source discovery or semantic correctness.</td><td><span class="label research">Schema mapping</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-12 · Great Expectations / dbt tests</td><td><a href="https://docs.greatexpectations.io/docs/core/define_expectations/" target="_blank" rel="noreferrer">GX docs</a> define verifiable expectations and suites; <a href="https://docs.getdbt.com/docs/build/data-tests" target="_blank" rel="noreferrer">dbt docs</a> define query-based data tests.</td><td>Reuse assertion vocabulary and adapter-specific checks.</td><td>Migration completeness, CDC order, or domain meaning by themselves.</td><td><span class="label research">Evaluator adapter</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-13 · Inspect AI</td><td><a href="https://inspect.aisi.org.uk/agents.html" target="_blank" rel="noreferrer">Official agent-evaluation docs</a> support custom/multi-agent systems, checkpointing, intervention, limits, and human baselines.</td><td>Evaluation harness candidate for agent and orchestration experiments.</td><td>That our benchmark corpus or scorers are valid.</td><td><span class="label research">Evaluation spike</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-14 · Reflexion</td><td><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noreferrer">Paper</a> stores linguistic feedback from task outcomes in episodic memory without weight updates.</td><td>Design comparison for outcome-driven retry and episodic lessons.</td><td>That self-generated reflection is correct without external feedback.</td><td><span class="label research">EXP-07 variant</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-15 · Voyager</td><td><a href="https://arxiv.org/abs/2305.16291" target="_blank" rel="noreferrer">Paper</a> combines an automatic curriculum, executable skill library, environment feedback, and self-verification.</td><td>Skill acquisition, curriculum, and compositional capability hypotheses.</td><td>Safety or transfer from Minecraft to migration engineering.</td><td><span class="label research">Skill lifecycle comparison</span></td></tr>
+          <tr data-search-item data-kind="research"><td>RS-16 · Agent benchmarks</td><td><a href="https://arxiv.org/abs/2308.03688" target="_blank" rel="noreferrer">AgentBench</a>, <a href="https://arxiv.org/abs/2311.12983" target="_blank" rel="noreferrer">GAIA</a>, and <a href="https://arxiv.org/abs/2310.06770" target="_blank" rel="noreferrer">SWE-bench</a> illustrate interactive, general-assistant, and repository-task benchmark designs.</td><td>Study task isolation, held-out cases, environment scoring, and contamination risks.</td><td>Migration-domain coverage.</td><td><span class="label research">Benchmark design review</span></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="corpus" aria-labelledby="corpus-title">
+        <div class="section-head"><div class="meta-label">Deliverable 4 · Corpus acquisition plan</div><h2 id="corpus-title">Start with legal, versioned fixtures that expose ugly behavior.</h2><p class="section-copy">The MVP corpus is a laboratory, not training data. Acquisition records must preserve license, source, version, data class, expected answer, and known gaps.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>ID / candidate</th><th>Use</th><th>Access / license screen</th><th>Seed or collect</th><th>Gap / decision</th></tr></thead><tbody>
+          <tr data-search-item data-kind="corpus"><td>CP-01 · Microsoft SQL samples</td><td>AdventureWorks and WideWorldImporters schemas, procedures, transactional relationships, workload examples.</td><td><a href="https://github.com/microsoft/sql-server-samples" target="_blank" rel="noreferrer">Official repository</a>; MIT license.</td><td>Add schema drift, hidden consumers, bad CDC, duplicate and late records.</td><td>Good first SQL Server fixture; not a true legacy estate.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-02 · Oracle sample schemas</td><td>Multi-schema relationships, SQL/PLSQL examples, Oracle-specific metadata.</td><td><a href="https://github.com/oracle-samples/db-sample-schemas" target="_blank" rel="noreferrer">Official repository</a>; MIT license.</td><td>Add stored-procedure transforms, grants, schema history, and misleading docs.</td><td>Requires Oracle runtime/license plan for executable experiments.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-03 · Pagila/PostgreSQL</td><td>Portable relational fixture for discovery, lineage, transformations, and corruption cases.</td><td><a href="https://github.com/devrimgunduz/pagila" target="_blank" rel="noreferrer">Repository</a>; permissive MIT-style license.</td><td>Create change logs, DDL drift, delete/amendment, and recovery cases.</td><td>Community sample; record provenance and exact revision.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-04 · AWS migration samples</td><td>Cross-engine PostgreSQL, MySQL, MongoDB, Oracle, and SQL Server migration exercises.</td><td><a href="https://github.com/aws-samples/aws-database-migration-samples" target="_blank" rel="noreferrer">Official AWS samples</a>; Apache-2.0.</td><td>Extract only fixtures with deterministic expected target results.</td><td>Audit cloud assumptions and current maintenance before use.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-05 · Debezium examples</td><td>Source-specific CDC events and deployment shapes.</td><td><a href="https://github.com/debezium/debezium-examples" target="_blank" rel="noreferrer">Official examples</a>; Apache-2.0.</td><td>Record snapshots, updates, deletes, transaction order, schema change, restart, and checkpoint loss.</td><td>Need independent target-state oracle, not just emitted events.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-06 · Synthea</td><td>Synthetic healthcare records for early schema, mapping, privacy, and semantic-fixture work.</td><td><a href="https://github.com/synthetichealth/synthea" target="_blank" rel="noreferrer">Official project</a>; Apache-2.0 software; synthetic outputs.</td><td>Freeze generator/version/seed and define exact golden cases.</td><td>Cannot prove production clinical semantics alone.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-07 · MIMIC-IV</td><td>Later expert-calibrated clinical research and realism.</td><td><a href="https://physionet.org/content/mimiciv/3.1/" target="_blank" rel="noreferrer">PhysioNet</a>; credentialed access, training, and data-use agreement.</td><td>Do not ingest into the MVP until governance and use case are approved.</td><td>Restricted; no redistribution; separate protected corpus path.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-08 · Transformation-code fixtures</td><td>SQL, stored procedures, ETL definitions, dbt models, schedules, and hidden transforms.</td><td>Prefer explicitly licensed vendor/community samples. Current <code>dbt-labs/jaffle-shop</code> license must not be assumed.</td><td>Author our own small licensed fixtures where gaps remain.</td><td>Need legal review and exact expected lineage/mapping.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-09 · Failure and incident corpus</td><td>Unknown effects, checkpoint loss, partial backfill, stale docs, cutover failure, evaluator bugs.</td><td>Seeded synthetic incidents first; later customer traces only with explicit consent, redaction, and tenant isolation.</td><td>Create kill-point, network, corruption, and misleading-evidence cases.</td><td>No adequate public corpus identified yet.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-10 · Vendor/platform reference corpus</td><td>Current Databricks, Snowflake, cloud, database, identity, security, and connector behavior.</td><td>Link/cite official docs under their terms; do not copy unrestrictedly.</td><td>Store source URL/version/date, extracted claims, and freshness checks.</td><td>Platform matrices change; permanent refresh process required.</td></tr>
+          <tr data-search-item data-kind="corpus"><td>CP-11 · Human and system baselines</td><td>Compare agent system with expert, existing tool, and simple-script performance.</td><td>Commissioned tasks with consent and clear ownership; no hidden production data.</td><td>Capture time, correctness, recovery, questions asked, cost, and failure classification.</td><td>Must recruit platform and domain experts; avoid benchmark leakage.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="experiments" aria-labelledby="experiments-title">
+        <div class="section-head"><div class="meta-label">Deliverable 5 · Atomic experiment backlog</div><h2 id="experiments-title">Each experiment answers one architecture question.</h2><p class="section-copy">Thresholds are proposed starting points for review. A failed experiment is useful evidence; it does not get hidden by a broader demo.</p></div>
+        <div class="table-wrap"><table><thead><tr><th>ID / hypothesis</th><th>Fixture</th><th>Metric</th><th>Proposed pass threshold</th><th>Output artifact</th></tr></thead><tbody>
+          <tr id="exp-01" data-search-item data-kind="experiment"><td>EXP-01 · Durable mission convergence</td><td>100 tasks; seeded crashes at create, dispatch, completion, evidence commit, and restart; duplicate/stale reports.</td><td>Lost/duplicated accepted transitions; replay projection equality.</td><td>Zero duplicate acceptance; zero lost terminal state; exact projection after every restart.</td><td>Event trace, invariant report, failing seeds.</td></tr>
+          <tr id="exp-02" data-search-item data-kind="experiment"><td>EXP-02 · Detect false supplied claims</td><td>Brief and diagrams containing eight known contradictions against source evidence.</td><td>Contradictions found, citations, false accusations, silent assumptions.</td><td>8/8 material contradictions; zero unsupported facts promoted; every finding cited.</td><td>Gap register and evidence graph.</td></tr>
+          <tr id="exp-03" data-search-item data-kind="experiment"><td>EXP-03 · Hidden estate discovery</td><td>Legacy fixture with ten planted assets/dependencies, two access denials, one decoy.</td><td>Asset/dependency recall, fabricated accepted assets, denial handling.</td><td>At least 9/10 planted items; zero fabricated accepted items; both denials explicit.</td><td>Estate snapshot and coverage report.</td></tr>
+          <tr id="exp-04" data-search-item data-kind="experiment"><td>EXP-04 · CDC semantics inference</td><td>Snapshot plus update/delete/amend/late/DDL/restart/checkpoint-loss trace.</td><td>Final state equality, event disposition, ordering errors.</td><td>Exact target state; every event disposed; zero silent loss or duplicate after replay.</td><td>CDC contract, replay log, reconciliation report.</td></tr>
+          <tr id="exp-05" data-search-item data-kind="experiment"><td>EXP-05 · Specialist disagreement resolution</td><td>20 cases with conflicting specialist proposals; 5 genuinely unresolved.</td><td>Supported choice accuracy, evidence acquisition, false resolution, abstention.</td><td>At least 14/15 resolvable choices correct; all 5 true ties remain explicit; every choice cited.</td><td>Decision records and investigation traces.</td></tr>
+          <tr id="exp-06" data-search-item data-kind="experiment"><td>EXP-06 · Retrieval provenance and freshness</td><td>Known-answer corpus with version conflicts, stale docs, unauthorized items, and distractors.</td><td>Answer recall, source precision, stale/unauthorized usage.</td><td>At least 90% known-answer coverage; 100% used claims cited; zero unauthorized items used.</td><td>Retrieval benchmark and query traces.</td></tr>
+          <tr id="exp-07" data-search-item data-kind="experiment"><td>EXP-07 · Memory helps without poisoning</td><td>Repeated held-out tasks plus seeded stale, wrong, and cross-tenant memories.</td><td>Task delta, bad-memory adoption, invalidation, leakage.</td><td>Meaningful positive task delta; zero cross-tenant recall; all seeded poison rejected or flagged; no &gt;2% regression set drop.</td><td>Memory ablation report and retained/invalidated IDs.</td></tr>
+          <tr id="exp-08" data-search-item data-kind="experiment"><td>EXP-08 · Evaluator catches mapping defects</td><td>15 critical and 15 benign mutations across schema, mapping, delete, precision, identity, and semantics.</td><td>Critical detection, false rejection, explanation/evidence quality.</td><td>15/15 critical defects detected; no more than 2/15 benign cases rejected; reproducible evidence.</td><td>Mutation matrix and evaluator calibration report.</td></tr>
+          <tr id="exp-09" data-search-item data-kind="experiment"><td>EXP-09 · Skill promotion and demotion</td><td>Candidate skill, held-out corpus, staged production samples, injected regression.</td><td>Baseline gain, leakage, regression detection, assignments after revocation.</td><td>Promote only on held-out gain; detect injected regression before next new assignment; zero post-revocation starts.</td><td>Certification, promotion, demotion, and rollback records.</td></tr>
+          <tr id="exp-10" data-search-item data-kind="experiment"><td>EXP-10 · OMP RPC containment</td><td>One work item with host tools; malformed/chunked frames, flood, cancellation, context overflow, child crash.</td><td>Gateway crash/hang, post-cancel effects, frame loss, recovery time.</td><td>No gateway crash; no post-cancel tool effect; bounded memory; explicit failure within 30 seconds.</td><td>Protocol trace and containment report.</td></tr>
+          <tr id="exp-11" data-search-item data-kind="experiment"><td>EXP-11 · Unknown external effect</td><td>Target adapter with 50 kill points between request, target commit, receipt, evaluation, and acknowledgment.</td><td>Duplicate mutations, false absence/success, convergence.</td><td>Zero duplicate effects; every run ends accepted, absent, failed, or quarantined with evidence; no coerced unknown.</td><td>Effect/receipt/reconciliation timeline.</td></tr>
+          <tr id="exp-12" data-search-item data-kind="experiment"><td>EXP-12 · Tenant and secret isolation</td><td>100 negative cases across context, retrieval, memory, cache, artifact, tool, relay, and logs.</td><td>Cross-tenant bytes/IDs, unauthorized effects, durable secret exposure.</td><td>Zero cross-tenant disclosure or effects; zero durable raw secrets; every denial attributable.</td><td>Isolation report and redacted evidence pack.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="decisions" aria-labelledby="decisions-title">
+        <div class="section-head"><div class="meta-label">Deliverable 6 · Architecture decision register</div><h2 id="decisions-title">One decision is locked for this MVP. Everything else must earn selection.</h2></div>
+        <div class="table-wrap"><table><thead><tr><th>ID / hypothesis</th><th>Status</th><th>Reason to consider</th><th>Evidence required</th><th>Reversal condition</th></tr></thead><tbody>
+          <tr data-search-item data-kind="decision"><td>ADR-M0-001 · Single self-contained HTML atlas</td><td><span class="label selected">Selected</span></td><td>Fastest offline review surface mixing diagrams, notes, matrices, search, stable links, and print.</td><td>User selected format; no runtime dependency needed.</td><td>Extract structured registries after schemas stabilize or automation needs emerge.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-002 · Apex plus specialists</td><td><span class="label hypothesis">Hypothesis</span></td><td>Central mission coherence with bounded expertise and independent disagreements.</td><td>EXP-05 plus long-horizon budget/recovery tests.</td><td>Use explicit graph/market/blackboard alternative if apex becomes bottleneck or single point of reasoning failure.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-003 · OMP RPC as primary worker</td><td><span class="label hypothesis">Hypothesis</span></td><td>Existing tools, models, context, subagents, schemas, and process isolation.</td><td>EXP-10 and RPC-vs-SDK latency/isolation comparison.</td><td>Replace behind worker contract if containment, throughput, or configurability fails.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-004 · Product-owned durable workflow ledger</td><td><span class="label hypothesis">Hypothesis</span></td><td>Mission work outlives workers and needs replay, attempts, effects, and evidence gates.</td><td>EXP-01 comparing custom event ledger, Temporal, and simpler durable workflow options.</td><td>Adopt mature engine if it preserves required domain authority with lower complexity.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-005 · PostgreSQL for initial authority</td><td><span class="label hypothesis">Hypothesis</span></td><td>Transactions, relational constraints, queryability, event/projection co-location.</td><td>Concurrency/replay load, retention, tenant isolation, operational comparison.</td><td>Split event/evidence/search state after measured scale or isolation limits.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-006 · Transport is never truth</td><td><span class="label hypothesis">Invariant</span></td><td>Message loss/replay must not alter authoritative workflow state.</td><td>EXP-01 plus partition/replay test with chosen transport.</td><td>No reversal expected; implementation may change.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-007 · Hybrid knowledge projection before graph DB</td><td><span class="label hypothesis">Hypothesis</span></td><td>Typed tables/edges plus full-text/vector may cover MVP without another service.</td><td>Real query workload, multi-hop quality, provenance, latency, GraphRAG comparison.</td><td>Adopt graph engine when measured queries or explainability exceed the simpler projection.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-008 · Memory is non-authoritative</td><td><span class="label hypothesis">Invariant</span></td><td>Recall can be stale, poisoned, probabilistic, or cross-context.</td><td>EXP-07 and memory-system comparison.</td><td>No reversal expected; useful memories still cite evidence.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-009 · Skills require certification</td><td><span class="label hypothesis">Hypothesis</span></td><td>Reusable capability needs typed contract, evaluator, envelope, and lifecycle.</td><td>EXP-09 with one real skill and regression injection.</td><td>Simplify metadata only if the same safety/evaluation guarantees remain.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-010 · Independent evaluation gates acceptance</td><td><span class="label hypothesis">Invariant</span></td><td>Producer confidence and self-review cannot prove migration correctness.</td><td>EXP-08 plus evaluator calibration and disagreement tests.</td><td>No reversal; evaluator implementation may vary by claim.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-011 · Outbound isolated execution relays</td><td><span class="label hypothesis">Hypothesis</span></td><td>Customer sources and targets need local access without broad inbound control or ambient secrets.</td><td>Relay identity, partition, spool, secret lease, and EXP-11 tests.</td><td>Use customer-native jobs or another provider when it meets the same envelope.</td></tr>
+          <tr data-search-item data-kind="decision"><td>ADR-H-012 · Kubernetes/customer-hosted production</td><td><span class="label research">Deferred</span></td><td>Potential isolation and disconnected/customer-network fit.</td><td>Customer profiles, operating cost, HA, sandbox provider, deployment experiments.</td><td>Use VM, managed, or hybrid topology if customer evidence favors it.</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section id="review" aria-labelledby="review-title">
+        <div class="section-head"><div class="meta-label">MVP review gate</div><h2 id="review-title">Review the cuts before adding detail.</h2><p class="section-copy">The next iteration should not add more components or technologies until these questions are answered.</p></div>
+        <div class="grid-2">
+          <article class="card"><h3>Questions for review</h3><ul><li>Are any two components secretly the same responsibility?</li><li>Is any state owner missing or ambiguous?</li><li>Can the apex controller be replaced without losing mission continuity?</li><li>Does every real effect have an independent reconciliation path?</li><li>Are the first 12 experiments sufficient to choose the major architecture cuts?</li><li>Which corpus candidates give the most learning per setup hour?</li></ul></article>
+          <article class="card"><h3>Stop conditions</h3><ul><li>Do not build the full migration demo before atomic experiments.</li><li>Do not lock graph storage, workflow engine, language, bus, or deployment topology from diagrams.</li><li>Do not treat OMP memory, agent output, or customer artifacts as facts.</li><li>Do not add a framework without naming the exact capability and experiment it replaces.</li><li>Do not call a skill self-improving until regression and demotion work.</li></ul></article>
+        </div>
+        <h3 class="subhead">Proposed next small step after review</h3>
+        <div class="callout"><strong>Build only Phase 0 evidence.</strong> Create six deeper research cards—durable workflow, apex orchestration, memory, knowledge retrieval, evaluation, and connector/sandbox—and refine EXP-01, EXP-05, EXP-07, EXP-08, EXP-10, and EXP-11 into executable lab specs. No end-to-end migration yet.</div>
+      </section>
+
+      <section id="sources" aria-labelledby="sources-title">
+        <div class="section-head"><div class="meta-label">Evidence index</div><h2 id="sources-title">Primary sources used for this MVP screen.</h2></div>
+        <ul class="sources">
+          <li><a href="https://docs.langchain.com/oss/python/langgraph/persistence" target="_blank" rel="noreferrer"><span>LangGraph persistence</span><small>checkpoints, thread state, cross-thread stores</small></a></li>
+          <li><a href="https://docs.temporal.io/" target="_blank" rel="noreferrer"><span>Temporal documentation</span><small>durable execution and event-history recovery</small></a></li>
+          <li><a href="https://docs.letta.com/v1-sdk/concepts/stateful-agents" target="_blank" rel="noreferrer"><span>Letta stateful-agent concepts</span><small>persistent messages, memory blocks, tools, runs, steps</small></a></li>
+          <li><a href="https://github.com/microsoft/graphrag" target="_blank" rel="noreferrer"><span>Microsoft GraphRAG</span><small>graph-based RAG research implementation</small></a></li>
+          <li><a href="https://docs.openhands.dev/sdk/arch/overview" target="_blank" rel="noreferrer"><span>OpenHands SDK architecture</span><small>agents, tools, server, clients, workspaces and sandboxes</small></a></li>
+          <li><a href="https://debezium.io/documentation/reference/stable/architecture.html" target="_blank" rel="noreferrer"><span>Debezium architecture</span><small>source-specific CDC deployment patterns</small></a></li>
+          <li><a href="https://docs.airbyte.com/integrations/" target="_blank" rel="noreferrer"><span>Airbyte connector catalog</span><small>source and destination connector landscape</small></a></li>
+          <li><a href="https://openlineage.io/docs/spec/object-model/" target="_blank" rel="noreferrer"><span>OpenLineage object model</span><small>run, job and dataset observations</small></a></li>
+          <li><a href="https://docs.greatexpectations.io/docs/core/define_expectations/" target="_blank" rel="noreferrer"><span>Great Expectations</span><small>verifiable expectations and suites</small></a></li>
+          <li><a href="https://inspect.aisi.org.uk/agents.html" target="_blank" rel="noreferrer"><span>Inspect AI agent evaluation</span><small>custom/multi-agent evaluation, checkpoints, limits, human baselines</small></a></li>
+          <li><a href="https://github.com/modelcontextprotocol/modelcontextprotocol" target="_blank" rel="noreferrer"><span>Model Context Protocol specification</span><small>tool and resource interoperability candidate</small></a></li>
+          <li><a href="https://arxiv.org/abs/2303.11366" target="_blank" rel="noreferrer"><span>Reflexion</span><small>outcome feedback and episodic verbal memory</small></a></li>
+          <li><a href="https://arxiv.org/abs/2310.08560" target="_blank" rel="noreferrer"><span>MemGPT</span><small>tiered virtual context management</small></a></li>
+          <li><a href="https://arxiv.org/abs/2305.16291" target="_blank" rel="noreferrer"><span>Voyager</span><small>curriculum, executable skill library, environment feedback</small></a></li>
+        </ul>
+      </section>
+
+      <footer class="footer"><span>Autonomous Migration Engineering System · MVP Architecture Atlas</span><span>Working hypotheses · Review before expansion</span></footer>
+    </main>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const progress = document.getElementById('progress');
+    const navLinks = [...document.querySelectorAll('#nav a')];
+    const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const searchInput = document.getElementById('atlas-search');
+    const kindSelect = document.getElementById('atlas-kind');
+    const clearFilter = document.getElementById('clear-filter');
+    const filterStatus = document.getElementById('filter-status');
+    const searchable = [...document.querySelectorAll('[data-search-item]')];
+
+    const storedTheme = localStorage.getItem('migration-atlas-theme');
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      root.dataset.theme = storedTheme;
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      root.dataset.theme = 'light';
+    }
+
+    function updateThemeLabel() {
+      themeToggle.textContent = root.dataset.theme === 'dark' ? 'Use light theme' : 'Use dark theme';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('migration-atlas-theme', root.dataset.theme);
+      updateThemeLabel();
+    });
+    updateThemeLabel();
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const value = scrollable > 0 ? Math.min(100, Math.max(0, window.scrollY / scrollable * 100)) : 0;
+      progress.style.width = `${value}%`;
+    }
+
+    function updateActiveSection() {
+      const anchor = window.scrollY + Math.min(180, window.innerHeight * 0.28);
+      let activeSection = sections[0];
+      for (const section of sections) {
+        if (section.offsetTop <= anchor) activeSection = section;
+        else break;
+      }
+      navLinks.forEach((link) => {
+        const active = activeSection && link.getAttribute('href') === `#${activeSection.id}`;
+        if (active) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLocaleLowerCase();
+      const kind = kindSelect.value;
+      let visible = 0;
+      searchable.forEach((record) => {
+        const matchesQuery = !query || record.textContent.toLocaleLowerCase().includes(query);
+        const matchesKind = kind === 'all' || record.dataset.kind === kind;
+        record.hidden = !(matchesQuery && matchesKind);
+        if (!record.hidden) visible += 1;
+      });
+      if (!query && kind === 'all') {
+        filterStatus.textContent = 'Showing all searchable records.';
+      } else {
+        filterStatus.textContent = `Showing ${visible} of ${searchable.length} searchable records.`;
+      }
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    kindSelect.addEventListener('change', applyFilters);
+    clearFilter.addEventListener('click', () => {
+      searchInput.value = '';
+      kindSelect.value = 'all';
+      applyFilters();
+      searchInput.focus();
+    });
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    updateProgress();
+    updateActiveSection();
+  </script>
+</body>
+</html>
