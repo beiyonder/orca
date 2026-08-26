@@ -103,6 +103,16 @@ docs/**
 !docs/agentic-substrate-orchestration-research.md
 !docs/agentic-substrate-context-research.md
 !docs/agentic-substrate-memory-research.md
+!docs/agentic-substrate-evaluation-research.md
+!docs/agentic-substrate-self-improvement-research.md
+!docs/agentic-substrate-bounded-action-research.md
+!docs/agentic-substrate-omp-audit.md
+!docs/agentic-substrate-orca-audit.md
+!docs/agentic-substrate-capability-code-map.md
+!docs/agentic-substrate-maturity-placement.md
+!docs/agentic-substrate-gap-filler-decisions.md
+!docs/agentic-substrate-s1-implementation-plan.md
+!docs/agentic-substrate-experiment-queue.md
 !docs/agentic-substrate-s1-deferred-register.md
 !docs/agent-skill-sharing-implementation-checklist.md
 !docs/agent-skill-sharing-installation-plan.md

@@ -14,6 +14,16 @@
 - Completed research card: `docs/agentic-substrate-orchestration-research.md`
 - Completed research card: `docs/agentic-substrate-context-research.md`
 - Completed research card: `docs/agentic-substrate-memory-research.md`
+- Completed research card: `docs/agentic-substrate-evaluation-research.md`
+- Completed research card: `docs/agentic-substrate-self-improvement-research.md`
+- Completed research card: `docs/agentic-substrate-bounded-action-research.md`
+- Verified implementation audit: `docs/agentic-substrate-omp-audit.md`
+- Verified implementation audit: `docs/agentic-substrate-orca-audit.md`
+- Verified combined map: `docs/agentic-substrate-capability-code-map.md`
+- Verified maturity placement: `docs/agentic-substrate-maturity-placement.md`
+- Gap-filler decisions: `docs/agentic-substrate-gap-filler-decisions.md`
+- Selected slice contract: `docs/agentic-substrate-s1-implementation-plan.md`
+- Executable experiment queue: `docs/agentic-substrate-experiment-queue.md`
 - Active scope register: `docs/agentic-substrate-s1-deferred-register.md`
 
 The source checkout is intentionally not vendored or committed inside Orca. Only analysis and prototype code that we author belong in the tracked branch.
@@ -243,9 +253,9 @@ Primary packages relevant to the substrate:
 | `A2` Durable mission | `goals/runtime.ts`, `autoresearch/storage.ts`, session todos/goals | Session-scoped goals/budgets; durable autoresearch sessions/runs; session journal. No general mission world model or authoritative long-running workflow. | `M1` patterns. | **Pattern only**; build product mission kernel. |
 | `A3` Specialists | [`runStructuredSubagent`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/task/structured-subagent.ts), `task/executor.ts`, [`AgentRegistry`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/registry/agent-registry.ts) | Typed agent definitions/output schemas, spawn/depth policy, worktree isolation, budgets, retries, progress, IRC, registry/status/history. Subagents run inside a parent session and task executor. | `M3` for bounded coding fan-out; apex/durable mission `M1`. | **Reuse/adapt** specialist runner; build apex and durable orchestration. |
 | `A4` Evidence seeking | Web search/read/browser tools; `autoresearch` hypothesis/experiment notes; source citations are tool output rather than durable epistemic records. | Strong evidence-gathering tools and a specialized experiment loop. No general fact/claim/gap/contradiction state machine. | `M1`. | **Reuse tools**; build epistemic state/gap engine/context manifest. |
-| `A5` Self-correction | [`AdvisorRuntime`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/advisor/runtime.ts), TTSR, `cleanse`, security coordinator, tests/eval tools | Second-model advice, hazardous-output quarantine, rule-triggered stream correction, specialized security/cleanse workflows. No general independent acceptance coordinator tied to exact mission subjects. | `M2` primitives. | **Adapt patterns**; build evaluator and correction state machine. |
-| `A6` Self-improvement | [`AutoLearnController`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/autolearn/controller.ts), `managed-skills.ts`, [`Mnemopi`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/mnemopi/src/core/memory.ts), polyphonic recall, episodic graph, `autoresearch`, metaharness | Explicit/automatic lesson capture, editable memories, generated skills, experiments, baseline/kept metrics, recall voices and graph/fact projections. No general held-out certification/promotion/demotion tied to production assignments. | `M2` primitives. | **Reuse/adapt memory and experiment machinery**; build governed learning lifecycle. |
-| `A7` Bounded action | [`RpcHostToolBridge`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/modes/rpc/host-tools.ts), RPC mode, approval/tool policies, subprocess/worktree isolation | Host-provided tools, call correlation, updates, cancellation, schemas, process isolation and configurable approvals. Host remains responsible for actual authority and external-effect recovery. | `M2` worker boundary. | **Reuse RPC/host-tool boundary**; build product effect gate, receipts, and reconciler. |
+| `A5` Self-correction | [`AdvisorRuntime`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/advisor/runtime.ts), [`TtsrCoordinator`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/session/ttsr-coordinator.ts), [`runCleanseLoop`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/cleanse/loop.ts), [`SecurityCoordinator`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/security/coordinator.ts), security finding/comparison contracts, and metaharness benchmarks | Second-model advice with hazardous-output quarantine; rule-triggered stream interruption; deterministic diagnose/repair/post-verify loop; typed security evidence, coverage, validation, and producer/lineage comparison; normalized benchmark traces. No universal evaluator definition/contract, subject-version acceptance state, calibration registry, or failed-measure correction lifecycle. | `M2` specialized primitives; product-wide authority `M0`. | **Adapt** Cleanse, advisor, security-contract, and metaharness patterns; build the product evaluator registry/coordinator and correction state machine. |
+| `A6` Self-improvement | [`AutoLearnController`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/autolearn/controller.ts), [`writeManagedSkill`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/autolearn/managed-skills.ts), [`ManageSkillTool`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/tools/manage-skill.ts), autoresearch state/storage/tools, Mnemopi/Hindsight, and metaharness experiments | Experimental isolated lesson capture; safe bounded managed-skill files; direct future-session skill discovery; durable baseline/variant metrics, scope deviations, keep/discard/revert and run flags; benchmark arms/traces. OMP has no quarantine-to-certification boundary: managed skills can become active without downstream held-out proof, target envelope, promotion, use trace, drift, demotion or rollback. | `M2` local learning/experiment primitives; governed product lifecycle `M0`. | **Reuse/adapt** packaging, safe writes and experiment harness; replace activation with product learning-candidate, certification, registry and rollout authority. |
+| `A7` Bounded action | [`RpcHostToolBridge`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/modes/rpc/host-tools.ts), RPC command/frame contracts, [`resolveApproval`](https://github.com/can1357/oh-my-pi/blob/b4e8e856ad40294167679a3f88417c07429fe59b/packages/coding-agent/src/tools/approval.ts), Bash critical/compound-command policy, tool timeouts/cancellation/output artifacts and fixed read-oriented security-session tools | Strict host-supplied tool schemas; correlated call/update/result/cancel frames; disconnect rejection; byte ceilings; argument-dependent read/write/exec allow/deny/prompt; shell danger checks and process controls. The host owns real authority. Call IDs are not durable effect IDs; cancellation is best effort; there is no tenant/target capability, secret lease, provider idempotency, target receipt/readback or unknown-effect reconciliation. | `M3` coding-agent host-tool/approval boundary; migration effects `M0`. | **Reuse** RPC host-tool boundary; constrain OMP to proposals/narrow adapters and build product effect/policy/capability/receipt/reconciler outside it. |
 
 ## OMP facts that change the plan
 
@@ -275,8 +285,8 @@ Primary packages relevant to the substrate:
 | `A3` Specialists | Orchestration task/dispatch APIs, group addressing, worker terminal ownership, federation, decision gates | Coordinates external terminal agents, broadcasts to groups, promotes dependent tasks, tracks worker reports. Identity and lifecycle remain coupled to terminal handles/panes/process incarnations. | `M2`. | **Adapt task/attempt/message concepts**; replace terminal identity and human-gate assumptions. |
 | `A4` Evidence seeking | AI Vault/session visibility, source-control/artifact/search tooling | Good operator visibility and code/search surfaces. No persistent fact/claim/hypothesis/gap model. | `M0/M1`. | **Reuse UI patterns**, build epistemic system. |
 | `A5` Self-correction | AI recovery features and product-specific checks exist, but orchestration completion trusts bounded worker lifecycle plus caller logic rather than general independent evaluation. | Recovery/help patterns, not a universal evaluator/correction loop. | `M0/M1`. | **Build** evaluation coordinator and correction loop. |
-| `A6` Self-improvement | Skill install/share surfaces and agent-session history exist; no certified learning lifecycle. | Distribution/visibility mechanics only. | `M0/M1`. | **Reuse operator/registry surfaces**, build promotion/demotion and measured learning. |
-| `A7` Bounded action | `worker-dispatch-authority.ts`, `lifecycle-reconciliation.ts`, mutation receipts, federation relay, `relay-transport.ts`, `relay-session-broker.ts`, artifacts RPC | Transactional worker capability hashes, stale/unauthorized completion rejection, idempotent mutation receipts, unknown start/stop states, sequence/ack/replay, bounded WebSocket transport, reconnect, output archive. | `M2/M3` for terminal/mobile control. | **Adapt strongly** for workload identity, capability envelopes, effect receipts, target reconciliation, and customer-zone relays. |
+| `A6` Self-improvement | `src/shared/skill-package-manifest.ts`, `skill-bundle-manifest.ts`, `src/main/skills/skill-bundle-creation.ts`, `skill-bundle-install-service.ts`, `skill-placement-transaction.ts`, `skill-transaction-startup-recovery.ts`, `skill-update-run.ts`, `skill-update-convergence.ts`, and renderer install-risk/freshness surfaces | Strict package/version IDs and SHA-256 identity; portable bundles; collision/risk previews; transactional local/WSL/SSH/cloud installation, cancellation and crash recovery; disk re-scan and convergence instead of trusting exit code; freshness/operator visibility. No experience extraction, behavioral certification, target-model envelope, use/outcome trace, drift or automatic regression rollback. | `M3` skill distribution/recovery; governed learning `M0`. | **Reuse strongly** for package identity, provenance, install transaction/recovery and UI; build learning/certification/active-version authority above install. |
+| `A7` Bounded action | `db/worker-dispatch/worker-dispatch-authority.ts`, `lifecycle-reconciliation.ts`, `db/mutation-receipts/mutation-receipt-store.ts`, `rpc/orchestration-mutation-executor.ts`, remote attachment/federated `start_unknown` reconciliation, relay transport/session broker, skill operation recovery journals | Random hash-stored dispatch capabilities bound to handle/pane/process incarnation; timing-safe remote verification; stale/inactive result rejection; caller/request/method/payload mutation receipts with completed replay and explicit pending `operation_unknown`; fail-closed receipt capacity; relay generations/reconnect; residual-resource and transaction recovery. No migration effect intent/policy/secret/sandbox/adapter/provider-idempotency/target-readback contract. | `M3` for terminal/skill operations; product migration effects `M0/M1`. | **Adapt strongly** capability, receipt, unknown, stale-rejection, relay and recovery semantics; replace terminal/worktree identities with tenant/workload/target effect authority. |
 
 ## Orca facts that change the plan
 
@@ -360,6 +370,8 @@ Largest gaps:
 
 Purpose: close a meaningful A2–A6 gap without pretending to migrate data yet.
 
+Authoritative frozen fixture, roles, records, evaluator, fault matrix, and 21 acceptance predicates: `docs/agentic-substrate-s1-implementation-plan.md`.
+
 Flow:
 
 ```text
@@ -413,13 +425,13 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Next execution coordinates
+## Phase 1 closeout and next coordinates
 
-1. `P1-RSCH-01` — complete: A0–A7 contracts and initial maturity rubric are recorded here.
-2. `P1-RSCH-02` through `P1-RSCH-09` — deepen implementation research where this first audit is shallow.
-3. `P1-RSCH-10` — finish symbol/test-level OMP audit at pinned `v18.0.6` and compare installed `18.0.4`.
-4. `P1-RSCH-11` — finish symbol/test-level Orca audit at current branch.
-5. `P1-RSCH-12`/`13` — turn this preliminary map into a verified code/maturity graph.
-6. `P1-RSCH-14` — examine external projects only for confirmed gaps.
-7. `P1-RSCH-15` — approve or revise Slice S1, then implement it in the isolated prototype lab.
-8. `P1-RSCH-16` — update ADRs and executable experiment queue from the completed study.
+`P1-RSCH-01` through `P1-RSCH-16` are complete. Exact audits, combined placement, maturity, gap decisions, S1 contract, deferred register, and the 76-item experiment queue are linked in the study header.
+
+Next:
+
+1. `P2-LAB-01` — select an isolated prototype package/workspace boundary without disturbing Orca production code.
+2. `P2-LAB-02` — select the implementation language/runtime cut against S1 and challenger constraints.
+3. `P2-LAB-03` through `P2-LAB-05` — establish deterministic IDs/clock, named fault injection, and immutable run artifacts.
+4. Pin the S1 fixture and non-agent baseline before implementing or optimizing agentic behavior.

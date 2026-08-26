@@ -6,7 +6,7 @@ Do not jump directly to a full sample migration.
 
 We do not yet have a proven migration-specific agent system, orchestration model, knowledge base, evaluator stack, memory design, self-correction loop, or validated product architecture. The existing architecture is a strong hypothesis, not an earned implementation decision.
 
-The next milestone is to understand, decompose, research, prototype, and select the parts of a stateful, self-correcting, self-improving autonomous engineering system.
+Phase 1 research and exact Orca/OMP placement are complete. The next milestone is a reproducible isolated lab that can falsify the selected Slice S1 contracts before product implementation.
 
 Sample systems and sample data belong early, but as research and component-testing material. A full end-to-end migration dry run comes after the core parts work independently.
 
@@ -580,15 +580,16 @@ The dry run must test discovery, gap resolution, decision making, orchestration,
 
 **Exit:** reproducible run evidence, known failures, measured capability boundary, and a prioritized improvement plan.
 
-## Immediate next deliverables
+## Phase 1 deliverables and next move
 
-Before implementation of the migration product, create:
+The playing-field map now exists:
 
-1. **System component map** — every atomic capability, interface, state owner, and failure boundary.
-2. **Orca/OMP reuse inventory** — exact reusable code and patterns, missing capabilities, and required experiments.
-3. **Research landscape matrix** — papers and projects grouped by system component, with primary-source evidence.
-4. **Corpus acquisition plan** — candidate legacy systems, datasets, traces, code, incidents, licensing, and gaps.
-5. **Atomic experiment backlog** — experiment, hypothesis, fixture, metric, pass/fail threshold, and output artifact.
-6. **Architecture decision register** — hypotheses only until experiment evidence supports selection.
+1. **System component map** — `docs/healthcare-system-design-mvp.html`.
+2. **Exact Orca/OMP reuse inventory** — the two A0–A7 audits and combined capability code map.
+3. **Research landscape and decisions** — durable, epistemic, orchestration, context, memory, evaluation, improvement, bounded-action, and gap-filler cards.
+4. **Corpus/fixture plan** — architecture corpus plan plus the frozen six-row synthetic S1 identity-key fixture.
+5. **Atomic experiment backlog** — `docs/agentic-substrate-experiment-queue.md` contains all 70 research experiments plus six lab/integration contracts.
+6. **Architecture decision register** — the atlas contains 25 versioned decisions/hypotheses with evidence and reversal conditions.
+7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These deliverables create the playing-field map. They prevent us from confusing a persuasive architecture document or a generated demo with a working autonomous migration system.
+These are research/design artifacts, not proof that the substrate works. `P2-LAB-01` now selects an isolated package boundary; `P2-LAB-02` selects the runtime cut; deterministic clock/IDs, fault injection, run artifacts, the fixture, non-agent baseline, and one-command runner follow before agent or kernel optimization.

@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P1-RSCH-07` — Research independent evaluation and closed self-correction.**
+**`P2-LAB-01` — Select the isolated prototype package/workspace boundary.**
 
 Current artifacts already exist:
 
@@ -14,9 +14,19 @@ Current artifacts already exist:
 - `docs/agentic-substrate-orchestration-research.md`
 - `docs/agentic-substrate-context-research.md`
 - `docs/agentic-substrate-memory-research.md`
+- `docs/agentic-substrate-evaluation-research.md`
+- `docs/agentic-substrate-self-improvement-research.md`
+- `docs/agentic-substrate-bounded-action-research.md`
+- `docs/agentic-substrate-omp-audit.md`
+- `docs/agentic-substrate-orca-audit.md`
+- `docs/agentic-substrate-capability-code-map.md`
+- `docs/agentic-substrate-maturity-placement.md`
+- `docs/agentic-substrate-gap-filler-decisions.md`
+- `docs/agentic-substrate-s1-implementation-plan.md`
+- `docs/agentic-substrate-experiment-queue.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-The product and technical architecture are provisional pressure maps, not final specifications. The current move is to define what a top-tier stateful, evidence-seeking, self-correcting, self-improving agentic system must do; research how those capabilities are implemented; then audit Orca and OMP against that progression line before choosing the first substrate build slice.
+Phase 1 established provisional A0–A7 contracts, research, exact Orca/OMP placement, maturity, gap decisions, a scope-frozen S1 slice, 52 reviewed deferrals, 25 ADRs, and a 76-item experiment queue. The current move is to create a reproducible isolated lab before implementing substrate behavior.
 
 ## How to use coordinates
 
@@ -228,16 +238,16 @@ Failure route: `L-ARCH-01`.
 | `DONE` | `P1-RSCH-04` | Research apex and specialist orchestration. | Durable typed blackboard, replaceable apex, product-owned assignments, deterministic reconciler, pattern comparison, OMP/Orca reuse map, and eight orchestration experiments recorded. |
 | `DONE` | `P1-RSCH-05` | Research context, retrieval, and live research. | Deterministic context compiler, manifest/trace/citation/live-research contracts, eligibility/ranking/packing/refresh rules, reuse map, and ten experiments recorded. |
 | `DONE` | `P1-RSCH-06` | Research long-term agent memory. | Governed memory registry, canonical-owner taxonomy, candidate/version/use/consolidation/invalidation contracts, security model, OMP/Mnemopi/Hindsight reuse map, and ten experiments recorded. |
-| `CURRENT` | `P1-RSCH-07` | Research evaluation and self-correction. | Verifiers, process supervision, mutation tests, critics, search/refinement, external feedback, and closed correction loops compared. |
-| `WAIT` | `P1-RSCH-08` | Research self-improvement and skill learning. | Skill libraries, curriculum, prompt/tool/model optimization, held-out promotion, drift, demotion, and rollback compared. |
-| `WAIT` | `P1-RSCH-09` | Research bounded action and recovery. | Capability security, sandboxing, idempotency, receipts, external-effect reconciliation, and fault containment compared. |
-| `WAIT` | `P1-RSCH-10` | Audit OMP code against A0–A7. | Exact packages, symbols, protocols, tests, limitations, and extension points mapped to each capability. |
-| `WAIT` | `P1-RSCH-11` | Audit Orca code against A0–A7. | Exact orchestration, task/attempt, relay, artifact, process, recovery, and UI code mapped to each capability. |
-| `WAIT` | `P1-RSCH-12` | Build combined capability-to-code map. | Each capability is classified reuse, adapt, pattern, replace, or missing with evidence. |
-| `WAIT` | `P1-RSCH-13` | Place Orca/OMP on maturity progression. | A0–A7 carry M0–M5 maturity, proven behavior, missing behavior, and next experiment. |
-| `WAIT` | `P1-RSCH-14` | Research strongest open-source gap fillers. | Missing capabilities have credible external candidates or explicit build rationale. |
-| `WAIT` | `P1-RSCH-15` | Select first integrated substrate slice. | Smallest slice exercises durable state + OMP worker + evidence + evaluator + correction under one repeatable fixture. |
-| `WAIT` | `P1-RSCH-16` | Update ADRs and executable experiment queue. | Research/code-audit findings change the roadmap without locking untested architecture. |
+| `DONE` | `P1-RSCH-07` | Research evaluation and self-correction. | Product-owned evaluator registry/coordinator, evaluator independence, typed measures/verdicts, fixed-contract correction, OMP/Orca reuse map, and ten experiments recorded. |
+| `DONE` | `P1-RSCH-08` | Research self-improvement and skill learning. | Product-owned improvement lab/registry, least-powerful-change ladder, quarantine/certification/shadow/canary/demotion contracts, OMP/Orca reuse map, external optimizer challengers, and ten experiments recorded. |
+| `DONE` | `P1-RSCH-09` | Research bounded action and recovery. | Product-owned effect protocol, capability/policy/identity/secret/sandbox contracts, explicit unknown reconciliation/compensation, OMP/Orca reuse map, and ten kill-point/security experiments recorded. |
+| `DONE` | `P1-RSCH-10` | Audit OMP code against A0–A7. | Pinned `v18.0.6` package/symbol/protocol/test map verifies A0–A7 maturity, limitations, product dispositions, extension seams, and installed `18.0.4` skew risk. |
+| `DONE` | `P1-RSCH-11` | Audit Orca code against A0–A7. | Current-source symbol/protocol/test map verifies durable terminal orchestration, capability/receipt/unknown/recovery, AI Vault/output archives, skill/artifact transactions, UI surfaces, and product-domain limits. |
+| `DONE` | `P1-RSCH-12` | Build combined capability-to-code map. | Verified A0–A7 map classifies each OMP/Orca component as reuse, adapt, pattern, replace, missing, or deferred and fixes final product ownership/dependency direction. |
+| `DONE` | `P1-RSCH-13` | Place Orca/OMP on maturity progression. | A0–A8 matrix separates high-maturity OMP/Orca edge mechanics from `M1` product-center capabilities, records proven/missing behavior, and names each next promotion experiment. |
+| `DONE` | `P1-RSCH-14` | Research strongest open-source gap fillers. | Product authority remains custom; DBOS and Inspect are Phase 2 challengers; memory/optimizer/policy/identity/sandbox candidates have explicit triggers; duplicate/maintenance-mode frameworks are not selected. |
+| `DONE` | `P1-RSCH-15` | Select first integrated substrate slice. | Slice S1 is scope-frozen around a six-row synthetic identity-key contradiction, two specialist assignments, deterministic critical/benign mutations, six hard evaluator measures, fixed-contract correction, 21 acceptance predicates, and crash/replay. |
+| `DONE` | `P1-RSCH-16` | Update ADRs and executable experiment queue. | Atlas ADR-H-024/025 record S1 and challenger posture; all 70 research experiments plus six lab/integration contracts are dependency-ordered; 52 deferrals were gate-reviewed without silent promotion. |
 
 ### `G1-RSCH` — Substrate understanding gate
 
@@ -250,6 +260,8 @@ Pass when:
 - strongest reuse/adapt/build alternatives are named;
 - the first integrated substrate POC slice and its evaluator are selected.
 
+**Gate status: `DONE`.** Every predicate above is evidenced by the linked research cards, exact OMP/Orca audits, combined code/maturity maps, gap-filler decisions, frozen S1 contract, deferred-register gate review, ADR register, and experiment queue. This closes understanding—not implementation proof.
+
 Failure route: `L-RSCH-01`.
 
 ---
@@ -260,16 +272,16 @@ Failure route: `L-RSCH-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P2-LAB-01` | Select prototype implementation location. | Repo/package boundaries and build commands chosen without disturbing Orca production code. |
+| `CURRENT` | `P2-LAB-01` | Select prototype implementation location. | Repo/package boundaries and build commands chosen without disturbing Orca production code. |
 | `WAIT` | `P2-LAB-02` | Select prototype language/runtime cuts. | Go/Bun/polyglot baseline accepted or revised after research. |
 | `WAIT` | `P2-LAB-03` | Create deterministic test clock and IDs. | Replays produce stable ordering, leases, and fault timing. |
 | `WAIT` | `P2-LAB-04` | Create fault-injection framework. | Named kill points cover database, process, network, object, evaluator, and target boundaries. |
 | `WAIT` | `P2-LAB-05` | Create run artifact format. | Every experiment writes config, seed, inputs, outputs, traces, metrics, verdict, and environment versions. |
-| `WAIT` | `P2-LAB-06` | Acquire licensed relational source fixture. | Exact revision, license, checksum, schema, and expected baseline recorded. |
-| `WAIT` | `P2-LAB-07` | Create CDC and schema-drift traces. | Snapshot, update, delete, late, amendment, DDL, restart, and checkpoint-loss cases exist. |
-| `WAIT` | `P2-LAB-08` | Create misleading customer artifacts. | Diagrams/docs contain known omissions and contradictions against fixture reality. |
-| `WAIT` | `P2-LAB-09` | Create seeded defect corpus. | Critical and benign schema, mapping, precision, identity, delete, and semantic mutations labeled. |
-| `WAIT` | `P2-LAB-10` | Create cross-tenant negative fixtures. | Context, memory, cache, artifact, tool, relay, and log leakage attempts exist. |
+| `WAIT` | `P2-LAB-06` | Create frozen S1 synthetic identity-key fixture. | Self-authored license, exact checksum/schema, six rows, expected single/composite key profile, and stable IDs are recorded. |
+| `WAIT` | `P2-LAB-07` | Create contradictory evidence and probe oracle. | Customer architecture claim, observed profile refutation, exact spans/digests, and deterministic `check_candidate_key` outputs exist. |
+| `WAIT` | `P2-LAB-08` | Create S1 critical and benign mutations. | Dropped composite-key scope is labeled critical; optional metadata/format changes are labeled benign; six evaluator measures have expected outcomes. |
+| `WAIT` | `P2-LAB-09` | Create S1 isolation and injection negatives. | Role scope, tenant, stale context, retrieved-instruction, candidate-memory non-use, and denied-input cases exist. |
+| `WAIT` | `P2-LAB-10` | Create pinned OMP worker-contract fixture. | OMP executable/protocol fingerprint, strict host tools/output schema, cancel/disconnect, transcript/artifact, and version-skew cases are specified. |
 | `WAIT` | `P2-LAB-11` | Create baseline non-agent implementation. | Simple scripts/manual baseline measure discovery, mapping, execution, and evaluation without apex intelligence. |
 | `WAIT` | `P2-LAB-12` | Implement experiment runner. | One command executes a fixture/seed, captures artifacts, and reports pass/fail thresholds. |
 
@@ -615,8 +627,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase | Gate | Current state |
 | --- | --- | --- |
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
-| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-07` |
-| Phase 2 — Lab | `G2-LAB` | `WAIT` |
+| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
+| Phase 2 — Lab | `G2-LAB` | `CURRENT` at `P2-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `WAIT` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
@@ -628,6 +640,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P1-RSCH-07`** — Research independent evaluation and closed self-correction.
-2. **`P1-RSCH-08`** — Research governed self-improvement and skill learning.
-3. **`P1-RSCH-09`** — Research bounded action, sandboxing, external effects, and recovery.
+1. **`P2-LAB-01`** — Select the isolated prototype package/workspace boundary.
+2. **`P2-LAB-02`** — Select the prototype language/runtime cut against S1 and challenger constraints.
+3. **`P2-LAB-03`** — Create deterministic test clock and IDs for reproducible non-model state.
