@@ -9,6 +9,7 @@
 - Installed OMP executable observed earlier: `18.0.4`
 - Audited Orca revision before this study artifact: `1c8cffdc984a496ea168aa028f08fe8134b917de`
 - Licenses: OMP MIT; Orca repository license remains governed by its own root license.
+- Completed research card: `docs/agentic-substrate-durable-state-research.md`
 
 The source checkout is intentionally not vendored or committed inside Orca. Only analysis and prototype code that we author belong in the tracked branch.
 
