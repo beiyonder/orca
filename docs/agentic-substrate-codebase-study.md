@@ -13,6 +13,7 @@
 - Completed research card: `docs/agentic-substrate-epistemic-state-research.md`
 - Completed research card: `docs/agentic-substrate-orchestration-research.md`
 - Completed research card: `docs/agentic-substrate-context-research.md`
+- Completed research card: `docs/agentic-substrate-memory-research.md`
 - Active scope register: `docs/agentic-substrate-s1-deferred-register.md`
 
 The source checkout is intentionally not vendored or committed inside Orca. Only analysis and prototype code that we author belong in the tracked branch.

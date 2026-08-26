@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P1-RSCH-06` — Research working, episodic, semantic, procedural, failure, and evaluation memory.**
+**`P1-RSCH-07` — Research independent evaluation and closed self-correction.**
 
 Current artifacts already exist:
 
@@ -13,6 +13,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-epistemic-state-research.md`
 - `docs/agentic-substrate-orchestration-research.md`
 - `docs/agentic-substrate-context-research.md`
+- `docs/agentic-substrate-memory-research.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
 The product and technical architecture are provisional pressure maps, not final specifications. The current move is to define what a top-tier stateful, evidence-seeking, self-correcting, self-improving agentic system must do; research how those capabilities are implemented; then audit Orca and OMP against that progression line before choosing the first substrate build slice.
@@ -226,8 +227,8 @@ Failure route: `L-ARCH-01`.
 | `DONE` | `P1-RSCH-03` | Research epistemic world models and gap resolution. | Event-sourced epistemic ledger, justification graph, evidence vector, contradiction/invalidation rules, probe ranking, abstention, reuse map, and seven experiments recorded. |
 | `DONE` | `P1-RSCH-04` | Research apex and specialist orchestration. | Durable typed blackboard, replaceable apex, product-owned assignments, deterministic reconciler, pattern comparison, OMP/Orca reuse map, and eight orchestration experiments recorded. |
 | `DONE` | `P1-RSCH-05` | Research context, retrieval, and live research. | Deterministic context compiler, manifest/trace/citation/live-research contracts, eligibility/ranking/packing/refresh rules, reuse map, and ten experiments recorded. |
-| `CURRENT` | `P1-RSCH-06` | Research long-term agent memory. | Working, episodic, semantic, procedural, failure, and evaluation memory implementations compared on help/harm and invalidation. |
-| `WAIT` | `P1-RSCH-07` | Research evaluation and self-correction. | Verifiers, process supervision, mutation tests, critics, search/refinement, external feedback, and closed correction loops compared. |
+| `DONE` | `P1-RSCH-06` | Research long-term agent memory. | Governed memory registry, canonical-owner taxonomy, candidate/version/use/consolidation/invalidation contracts, security model, OMP/Mnemopi/Hindsight reuse map, and ten experiments recorded. |
+| `CURRENT` | `P1-RSCH-07` | Research evaluation and self-correction. | Verifiers, process supervision, mutation tests, critics, search/refinement, external feedback, and closed correction loops compared. |
 | `WAIT` | `P1-RSCH-08` | Research self-improvement and skill learning. | Skill libraries, curriculum, prompt/tool/model optimization, held-out promotion, drift, demotion, and rollback compared. |
 | `WAIT` | `P1-RSCH-09` | Research bounded action and recovery. | Capability security, sandboxing, idempotency, receipts, external-effect reconciliation, and fault containment compared. |
 | `WAIT` | `P1-RSCH-10` | Audit OMP code against A0–A7. | Exact packages, symbols, protocols, tests, limitations, and extension points mapped to each capability. |
@@ -614,7 +615,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase | Gate | Current state |
 | --- | --- | --- |
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
-| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-06` |
+| Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `CURRENT` at `P1-RSCH-07` |
 | Phase 2 — Lab | `G2-LAB` | `WAIT` |
 | Phase 3 — Kernel | `G3-KERN` | `WAIT` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
@@ -627,6 +628,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P1-RSCH-06`** — Research working, episodic, semantic, procedural, failure, and evaluation memory.
-2. **`P1-RSCH-07`** — Research independent evaluation and closed self-correction.
-3. **`P1-RSCH-08`** — Research governed self-improvement and skill learning.
+1. **`P1-RSCH-07`** — Research independent evaluation and closed self-correction.
+2. **`P1-RSCH-08`** — Research governed self-improvement and skill learning.
+3. **`P1-RSCH-09`** — Research bounded action, sandboxing, external effects, and recovery.

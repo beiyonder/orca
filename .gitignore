@@ -102,6 +102,7 @@ docs/**
 !docs/agentic-substrate-epistemic-state-research.md
 !docs/agentic-substrate-orchestration-research.md
 !docs/agentic-substrate-context-research.md
+!docs/agentic-substrate-memory-research.md
 !docs/agentic-substrate-s1-deferred-register.md
 !docs/agent-skill-sharing-implementation-checklist.md
 !docs/agent-skill-sharing-installation-plan.md
