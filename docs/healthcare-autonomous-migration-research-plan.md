@@ -589,7 +589,7 @@ The playing-field map now exists:
 3. **Research landscape and decisions** — durable, epistemic, orchestration, context, memory, evaluation, improvement, bounded-action, and gap-filler cards.
 4. **Corpus/fixture plan** — architecture corpus plan plus the frozen six-row synthetic S1 identity-key fixture.
 5. **Atomic experiment backlog** — `docs/agentic-substrate-experiment-queue.md` contains all 70 research experiments plus six lab/integration contracts.
-6. **Architecture decision register** — the atlas contains 25 versioned decisions/hypotheses with evidence and reversal conditions.
+6. **Architecture decision register** — the atlas contains 27 versioned decisions/hypotheses with evidence and reversal conditions.
 7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These are research/design artifacts, not proof that the substrate works. `P2-LAB-01` selected the independent nested boundary `prototype/migration-control-plane/` and a stable cross-platform lab command without changing Orca’s root production workspace. `P2-LAB-02` now selects the runtime cut; deterministic clock/IDs, fault injection, run artifacts, the fixture, non-agent baseline, and experiment runner follow before agent or kernel optimization.
+These are research/design artifacts, not proof that the substrate works. Phase 2 now supplies the executable proof boundary: an isolated Node/TypeScript lab, deterministic IDs/time/faults, sealed run artifacts, a checksum-pinned synthetic fixture, calibrated mutations/negatives, a pinned OMP contract fixture, a passing non-agent baseline, and a one-command runner. `G2-LAB` is complete; `P3-KERN-01` now defines compiling domain contracts before real PostgreSQL migrations.

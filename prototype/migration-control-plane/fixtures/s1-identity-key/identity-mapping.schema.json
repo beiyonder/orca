@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:orca:prototype:s1:identity-mapping:v1",
+  "title": "S1 Identity Mapping",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schemaVersion",
+    "sourceEntity",
+    "targetEntity",
+    "sourceKey",
+    "evidenceRefs",
+    "decisionRef"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sourceEntity": { "const": "legacy_patient" },
+    "targetEntity": { "const": "patient" },
+    "sourceKey": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "decisionRef": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" }
+  }
+}

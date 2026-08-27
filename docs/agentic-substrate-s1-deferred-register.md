@@ -106,6 +106,17 @@ Review outcome:
 - S1 still performs no external target effect, memory recall, skill promotion, semantic LLM judging, connector/CDC work, production sandbox/identity/policy, or domain semantic pack;
 - next mandatory review is `G2-LAB`, and any earlier scope change must use the promotion procedure below.
 
+## `G2-LAB` gate review
+
+Review outcome:
+
+- all 52 deferred items were reviewed against the executable lab, fixture calibration, non-agent baseline, fault matrix, sealed artifacts, runtime decision, and `WORKER-EXP-01` limitation;
+- no item is promoted, dropped, or replaced at this gate;
+- the synthetic profile/probe does not promote real connectors, snapshot/CDC, healthcare semantics, or corpus breadth;
+- the private Node/TypeScript lab does not promote DBOS, Inspect, a memory backend, optimizer, OPA/SPIRE, a sandbox provider, remote relay, target effect, or production deployment cut;
+- `WORKER-EXP-01` remains inconclusive, so OMP internal tasks and live worker integration are not promoted into product authority;
+- next mandatory review is `G3-KERN`; any earlier scope change must use the promotion procedure below.
+
 ## Promotion procedure
 
 When a trigger fires:

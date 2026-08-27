@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "decision": {
+    "id": "decision_s1_identity_key",
+    "sourceKey": ["facility_id", "patient_num"],
+    "evidenceRefs": ["customer-architecture.md", "observed-key-profile.json"]
+  },
+  "probeResults": [
+    {
+      "columns": ["patient_num"],
+      "rowCount": 6,
+      "distinctCount": 5,
+      "nullCount": 0,
+      "unique": false,
+      "duplicates": [{ "values": ["P-100"], "rowIndexes": [0, 2] }]
+    },
+    {
+      "columns": ["facility_id", "patient_num"],
+      "rowCount": 6,
+      "distinctCount": 6,
+      "nullCount": 0,
+      "unique": true,
+      "duplicates": []
+    }
+  ],
+  "acceptedMapping": {
+    "schemaVersion": 1,
+    "sourceEntity": "legacy_patient",
+    "targetEntity": "patient",
+    "sourceKey": ["facility_id", "patient_num"],
+    "evidenceRefs": ["customer-architecture.md", "observed-key-profile.json"],
+    "decisionRef": "decision_s1_identity_key"
+  }
+}

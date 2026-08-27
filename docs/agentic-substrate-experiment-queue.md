@@ -6,14 +6,37 @@
 
 ## Current state
 
-- Queue schema: `SPECIFIED`.
-- Experiment runner: not implemented; owned by `P2-LAB-12`.
-- Physical lab root: `prototype/migration-control-plane/`; stable command entry: `node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`; runtime/scaffold selected by `P2-LAB-02`.
-- First dependency-ready roadmap coordinate: `P2-LAB-02`.
-- No experiment below is reported as run or passed.
+- Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
+- Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
+- Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
+- First dependency-ready roadmap coordinate: `P3-KERN-01`.
+- Only the `G2-LAB` evidence listed below is reported as run; all other experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
+
+## `G2-LAB` execution evidence
+
+Local sealed runs under ignored `.runs/`:
+
+| Experiment | Seed | Status | Run ID |
+| --- | ---: | --- | --- |
+| `BASELINE-EXP-01` | 204 | `passed` | `baseline-exp-01-204-baseline-none-run_000000_fac5e8ac236c1090` |
+| `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
+| `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
+| `WORKER-EXP-01` | 207 | `inconclusive` | `worker-exp-01-207-baseline-none-run_000000_980daf1e78f39ccb` |
+
+`WORKER-EXP-01` remains inconclusive by design: its P2 fixture is valid, but the real pinned OMP binary RPC/schema/cancel/artifact path has not run.
+
+Gate verification:
+
+- frozen setup passed;
+- formatting, lint, strict typecheck and build passed;
+- 6 test files / 22 tests passed;
+- same-seed outputs replay byte-for-byte;
+- all 14 named fault points preserve sealed inspectable failed runs;
+- artifact SHA-256 indexes detect modification;
+- non-agent baseline passes six hard mapping measures with zero model calls/effects.
 
 ## Queue classes
 
@@ -38,7 +61,7 @@ node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs e
   --output <run-directory>
 ```
 
-`P2-LAB-02` selects what runtime(s) the stable Node entry delegates to; the semantic arguments may not disappear.
+The stable Node entry delegates to the compiled TypeScript runner; future OMP/DBOS/Inspect arms remain separate processes and must preserve the semantic arguments.
 
 Every run directory must contain:
 
@@ -257,4 +280,4 @@ Every state change records:
 
 ## Next queue action
 
-Complete `P2-LAB-02`, then create deterministic IDs/clock, fault injection, and the run-artifact boundary required by `LAB-EXP-01` without adding a substrate framework to Orca production dependencies.
+Implement `P3-KERN-01` contracts, then execute the durable-state queue beginning with `DUR-EXP-01`; do not activate DBOS until the native PostgreSQL baseline exists.

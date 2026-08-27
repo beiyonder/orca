@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "s1-identity-key-v1",
+  "license": "MIT",
+  "dataClass": "synthetic-no-phi",
+  "createdBy": "Orca migration-control-plane prototype research",
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "sha256": "a77b07847bed8edcdc9a7b97d095afd37e0afb72899ac89ead3459d8c578cdca",
+      "bytes": 239
+    },
+    {
+      "path": "customer-architecture.md",
+      "sha256": "dee96459e3158aabb75dbddf27565fdf5296c3c759fe86c4b725515b317c072a",
+      "bytes": 410
+    },
+    {
+      "path": "observed-key-profile.json",
+      "sha256": "92dd8decb2d487d8c5b9bfc0d8430231755a0a0c1cd892e85bd0e906b01e81ef",
+      "bytes": 854
+    },
+    {
+      "path": "identity-mapping.schema.json",
+      "sha256": "6e6748e523fb83cf1ae0d43308e43f968da66c04b1f90d712457070d8df5d3fc",
+      "bytes": 894
+    },
+    {
+      "path": "expected-results.json",
+      "sha256": "c8f7e513ba00be891528a13be15f5a703c13ab9cdf1bf234797922b29d997507",
+      "bytes": 913
+    },
+    {
+      "path": "mutations.json",
+      "sha256": "897e0f83371f40f3ec0ac1a89d2a9d2efedd16e8b79f365a3b4da21019aa4adc",
+      "bytes": 542
+    },
+    {
+      "path": "negative-cases.json",
+      "sha256": "30e6eeb8a875afa5a39eb7d658d086bc7030e89bbae7bd3b244ca73f48e11930",
+      "bytes": 1539
+    },
+    {
+      "path": "omp-worker-contract.json",
+      "sha256": "ec6732ec28caa28a748ac2011140930c17c57da2ec80fa1ad87607fc56cea2dd",
+      "bytes": 1607
+    }
+  ]
+}

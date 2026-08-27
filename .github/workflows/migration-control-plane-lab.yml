@@ -1,0 +1,69 @@
+name: Migration Control Plane Lab
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths:
+      - 'prototype/migration-control-plane/**'
+      - '.github/workflows/migration-control-plane-lab.yml'
+
+concurrency:
+  group: migration-control-plane-lab-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    defaults:
+      run:
+        working-directory: prototype/migration-control-plane
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: '10.24.0'
+          run_install: false
+
+      - name: Install isolated dependencies
+        run: node scripts/migration-control-plane-lab.mjs setup
+
+      - name: Verify lab
+        run: node scripts/migration-control-plane-lab.mjs verify
+
+      - name: Run deterministic baseline
+        run: node scripts/migration-control-plane-lab.mjs experiment run --experiment BASELINE-EXP-01 --seed 1 --arm baseline --fault none --output .runs/ci
+
+      - name: Upload failed run evidence
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: migration-control-plane-lab-${{ matrix.os }}
+          path: prototype/migration-control-plane/.runs/
+          if-no-files-found: ignore
+          retention-days: 7

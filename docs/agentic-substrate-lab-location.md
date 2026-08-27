@@ -14,7 +14,7 @@ prototype/migration-control-plane/
 
 Treat it as an **independent nested build/dependency boundary**, analogous to the repository’s independently installed `mobile/` workspace, not as a member of Orca’s root pnpm workspace.
 
-No scaffold or dependency is added in this coordinate. `P2-LAB-02` selects the implementation runtime, then creates the boundary under the rules below.
+`P2-LAB-01` deliberately added no scaffold. The completed Phase 2 work then selected Node 24+/strict TypeScript, created the private boundary, and verified it without changing Orca production packages.
 
 ## Hard constraints
 
@@ -22,7 +22,7 @@ No scaffold or dependency is added in this coordinate. `P2-LAB-02` selects the i
 - Orca desktop production source, bundles, root typecheck, root test discovery, root lockfile, and root dependency graph remain unchanged.
 - Root `pnpm-workspace.yaml` stays `packages: []`; its comment explicitly preserves a single-project desktop install and excludes the independent `mobile/` workspace.
 - The prototype is committed and versioned with the research, S1 fixture, OMP/Orca adapters, and experiment evidence.
-- The lab can choose Bun/TypeScript, Go, or a measured polyglot cut in `P2-LAB-02` without moving directories.
+- The lab uses Node 24+ with strict TypeScript; OMP remains a Bun child process, while Go/Python remain future measured service/challenger cuts.
 - Commands are cross-platform and shell-independent; they must work on macOS, Linux, Windows, WSL, and SSH environments supported by Orca.
 - No production module imports lab code.
 - Baseline lab code does not import private Orca `src/**` modules. Reuse occurs through pinned protocols/process boundaries or a separately extracted stable package after an explicit decision.
@@ -89,23 +89,21 @@ It names the actual domain boundary. `agentic-lab`, `platform`, `core`, `helpers
 
 # Selected boundary
 
-## Proposed tracked layout
+## Implemented tracked layout
 
-Created after `P2-LAB-02` selects runtime:
+Phase 2 created:
 
 ```text
 prototype/migration-control-plane/
-├── package/build manifest(s) selected by P2-LAB-02
-├── dependency lockfile(s)
+├── package.json / pnpm-workspace.yaml / pnpm-lock.yaml
+├── tsconfig.json / tsconfig.build.json / vitest.config.ts
+├── .oxlintrc.json / .oxfmtrc.json / .gitignore
 ├── scripts/
 │   └── migration-control-plane-lab.mjs
 ├── src/
 ├── test/
 ├── fixtures/
 │   └── s1-identity-key/
-├── migrations/
-├── experiment-specs/
-├── .gitignore
 └── .runs/                         # generated, ignored
 ```
 
@@ -132,7 +130,7 @@ It does not:
 - ship in Electron/Vite/native release output;
 - publish a package.
 
-If `P2-LAB-02` selects Bun/TypeScript, the lab receives its own private `package.json`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`, using exact versions compatible with the selected runtime. If Go is selected, it receives its own `go.mod`/`go.sum`. A polyglot cut keeps one top-level command entry and separate subordinate lock/module files.
+The lab has its own private Node/TypeScript `package.json`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`. It currently has no runtime dependencies; its five development tools are isolated from Orca root. Future Go or Python challenger processes require separate subordinate module/lock files and cannot become baseline imports.
 
 ## Import boundary
 
@@ -254,16 +252,16 @@ If S1 fails or architecture reverses, deleting `prototype/migration-control-plan
 
 ---
 
-# Cheapest verification
+# Boundary verification outcome
 
-`P2-LAB-02` must prove the boundary before substantive code:
+`P2-LAB-02` through `P2-LAB-12` proved:
 
-1. create the minimum manifest/lock/config and stable command entry for each serious runtime candidate;
-2. run `setup`, `build`, `typecheck`, `test`, and `verify` from a clean checkout;
-3. confirm root `package.json`, root lockfile, root workspace, root typecheck/test/build inputs, and Electron output do not change;
-4. confirm commands run through native, WSL/SSH path handling without hardcoded separators;
-5. delete candidate scaffold cleanly and confirm no root residue;
-6. choose the smallest runtime cut that can support PostgreSQL, OMP RPC, deterministic faults and the S1 runner.
+1. one winning Node/TypeScript scaffold and stable command entry were created; no rejected runtime scaffold remains;
+2. frozen `setup`, `build`, `typecheck`, `test`, `verify`, and experiment commands pass;
+3. root `package.json`, lockfile, workspace, TypeScript/Vitest inputs, and Electron output remain outside the lab dependency/build graph;
+4. implementation uses Node argument arrays and path utilities rather than shell-only commands or hardcoded separators;
+5. generated dependencies/builds/runs are contained and ignored;
+6. deterministic PostgreSQL/OMP-ready contracts can proceed without adding a framework or SQLite substitute.
 
 ## Reversal condition
 
@@ -286,8 +284,8 @@ Selected:
 prototype/migration-control-plane/
 ```
 
-It is committed with Orca but isolated from Orca desktop production code, installs, builds, tests, bundles, and dependencies. One stable cross-platform command entry owns all lab operations. Runtime manifests and the first scaffold wait for `P2-LAB-02`.
+It is committed with Orca but isolated from Orca desktop production code, installs, builds, tests, bundles, and dependencies. The stable cross-platform command owns all lab operations; Node/TypeScript manifests, private lockfile, deterministic primitives, fixtures, evaluator baseline, runner, and CI now exist.
 
 ## Next coordinate
 
-`P2-LAB-02` — compare Bun/TypeScript, Go, and a minimal polyglot cut inside the selected boundary, then create the smallest clean scaffold and lockfile.
+`P3-KERN-01` — define compiling versioned product-domain contracts inside the verified lab.

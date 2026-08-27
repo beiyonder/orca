@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "s1-identity-key-v1",
+  "entity": "legacy_patient",
+  "observedAt": "2026-01-01T00:00:00.000Z",
+  "columns": ["facility_id", "patient_num"],
+  "rows": [
+    { "facility_id": "FAC-A", "patient_num": "P-100" },
+    { "facility_id": "FAC-A", "patient_num": "P-101" },
+    { "facility_id": "FAC-B", "patient_num": "P-100" },
+    { "facility_id": "FAC-B", "patient_num": "P-102" },
+    { "facility_id": "FAC-C", "patient_num": "P-103" },
+    { "facility_id": "FAC-C", "patient_num": "P-104" }
+  ],
+  "candidateKeys": [
+    {
+      "columns": ["patient_num"],
+      "distinctCount": 5,
+      "nullCount": 0,
+      "duplicates": [{ "values": ["P-100"], "rowIndexes": [0, 2] }]
+    },
+    {
+      "columns": ["facility_id", "patient_num"],
+      "distinctCount": 6,
+      "nullCount": 0,
+      "duplicates": []
+    }
+  ]
+}

@@ -25,6 +25,8 @@
 - Selected slice contract: `docs/agentic-substrate-s1-implementation-plan.md`
 - Executable experiment queue: `docs/agentic-substrate-experiment-queue.md`
 - Selected lab boundary: `docs/agentic-substrate-lab-location.md`
+- Selected runtime cut: `docs/agentic-substrate-runtime-cut.md`
+- Completed lab handoff: `docs/agentic-substrate-lab-handoff.md`
 - Active scope register: `docs/agentic-substrate-s1-deferred-register.md`
 
 The source checkout is intentionally not vendored or committed inside Orca. Only analysis and prototype code that we author belong in the tracked branch.
@@ -426,13 +428,13 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1 closeout and next coordinates
+## Phase 1 and Phase 2 closeout
 
-`P1-RSCH-01` through `P1-RSCH-16` are complete. Exact audits, combined placement, maturity, gap decisions, S1 contract, deferred register, and the 76-item experiment queue are linked in the study header.
+`P1-RSCH-01` through `P1-RSCH-16` and `P2-LAB-01` through `P2-LAB-12` are complete. The exact audits, combined placement, maturity, gap decisions, S1 contract, deferred register, 76-item queue, lab location/runtime decisions, and executable lab handoff are linked in the study header.
 
 Next:
 
-1. `P2-LAB-01` — complete: `prototype/migration-control-plane/` is the independent nested build/dependency boundary.
-2. `P2-LAB-02` — select Bun/TypeScript, Go, or the smallest justified polyglot cut, then create only the winning scaffold.
-3. `P2-LAB-03` through `P2-LAB-05` — establish deterministic IDs/clock, named fault injection, and immutable run artifacts.
-4. Pin the S1 fixture and non-agent baseline before implementing or optimizing agentic behavior.
+1. `P3-KERN-01` — define compiling versioned domain contracts before persistence.
+2. `P3-KERN-02` — implement real PostgreSQL migrations with empty/upgrade checksum convergence.
+3. `P3-KERN-03` through `P3-KERN-13` — prove idempotency, event/projection/outbox atomicity, attempts/fences, replay, restart reconciliation, and durable convergence.
+4. Keep `WORKER-EXP-01` inconclusive until the real pinned OMP binary contract is exercised; do not infer it from the fixture validator.

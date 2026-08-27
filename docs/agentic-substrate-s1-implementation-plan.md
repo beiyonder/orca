@@ -55,7 +55,7 @@ S1 includes:
 
 S1 excludes every item in `docs/agentic-substrate-s1-deferred-register.md` unless formally promoted through its trigger procedure.
 
-`P2-LAB-01` selected `prototype/migration-control-plane/` as an independent nested build/dependency boundary. The final runtime and scaffold remain the `P2-LAB-02` decision. This document freezes behavior and interfaces, not an untested language/service cut.
+Phase 2 implemented `prototype/migration-control-plane/` as an independent Node 24+/strict TypeScript lab with deterministic runtime/fault/artifact primitives, the frozen S1 fixture, a native deterministic evaluator baseline, and a one-command runner. This does not select the final production service language.
 
 ---
 
@@ -885,4 +885,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P2-LAB-02` — select the smallest runtime cut inside `prototype/migration-control-plane/`, then create the clean isolated scaffold and lockfile(s).
+`P3-KERN-01` — define compiling versioned product-domain contracts inside the verified lab before implementing PostgreSQL persistence.

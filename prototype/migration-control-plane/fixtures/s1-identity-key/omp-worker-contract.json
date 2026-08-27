@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "contractId": "s1-omp-worker-contract",
+  "requiredOmp": {
+    "version": "18.0.6",
+    "sourceCommit": "b4e8e856ad40294167679a3f88417c07429fe59b",
+    "protocolVersions": [1, 2],
+    "maxPhysicalFrameBytes": 1048576,
+    "maxReassembledFrameBytes": 67108864
+  },
+  "allowedHostTools": [
+    {
+      "name": "evidence_read",
+      "approval": "read",
+      "strict": true,
+      "purpose": "Read exact evidence IDs and spans admitted by the context manifest."
+    },
+    {
+      "name": "check_candidate_key",
+      "approval": "read",
+      "strict": true,
+      "purpose": "Run the deterministic key probe over the admitted synthetic profile."
+    },
+    {
+      "name": "artifact_write",
+      "approval": "write",
+      "strict": true,
+      "purpose": "Write one versioned candidate inside the assignment artifact directory."
+    }
+  ],
+  "forbiddenTools": ["bash", "web_search", "browser", "manage_skill", "learn"],
+  "output": {
+    "schemaMode": "strict",
+    "requiresAssignmentId": true,
+    "requiresAttemptId": true,
+    "requiresFence": true,
+    "requiresEvidenceRefs": true
+  },
+  "cancellation": {
+    "hostCancelRequired": true,
+    "disconnectDisposition": "attempt-unknown-until-reconciled",
+    "processExitImpliesAcceptance": false
+  },
+  "evidenceCapture": {
+    "providerSessionPinRequired": true,
+    "transcriptOrBoundedTerminalArchiveRequired": true,
+    "artifactDigestRequired": true
+  },
+  "versionSkewCases": [
+    { "observedVersion": "18.0.6", "expected": "compatible" },
+    { "observedVersion": "18.0.4", "expected": "reject-until-probed" }
+  ]
+}

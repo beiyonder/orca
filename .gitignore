@@ -114,6 +114,8 @@ docs/**
 !docs/agentic-substrate-s1-implementation-plan.md
 !docs/agentic-substrate-experiment-queue.md
 !docs/agentic-substrate-lab-location.md
+!docs/agentic-substrate-runtime-cut.md
+!docs/agentic-substrate-lab-handoff.md
 !docs/agentic-substrate-s1-deferred-register.md
 !docs/agent-skill-sharing-implementation-checklist.md
 !docs/agent-skill-sharing-installation-plan.md

@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P2-LAB-02` — Select the implementation language/runtime cut inside the isolated lab boundary.**
+**`P3-KERN-01` — Define compiling versioned domain contracts inside the isolated lab.**
 
 Current artifacts already exist:
 
@@ -25,9 +25,11 @@ Current artifacts already exist:
 - `docs/agentic-substrate-s1-implementation-plan.md`
 - `docs/agentic-substrate-experiment-queue.md`
 - `docs/agentic-substrate-lab-location.md`
+- `docs/agentic-substrate-runtime-cut.md`
+- `docs/agentic-substrate-lab-handoff.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 1 established the provisional substrate and S1 contract. `P2-LAB-01` selected `prototype/migration-control-plane/` as an independent nested build/dependency boundary with a stable cross-platform lab command and no Orca production imports. The current move is to choose the smallest Bun/TypeScript, Go, or polyglot runtime cut before creating the scaffold.
+Phase 2 built and verified the isolated Node/TypeScript lab at `prototype/migration-control-plane/`: deterministic runtime, named faults, sealed run artifacts, synthetic fixture/oracle/mutations/negatives, pinned OMP contract fixture, non-agent baseline, one-command runner, and three-platform CI. The current move is to define the durable product domain contracts before persistence.
 
 ## How to use coordinates
 
@@ -274,17 +276,17 @@ Failure route: `L-RSCH-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P2-LAB-01` | Select prototype implementation location. | `prototype/migration-control-plane/` is selected as an independent nested build/dependency boundary; root production workspace/lock/build remain untouched; stable setup/build/typecheck/test/verify/experiment command semantics are fixed. |
-| `CURRENT` | `P2-LAB-02` | Select prototype language/runtime cuts. | Go/Bun/polyglot baseline accepted or revised after research. |
-| `WAIT` | `P2-LAB-03` | Create deterministic test clock and IDs. | Replays produce stable ordering, leases, and fault timing. |
-| `WAIT` | `P2-LAB-04` | Create fault-injection framework. | Named kill points cover database, process, network, object, evaluator, and target boundaries. |
-| `WAIT` | `P2-LAB-05` | Create run artifact format. | Every experiment writes config, seed, inputs, outputs, traces, metrics, verdict, and environment versions. |
-| `WAIT` | `P2-LAB-06` | Create frozen S1 synthetic identity-key fixture. | Self-authored license, exact checksum/schema, six rows, expected single/composite key profile, and stable IDs are recorded. |
-| `WAIT` | `P2-LAB-07` | Create contradictory evidence and probe oracle. | Customer architecture claim, observed profile refutation, exact spans/digests, and deterministic `check_candidate_key` outputs exist. |
-| `WAIT` | `P2-LAB-08` | Create S1 critical and benign mutations. | Dropped composite-key scope is labeled critical; optional metadata/format changes are labeled benign; six evaluator measures have expected outcomes. |
-| `WAIT` | `P2-LAB-09` | Create S1 isolation and injection negatives. | Role scope, tenant, stale context, retrieved-instruction, candidate-memory non-use, and denied-input cases exist. |
-| `WAIT` | `P2-LAB-10` | Create pinned OMP worker-contract fixture. | OMP executable/protocol fingerprint, strict host tools/output schema, cancel/disconnect, transcript/artifact, and version-skew cases are specified. |
-| `WAIT` | `P2-LAB-11` | Create baseline non-agent implementation. | Simple scripts/manual baseline measure discovery, mapping, execution, and evaluation without apex intelligence. |
-| `WAIT` | `P2-LAB-12` | Implement experiment runner. | One command executes a fixture/seed, captures artifacts, and reports pass/fail thresholds. |
+| `DONE` | `P2-LAB-02` | Select prototype language/runtime cuts. | Node 24+ with strict TypeScript is selected for the lab/control baseline; OMP remains an external Bun process; Go/Python remain measured service/challenger options. |
+| `DONE` | `P2-LAB-03` | Create deterministic test clock and IDs. | Seeded SHA-256 IDs, explicit clock/tick/event ordering, golden replay, distinct-seed and invalid-input tests pass. |
+| `DONE` | `P2-LAB-04` | Create fault-injection framework. | Fourteen named points cover database, process, network, object, evaluator, target, memory, and mission; every point produces inspectable failure artifacts. |
+| `DONE` | `P2-LAB-05` | Create run artifact format. | Pending-to-final publication, exclusive/path-contained writes, canonical JSON, environment/config/events/metrics/verdict/usage, SHA-256 index, and tamper detection pass. |
+| `DONE` | `P2-LAB-06` | Create frozen S1 synthetic identity-key fixture. | MIT/no-PHI provenance, exact eight-file byte/SHA-256 manifest, six rows, schema, expected results, and deterministic IDs validate. |
+| `DONE` | `P2-LAB-07` | Create contradictory evidence and probe oracle. | Stale customer claim, observed duplicate refutation, and deterministic single/composite key probes reproduce `5/6` and `6/6` outcomes. |
+| `DONE` | `P2-LAB-08` | Create S1 critical and benign mutations. | Dropped facility scope fails `decision_alignment`/`source_key_unique`; optional description mutation passes all six measures. |
+| `DONE` | `P2-LAB-09` | Create S1 isolation and injection negatives. | Six role/tenant/stale/injection/quarantined-memory/denied-input cases produce exact deterministic dispositions. |
+| `DONE` | `P2-LAB-10` | Create pinned OMP worker-contract fixture. | OMP 18.0.6/source commit/RPC/frame/tool/schema/cancel/archive/skew contract validates; real binary exercise remains explicitly inconclusive. |
+| `DONE` | `P2-LAB-11` | Create baseline non-agent implementation. | Deterministic baseline selects the smallest observed unique composite key with zero model/effect calls and passes six hard evaluator measures. |
+| `DONE` | `P2-LAB-12` | Implement experiment runner. | Stable setup/build/typecheck/test/verify/experiment command validates strict CLI inputs and writes sealed reproducible pass/fail/inconclusive runs. |
 
 ### `G2-LAB` — Reproducible laboratory gate
 
@@ -296,6 +298,8 @@ Pass when:
 - every fault point produces an inspectable artifact;
 - baselines exist before agent optimization begins.
 
+**Gate status: `DONE`.** Frozen setup succeeds; fixture licenses/checksums validate; same-seed non-model artifacts replay byte-for-byte; all 14 fault points preserve sealed inspectable failures; the non-agent baseline passes before agent optimization. Verification: 6 test files / 22 tests, formatting, lint, strict typecheck, build, and sealed `LAB-EXP-01`, `S1-FIXTURE-EXP-01`, and `BASELINE-EXP-01` runs.
+
 Failure route: `L-LAB-01`.
 
 ---
@@ -306,7 +310,7 @@ Failure route: `L-LAB-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P3-KERN-01` | Define versioned domain contracts. | Mission, evidence, gap, decision, plan, task, attempt, effect, evaluation, and learning schemas compile. |
+| `CURRENT` | `P3-KERN-01` | Define versioned domain contracts. | Mission, evidence, gap, decision, plan, task, attempt, effect, evaluation, and learning schemas compile. |
 | `WAIT` | `P3-KERN-02` | Implement database migrations. | Empty and upgraded databases converge to the same schema with checksums. |
 | `WAIT` | `P3-KERN-03` | Implement command idempotency. | Duplicate identical commands replay result; mismatched payload reuse is rejected. |
 | `WAIT` | `P3-KERN-04` | Implement aggregate event append. | Expected-version transaction rejects concurrent conflicting updates. |
@@ -629,8 +633,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | --- | --- | --- |
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
-| Phase 2 — Lab | `G2-LAB` | `CURRENT` at `P2-LAB-02` |
-| Phase 3 — Kernel | `G3-KERN` | `WAIT` |
+| Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
+| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
@@ -641,6 +645,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P2-LAB-02`** — Select the smallest runtime cut and create the clean isolated scaffold.
-2. **`P2-LAB-03`** — Create deterministic test clock and IDs for reproducible non-model state.
-3. **`P2-LAB-04`** — Create named fault-injection boundaries for the S1 kill matrix.
+1. **`P3-KERN-01`** — Define compiling versioned mission, evidence, plan, assignment, evaluation, learning, and future-effect contracts.
+2. **`P3-KERN-02`** — Implement real PostgreSQL migrations with empty/upgrade checksum convergence.
+3. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
