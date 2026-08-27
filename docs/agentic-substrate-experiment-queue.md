@@ -8,8 +8,8 @@
 
 - Queue schema: `SPECIFIED`.
 - Experiment runner: not implemented; owned by `P2-LAB-12`.
-- Physical package/runtime/command: selected by `P2-LAB-01` and `P2-LAB-02`.
-- First dependency-ready roadmap coordinate: `P2-LAB-01`.
+- Physical lab root: `prototype/migration-control-plane/`; stable command entry: `node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`; runtime/scaffold selected by `P2-LAB-02`.
+- First dependency-ready roadmap coordinate: `P2-LAB-02`.
 - No experiment below is reported as run or passed.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
@@ -27,10 +27,10 @@ This queue contains all 70 experiments defined by the eight Phase 1 research car
 
 ## Execution contract
 
-The Phase 2 runner must support an equivalent of:
+The Phase 2 runner must use:
 
 ```text
-<prototype-runner> run \
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs experiment run \
   --experiment <ID> \
   --seed <integer> \
   --arm <baseline|candidate> \
@@ -38,7 +38,7 @@ The Phase 2 runner must support an equivalent of:
   --output <run-directory>
 ```
 
-The executable name may change in `P2-LAB-01/02`; the semantic arguments may not disappear.
+`P2-LAB-02` selects what runtime(s) the stable Node entry delegates to; the semantic arguments may not disappear.
 
 Every run directory must contain:
 
@@ -257,4 +257,4 @@ Every state change records:
 
 ## Next queue action
 
-Complete `P2-LAB-01` and `P2-LAB-02`, then implement the runner/artifact boundary required by `LAB-EXP-01` without adding a substrate framework dependency.
+Complete `P2-LAB-02`, then create deterministic IDs/clock, fault injection, and the run-artifact boundary required by `LAB-EXP-01` without adding a substrate framework to Orca production dependencies.

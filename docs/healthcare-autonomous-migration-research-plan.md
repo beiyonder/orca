@@ -592,4 +592,4 @@ The playing-field map now exists:
 6. **Architecture decision register** — the atlas contains 25 versioned decisions/hypotheses with evidence and reversal conditions.
 7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These are research/design artifacts, not proof that the substrate works. `P2-LAB-01` now selects an isolated package boundary; `P2-LAB-02` selects the runtime cut; deterministic clock/IDs, fault injection, run artifacts, the fixture, non-agent baseline, and one-command runner follow before agent or kernel optimization.
+These are research/design artifacts, not proof that the substrate works. `P2-LAB-01` selected the independent nested boundary `prototype/migration-control-plane/` and a stable cross-platform lab command without changing Orca’s root production workspace. `P2-LAB-02` now selects the runtime cut; deterministic clock/IDs, fault injection, run artifacts, the fixture, non-agent baseline, and experiment runner follow before agent or kernel optimization.

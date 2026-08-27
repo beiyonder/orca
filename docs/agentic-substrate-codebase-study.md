@@ -24,6 +24,7 @@
 - Gap-filler decisions: `docs/agentic-substrate-gap-filler-decisions.md`
 - Selected slice contract: `docs/agentic-substrate-s1-implementation-plan.md`
 - Executable experiment queue: `docs/agentic-substrate-experiment-queue.md`
+- Selected lab boundary: `docs/agentic-substrate-lab-location.md`
 - Active scope register: `docs/agentic-substrate-s1-deferred-register.md`
 
 The source checkout is intentionally not vendored or committed inside Orca. Only analysis and prototype code that we author belong in the tracked branch.
@@ -431,7 +432,7 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P2-LAB-01` — select an isolated prototype package/workspace boundary without disturbing Orca production code.
-2. `P2-LAB-02` — select the implementation language/runtime cut against S1 and challenger constraints.
+1. `P2-LAB-01` — complete: `prototype/migration-control-plane/` is the independent nested build/dependency boundary.
+2. `P2-LAB-02` — select Bun/TypeScript, Go, or the smallest justified polyglot cut, then create only the winning scaffold.
 3. `P2-LAB-03` through `P2-LAB-05` — establish deterministic IDs/clock, named fault injection, and immutable run artifacts.
 4. Pin the S1 fixture and non-agent baseline before implementing or optimizing agentic behavior.

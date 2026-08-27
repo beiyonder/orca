@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P2-LAB-01` — Select the isolated prototype package/workspace boundary.**
+**`P2-LAB-02` — Select the implementation language/runtime cut inside the isolated lab boundary.**
 
 Current artifacts already exist:
 
@@ -24,9 +24,10 @@ Current artifacts already exist:
 - `docs/agentic-substrate-gap-filler-decisions.md`
 - `docs/agentic-substrate-s1-implementation-plan.md`
 - `docs/agentic-substrate-experiment-queue.md`
+- `docs/agentic-substrate-lab-location.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 1 established provisional A0–A7 contracts, research, exact Orca/OMP placement, maturity, gap decisions, a scope-frozen S1 slice, 52 reviewed deferrals, 25 ADRs, and a 76-item experiment queue. The current move is to create a reproducible isolated lab before implementing substrate behavior.
+Phase 1 established the provisional substrate and S1 contract. `P2-LAB-01` selected `prototype/migration-control-plane/` as an independent nested build/dependency boundary with a stable cross-platform lab command and no Orca production imports. The current move is to choose the smallest Bun/TypeScript, Go, or polyglot runtime cut before creating the scaffold.
 
 ## How to use coordinates
 
@@ -272,8 +273,8 @@ Failure route: `L-RSCH-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `CURRENT` | `P2-LAB-01` | Select prototype implementation location. | Repo/package boundaries and build commands chosen without disturbing Orca production code. |
-| `WAIT` | `P2-LAB-02` | Select prototype language/runtime cuts. | Go/Bun/polyglot baseline accepted or revised after research. |
+| `DONE` | `P2-LAB-01` | Select prototype implementation location. | `prototype/migration-control-plane/` is selected as an independent nested build/dependency boundary; root production workspace/lock/build remain untouched; stable setup/build/typecheck/test/verify/experiment command semantics are fixed. |
+| `CURRENT` | `P2-LAB-02` | Select prototype language/runtime cuts. | Go/Bun/polyglot baseline accepted or revised after research. |
 | `WAIT` | `P2-LAB-03` | Create deterministic test clock and IDs. | Replays produce stable ordering, leases, and fault timing. |
 | `WAIT` | `P2-LAB-04` | Create fault-injection framework. | Named kill points cover database, process, network, object, evaluator, and target boundaries. |
 | `WAIT` | `P2-LAB-05` | Create run artifact format. | Every experiment writes config, seed, inputs, outputs, traces, metrics, verdict, and environment versions. |
@@ -628,7 +629,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | --- | --- | --- |
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
-| Phase 2 — Lab | `G2-LAB` | `CURRENT` at `P2-LAB-01` |
+| Phase 2 — Lab | `G2-LAB` | `CURRENT` at `P2-LAB-02` |
 | Phase 3 — Kernel | `G3-KERN` | `WAIT` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
@@ -640,6 +641,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P2-LAB-01`** — Select the isolated prototype package/workspace boundary.
-2. **`P2-LAB-02`** — Select the prototype language/runtime cut against S1 and challenger constraints.
-3. **`P2-LAB-03`** — Create deterministic test clock and IDs for reproducible non-model state.
+1. **`P2-LAB-02`** — Select the smallest runtime cut and create the clean isolated scaffold.
+2. **`P2-LAB-03`** — Create deterministic test clock and IDs for reproducible non-model state.
+3. **`P2-LAB-04`** — Create named fault-injection boundaries for the S1 kill matrix.

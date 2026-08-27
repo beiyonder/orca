@@ -55,7 +55,7 @@ S1 includes:
 
 S1 excludes every item in `docs/agentic-substrate-s1-deferred-register.md` unless formally promoted through its trigger procedure.
 
-Physical package location and final runtime cut remain `P2-LAB-01` and `P2-LAB-02` decisions. This document freezes behavior and interfaces, not an untested directory/language choice.
+`P2-LAB-01` selected `prototype/migration-control-plane/` as an independent nested build/dependency boundary. The final runtime and scaffold remain the `P2-LAB-02` decision. This document freezes behavior and interfaces, not an untested language/service cut.
 
 ---
 
@@ -885,4 +885,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P1-RSCH-16` — update ADRs, deferred decisions, phase gate and executable experiment queue; advance the roadmap to `P2-LAB-01`.
+`P2-LAB-02` — select the smallest runtime cut inside `prototype/migration-control-plane/`, then create the clean isolated scaffold and lockfile(s).
