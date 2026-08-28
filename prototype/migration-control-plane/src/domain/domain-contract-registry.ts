@@ -38,6 +38,13 @@ import {
   EvaluatorDefinitionV1Schema
 } from './evaluation-contracts.js'
 import {
+  CorpusChunkV1Schema,
+  CorpusEntityV1Schema,
+  CorpusParseVersionV1Schema,
+  CorpusRelationV1Schema,
+  CorpusSourceManifestV1Schema
+} from './knowledge-contracts.js'
+import {
   CapabilityManifestV1Schema,
   CapabilityUseV1Schema,
   CertificationResultV1Schema,
@@ -68,6 +75,11 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'contradiction-set.v1': ContradictionSetV1Schema,
   'correction-request.v1': CorrectionRequestV1Schema,
   'correction-result.v1': CorrectionResultV1Schema,
+  'corpus-chunk.v1': CorpusChunkV1Schema,
+  'corpus-entity.v1': CorpusEntityV1Schema,
+  'corpus-parse-version.v1': CorpusParseVersionV1Schema,
+  'corpus-relation.v1': CorpusRelationV1Schema,
+  'corpus-source-manifest.v1': CorpusSourceManifestV1Schema,
   'decision-record.v1': DecisionRecordV1Schema,
   'drift-signal.v1': DriftSignalV1Schema,
   'effect-attempt.v1': EffectAttemptV1Schema,

@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P5-KNOW-01`.
-- `G2-LAB`, Phase 3, and all `P4-AGNT-01` through `P4-AGNT-13` evidence are complete; Phase 5 corpus/knowledge experiments are next.
+- First dependency-ready roadmap coordinate: `P5-KNOW-04`.
+- `G2-LAB`, Phase 3, Phase 4, and `P5-KNOW-01` through `P5-KNOW-03` evidence are complete; retrieval channels are next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -132,6 +132,17 @@ Gate verification:
 - `EXP-10` run `exp-10-3040f76381e7a97eaa2d` passes all eleven measures with report digest `bb4343a2…a73482d`; imported `WORKER-EXP-01` seed 417 passes both contract and binary measures;
 - `EXP-05` seed 413 passes 15/15 resolvable choices, 20/20 citation coverage, and 5/5 explicit true ties;
 - all three sealed run indexes verify; complete lab verification is 21 files / 118 tests; no OMP or fixture child remains.
+
+## `P5-KNOW-01` through `P5-KNOW-03` corpus foundation evidence
+
+- five strict V1 contracts cover source manifests, parse versions, chunks, entities, and relations; the generated registry expands from 41 to 46 schemas;
+- source manifests bind tenant/visibility, source class, owner, permission/license, canonical URI, exact source/version, SHA-256 object URI/bytes, data class, applicability, observed/published times, freshness, retention, limitations, and predecessor;
+- private content-addressed storage preserves original and parsed bytes with 64 MiB bounds, 0400 files, 0700 directories, idempotent identical replay, restart reconstruction, exact digest/byte validation, and path/symlink/hard-link rejection;
+- parse admission requires the exact source manifest/version/digest; chunk ordinal/content/span/applicability, entity provenance, and relation endpoints/provenance all fail closed on drift;
+- deterministic catalog queries return documents/data profiles, entities, edges, current-version selection, applicability, and complete source→parse→chunk provenance;
+- migration 006 binds all 46 generated contract digests, updates registry digest `cf9dadff…841947`, and prevents update/delete of persisted corpus domain rows;
+- PostgreSQL fingerprint is `4895a52248479b57d340faa725866bba81ec8fb58d2afa28d754ea4966b30dac`; 6 migrations / 17 tables;
+- complete verification passes 22 unit files / 127 tests and 10 PostgreSQL files / 34 tests.
 
 ## Queue classes
 
@@ -385,4 +396,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P5-KNOW-01` governed corpus manifests; every source needs immutable owner/license/version/checksum/data-class/scope/freshness authority before ingestion or retrieval.
+Begin `P5-KNOW-04` lexical retrieval; exact/structured matches and transparent lexical scores must return current cited spans before any semantic or graph channel can contribute.

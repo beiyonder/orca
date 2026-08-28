@@ -4,7 +4,7 @@ import { canonicalJson, sha256Text } from '../canonical-json.js'
 export type PostgresDomainRecordInput = {
   tenantId: string
   recordId: string
-  missionId: string
+  missionId: string | null
   schemaName: string
   recordKind: string
   recordState: string | null

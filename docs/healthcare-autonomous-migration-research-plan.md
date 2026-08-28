@@ -589,7 +589,7 @@ The playing-field map now exists:
 3. **Research landscape and decisions** — durable, epistemic, orchestration, context, memory, evaluation, improvement, bounded-action, and gap-filler cards.
 4. **Corpus/fixture plan** — architecture corpus plan plus the frozen six-row synthetic S1 identity-key fixture.
 5. **Atomic experiment backlog** — `docs/agentic-substrate-experiment-queue.md` contains all 70 research experiments plus six lab/integration contracts.
-6. **Architecture decision register** — the atlas contains 36 versioned decisions/hypotheses with evidence and reversal conditions.
+6. **Architecture decision register** — the atlas contains 37 versioned decisions/hypotheses with evidence and reversal conditions.
 7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These are research/design artifacts plus bounded implementation evidence—not proof that the complete substrate works. Phase 3 and `G4-AGNT` now pass: `P4-AGNT-01` through `P4-AGNT-13` prove bounded isolated/framed OMP execution, exact context/result/tool authority, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, real pinned-binary containment, and the 20-case `EXP-05` threshold. `P5-KNOW-01` is current: govern every corpus source before ingestion or retrieval.
+These are research/design artifacts plus bounded implementation evidence—not proof that the complete substrate works. Phase 3 and `G4-AGNT` pass. `P5-KNOW-01` through `P5-KNOW-03` now provide five governed corpus contracts, immutable content-addressed original/parse storage, complete chunk/entity/relation provenance, and PostgreSQL-bound contract persistence. `P5-KNOW-04` is current: prove current cited lexical retrieval before semantic or graph channels contribute.
