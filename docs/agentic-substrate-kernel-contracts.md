@@ -276,17 +276,29 @@ node scripts/migration-control-plane-lab.mjs verify
 - Reapplication is inert, concurrent migrators serialize, and altered or gapped applied history is rejected.
 - PostgreSQL integration verification: 1 file / 4 tests; cross-platform lab verification remains 8 files / 46 tests.
 
+## P3-KERN-03 through P3-KERN-06 atomic persistence evidence
+
+- Canonical full-command SHA-256 identity—not only payload identity—is reserved under `(tenant_id, command_id)`.
+- Identical sequential/concurrent retries execute one handler and replay the exact committed or rejected result; mismatched payload or actor reuse fails.
+- Unknown handler failure rolls the reservation back; deterministic rejection rolls handler writes to a savepoint and commits the rejection.
+- Per-mission advisory and row locks enforce expected revision; one concurrent transition wins and one becomes a durable `version_conflict`.
+- Aggregate, append-only event, current mission projection, outbox message, and command outcome share one transaction.
+- Outbox failure and projection-position conflict tests prove no partial event/aggregate/projection state.
+- `FOR UPDATE SKIP LOCKED` outbox claims carry expiring leases and monotonic fences; stale acknowledgement fails, retry reclaims, and duplicate acknowledgement replays.
+- Inbox import serializes by tenant/consumer/message, executes its handler once, replays one result, rejects payload mismatch, and rolls back handler failure.
+- PostgreSQL integration verification: 4 files / 19 tests.
+
 ---
 
 # Intentional limits
 
-- PostgreSQL tables and migrations now exist; command handlers, event append, projection mutation, delivery claims, leases, and reconciliation do not.
-- Cross-record referential integrity now covers durable table ownership keys; semantic references still require repositories and guarded transactions.
-- Command/event payload envelope binds schema/digest, while command-specific handler schemas arrive with command implementation.
+- Contracts, migrations, command idempotency, mission event append/projection/outbox transactions, and outbox/inbox delivery now exist.
+- Plan DAG admission, task/attempt authority, attempt fencing, effect transitions, replay/rebuild, and restart reconciliation do not.
+- Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
 - Effect contracts preserve future state/authority vocabulary; no target effect is executable.
 - Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
 - `WORKER-EXP-01` remains inconclusive until a real pinned OMP binary is exercised.
 
 ## Next coordinate
 
-`P3-KERN-03` — implement command idempotency so an identical retry replays the stored outcome and payload mismatch under the same command ID is rejected.
+`P3-KERN-07` — reject cyclic, incomplete, contract-incompatible, or unrecoverable immutable plan DAG revisions before persistence.

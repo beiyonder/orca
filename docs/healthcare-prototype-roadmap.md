@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P3-KERN-03` — Implement command idempotency over the PostgreSQL authority boundary.**
+**`P3-KERN-07` — Validate immutable plan DAG revisions before task execution.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 2 established the reproducible lab. `P3-KERN-01` added the strict 41-schema V1 registry. `P3-KERN-02` now adds three checksum-locked PostgreSQL 16 migrations, 16 constrained/indexed tables, an exact `pg 8.23.0` driver decision, advisory-locked transactional application, and schema fingerprint `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`; empty and staged-upgrade paths converge in real-server tests. The current move is command idempotency.
+Phase 2 established the reproducible lab. `P3-KERN-01/02` provide the strict 41-schema registry and convergent PostgreSQL 16 schema. `P3-KERN-03` through `P3-KERN-06` now provide full-command idempotency, expected-version aggregate append, atomic mission/event/projection/outbox commits, leased at-least-once outbox delivery, and transactionally deduplicated inbox import; 4 real-PostgreSQL files / 19 tests pass. The current move is plan DAG validation.
 
 ## How to use coordinates
 
@@ -313,11 +313,11 @@ Failure route: `L-LAB-01`.
 | --- | --- | --- | --- |
 | `DONE` | `P3-KERN-01` | Define versioned domain contracts. | Forty-one strict V1 Zod/runtime and deterministic Draft 2020-12 schemas compile; prefixed IDs, tenant/mission admission, authority/lineage invariants, 41 canonical samples, JSON registry digest, and 46-test verification pass. |
 | `DONE` | `P3-KERN-02` | Implement database migrations. | Three transactional checksum-locked migrations create 16 PostgreSQL 16 tables; empty and staged-upgrade paths converge to fingerprint `48406f18…8d82b74b`, concurrent runners serialize, reapply is inert, and altered or gapped history is rejected in four real-server tests. |
-| `CURRENT` | `P3-KERN-03` | Implement command idempotency. | Duplicate identical commands replay result; mismatched payload reuse is rejected. |
-| `WAIT` | `P3-KERN-04` | Implement aggregate event append. | Expected-version transaction rejects concurrent conflicting updates. |
-| `WAIT` | `P3-KERN-05` | Implement transactional projections. | Event, current projection, and outbox update atomically. |
-| `WAIT` | `P3-KERN-06` | Implement outbox and inbox. | At-least-once delivery and duplicate import preserve one logical outcome. |
-| `WAIT` | `P3-KERN-07` | Implement plan DAG validation. | Cycles, missing dependencies, incompatible contracts, and missing recovery rules are rejected. |
+| `DONE` | `P3-KERN-03` | Implement command idempotency. | Full canonical command identity is reserved transactionally; identical and concurrent retries execute once and replay committed/rejected results, while payload/full-input mismatch fails and indeterminate failures roll back in six tests. |
+| `DONE` | `P3-KERN-04` | Implement aggregate event append. | Per-mission advisory/row locking and expected revision admit one concurrent winner; stale rivals become durable deterministic rejections without duplicate events. |
+| `DONE` | `P3-KERN-05` | Implement transactional projections. | Command outcome, aggregate, append-only event, current projection, and outbox commit together; injected outbox/projection failures prove no partial state in four transition tests. |
+| `DONE` | `P3-KERN-06` | Implement outbox and inbox. | `SKIP LOCKED` claims, expiring leases/fences, stale-ack rejection, delayed retry, idempotent ack, advisory-locked inbox import, mismatch rejection, and handler rollback pass five delivery tests. |
+| `CURRENT` | `P3-KERN-07` | Implement plan DAG validation. | Cycles, missing dependencies, incompatible contracts, and missing recovery rules are rejected. |
 | `WAIT` | `P3-KERN-08` | Implement task and attempt lifecycle. | Pending, runnable, leased, running, evaluating, terminal, blocked, and quarantined transitions are guarded. |
 | `WAIT` | `P3-KERN-09` | Implement leases and fencing. | One authoritative attempt exists; stale attempt output cannot advance the task. |
 | `WAIT` | `P3-KERN-10` | Implement effect state machine. | Prepared, issued, applied, absent, unknown, failed, evaluating, accepted, and rejected states are explicit. |
@@ -635,7 +635,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
-| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-03` |
+| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-07` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
@@ -646,6 +646,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
-2. **`P3-KERN-04`** — Implement expected-version aggregate event append transactions.
-3. **`P3-KERN-05`** — Atomically commit event, projection, and outbox state.
+1. **`P3-KERN-07`** — Reject invalid immutable plan DAG revisions before persistence.
+2. **`P3-KERN-08`** — Guard task and attempt lifecycle transitions.
+3. **`P3-KERN-09`** — Prove lease ownership and stale-fence rejection.

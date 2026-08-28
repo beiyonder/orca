@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P3-KERN-03` — implement command idempotency over the selected PostgreSQL/`pg` boundary; keep OMP, DBOS, and Inspect behind the selected process/dependency boundaries.
+`P3-KERN-07` — validate immutable plan DAG revisions on the selected PostgreSQL/`pg` boundary; keep OMP, DBOS, and Inspect behind the selected process/dependency boundaries.

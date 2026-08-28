@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P3-KERN-03`.
-- `G2-LAB`, `P3-KERN-01` contract verification, and `P3-KERN-02` real PostgreSQL migration verification are complete; all other experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P3-KERN-07`.
+- `G2-LAB` and `P3-KERN-01` through `P3-KERN-06` verification are complete; durable plan/task/effect/recovery experiments and all later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -57,6 +57,16 @@ Gate verification:
 - empty and migration-001 upgrade paths converge to fingerprint `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`;
 - concurrent migrators serialize, reapplication is inert, and changed applied bytes fail;
 - real PostgreSQL integration verification passes 1 file / 4 tests.
+
+## `P3-KERN-03` through `P3-KERN-06` atomic persistence evidence
+
+- canonical full-command identity, sequential/concurrent replay, mismatch rejection, durable deterministic rejection, and retry after unknown failure;
+- advisory/row-locked expected-version append with one winner under contention;
+- one transaction owns command result, aggregate, event, projection, and outbox;
+- outbox/projection failure paths prove no partial authoritative transition;
+- `SKIP LOCKED` outbox claims, expiring leases/fences, stale acknowledgement rejection, delayed retry, and acknowledgement replay;
+- tenant/consumer/message inbox serialization with one handler outcome, payload mismatch rejection, and handler rollback;
+- real PostgreSQL verification passes 4 files / 19 tests.
 
 ## Queue classes
 
@@ -310,4 +320,4 @@ Every state change records:
 
 ## Next queue action
 
-Implement `P3-KERN-03` command idempotency with identical-result replay and mismatched-payload rejection before event append or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.
+Implement `P3-KERN-07` immutable plan DAG validation before task lifecycle work or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.
