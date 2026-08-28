@@ -15,6 +15,7 @@ export type AttemptAdvanceInput = {
   taskId: string
   attemptId: string
   fence: number
+  acceptedEvaluationResultIds?: string[]
   observedAt: string
   nextAttempt: unknown
   nextTask: unknown
@@ -31,5 +32,12 @@ export class StaleAttemptAuthorityError extends Error {
   constructor(taskId: string, attemptId: string, fence: number) {
     super(`Attempt is not authoritative for task ${taskId}: ${attemptId} fence ${fence}`)
     this.name = 'StaleAttemptAuthorityError'
+  }
+}
+
+export class MissingTaskEvaluationError extends Error {
+  constructor(taskId: string) {
+    super(`Task completion lacks current passing evaluation authority: ${taskId}`)
+    this.name = 'MissingTaskEvaluationError'
   }
 }

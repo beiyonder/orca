@@ -73,6 +73,7 @@ function outbox(id: string, eventId: string, revision: number): Record<string, u
 
 export async function createMissionFixture(pool: Pool): Promise<void> {
   const payload = { objective: 'Create the S1 mission.' }
+  const nextMission = mission(1)
   const input = command({
     id: 'command_create_mission',
     type: 'create-mission',
@@ -82,13 +83,13 @@ export async function createMissionFixture(pool: Pool): Promise<void> {
   })
   await executeIdempotentMissionCommand(pool, input, async (client, parsed) =>
     commitMissionTransition(client, parsed, {
-      mission: mission(1),
+      mission: nextMission,
       event: event({
         id: 'event_mission_created',
         commandId: parsed.id,
         revision: 1,
         type: 'mission-created',
-        payload
+        payload: { change: payload, mission: nextMission }
       }),
       outbox: outbox('message_mission_created', 'event_mission_created', 1)
     })
@@ -107,6 +108,7 @@ export async function advanceMissionFixture(
   const expectedRevision = options.expectedRevision ?? 1
   const nextRevision = options.nextRevision ?? expectedRevision + 1
   const payload = { evidenceId: `evidence_${options.suffix}` }
+  const nextMission = mission(nextRevision)
   const input = command({
     id: `command_${options.suffix}`,
     type: 'record-evidence',
@@ -116,13 +118,13 @@ export async function advanceMissionFixture(
   })
   return executeIdempotentMissionCommand(pool, input, async (client, parsed) =>
     commitMissionTransition(client, parsed, {
-      mission: mission(nextRevision),
+      mission: nextMission,
       event: event({
         id: `event_${options.suffix}`,
         commandId: parsed.id,
         revision: nextRevision,
         type: 'evidence-recorded',
-        payload
+        payload: { change: payload, mission: nextMission }
       }),
       outbox: outbox(
         options.outboxId ?? `message_${options.suffix}`,

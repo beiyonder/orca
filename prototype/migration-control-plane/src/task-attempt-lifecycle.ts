@@ -14,7 +14,7 @@ const TASK_TRANSITIONS: Readonly<Record<TaskStatus, readonly TaskStatus[]>> = {
   pending: ['runnable', 'blocked', 'cancelled', 'quarantined'],
   runnable: ['leased', 'blocked', 'cancelled', 'quarantined'],
   leased: ['running', 'runnable', 'failed', 'cancelled', 'quarantined'],
-  running: ['evaluating', 'failed', 'cancelled', 'quarantined'],
+  running: ['running', 'evaluating', 'failed', 'cancelled', 'quarantined'],
   evaluating: ['completed', 'failed', 'quarantined'],
   blocked: ['pending', 'cancelled', 'quarantined'],
   completed: [],

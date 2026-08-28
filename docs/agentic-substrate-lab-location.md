@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P3-KERN-11` — rebuild current PostgreSQL projections exactly from the event ledger.
+`P4-AGNT-01` — implement the bounded agent-gateway process supervisor inside the isolated lab.

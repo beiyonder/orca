@@ -1,6 +1,10 @@
 import type { Pool } from 'pg'
 import { afterEach, describe, expect, it } from 'vitest'
-import { StaleAttemptAuthorityError, TaskClaimConflictError } from '../src/attempt-authority.js'
+import {
+  MissingTaskEvaluationError,
+  StaleAttemptAuthorityError,
+  TaskClaimConflictError
+} from '../src/attempt-authority.js'
 import { advanceAuthoritativeAttempt } from '../src/database/postgres-attempt-advancement.js'
 import { claimTaskAttempt } from '../src/database/postgres-task-attempt-claim.js'
 import { DOMAIN_CONTRACT_SAMPLES } from './domain-contract-samples.js'
@@ -127,6 +131,97 @@ describe.sequential('PostgreSQL task attempt authority', () => {
       current_fence: '1',
       attempts: '1'
     })
+  })
+
+  it('cannot complete an evaluation-required task without persisted passing evaluation', async () => {
+    const pool = await kernelPool()
+    const fixture = await seedRunnableTaskFixture(pool)
+    const records = claimRecords(fixture.task, 'evaluation_gate')
+    await claimTaskAttempt(pool, {
+      taskId: 'task_s1',
+      attempt: records.attempt,
+      leasedTask: records.leasedTask
+    })
+    const running = runningRecords(records)
+    const observedAt = '2026-01-01T00:00:30.000Z'
+    await advanceAuthoritativeAttempt(pool, {
+      taskId: 'task_s1',
+      attemptId: records.attempt.id as string,
+      fence: 1,
+      observedAt,
+      nextAttempt: running.attempt,
+      nextTask: running.task
+    })
+
+    const submittedAttempt = structuredClone(running.attempt)
+    submittedAttempt.state = {
+      status: 'result-submitted',
+      resultId: 'assignment_result_s1',
+      submittedAt: observedAt
+    }
+    const submittedTask = structuredClone(running.task)
+    submittedTask.revision = (running.task.revision as number) + 1
+    await advanceAuthoritativeAttempt(pool, {
+      taskId: 'task_s1',
+      attemptId: records.attempt.id as string,
+      fence: 1,
+      observedAt,
+      nextAttempt: submittedAttempt,
+      nextTask: submittedTask
+    })
+
+    const evaluatingAttempt = structuredClone(submittedAttempt)
+    evaluatingAttempt.state = {
+      status: 'evaluating',
+      resultId: 'assignment_result_s1',
+      evaluationAssignmentIds: ['evaluation_assignment_s1']
+    }
+    const evaluatingTask = structuredClone(submittedTask)
+    evaluatingTask.revision = (submittedTask.revision as number) + 1
+    evaluatingTask.state = {
+      status: 'evaluating',
+      attemptId: records.attempt.id,
+      fence: 1,
+      evaluationAssignmentIds: ['evaluation_assignment_s1']
+    }
+    await advanceAuthoritativeAttempt(pool, {
+      taskId: 'task_s1',
+      attemptId: records.attempt.id as string,
+      fence: 1,
+      observedAt,
+      nextAttempt: evaluatingAttempt,
+      nextTask: evaluatingTask
+    })
+
+    const succeededAttempt = structuredClone(evaluatingAttempt)
+    succeededAttempt.state = {
+      status: 'succeeded',
+      reason: 'Evaluation was claimed but not persisted.',
+      completedAt: observedAt
+    }
+    const completedTask = structuredClone(evaluatingTask)
+    completedTask.revision = (evaluatingTask.revision as number) + 1
+    completedTask.state = {
+      status: 'completed',
+      reason: 'Evaluation was claimed but not persisted.',
+      completedAt: observedAt,
+      acceptedAssignmentResultIds: ['assignment_result_s1'],
+      acceptedArtifactVersionIds: []
+    }
+    await expect(
+      advanceAuthoritativeAttempt(pool, {
+        taskId: 'task_s1',
+        attemptId: records.attempt.id as string,
+        fence: 1,
+        observedAt,
+        nextAttempt: succeededAttempt,
+        nextTask: completedTask
+      })
+    ).rejects.toBeInstanceOf(MissingTaskEvaluationError)
+    const state = await pool.query<{ task_state: string }>(
+      "SELECT task_state FROM control_plane.task_executions WHERE task_id = 'task_s1'"
+    )
+    expect(state.rows[0]?.task_state).toBe('evaluating')
   })
 
   it('rejects output observed after the authoritative lease expires', async () => {

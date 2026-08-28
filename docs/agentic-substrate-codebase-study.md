@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P3-KERN-11` through `P3-KERN-13` — prove projection replay, restart reconciliation, and durable convergence.
-2. Keep lifecycle/effect authority covered while replay and recovery mutate derived state.
+1. `P4-AGNT-01` through `P4-AGNT-03` — supervise a bounded OMP child, isolate its environment, and validate every RPC frame.
+2. Preserve the completed durable-kernel command/event/fence/evaluation authority boundary during agent integration.
 3. Keep `WORKER-EXP-01` inconclusive until the real pinned OMP binary contract is exercised; do not infer it from the fixture validator.

@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P3-KERN-11`.
-- `G2-LAB` and `P3-KERN-01` through `P3-KERN-10` verification are complete; replay/restart/convergence and all later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P4-AGNT-01`.
+- `G2-LAB` and every `P3-KERN` coordinate are complete; agent/runtime and later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -77,6 +77,18 @@ Gate verification:
 - effect parameter, attempt/fence, receipt, observation, and evaluation lineage gates explicit prepared-to-terminal transitions;
 - schema v4: 17 tables and fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`;
 - verification passes 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests.
+
+## `P3-KERN-11` through `P3-KERN-13` convergence evidence
+
+- migration 005 makes mission events append-only and fingerprints its function/trigger;
+- replay verifies contiguous positions plus full-event/payload/projection digests before atomically rebuilding all current mission views;
+- corrupted/dropped views converge exactly while event tamper and gaps fail;
+- every nonterminal task/attempt/effect/outbox row receives one idempotent deterministic restart disposition;
+- active leases defer; missing/expired authority never implies process death or permits completion;
+- required task evaluation must be persisted, passing, contract-complete, and traceable to the current attempt/fence/result;
+- schema v5: 5 migrations, 17 tables, fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`;
+- verification passes 10 unit files / 57 tests and 9 PostgreSQL files / 33 tests;
+- `DUR-EXP-01` passes three integration seeds and sealed CLI seed 103 (`dur-exp-01-103-baseline-none-run_000000_873d4c1794ee4292`); all seven measures and artifact integrity pass.
 
 ## Queue classes
 
@@ -330,4 +342,4 @@ Every state change records:
 
 ## Next queue action
 
-Implement `P3-KERN-11` exact event-ledger projection rebuild before restart reconciliation or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.
+Begin `P4-AGNT-01` bounded agent-gateway process supervision; DBOS remains blocked unless it beats the now-complete native durable-kernel baseline under the same experiment contract.

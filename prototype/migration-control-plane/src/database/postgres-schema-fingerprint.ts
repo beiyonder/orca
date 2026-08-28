@@ -87,6 +87,27 @@ WITH schema_objects AS (
   JOIN pg_class AS index_class ON index_class.oid = table_index.indexrelid
   JOIN pg_namespace AS table_namespace ON table_namespace.oid = table_class.relnamespace
   WHERE table_namespace.nspname = 'control_plane'
+
+  UNION ALL
+
+  SELECT
+    'trigger'::text,
+    concat(table_class.relname, '.', table_trigger.tgname),
+    pg_get_triggerdef(table_trigger.oid, true)::text
+  FROM pg_trigger AS table_trigger
+  JOIN pg_class AS table_class ON table_class.oid = table_trigger.tgrelid
+  JOIN pg_namespace AS table_namespace ON table_namespace.oid = table_class.relnamespace
+  WHERE table_namespace.nspname = 'control_plane' AND NOT table_trigger.tgisinternal
+
+  UNION ALL
+
+  SELECT
+    'function'::text,
+    concat(schema_function.proname, '(', pg_get_function_identity_arguments(schema_function.oid), ')'),
+    pg_get_functiondef(schema_function.oid)::text
+  FROM pg_proc AS schema_function
+  JOIN pg_namespace AS function_namespace ON function_namespace.oid = schema_function.pronamespace
+  WHERE function_namespace.nspname = 'control_plane'
 )
 SELECT object_kind, object_name, definition
 FROM schema_objects

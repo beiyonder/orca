@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P3-KERN-11` — Rebuild current projections exactly from the verified event ledger.**
+**`P4-AGNT-01` — Implement the bounded agent-gateway process supervisor.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 2 established the reproducible lab. `P3-KERN-01` through `P3-KERN-06` provide strict contracts, convergent PostgreSQL, and atomic command/event/delivery authority. `P3-KERN-07` through `P3-KERN-10` now add materialized DAG validation, guarded task/attempt lifecycles, one leased/fenced attempt authority, and explicit effect attempts including unknown/reconciling states. Migration 004 adds the seventeenth table and current fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`; 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests pass. The current move is projection replay.
+Phase 3 is complete. Five checksum-locked PostgreSQL 16 migrations create 17 tables plus an append-only event trigger at fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`. Strict contracts, idempotent commands, expected-version atomic append/projection/outbox, delivery deduplication, DAG/lifecycle/effect guards, fenced attempt authority, evaluation-gated completion, exact projection replay, and deterministic restart dispositions pass 10 unit files / 57 tests and 9 PostgreSQL files / 33 tests. `DUR-EXP-01` passes three integration seeds and sealed CLI seed 103 across duplicate, crash, stale, replay, terminal, atomicity, and restart predicates. The next move begins bounded OMP process supervision.
 
 ## How to use coordinates
 
@@ -321,9 +321,9 @@ Failure route: `L-LAB-01`.
 | `DONE` | `P3-KERN-08` | Implement task and attempt lifecycle. | Four tests guard pending/runnable/leased/running/evaluating/blocked/quarantined/terminal task transitions and claimed/running/result/evaluating/terminal attempt transitions, immutable fields, revisions, and authority. |
 | `DONE` | `P3-KERN-09` | Implement leases and fencing. | Concurrent claims admit one attempt; task and attempt update together under one monotonic fence; rival/expired output is rejected without advancing state in two real-server tests. |
 | `DONE` | `P3-KERN-10` | Implement effect state machine. | Migration 004 adds effect-attempt authority; prepared/issued/applied/absent/unknown/reconciling/failed/evaluating/accepted/rejected transitions, receipt/observation identity, parameter digest, and stale fences pass four real-server tests. |
-| `CURRENT` | `P3-KERN-11` | Implement replay and projection rebuild. | Dropped projections rebuild exactly from verified event position. |
-| `WAIT` | `P3-KERN-12` | Implement restart reconciliation. | Nonterminal tasks and attempts receive deterministic recovery dispositions. |
-| `WAIT` | `P3-KERN-13` | Run durable-convergence experiment. | EXP-01 passes all crash, duplicate, stale, and restart seeds. |
+| `DONE` | `P3-KERN-11` | Implement replay and projection rebuild. | Migration 005 makes mission events append-only; four tests verify contiguous positions/full event and payload digests, exact dropped/corrupted projection rebuild, and tamper/gap rejection. |
+| `DONE` | `P3-KERN-12` | Implement restart reconciliation. | Every nonterminal task, attempt, effect, and outbox row receives one deterministic persisted disposition; rerun is idempotent and active leases defer rather than imply death in two tests. |
+| `DONE` | `P3-KERN-13` | Run durable-convergence experiment. | `DUR-EXP-01` passes three real-server seeds plus sealed CLI seed 103 for duplicate safety, precommit crash rollback/retry, stale-fence rejection, atomic counts, evaluation-gated terminal state, exact replay, and restart coverage. |
 
 ### `G3-KERN` — Durable kernel gate
 
@@ -335,6 +335,8 @@ Pass when:
 - every nonterminal record has a recovery path;
 - task completion is impossible without the current attempt and required evaluation.
 
+**Gate status: `DONE`.** Five migrations / 17 tables, 10 unit files / 57 tests, 9 PostgreSQL files / 33 tests, and sealed `DUR-EXP-01` evidence prove every predicate above locally. Transport delivery remains non-authoritative; no model or external target effect was invoked.
+
 Failure route: `L-KERN-01`.
 
 ---
@@ -345,7 +347,7 @@ Failure route: `L-KERN-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Gateway starts, observes, cancels, and cleans one child without leaking resources. |
+| `CURRENT` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Gateway starts, observes, cancels, and cleans one child without leaking resources. |
 | `WAIT` | `P4-AGNT-02` | Generate isolated OMP environment. | No user home, credentials, hooks, MCP servers, skills, or config leak into assignment. |
 | `WAIT` | `P4-AGNT-03` | Implement OMP RPC frame handling. | Ready, negotiate, chunk, response, event, host-tool, cancel, and error frames are bounded and validated. |
 | `WAIT` | `P4-AGNT-04` | Implement context-manifest delivery. | Exact sources, versions, exclusions, redactions, tenant, and budget are recorded. |
@@ -635,8 +637,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
-| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-11` |
-| Phase 4 — Agents | `G4-AGNT` | `WAIT` |
+| Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
+| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
@@ -646,6 +648,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P3-KERN-11`** — Rebuild projections exactly from verified event positions.
-2. **`P3-KERN-12`** — Assign deterministic restart dispositions to every nonterminal record.
-3. **`P3-KERN-13`** — Run the durable convergence crash/duplicate/stale/restart matrix.
+1. **`P4-AGNT-01`** — Implement the bounded agent-gateway process supervisor.
+2. **`P4-AGNT-02`** — Generate an isolated OMP environment without ambient state.
+3. **`P4-AGNT-03`** — Bound and validate every OMP RPC frame.
