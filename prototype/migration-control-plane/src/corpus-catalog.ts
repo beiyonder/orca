@@ -56,13 +56,13 @@ export class CorpusCatalog {
 
   static async load(store: ImmutableCorpusStore): Promise<CorpusCatalog> {
     const catalog = new CorpusCatalog()
+    const [manifestIds, parseIds] = await Promise.all([
+      store.listSourceManifestIds(),
+      store.listParseIds()
+    ])
     const [sources, bundles] = await Promise.all([
-      Promise.all(
-        (await store.listSourceManifestIds()).map(async (manifestId) =>
-          store.readSource(manifestId)
-        )
-      ),
-      Promise.all((await store.listParseIds()).map(async (parseId) => store.readParse(parseId)))
+      Promise.all(manifestIds.map(async (manifestId) => store.readSource(manifestId))),
+      Promise.all(parseIds.map(async (parseId) => store.readParse(parseId)))
     ])
     for (const { manifest } of sources) {
       catalog.#insert(catalog.#sources, manifest.id, manifest, 'source')
@@ -71,6 +71,14 @@ export class CorpusCatalog {
       catalog.#addBundle(bundle)
     }
     return catalog
+  }
+
+  allChunkRecords(): readonly CorpusChunkRecord[] {
+    return [...this.#chunks.keys()].toSorted().map((chunkId) => this.#chunkRecord(chunkId))
+  }
+
+  isCurrentSource(manifestId: string): boolean {
+    return this.#currentManifestIds().has(manifestId)
   }
 
   queryChunks(filter: CorpusChunkFilter): readonly CorpusChunkRecord[] {
@@ -115,6 +123,17 @@ export class CorpusCatalog {
       records.push({ chunk, parse, source })
     }
     return records.toSorted((left, right) => left.chunk.id.localeCompare(right.chunk.id))
+  }
+
+  entityById(tenantId: string, entityId: string): CorpusEntityRecord | null {
+    const entity = this.#entities.get(entityId)
+    if (!entity || entity.tenantId !== tenantId) {
+      return null
+    }
+    return {
+      entity,
+      provenance: entity.provenanceChunkIds.map((chunkId) => this.#chunkRecord(chunkId))
+    }
   }
 
   queryEntities(input: {

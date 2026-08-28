@@ -1,5 +1,5 @@
 {
-  "registryDigest": "cf9dadff605a2cc69de2979a9982e961ae504f93128af84faafc083ffc841947",
+  "registryDigest": "54356e502bde78fb9ce4fa600bb372ed0f3724ee1936443684f0f95a850bfc0c",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -196,6 +196,12 @@
       "sha256": "67094c5776776b61a104f23930e97550f96c4f5b523e0f0b216f4db92a4211e2"
     },
     {
+      "bytes": 8128,
+      "file": "knowledge-context-manifest.v1.schema.json",
+      "name": "knowledge-context-manifest.v1",
+      "sha256": "a90d26bfa014fd1f74c7a555c24fb62a23f2682191cd5fe82e265606cd759c18"
+    },
+    {
       "bytes": 10848,
       "file": "learning-candidate.v1.schema.json",
       "name": "learning-candidate.v1",
@@ -260,6 +266,18 @@
       "file": "recovery-disposition.v1.schema.json",
       "name": "recovery-disposition.v1",
       "sha256": "d970123af0561ca8fbd53410378d59c9762cee45e05fdc01d96ccf01b8ce710e"
+    },
+    {
+      "bytes": 7132,
+      "file": "retrieval-query.v1.schema.json",
+      "name": "retrieval-query.v1",
+      "sha256": "85e83b65d96565000faf1d11b6c0c0661bd006aada746aa4f92909161a184c69"
+    },
+    {
+      "bytes": 11051,
+      "file": "retrieval-trace.v1.schema.json",
+      "name": "retrieval-trace.v1",
+      "sha256": "90aca072d6a286bb969738d8a034c290e4f9c1674f87a01c1342705a2a5a95f3"
     },
     {
       "bytes": 5619,

@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P5-KNOW-04` — retrieve current cited corpus spans with a transparent lexical baseline.
+`P5-KNOW-09` — admit provenance-bound memory candidates into quarantine with no recall policy.

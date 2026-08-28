@@ -1,0 +1,295 @@
+{
+  "$id": "urn:orca:migration-control-plane:retrieval-query.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allowedDataClasses": {
+      "items": {
+        "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "type": "array"
+    },
+    "allowedSourceClasses": {
+      "items": {
+        "enum": [
+          "product-instruction",
+          "product-state",
+          "environment-evidence",
+          "reference",
+          "customer-artifact",
+          "live-research"
+        ],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "type": "array"
+    },
+    "allowedSourceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 15,
+        "pattern": "^corpus_source_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "asOf": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "channels": {
+      "additionalProperties": false,
+      "properties": {
+        "graph": {
+          "type": "boolean"
+        },
+        "lexical": {
+          "type": "boolean"
+        },
+        "semantic": {
+          "type": "boolean"
+        },
+        "structured": {
+          "type": "boolean"
+        }
+      },
+      "required": ["structured", "lexical", "semantic", "graph"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "currentOnly": {
+      "type": "boolean"
+    },
+    "graphSeedEntityIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 15,
+        "pattern": "^corpus_entity_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 0,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^retrieval_query_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "retrieval-query",
+      "type": "string"
+    },
+    "lexicalTerms": {
+      "items": {
+        "maxLength": 256,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "maxCandidates": {
+      "exclusiveMinimum": 0,
+      "maximum": 10000,
+      "type": "integer"
+    },
+    "maxGraphDepth": {
+      "maximum": 3,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "maximumAgeDays": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "maximum": 36500,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "purpose": {
+      "enum": [
+        "mission-planning",
+        "specialist-assignment",
+        "evaluation",
+        "correction",
+        "research",
+        "comparison"
+      ],
+      "type": "string"
+    },
+    "question": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "type": "string"
+    },
+    "requestedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "requiredCoverage": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidenceTerms": {
+            "items": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 32,
+            "minItems": 1,
+            "type": "array"
+          },
+          "key": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["key", "evidenceTerms"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "role": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "scopes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "attributes": {
+            "additionalProperties": {
+              "maxLength": 512,
+              "type": "string"
+            },
+            "propertyNames": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "entity": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "environment": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "system": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["environment", "system"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "semanticQuery": {
+      "anyOf": [
+        {
+          "maxLength": 8192,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "tokenBudget": {
+      "exclusiveMinimum": 0,
+      "maximum": 10000000,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "purpose",
+    "role",
+    "question",
+    "lexicalTerms",
+    "semanticQuery",
+    "scopes",
+    "allowedSourceClasses",
+    "allowedDataClasses",
+    "requiredCoverage",
+    "allowedSourceIds",
+    "currentOnly",
+    "asOf",
+    "maximumAgeDays",
+    "channels",
+    "graphSeedEntityIds",
+    "maxGraphDepth",
+    "maxCandidates",
+    "tokenBudget",
+    "requestedBy"
+  ],
+  "title": "retrieval-query.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "retrieval-query.v1"
+  }
+}

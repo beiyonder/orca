@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P5-KNOW-04` — add transparent lexical retrieval over immutable corpus records; external vector infrastructure remains unnecessary.
+`P5-KNOW-09` — add governed memory records without adopting an external memory service.

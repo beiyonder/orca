@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P5-KNOW-04`.
+Current roadmap coordinate: `P5-KNOW-09`.
 
 ## Coordinate evidence
 
@@ -44,6 +44,7 @@ Current roadmap coordinate: `P5-KNOW-04`.
 | `P4-AGNT-04` through `P4-AGNT-07` | Exact immutable prompt/workspace delivery, strict current-attempt result admission, capability/policy/schema/budget-bound host tool execution, and synchronous idempotent cancellation/revocation gate; 15 focused tests, full lab 16 files / 91 tests. |
 | `P4-AGNT-08` through `P4-AGNT-13` | Nine typed proposal-only specialist roles, one-action apex, evidence-seeking disagreement, force-kill reconstruction, real pinned OMP containment, and the 20-case disagreement benchmark; full lab 21 files / 118 tests. |
 | `P5-KNOW-01` through `P5-KNOW-03` | Five governed corpus contracts, private content-addressed immutable originals/parses, deterministic provenance catalog, and migration 006 corpus persistence; 22 unit files / 127 tests, 10 PostgreSQL files / 34 tests. |
+| `P5-KNOW-04` through `P5-KNOW-08` | Pre-ranking authorization, structured/BM25 lexical, optional versioned semantic projection, bounded relational graph expansion, immutable retrieval traces, and byte-reproducible cited/redacted/token-bounded contexts; 23 unit files / 137 tests, 11 PostgreSQL files / 35 tests. |
 
 ## Stable commands
 
@@ -180,7 +181,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P5-KNOW-04`: implement transparent exact/lexical retrieval over eligible current corpus chunks with cited span/version/digest results.
+Start `P5-KNOW-09`: admit typed mission/episodic/procedural/failure/evaluator memory candidates into provenance-bound quarantine with no recall policy.
 
 First verification command after any change:
 

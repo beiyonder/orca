@@ -58,6 +58,11 @@ import {
   MissionRecordV1Schema
 } from './mission-contracts.js'
 import { DecisionRecordV1Schema, PlanRevisionV1Schema } from './planning-contracts.js'
+import {
+  KnowledgeContextManifestV1Schema,
+  RetrievalQueryV1Schema,
+  RetrievalTraceV1Schema
+} from './retrieval-contracts.js'
 
 export const DOMAIN_SCHEMA_REGISTRY = {
   'accepted-finding.v1': AcceptedFindingV1Schema,
@@ -92,6 +97,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'evidence-item.v1': EvidenceItemV1Schema,
   'gap.v1': GapV1Schema,
   'impact-review.v1': ImpactReviewV1Schema,
+  'knowledge-context-manifest.v1': KnowledgeContextManifestV1Schema,
   'learning-candidate.v1': LearningCandidateV1Schema,
   'mission-command.v1': MissionCommandEnvelopeV1Schema,
   'mission-event.v1': MissionEventEnvelopeV1Schema,
@@ -103,6 +109,8 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'promotion-decision.v1': PromotionDecisionV1Schema,
   'proposition.v1': PropositionV1Schema,
   'recovery-disposition.v1': RecoveryDispositionV1Schema,
+  'retrieval-query.v1': RetrievalQueryV1Schema,
+  'retrieval-trace.v1': RetrievalTraceV1Schema,
   'secret-lease.v1': SecretLeaseV1Schema,
   'target-observation.v1': TargetObservationV1Schema,
   'task-record.v1': TaskRecordV1Schema
