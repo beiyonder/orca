@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P3-KERN-03`.
+Current roadmap coordinate: `P3-KERN-07`.
 
 ## Coordinate evidence
 
@@ -145,9 +145,9 @@ Rejected for the Phase 2 baseline:
 ## Known risks and intentional limits
 
 1. `WORKER-EXP-01` is **inconclusive**, not passed. P2 creates the exact contract fixture; a real pinned OMP binary RPC/schema/cancel/artifact probe belongs to the agent integration path.
-2. The local machine ran Node 26.7.0. The package declares Node 24+, and CI pins Node 24; CI results are not observed until the pushed workflow runs.
+2. PR #1 observed 19 passing GitHub checks (10 correctly skipped), including Node 24 Ubuntu/macOS/Windows lab verification and PostgreSQL 16 integration.
 3. Fault points and artifact preservation are real; database/network/target recovery semantics are simulated in `LAB-EXP-01` until their P3/P8 components exist.
-4. PostgreSQL migrations now exist and converge from empty/staged paths. Command idempotency, event/projection/outbox transactions, leases, replay, and reconciliation remain P3 work beginning with `P3-KERN-03`.
+4. PostgreSQL migrations, command idempotency, expected-version event/projection/outbox transactions, and outbox/inbox delivery now pass real-server tests. Plan/task/attempt/effect/replay/reconciliation behavior remains P3 work beginning with `P3-KERN-07`.
 5. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
 6. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
@@ -172,7 +172,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P3-KERN-03`: implement command idempotency so identical retries replay one stored result and mismatched payload reuse is rejected.
+Start `P3-KERN-07`: reject cyclic, incomplete, contract-incompatible, or unrecoverable immutable plan DAG revisions.
 
 First verification command after any change:
 

@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P3-KERN-03` — implement command idempotency over the migrated PostgreSQL authority tables.
+`P3-KERN-07` — validate immutable plan DAG revisions inside the isolated PostgreSQL lab.
