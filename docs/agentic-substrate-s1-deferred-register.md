@@ -114,7 +114,7 @@ Review outcome:
 - no item is promoted, dropped, or replaced at this gate;
 - the synthetic profile/probe does not promote real connectors, snapshot/CDC, healthcare semantics, or corpus breadth;
 - the private Node/TypeScript lab does not promote DBOS, Inspect, a memory backend, optimizer, OPA/SPIRE, a sandbox provider, remote relay, target effect, or production deployment cut;
-- `WORKER-EXP-01` remains inconclusive, so OMP internal tasks and live worker integration are not promoted into product authority;
+- `WORKER-EXP-01` was inconclusive at `G2-LAB`, so that gate did not promote OMP internals; it later passed at `P4-AGNT-12` without making OMP task/session state product authority.
 - next mandatory review is `G3-KERN`; any earlier scope change must use the promotion procedure below.
 
 ## Promotion procedure

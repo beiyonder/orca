@@ -11,6 +11,7 @@ Audited source:
 - tag: `v18.0.6`
 - ignored local checkout: `tmp/upstream/oh-my-pi`
 - installed executable observed earlier: `18.0.4`
+- pinned release binary exercised for `P4-AGNT-12`: `18.0.6`, Darwin arm64 SHA-256 `68d91103…eda6be4c`; sealed `EXP-10` report `bb4343a2…a73482d`
 
 Method:
 
@@ -669,16 +670,17 @@ OMP approval modes and Bash patterns remain useful worker controls. Product dete
 
 # Exact version-skew risk
 
-Audited source is `18.0.6`; installed executable was observed as `18.0.4`.
+Audited source is `18.0.6`; the machine-wide executable remains `18.0.4`. `P4-AGNT-12` downloaded the official pinned `18.0.6` release asset by digest and exercised it without replacing ambient installation state.
 
-Before product integration:
+Completed containment baseline:
 
-1. select and pin one OMP executable/source version;
-2. run RPC negotiation, frame limit, host-tool cancel, strict subagent schema, session persistence and artifact probes against that binary;
-3. record supported feature fingerprint—not only semver;
-4. reject/disable unavailable protocol fields safely;
-5. keep a compatibility fixture for the minimum supported OMP version;
-6. never assume upstream main/tag behavior from the locally installed binary.
+1. exact binary digest/version and v1→v2 negotiation;
+2. 1 MiB gateway / 64 MiB protocol limits, malformed input, and bounded observation;
+3. strict host-tool definition plus real model→OMP→host artifact call/result;
+4. active provider-request cancellation and zero post-acknowledgement product tool starts;
+5. exact context delivery, typed subagent query, process crash, and fresh replacement.
+
+Still required before integrated S1 acceptance: provider session pin/persistence, strict invalid structured-subagent output, full nested lifecycle/progress trace, and compatibility coverage for any supported binary besides pinned `18.0.6`. Never infer those from semver or the completed containment subset.
 
 ## Required worker contract probe
 

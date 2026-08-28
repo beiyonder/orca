@@ -1,4 +1,7 @@
 import { spawn } from 'node:child_process'
+import { createHash } from 'node:crypto'
+import { access, readFile, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
 const mode = process.argv[2]
 
@@ -34,6 +37,27 @@ if (mode === 'echo') {
       variables: Object.fromEntries(names.map((name) => [name, process.env[name] ?? null]))
     })}\n`
   )
+} else if (mode === 'reconstruct-context') {
+  const contextPath = process.argv[3]
+  const expectedDigest = process.argv[4]
+  const markerPath = join(process.cwd(), '.worker-hidden-state')
+  let hadHiddenState = true
+  try {
+    await access(markerPath)
+  } catch {
+    hadHiddenState = false
+  }
+  const contextBytes = await readFile(contextPath)
+  const contextDigest = createHash('sha256').update(contextBytes).digest('hex')
+  process.stdout.write(`${JSON.stringify({ contextDigest, expectedDigest, hadHiddenState })}\n`)
+  await writeFile(markerPath, 'worker-local-state')
+  if (contextDigest !== expectedDigest) {
+    process.exitCode = 3
+  } else {
+    process.on('SIGTERM', () => {})
+    process.on('SIGINT', () => {})
+    setInterval(() => {}, 1_000)
+  }
 } else if (mode === 'idle' || mode === 'ignore-term' || mode === 'tree') {
   if (mode === 'idle') {
     process.on('SIGTERM', () => process.exit(0))

@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P4-AGNT-08` — define the typed specialist role boundary; PostgreSQL remains authority and OMP remains a replaceable worker.
+`P5-KNOW-01` — add corpus authority behind the same private Node/TypeScript boundary; OMP remains a replaceable process.

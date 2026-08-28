@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P4-AGNT-08` through `P4-AGNT-10` — define specialist contracts, one-action apex orchestration, and evidence-seeking disagreement resolution.
-2. Preserve the completed durable-kernel command/event/fence/evaluation authority boundary during agent integration.
-3. Keep `WORKER-EXP-01` inconclusive until the real pinned OMP binary contract is exercised; do not infer it from the fixture validator.
+1. `P5-KNOW-01` through `P5-KNOW-03` — govern corpus identity, immutable source ingestion, and provenance-preserving chunks/relations.
+2. Preserve the completed kernel and bounded-intelligence authority boundaries while adding retrieval state.
+3. `WORKER-EXP-01` now passes only because the imported sealed `EXP-10` report proves the real pinned OMP RPC/schema/cancel/artifact path; fixture validation alone remains insufficient.
