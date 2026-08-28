@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P3-KERN-07`.
-- `G2-LAB` and `P3-KERN-01` through `P3-KERN-06` verification are complete; durable plan/task/effect/recovery experiments and all later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P3-KERN-11`.
+- `G2-LAB` and `P3-KERN-01` through `P3-KERN-10` verification are complete; replay/restart/convergence and all later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -67,6 +67,16 @@ Gate verification:
 - `SKIP LOCKED` outbox claims, expiring leases/fences, stale acknowledgement rejection, delayed retry, and acknowledgement replay;
 - tenant/consumer/message inbox serialization with one handler outcome, payload mismatch rejection, and handler rollback;
 - real PostgreSQL verification passes 4 files / 19 tests.
+
+## `P3-KERN-07` through `P3-KERN-10` lifecycle authority evidence
+
+- complete materialized DAG admission rejects missing/cyclic/incompatible/unrecoverable task edges and stale plan bases;
+- task and assignment-attempt state transitions preserve immutable identity, revision order, and active authority;
+- concurrent task claim admits one attempt/fence; rival and expired output cannot advance state;
+- migration 004 adds the dedicated effect-attempt table and `reconciling` state;
+- effect parameter, attempt/fence, receipt, observation, and evaluation lineage gates explicit prepared-to-terminal transitions;
+- schema v4: 17 tables and fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`;
+- verification passes 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests.
 
 ## Queue classes
 
@@ -320,4 +330,4 @@ Every state change records:
 
 ## Next queue action
 
-Implement `P3-KERN-07` immutable plan DAG validation before task lifecycle work or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.
+Implement `P3-KERN-11` exact event-ledger projection rebuild before restart reconciliation or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.

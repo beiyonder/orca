@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P3-KERN-07` — Validate immutable plan DAG revisions before task execution.**
+**`P3-KERN-11` — Rebuild current projections exactly from the verified event ledger.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 2 established the reproducible lab. `P3-KERN-01/02` provide the strict 41-schema registry and convergent PostgreSQL 16 schema. `P3-KERN-03` through `P3-KERN-06` now provide full-command idempotency, expected-version aggregate append, atomic mission/event/projection/outbox commits, leased at-least-once outbox delivery, and transactionally deduplicated inbox import; 4 real-PostgreSQL files / 19 tests pass. The current move is plan DAG validation.
+Phase 2 established the reproducible lab. `P3-KERN-01` through `P3-KERN-06` provide strict contracts, convergent PostgreSQL, and atomic command/event/delivery authority. `P3-KERN-07` through `P3-KERN-10` now add materialized DAG validation, guarded task/attempt lifecycles, one leased/fenced attempt authority, and explicit effect attempts including unknown/reconciling states. Migration 004 adds the seventeenth table and current fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`; 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests pass. The current move is projection replay.
 
 ## How to use coordinates
 
@@ -317,11 +317,11 @@ Failure route: `L-LAB-01`.
 | `DONE` | `P3-KERN-04` | Implement aggregate event append. | Per-mission advisory/row locking and expected revision admit one concurrent winner; stale rivals become durable deterministic rejections without duplicate events. |
 | `DONE` | `P3-KERN-05` | Implement transactional projections. | Command outcome, aggregate, append-only event, current projection, and outbox commit together; injected outbox/projection failures prove no partial state in four transition tests. |
 | `DONE` | `P3-KERN-06` | Implement outbox and inbox. | `SKIP LOCKED` claims, expiring leases/fences, stale-ack rejection, delayed retry, idempotent ack, advisory-locked inbox import, mismatch rejection, and handler rollback pass five delivery tests. |
-| `CURRENT` | `P3-KERN-07` | Implement plan DAG validation. | Cycles, missing dependencies, incompatible contracts, and missing recovery rules are rejected. |
-| `WAIT` | `P3-KERN-08` | Implement task and attempt lifecycle. | Pending, runnable, leased, running, evaluating, terminal, blocked, and quarantined transitions are guarded. |
-| `WAIT` | `P3-KERN-09` | Implement leases and fencing. | One authoritative attempt exists; stale attempt output cannot advance the task. |
-| `WAIT` | `P3-KERN-10` | Implement effect state machine. | Prepared, issued, applied, absent, unknown, failed, evaluating, accepted, and rejected states are explicit. |
-| `WAIT` | `P3-KERN-11` | Implement replay and projection rebuild. | Dropped projections rebuild exactly from verified event position. |
+| `DONE` | `P3-KERN-07` | Implement plan DAG validation. | Seven tests admit complete acyclic graphs and reject stale bases, missing tasks/dependencies, cycles, duplicate additions, operation drift, incompatible output contracts, and missing edge recovery rules. |
+| `DONE` | `P3-KERN-08` | Implement task and attempt lifecycle. | Four tests guard pending/runnable/leased/running/evaluating/blocked/quarantined/terminal task transitions and claimed/running/result/evaluating/terminal attempt transitions, immutable fields, revisions, and authority. |
+| `DONE` | `P3-KERN-09` | Implement leases and fencing. | Concurrent claims admit one attempt; task and attempt update together under one monotonic fence; rival/expired output is rejected without advancing state in two real-server tests. |
+| `DONE` | `P3-KERN-10` | Implement effect state machine. | Migration 004 adds effect-attempt authority; prepared/issued/applied/absent/unknown/reconciling/failed/evaluating/accepted/rejected transitions, receipt/observation identity, parameter digest, and stale fences pass four real-server tests. |
+| `CURRENT` | `P3-KERN-11` | Implement replay and projection rebuild. | Dropped projections rebuild exactly from verified event position. |
 | `WAIT` | `P3-KERN-12` | Implement restart reconciliation. | Nonterminal tasks and attempts receive deterministic recovery dispositions. |
 | `WAIT` | `P3-KERN-13` | Run durable-convergence experiment. | EXP-01 passes all crash, duplicate, stale, and restart seeds. |
 
@@ -635,7 +635,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
-| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-07` |
+| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-11` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
@@ -646,6 +646,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P3-KERN-07`** — Reject invalid immutable plan DAG revisions before persistence.
-2. **`P3-KERN-08`** — Guard task and attempt lifecycle transitions.
-3. **`P3-KERN-09`** — Prove lease ownership and stale-fence rejection.
+1. **`P3-KERN-11`** — Rebuild projections exactly from verified event positions.
+2. **`P3-KERN-12`** — Assign deterministic restart dispositions to every nonterminal record.
+3. **`P3-KERN-13`** — Run the durable convergence crash/duplicate/stale/restart matrix.

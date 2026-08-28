@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P3-KERN-07` — validate immutable plan DAG revisions before task execution.
+`P3-KERN-11` — rebuild current projections exactly from verified event positions.

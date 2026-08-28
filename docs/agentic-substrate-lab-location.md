@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P3-KERN-07` — validate immutable plan DAG revisions inside the isolated PostgreSQL lab.
+`P3-KERN-11` — rebuild current PostgreSQL projections exactly from the event ledger.
