@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P4-AGNT-02`.
-- `G2-LAB`, every `P3-KERN` coordinate, and `P4-AGNT-01` verification are complete; environment/RPC and later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P4-AGNT-04`.
+- `G2-LAB`, Phase 3, and `P4-AGNT-01` through `P4-AGNT-03` verification are complete; context/result/tool and later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -99,6 +99,18 @@ Gate verification:
 - bounded startup/runtime/cancellation/force timeouts and idempotent cancellation;
 - graceful exit, forced kill, spawned-descendant cleanup, natural nonzero exit, spawn failure, output flood, and duplicate-start paths;
 - eight real-child tests pass with no remaining `agent-process-child.mjs` process; complete lab verification is 11 files / 65 tests.
+
+## `P4-AGNT-02/03` environment and RPC containment evidence
+
+- exclusive private home/workspace/agent/temp/XDG roots and 0700/0600 permissions per incarnation;
+- only PATH/platform locale/runtime variables inherited; user profiles, config overlays, hooks, auth brokers, model/cloud/GitHub credentials, SSH agents, and runtime preload options omitted;
+- Git/npm/AWS/Azure/Docker/Kubernetes/Claude/Codex/GitHub config paths redirected to the isolated root;
+- manifest records sorted variable-value digests without exposing values; root reuse fails until cleanup;
+- a real supervised child observes only isolated cwd/state roots and null hostile variables;
+- fail-closed JSONL decoder pins OMP 18.0.6 limits: 1 MiB physical, 64 MiB logical, 256 KiB chunk payload;
+- ready-first v1, negotiate-to-v2, ordered canonical-base64 reassembly, response/event/host-tool-call/host-tool-cancel/error categories;
+- overflow, unterminated, UTF-8, JSON, schema, unknown type, duplicate ready, pre-ready, chunk order/metadata/interruption/length/base64 failures reject and poison the decoder;
+- eleven focused tests pass; complete lab verification is 13 files / 76 tests.
 
 ## Queue classes
 
@@ -352,4 +364,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P4-AGNT-02` isolated OMP environment generation; no user home, credentials, hooks, MCP servers, skills, or config may cross into the supervised child.
+Begin `P4-AGNT-04` immutable context-manifest delivery; the worker must receive exactly the admitted source IDs/versions/digests/spans/order/exclusions/redactions/tenant/budget.

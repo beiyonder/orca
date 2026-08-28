@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P4-AGNT-02`.
+Current roadmap coordinate: `P4-AGNT-04`.
 
 ## Coordinate evidence
 
@@ -149,8 +149,9 @@ Rejected for the Phase 2 baseline:
 3. Database crash/replay/restart semantics are now real. Network and external-target recovery remain simulated until their agent/effect execution coordinates.
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. `P4-AGNT-01` now supervises one real child with bounded output/time, observable lifecycle, idempotent cancellation, graceful/forced tree termination, and no leaked fixture process; it does not yet sanitize the child environment.
-6. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
-7. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+6. `P4-AGNT-02/03` now isolate every OMP state/config/credential root and fail closed on malformed, oversized, out-of-order, or unknown RPC frames; context/result/tool authority remains absent.
+7. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
+8. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -173,7 +174,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P4-AGNT-02`: generate an isolated OMP environment without user home, credentials, hooks, MCP servers, skills, or config.
+Start `P4-AGNT-04`: deliver the exact immutable context manifest to the worker.
 
 First verification command after any change:
 

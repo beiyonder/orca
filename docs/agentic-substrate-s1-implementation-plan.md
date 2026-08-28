@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P4-AGNT-02` — generate an isolated OMP environment for the bounded child supervisor.
+`P4-AGNT-04` — deliver the exact immutable context manifest to the isolated OMP worker.

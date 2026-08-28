@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P4-AGNT-02` — Generate an isolated OMP environment without ambient user state.**
+**`P4-AGNT-04` — Deliver the exact immutable context manifest to the worker.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 3 is complete at schema fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`. `P4-AGNT-01` now adds a one-child gateway supervisor with explicit incarnation/lifecycle observation, absolute executable/cwd contracts, shell-free hidden Windows launch including safe `.cmd` handling, bounded stdout/stderr accounting, startup/runtime limits, idempotent cancellation, graceful-to-force escalation, and verified POSIX/Windows process-tree cleanup. Eight real-child tests pass; the complete lab now passes 11 unit files / 65 tests plus the unchanged 9 PostgreSQL files / 33 tests. The next move removes ambient environment state before the first OMP launch.
+Phase 3 is complete. `P4-AGNT-01` proves bounded one-child supervision. `P4-AGNT-02` now creates exclusive private home/workspace/agent/temp/XDG roots, copies only platform runtime variables, redirects Git/npm/cloud/config paths, omits profiles/hooks/brokers/model/cloud/SSH credentials, and records value digests without secret disclosure. `P4-AGNT-03` adds a fail-closed JSONL decoder for exact OMP 18.0.6 protocol limits, ready-first negotiation, v2 chunk reassembly, responses/events/host-tool call/cancel/errors, UTF-8/JSON/schema/order/length failures, and 1 MiB/64 MiB bounds. Eleven focused tests pass; the complete lab passes 13 files / 76 tests. The next move delivers one immutable context manifest.
 
 ## How to use coordinates
 
@@ -348,9 +348,9 @@ Failure route: `L-KERN-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Eight real-child tests prove start/observe/natural failure, duplicate-start rejection, spawn failure, bounded flood output, runtime timeout, idempotent cancellation, graceful/forced termination, descendant cleanup, and safe Windows command resolution with no leaked fixture process. |
-| `CURRENT` | `P4-AGNT-02` | Generate isolated OMP environment. | No user home, credentials, hooks, MCP servers, skills, or config leak into assignment. |
-| `WAIT` | `P4-AGNT-03` | Implement OMP RPC frame handling. | Ready, negotiate, chunk, response, event, host-tool, cancel, and error frames are bounded and validated. |
-| `WAIT` | `P4-AGNT-04` | Implement context-manifest delivery. | Exact sources, versions, exclusions, redactions, tenant, and budget are recorded. |
+| `DONE` | `P4-AGNT-02` | Generate isolated OMP environment. | Four tests prove exclusive private roots, empty workspace, 0700/0600 permissions, value-digest manifest, hostile parent credential/profile/config/hook omission, explicit runtime allowlist, cleanup/reuse, and real-child cwd/environment isolation. |
+| `DONE` | `P4-AGNT-03` | Implement OMP RPC frame handling. | Seven tests prove ready-first v1/v2 negotiation, fragmented JSONL, bounded chunk reassembly, typed response/event/host-tool/cancel/error frames, and fail-closed handling of overflow, UTF-8, JSON, schema, order, base64, interruption, and trailing data. |
+| `CURRENT` | `P4-AGNT-04` | Implement context-manifest delivery. | Exact sources, versions, exclusions, redactions, tenant, and budget are recorded. |
 | `WAIT` | `P4-AGNT-05` | Implement typed assignment result. | Unsupported prose-only completion is rejected; gaps and evidence refs are required. |
 | `WAIT` | `P4-AGNT-06` | Implement host-tool capability bridge. | Tool call requires active attempt, capability, schema, budget, and policy. |
 | `WAIT` | `P4-AGNT-07` | Implement cancellation and revocation. | No tool effect starts after cancellation/revocation acknowledgement. |
@@ -638,7 +638,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
-| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-02` |
+| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-04` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
@@ -648,6 +648,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P4-AGNT-02`** — Generate an isolated OMP environment without ambient state.
-2. **`P4-AGNT-03`** — Bound and validate every OMP RPC frame.
-3. **`P4-AGNT-04`** — Deliver the exact immutable context manifest.
+1. **`P4-AGNT-04`** — Deliver the exact immutable context manifest.
+2. **`P4-AGNT-05`** — Admit only typed assignment results.
+3. **`P4-AGNT-06`** — Bridge host tools through current capability authority.

@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P4-AGNT-02` — isolate the supervised OMP environment while preserving the completed durable-kernel authority boundary.
+`P4-AGNT-04` — deliver immutable context to the isolated framed worker while preserving durable-kernel authority.
