@@ -272,7 +272,7 @@ node scripts/migration-control-plane-lab.mjs verify
 - Three contiguous, transactionally applied migrations create 16 constrained/indexed tables.
 - The contract table binds all 41 V1 schema names, URNs, and generated file digests.
 - Empty and migration-001 upgrade paths converge byte-for-byte at the catalog snapshot layer.
-- Current schema fingerprint: `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`.
+- P3-KERN-02 schema-v3 fingerprint: `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`.
 - Reapplication is inert, concurrent migrators serialize, and altered or gapped applied history is rejected.
 - PostgreSQL integration verification: 1 file / 4 tests; cross-platform lab verification remains 8 files / 46 tests.
 
@@ -288,17 +288,29 @@ node scripts/migration-control-plane-lab.mjs verify
 - Inbox import serializes by tenant/consumer/message, executes its handler once, replays one result, rejects payload mismatch, and rolls back handler failure.
 - PostgreSQL integration verification: 4 files / 19 tests.
 
+## P3-KERN-07 through P3-KERN-10 lifecycle authority evidence
+
+- Materialized plan validation binds mission/plan bases, task operations, full dependency existence, acyclicity, output-contract compatibility, and one recovery rule per edge.
+- Task state transitions require immutable identity, one revision advance, allowed source/target state, and the current attempt/fence whenever active.
+- Attempt state transitions preserve immutable invocation identity and fence through claimed/running/result/evaluating/terminal states.
+- Concurrent task claims admit one attempt, increment one monotonic fence, and atomically bind task/attempt projections.
+- Rival or lease-expired attempt output cannot mutate the task or authoritative attempt.
+- Migration 004 adds dedicated effect-attempt authority, corrects the current-attempt foreign key, and admits explicit `reconciling`.
+- Effect transitions preserve immutable attempt/fence identity, parameter digest, receipt identity, target observations, and evaluation receipt lineage through accepted/rejected state.
+- Current schema: 4 migrations / 17 tables / fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`.
+- Verification: 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests.
+
 ---
 
 # Intentional limits
 
-- Contracts, migrations, command idempotency, mission event append/projection/outbox transactions, and outbox/inbox delivery now exist.
-- Plan DAG admission, task/attempt authority, attempt fencing, effect transitions, replay/rebuild, and restart reconciliation do not.
+- Contracts, four migrations, atomic command/event/projection/delivery, DAG admission, task/attempt authority, fencing, and effect state records now exist.
+- Projection replay/rebuild, restart reconciliation, and the durable-convergence experiment do not.
+- No external adapter call is executable; effect records prove state semantics without granting production authority.
 - Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
-- Effect contracts preserve future state/authority vocabulary; no target effect is executable.
 - Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
 - `WORKER-EXP-01` remains inconclusive until a real pinned OMP binary is exercised.
 
 ## Next coordinate
 
-`P3-KERN-07` — reject cyclic, incomplete, contract-incompatible, or unrecoverable immutable plan DAG revisions before persistence.
+`P3-KERN-11` — rebuild dropped current projections exactly from the verified append-only event position.
