@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P5-KNOW-01` — Implement the governed corpus manifest model.**
+**`P5-KNOW-04` — Implement the transparent lexical retrieval baseline.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 4 is complete. `P4-AGNT-01` through `P4-AGNT-07` prove bounded isolated/framed OMP execution plus exact context, typed result, capability, policy, budget, cancellation, and revocation boundaries. `P4-AGNT-08` adds nine role-specific proposal-only specialist contracts; `P4-AGNT-09` records exactly one evidence-backed apex action without mutation authority; `P4-AGNT-10` preserves specialist conflict as a blocker gap and selects only a bounded discriminating probe or explicit tie. `P4-AGNT-11` kills and reconstructs a worker from persisted assignment/context/ledger with no hidden state. The real pinned OMP 18.0.6 `EXP-10` run `exp-10-3040f76381e7a97eaa2d` passes 11 containment measures, and imported `WORKER-EXP-01` run `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` passes the RPC/schema/cancel/artifact contract. `EXP-05` run `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` achieves 15/15 correct resolvable choices, 20/20 cited cases, and 5/5 explicit true ties. The complete lab passes 21 files / 118 tests. Phase 5 begins with the corpus manifest.
+Phase 4 remains complete. `P5-KNOW-01` now defines five strict corpus contracts: source manifest, parse version, chunk, entity, and relation. Source identity binds tenant, owner, permission/license, version, SHA-256 object address, data class, applicability, freshness, retention, and predecessor lineage. `P5-KNOW-02` adds a 64 MiB-bounded private content-addressed store with exact byte/digest checks, 0400 immutable records, idempotent replay, restart reconstruction, path/symlink/hard-link defenses, and preserved original/parsed bytes. `P5-KNOW-03` persists all five schemas through migration 006, makes corpus domain rows update/delete-immutable, and reconstructs deterministic chunk/entity/relation queries with complete provenance. The registry now has 46 schemas; PostgreSQL has 6 migrations / 17 tables / fingerprint `4895a52248479b57d340faa725866bba81ec8fb58d2afa28d754ea4966b30dac`. Verification passes 22 unit files / 127 tests and 10 PostgreSQL files / 34 tests. Next: lexical retrieval over authorized current chunks.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P5-KNOW-01
+P5-KNOW-04
 ```
 
 Means:
 
 - Phase 5
 - Knowledge, memory, and capability track
-- Task 1
+- Task 4
 
 Gate format:
 
@@ -66,7 +66,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P5-KNOW-01`: implement the governed corpus manifest model.”
+> “We are at `P5-KNOW-04`: implement the lexical retrieval baseline.”
 
 Do not say only “we are working on knowledge.”
 
@@ -384,10 +384,10 @@ Failure route: `L-AGNT-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `CURRENT` | `P5-KNOW-01` | Implement corpus manifest model. | Every source has owner, license, version, checksum, data class, scope, and freshness policy. |
-| `WAIT` | `P5-KNOW-02` | Implement immutable source ingestion. | Original objects and parse versions are preserved and addressable. |
-| `WAIT` | `P5-KNOW-03` | Implement chunks and relational metadata. | Documents, schemas, code, entities, edges, and applicability are queryable with provenance. |
-| `WAIT` | `P5-KNOW-04` | Implement lexical retrieval baseline. | Known-answer benchmark returns cited current sources without vector search. |
+| `DONE` | `P5-KNOW-01` | Implement corpus manifest model. | Five strict contracts bind every source to tenant, owner, permission/license, exact version, content-addressed checksum/bytes, data class, applicability, freshness, retention, and predecessor lineage. |
+| `DONE` | `P5-KNOW-02` | Implement immutable source ingestion. | Seven tests prove content-addressed original/parse bytes, 64 MiB bounds, private 0400 storage, idempotent replay, restart reconstruction, exact digest/byte checks, path/symlink defense, and immutable version identity. |
+| `DONE` | `P5-KNOW-03` | Implement chunks and relational metadata. | Parsed chunks/entities/relations preserve exact source/parse/span/digest/applicability provenance; deterministic catalog queries and PostgreSQL migration 006 persist 46 contracts and reject corpus update/delete. |
+| `CURRENT` | `P5-KNOW-04` | Implement lexical retrieval baseline. | Known-answer benchmark returns cited current sources without vector search. |
 | `WAIT` | `P5-KNOW-05` | Add optional semantic retrieval. | Vector path improves measured coverage without violating scope or citation requirements. |
 | `WAIT` | `P5-KNOW-06` | Implement bounded graph expansion. | Multi-hop retrieval uses typed edges and remains traceable to source evidence. |
 | `WAIT` | `P5-KNOW-07` | Implement retrieval authorization. | Tenant, data class, purpose, source, and version filters reject unauthorized candidates before ranking. |
@@ -641,7 +641,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
-| Phase 5 — Knowledge | `G5-KNOW` | `CURRENT` at `P5-KNOW-01` |
+| Phase 5 — Knowledge | `G5-KNOW` | `CURRENT` at `P5-KNOW-04` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
@@ -650,6 +650,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P5-KNOW-01`** — Implement the governed corpus manifest model.
-2. **`P5-KNOW-02`** — Ingest immutable source bytes and parse versions.
-3. **`P5-KNOW-03`** — Add provenance-preserving chunks and relational metadata.
+1. **`P5-KNOW-04`** — Implement transparent lexical retrieval over current chunks.
+2. **`P5-KNOW-05`** — Add a derived optional semantic channel.
+3. **`P5-KNOW-06`** — Expand only bounded provenance-preserving graph neighbors.

@@ -1,5 +1,5 @@
 {
-  "registryDigest": "c625dd7c6ea4d45dfb98d477959681f85bea23c314ef23e2237ce615c3948164",
+  "registryDigest": "cf9dadff605a2cc69de2979a9982e961ae504f93128af84faafc083ffc841947",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -80,6 +80,36 @@
       "file": "contradiction-set.v1.schema.json",
       "name": "contradiction-set.v1",
       "sha256": "33bb65a7167e91736aba968b07858dac63d6c28b0dea7fe82902d9eb764f30e9"
+    },
+    {
+      "bytes": 7076,
+      "file": "corpus-chunk.v1.schema.json",
+      "name": "corpus-chunk.v1",
+      "sha256": "f310dc5298109b4a6ceba32692907222534e0f7e37d3b64a71011e18e7221827"
+    },
+    {
+      "bytes": 2807,
+      "file": "corpus-entity.v1.schema.json",
+      "name": "corpus-entity.v1",
+      "sha256": "2addedb09fafdd33ed535b1cd14d9dde942a65e69e879854a5a5d13496470b28"
+    },
+    {
+      "bytes": 5543,
+      "file": "corpus-parse-version.v1.schema.json",
+      "name": "corpus-parse-version.v1",
+      "sha256": "aaf4d18c4caaece995b5f238e5723fa05259cd21a41111599c9d7788a4bd5375"
+    },
+    {
+      "bytes": 3009,
+      "file": "corpus-relation.v1.schema.json",
+      "name": "corpus-relation.v1",
+      "sha256": "ec9a2c43f4b65b9ca7668d5fb142208a6cabb72701df6d3019c9e71accdf8e9d"
+    },
+    {
+      "bytes": 14434,
+      "file": "corpus-source-manifest.v1.schema.json",
+      "name": "corpus-source-manifest.v1",
+      "sha256": "0c7c0b4ad200ab7e24f81adfb55917a4a07b3f2d2d21b0276f01981d0ec3f9be"
     },
     {
       "bytes": 4471,

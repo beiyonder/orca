@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P5-KNOW-01` — implement governed corpus source identity without weakening kernel or worker authority.
+`P5-KNOW-04` — retrieve corpus spans without letting derived ranking bypass kernel authority.

@@ -1,0 +1,508 @@
+{
+  "$id": "urn:orca:migration-control-plane:corpus-source-manifest.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "applicability": {
+      "additionalProperties": false,
+      "properties": {
+        "effectiveFrom": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effectiveUntil": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "product": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scope": {
+          "additionalProperties": false,
+          "properties": {
+            "attributes": {
+              "additionalProperties": {
+                "maxLength": 512,
+                "type": "string"
+              },
+              "propertyNames": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "entity": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "environment": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "system": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["environment", "system"],
+          "type": "object"
+        },
+        "versionConstraint": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["scope", "product", "versionConstraint", "effectiveFrom", "effectiveUntil"],
+      "type": "object"
+    },
+    "canonicalUri": {
+      "maxLength": 4096,
+      "minLength": 3,
+      "pattern": "^[a-z][a-z0-9+.-]*:",
+      "type": "string"
+    },
+    "content": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "mediaType": {
+          "maxLength": 255,
+          "minLength": 3,
+          "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "span": {
+          "default": {
+            "kind": "whole"
+          },
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "whole",
+                  "type": "string"
+                }
+              },
+              "required": ["kind"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "endLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                },
+                "kind": {
+                  "const": "text-lines",
+                  "type": "string"
+                },
+                "startLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                }
+              },
+              "required": ["kind", "startLine", "endLine"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "json-pointer",
+                  "type": "string"
+                },
+                "pointer": {
+                  "maxLength": 4096,
+                  "pattern": "^(?:\\/[^/]*)*$",
+                  "type": "string"
+                }
+              },
+              "required": ["kind", "pointer"],
+              "type": "object"
+            }
+          ]
+        },
+        "uri": {
+          "maxLength": 4096,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9+.-]*:",
+          "type": "string"
+        }
+      },
+      "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "dataClass": {
+      "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+      "type": "string"
+    },
+    "freshness": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "immutable",
+              "type": "string"
+            },
+            "staleDisposition": {
+              "const": "never-stale",
+              "type": "string"
+            }
+          },
+          "required": ["kind", "staleDisposition"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "refresh-after",
+              "type": "string"
+            },
+            "maxAgeDays": {
+              "exclusiveMinimum": 0,
+              "maximum": 36500,
+              "type": "integer"
+            },
+            "staleDisposition": {
+              "enum": ["exclude", "comparison-only", "warn"],
+              "type": "string"
+            }
+          },
+          "required": ["kind", "maxAgeDays", "staleDisposition"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expiresAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "kind": {
+              "const": "expires-at",
+              "type": "string"
+            },
+            "staleDisposition": {
+              "enum": ["exclude", "comparison-only", "warn"],
+              "type": "string"
+            }
+          },
+          "required": ["kind", "expiresAt", "staleDisposition"],
+          "type": "object"
+        }
+      ]
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^corpus_manifest_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "corpus-source-manifest",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "observedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "owner": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["operator", "customer", "vendor", "standards-body", "system"],
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id", "name"],
+      "type": "object"
+    },
+    "permission": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "enum": ["public", "licensed", "customer-provided", "internal"],
+          "type": "string"
+        },
+        "derivativeAllowed": {
+          "type": "boolean"
+        },
+        "ingestAllowed": {
+          "type": "boolean"
+        },
+        "licenseId": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "renderAllowed": {
+          "type": "boolean"
+        },
+        "termsUri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "maxLength": 4096,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "basis",
+        "licenseId",
+        "termsUri",
+        "ingestAllowed",
+        "renderAllowed",
+        "derivativeAllowed"
+      ],
+      "type": "object"
+    },
+    "publisher": {
+      "maxLength": 512,
+      "minLength": 1,
+      "type": "string"
+    },
+    "registeredBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "retention": {
+      "additionalProperties": false,
+      "properties": {
+        "deletionMode": {
+          "enum": ["retain", "delete-content", "delete-all", "legal-hold"],
+          "type": "string"
+        },
+        "policyId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "retainUntil": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["retainUntil", "deletionMode", "policyId"],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "sourceClass": {
+      "enum": [
+        "product-instruction",
+        "product-state",
+        "environment-evidence",
+        "reference",
+        "customer-artifact",
+        "live-research"
+      ],
+      "type": "string"
+    },
+    "sourceId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^corpus_source_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "sourcePublishedAt": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sourceVersion": {
+      "maxLength": 512,
+      "minLength": 1,
+      "type": "string"
+    },
+    "supersedesManifestId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 17,
+          "pattern": "^corpus_manifest_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "type": "string"
+    },
+    "version": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "visibility": {
+      "enum": ["tenant", "global-public"],
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "sourceId",
+    "version",
+    "sourceVersion",
+    "sourceClass",
+    "visibility",
+    "owner",
+    "permission",
+    "canonicalUri",
+    "title",
+    "publisher",
+    "content",
+    "dataClass",
+    "applicability",
+    "observedAt",
+    "sourcePublishedAt",
+    "freshness",
+    "retention",
+    "supersedesManifestId",
+    "limitations",
+    "registeredBy"
+  ],
+  "title": "corpus-source-manifest.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "corpus-source-manifest.v1"
+  }
+}

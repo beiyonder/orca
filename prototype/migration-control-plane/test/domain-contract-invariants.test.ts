@@ -303,6 +303,44 @@ describe('bounded effect invariants', () => {
   })
 })
 
+describe('corpus authority invariants', () => {
+  it('requires ingest permission, version lineage, and public-only global visibility', () => {
+    const denied = sample('corpus-source-manifest.v1')
+    const permission = denied.permission as Record<string, unknown>
+    permission.ingestAllowed = false
+    expectInvalid('corpus-source-manifest.v1', denied, 'Source permission forbids ingestion')
+
+    const laterVersion = sample('corpus-source-manifest.v1')
+    laterVersion.version = 2
+    expectInvalid(
+      'corpus-source-manifest.v1',
+      laterVersion,
+      'Later source version requires a predecessor'
+    )
+
+    const globalRestricted = sample('corpus-source-manifest.v1')
+    globalRestricted.visibility = 'global-public'
+    globalRestricted.dataClass = 'confidential'
+    expectInvalid(
+      'corpus-source-manifest.v1',
+      globalRestricted,
+      'Global corpus sources must be public'
+    )
+  })
+
+  it('rejects reversed applicability and self-referential corpus edges', () => {
+    const source = sample('corpus-source-manifest.v1')
+    const applicability = source.applicability as Record<string, unknown>
+    applicability.effectiveFrom = '2026-01-02T00:00:00.000Z'
+    applicability.effectiveUntil = '2026-01-01T00:00:00.000Z'
+    expectInvalid('corpus-source-manifest.v1', source, 'Applicability end precedes start')
+
+    const relation = sample('corpus-relation.v1')
+    relation.toEntityId = relation.fromEntityId
+    expectInvalid('corpus-relation.v1', relation, 'Corpus relation cannot self-reference')
+  })
+})
+
 describe('additional lineage and observability boundaries', () => {
   it('orders proposition validity, context positions, and attempt leases', () => {
     const proposition = sample('proposition.v1')

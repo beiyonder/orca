@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P5-KNOW-01` through `P5-KNOW-03` — govern corpus identity, immutable source ingestion, and provenance-preserving chunks/relations.
-2. Preserve the completed kernel and bounded-intelligence authority boundaries while adding retrieval state.
-3. `WORKER-EXP-01` now passes only because the imported sealed `EXP-10` report proves the real pinned OMP RPC/schema/cancel/artifact path; fixture validation alone remains insufficient.
+1. `P5-KNOW-04` through `P5-KNOW-06` — establish lexical retrieval, an optional derived semantic channel, and bounded provenance-preserving graph expansion.
+2. Keep eligibility before every ranking channel; similarity and graph distance cannot create authority.
+3. Reuse the immutable corpus IDs/version/digests/spans from `P5-KNOW-01/03`; never create a retrieval-only source identity.
