@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P3-KERN-02` — translate the V1 contracts into real PostgreSQL migrations and prove empty/upgrade schema checksum convergence.
+`P3-KERN-03` — implement command idempotency over the converged PostgreSQL 16 schema before event append.

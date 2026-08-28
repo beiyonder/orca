@@ -78,20 +78,21 @@ Initial private development dependencies:
 
 ```text
 @types/node
+@types/pg 8.23.1
 typescript
 vitest
 oxfmt
 oxlint
 ```
 
-Phase 2 runtime dependencies: **none**. `P3-KERN-01` subsequently added exact `zod 4.4.3` inside the private lab for strict persisted/worker/evaluator/adapter contracts and deterministic Draft 2020-12 export; Orca root remains unchanged.
+Phase 2 runtime dependencies: **none**. `P3-KERN-01` subsequently added exact `zod 4.4.3`; `P3-KERN-02` adds exact MIT-licensed `pg 8.23.0` for low-level PostgreSQL access. Both remain inside the private lab; Orca root is unchanged.
 
 Rules:
 
 - Pin via the lab’s own `pnpm-lock.yaml`.
 - Never resolve through Orca root `node_modules` as a contract.
 - No ORM, web framework, schema library, ID library, test fixture library, CLI parser, or logging package in Phase 2; standard library and typed functions are sufficient.
-- PostgreSQL driver/query choice belongs to P3 and requires an explicit dependency decision.
+- P3 uses direct parameterized `pg` queries and explicit same-client transactions; no ORM or migration framework is selected.
 - DBOS/Inspect dependencies live only in activated challenger arms.
 
 ## Build and test cut
@@ -103,6 +104,9 @@ node scripts/migration-control-plane-lab.mjs setup
 node scripts/migration-control-plane-lab.mjs build
 node scripts/migration-control-plane-lab.mjs typecheck
 node scripts/migration-control-plane-lab.mjs test
+node scripts/migration-control-plane-lab.mjs database migrate
+node scripts/migration-control-plane-lab.mjs database fingerprint
+node scripts/migration-control-plane-lab.mjs database verify
 node scripts/migration-control-plane-lab.mjs verify
 node scripts/migration-control-plane-lab.mjs experiment run ...
 ```
@@ -167,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P3-KERN-02` — implement real PostgreSQL migrations from the compiled V1 registry; keep OMP, DBOS, and Inspect behind the selected process/dependency boundaries.
+`P3-KERN-03` — implement command idempotency over the selected PostgreSQL/`pg` boundary; keep OMP, DBOS, and Inspect behind the selected process/dependency boundaries.

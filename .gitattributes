@@ -22,3 +22,6 @@
 # the reviewable change, and pin LF because they are compared byte-for-byte.
 # Not -diff: the shell diff is the review surface when a wrapper does change.
 /src/main/__fixtures__/shell-wrapper-snapshots/*.txt linguist-generated=true text eol=lf
+# The isolated lab hashes and formats tracked bytes identically on every runner.
+/prototype/migration-control-plane/** text eol=lf
+/prototype/migration-control-plane/src/deterministic-runtime.ts -text

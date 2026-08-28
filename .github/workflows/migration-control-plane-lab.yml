@@ -67,3 +67,50 @@ jobs:
           path: prototype/migration-control-plane/.runs/
           if-no-files-found: ignore
           retention-days: 7
+
+  postgres:
+    name: PostgreSQL 16 integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16.15-alpine
+        env:
+          POSTGRES_DB: migration_control_plane
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d migration_control_plane"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    defaults:
+      run:
+        working-directory: prototype/migration-control-plane
+
+    env:
+      MIGRATION_CONTROL_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/migration_control_plane
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: '10.24.0'
+          run_install: false
+
+      - name: Install isolated dependencies
+        run: node scripts/migration-control-plane-lab.mjs setup
+
+      - name: Verify PostgreSQL kernel
+        run: node scripts/migration-control-plane-lab.mjs database verify

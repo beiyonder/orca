@@ -22,9 +22,9 @@ Runtime baseline:
 - OMP remains an external Bun process;
 - PostgreSQL begins in P3, not through a SQLite substitute.
 
-Post-handoff update: `P3-KERN-01` added exact `zod 4.4.3` to the private lab for the V1 domain contract registry. The Phase 2 gate itself had no runtime dependency.
+Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate after the contract-registry update: `P3-KERN-02`.
+Current roadmap coordinate: `P3-KERN-03`.
 
 ## Coordinate evidence
 
@@ -147,7 +147,7 @@ Rejected for the Phase 2 baseline:
 1. `WORKER-EXP-01` is **inconclusive**, not passed. P2 creates the exact contract fixture; a real pinned OMP binary RPC/schema/cancel/artifact probe belongs to the agent integration path.
 2. The local machine ran Node 26.7.0. The package declares Node 24+, and CI pins Node 24; CI results are not observed until the pushed workflow runs.
 3. Fault points and artifact preservation are real; database/network/target recovery semantics are simulated in `LAB-EXP-01` until their P3/P8 components exist.
-4. PostgreSQL migrations, command idempotency, event/projection/outbox transactions and replay were not Phase 2 work. `P3-KERN-01` now defines their V1 record contracts; behavior still begins with `P3-KERN-02`.
+4. PostgreSQL migrations now exist and converge from empty/staged paths. Command idempotency, event/projection/outbox transactions, leases, replay, and reconciliation remain P3 work beginning with `P3-KERN-03`.
 5. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
 6. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
@@ -172,7 +172,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P3-KERN-02`: implement real PostgreSQL migrations from the 41-schema V1 registry and prove empty/upgrade schema checksum convergence.
+Start `P3-KERN-03`: implement command idempotency so identical retries replay one stored result and mismatched payload reuse is rejected.
 
 First verification command after any change:
 
