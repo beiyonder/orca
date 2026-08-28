@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P5-KNOW-09`.
-- `G2-LAB`, Phase 3, Phase 4, and `P5-KNOW-01` through `P5-KNOW-08` evidence are complete; governed memory/capability records are next.
+- First dependency-ready roadmap coordinate: `P6-DISC-01`.
+- `G2-LAB` through `G5-KNOW` are complete; the first licensed source fixture and version are next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -27,6 +27,8 @@ Local sealed runs under ignored `.runs/`:
 | `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
 | `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
+| `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
+| `EXP-07` | 507 | `passed` | `exp-07-507-baseline-none-run_000000_81c0168e84e967df` |
 
 Gate verification:
 
@@ -154,6 +156,18 @@ Gate verification:
 - deterministic context assembly preserves citation metadata, performs literal redaction and content-digest dedupe, enforces token budget, records exclusions, and reproduces exact rendered/context digests;
 - migration 007 registers immutable query/trace/context records; registry has 49 schemas and PostgreSQL fingerprint is `892bba1b…d1117e2`;
 - complete verification passes 23 unit files / 137 tests and 11 PostgreSQL files / 35 tests.
+
+## `P5-KNOW-09` through `P5-KNOW-13` governed capability and qualification evidence
+
+- six strict V1 contracts cover memory candidate/version/use/invalidation and skill version/lifecycle records; the generated registry expands from 49 to 55 schemas;
+- mission, episodic, procedural, failure, and evaluator candidates require canonical provenance, digest-bound content, exact scope/applicability/retention/validation metadata, no authority delta, and quarantine with no recall;
+- deterministic reconstruction orders memory versions and skill dependency/lifecycle history independent of database row order; recall checks tenant, role, task, data, environment, product/version, validity, status, and current lineage;
+- every memory use binds version/context/assignment/attempt/retrieval trace/rank/score/render digest/downstream records/attribution; invalidation names every prior use and a matching stale/deprecated/revoked/forgotten replacement version;
+- skill versions bind artifact/contracts, evaluator IDs, authority envelope, dependencies, model/runtime/harness/tool/data/task compatibility, signer/license, and predecessor; only legal quarantine→certification→activation→deprecation/revocation history can resolve;
+- migration 008 registers all 55 schemas, keeps corpus/retrieval/context/memory/skill records immutable, and converges empty/upgraded databases to fingerprint `2ade23da…b4bf5e`;
+- sealed `EXP-06` seed 506 runs 20 queries over 55 current/conflicting/stale/cross-tenant/distractor documents: semantic retrieval covers 20/20 versus lexical 15/20, 20/20 used answers carry exact citations, and zero denied items are included;
+- sealed `EXP-07` seed 507 improves deterministic held-out accuracy from 10/20 to 20/20, rejects both seeded poisoned/stale memories, leaks zero cross-tenant records, removes all post-invalidation recall, and retains 20 attributable use traces;
+- both sealed run indexes verify; complete verification passes 25 unit files / 152 tests and 12 PostgreSQL files / 36 tests.
 
 ## Queue classes
 
@@ -399,7 +413,7 @@ Every state change records:
 - `G2-LAB`: `LAB-EXP-01`, fixture and baseline reproducibility.
 - `G3-KERN`: durable experiments.
 - `G4-AGNT`: worker/orchestration experiments.
-- `G5-KNOW`: epistemic/context/memory-candidate experiments.
+- `G5-KNOW`: retrieval/context authorization, provenance, memory help/harm, and reversible capability lifecycle experiments.
 - `G7-EVAL`: evaluation/correction/improvement experiments.
 - `G8-EXEC`: all `PRE-EFFECT` experiments.
 - `G9-INTEG`: `S1-E2E-01` plus expanded integrated scenario.
@@ -407,4 +421,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P5-KNOW-09` memory candidates; every mission/episodic/procedural/failure/evaluator proposal must cite canonical records and remain unavailable in quarantine.
+Begin `P6-DISC-01`: select a licensed source fixture, pin its exact revision/runtime/checksum, and document the expected estate before defining or executing an adapter.

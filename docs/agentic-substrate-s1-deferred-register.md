@@ -42,7 +42,7 @@ Update this register whenever:
 
 | ID | Status | Capability intentionally excluded from S1 | Why excluded | Seam preserved in S1 | Re-entry trigger | Planned coordinate |
 | --- | --- | --- | --- | --- | --- | --- |
-| `S1-DEF-001` | `DEFERRED` | Real source connector | S1 tests the substrate, not database access breadth. | `EvidenceItem` and source-adapter interface accept fixture artifacts. | Epistemic/orchestration/correction loop passes and source discovery begins. | `P6-DISC-01`–`03` |
+| `S1-DEF-001` | `PROMOTED` | Real source connector | S1 tests the substrate, not database access breadth. | `EvidenceItem` and source-adapter interface accept fixture artifacts. | `G5-KNOW` passed and source discovery begins at current coordinate `P6-DISC-01`; adapter implementation remains gated by the frozen fixture and contract. | `P6-DISC-01`–`03` |
 | `S1-DEF-002` | `DEFERRED` | Snapshot, CDC, schema drift, deletes, late data | Requires source-specific runtime and replay corpus. | Task/evidence/evaluator contracts can represent watermarks and dispositions. | First source adapter selected. | `P6-DISC-08`, `P6-DISC-16` |
 | `S1-DEF-003` | `DEFERRED` | Real Databricks/Snowflake/cloud target mutation | External-effect work must not distract from core correction loop. | `EffectIntent`, capability envelope, receipt, and unknown state remain in schemas. | S1 state/evaluation gates pass. | `P8-EXEC-07`–`12` |
 | `S1-DEF-004` | `DEFERRED` | Remote execution relay and customer-zone spool | No source/target network exists in S1. | Assignment/effect protocols use location-neutral IDs and receipts. | One local effect protocol passes; remote topology needed. | `P8-EXEC-04`–`06` |
@@ -54,8 +54,8 @@ Update this register whenever:
 | `S1-DEF-010` | `DEFERRED` | Full ATMS or formal argumentation solver | Complexity is unjustified before contradiction workload exists. | Assumptions, justifications, support/refute, contradiction sets, and candidate hypotheses are explicit. | EPI experiments reveal combinatorial environments or incorrect simple acceptance. | `P5-KNOW`, `P7-EVAL`, `L-KNOW-01` |
 | `S1-DEF-011` | `DEFERRED` | Bayesian belief network and calibrated expected information gain | No calibrated priors/likelihoods exist yet. | Probe candidates store predicted outcomes and transparent ordinal factors. | Domain corpus supplies calibrated probabilities and improves probe choice. | `P7-EVAL`, post-S1 research |
 | `S1-DEF-012` | `DEFERRED` | Semantic entropy and model uncertainty service | S1 acceptance is evidence-based; model uncertainty is optional signal. | Assignment results may carry uncertainty signals without authority. | EPI-EXP-06 shows measurable risk/coverage benefit. | `P7-EVAL-06`, `L-EVAL-01` |
-| `S1-DEF-013` | `DEFERRED` | Vector retrieval and reranking | Two fixture artifacts do not need semantic search. | Context assembler and retrieval result schemas are backend-neutral. | Corpus size/known-answer benchmark defeats lexical/structured retrieval. | `P5-KNOW-05` |
-| `S1-DEF-014` | `DEFERRED` | Full long-term memory taxonomy and consolidation | S1 needs only one quarantined memory candidate. | Candidate record includes type, provenance, scope, expiry, and status. | Repeated tasks exist and help/harm can be measured. | `P5-KNOW-09`–`13` |
+| `S1-DEF-013` | `REPLACED` | Vector retrieval and reranking | Two fixture artifacts did not need semantic search; the 55-document `EXP-06` corpus later exposed five lexical misses. | Context assembler and retrieval result schemas remain backend-neutral. | Optional version/configuration-digested sparse semantic retrieval raised coverage from 15/20 to 20/20 with no vector service or authority change; reopen through `L-KNOW-01` only if a later benchmark misses threshold. | Completed by `P5-KNOW-05`/`12` without a vector dependency |
+| `S1-DEF-014` | `PROMOTED` | Long-term memory taxonomy and governed lifecycle; adaptive consolidation remains `S1-DEF-040` | S1 needed only one quarantined memory candidate. | Candidate/version/use/invalidation records preserve provenance, scope, retention, authority separation, and downstream impact. | `EXP-07` repeated held-out tasks measured positive help, poison rejection, tenant isolation, use tracing, and invalidation; `P5-KNOW-09`–`13` completed. | `P5-KNOW-09`–`13` |
 | `S1-DEF-015` | `DEFERRED` | Skill certification, promotion, drift, demotion, rollback | S1 does not execute learned skills. | Learning candidate and skill-manifest interfaces remain versioned. | Correction loop passes and one repeated capability is identified. | `P7-EVAL-10`–`14` |
 | `S1-DEF-016` | `DEFERRED` | Fine-tuning, distillation, or custom model training | Corpus/evaluator does not yet exist; weights are not the current bottleneck. | Every attempt pins model/version and produces evaluation data. | Stable held-out corpus and repeated model-specific error class. | Post-prototype decision |
 | `S1-DEF-017` | `DEFERRED` | Recursive multi-level agent hierarchy | One apex and two specialists are enough to test authority/disagreement. | Assignment model includes parent, depth, budget, scope, and spawn policy. | ORCH experiment shows one level cannot decompose required workload. | `P4-AGNT`, after ORCH baseline |
@@ -116,6 +116,31 @@ Review outcome:
 - the private Node/TypeScript lab does not promote DBOS, Inspect, a memory backend, optimizer, OPA/SPIRE, a sandbox provider, remote relay, target effect, or production deployment cut;
 - `WORKER-EXP-01` was inconclusive at `G2-LAB`, so that gate did not promote OMP internals; it later passed at `P4-AGNT-12` without making OMP task/session state product authority.
 - next mandatory review is `G3-KERN`; any earlier scope change must use the promotion procedure below.
+
+## `G3-KERN` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against checksum-locked PostgreSQL authority, idempotent commands, append-only events, fencing, explicit unknown effects, replay, and restart convergence;
+- no deferred capability was promoted, replaced, or dropped: the kernel proved control semantics without a connector, semantic retrieval, memory recall, learned skill, external target, or production deployment dependency.
+
+## `G4-AGNT` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against isolated OMP RPC, exact context/result/tool authority, specialist/apex/disagreement contracts, process reconstruction, and real pinned-binary containment;
+- no deferred capability was promoted, replaced, or dropped: product-owned one-level dispatch passed, but no evidence showed a need for durable OMP subagents, swarms, voting, multiple apexes, persistent personas, or production execution infrastructure.
+
+## `G5-KNOW` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against immutable corpus/provenance, authorization-before-ranking, reproducible context manifests, governed memory/skill registries, migration 008, and sealed `EXP-06`/`EXP-07`;
+- `S1-DEF-001` is `PROMOTED`: `G5-KNOW` passes and `P6-DISC-01` begins the first licensed fixture/connector path;
+- `S1-DEF-013` is `REPLACED`: sparse governed semantic projection recovers the five lexical misses and reaches 20/20 without a vector backend;
+- `S1-DEF-014` is `PROMOTED`: all five memory classes, use tracing, lifecycle/invalidation, isolation, and help/harm measurement now exist; adaptive consolidation remains separately deferred under `S1-DEF-040`;
+- production memory backend selection, legal deletion orchestration, cross-tenant learning, adaptive consolidation, and skill promotion/drift/canary automation remain deferred;
+- next mandatory review is `G6-DISC`; any earlier scope change must use the promotion procedure below.
 
 ## Promotion procedure
 

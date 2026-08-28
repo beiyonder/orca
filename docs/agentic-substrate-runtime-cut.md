@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P5-KNOW-09` — add governed memory records without adopting an external memory service.
+`P6-DISC-01` — freeze one licensed source fixture and runtime without changing the measured Node control-plane cut.

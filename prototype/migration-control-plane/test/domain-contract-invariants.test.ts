@@ -158,7 +158,7 @@ describe('evaluation and correction invariants', () => {
     )
 
     const contract = sample('evaluation-contract.v1')
-    const measures = contract.measures as Array<Record<string, unknown>>
+    const measures = contract.measures as Record<string, unknown>[]
     measures[0]!.hard = false
     expectInvalid(
       'evaluation-contract.v1',
@@ -169,7 +169,7 @@ describe('evaluation and correction invariants', () => {
 
   it('prevents false passed/failed verdicts and malformed failed measures', () => {
     const passed = sample('evaluation-result.v1')
-    const passedMeasures = passed.measures as Array<Record<string, unknown>>
+    const passedMeasures = passed.measures as Record<string, unknown>[]
     passedMeasures[0]!.status = 'fail'
     passedMeasures[0]!.failureCode = 'schema_invalid'
     expectInvalid(
@@ -188,7 +188,7 @@ describe('evaluation and correction invariants', () => {
 
     const missingCode = sample('evaluation-result.v1')
     missingCode.status = 'failed'
-    const missingCodeMeasures = missingCode.measures as Array<Record<string, unknown>>
+    const missingCodeMeasures = missingCode.measures as Record<string, unknown>[]
     missingCodeMeasures[0]!.status = 'fail'
     expectInvalid('evaluation-result.v1', missingCode, 'Failed measure requires failureCode')
   })
@@ -380,6 +380,76 @@ describe('retrieval and knowledge context invariants', () => {
   })
 })
 
+describe('memory and skill governance invariants', () => {
+  it('requires memory provenance, exact content, validation, and non-recallable settled states', () => {
+    const candidate = sample('memory-candidate.v1')
+    candidate.sourceRecordIds = []
+    candidate.sourceEvidenceIds = []
+    expectInvalid(
+      'memory-candidate.v1',
+      candidate,
+      'Memory candidate requires canonical provenance'
+    )
+
+    const changed = sample('memory-candidate.v1')
+    changed.proposedContent = { lesson: 'changed' }
+    expectInvalid('memory-candidate.v1', changed, 'Memory candidate content digest differs')
+
+    const active = sample('memory-version.v1')
+    active.validationResultIds = []
+    expectInvalid('memory-version.v1', active, 'Recallable memory requires validation evidence')
+
+    const revoked = sample('memory-version.v1')
+    revoked.status = 'revoked'
+    expectInvalid('memory-version.v1', revoked, 'Memory status and recall policy disagree')
+
+    const invalidation = sample('memory-invalidation.v1')
+    invalidation.replacementVersionId = invalidation.memoryVersionId
+    expectInvalid(
+      'memory-invalidation.v1',
+      invalidation,
+      'Memory invalidation replacement must be a new version'
+    )
+  })
+
+  it('binds skill artifacts, declared tools, version lineage, and quarantine-first lifecycle', () => {
+    const artifact = sample('skill-version.v1')
+    artifact.artifactDigest = 'f'.repeat(64)
+    expectInvalid('skill-version.v1', artifact, 'Skill artifact digest differs')
+
+    const expanded = sample('skill-version.v1')
+    const authority = expanded.authorityEnvelope as Record<string, unknown>
+    authority.toolNames = ['artifact_write']
+    expectInvalid('skill-version.v1', expanded, 'Skill authority must match required tools')
+
+    const overlap = sample('skill-version.v1')
+    overlap.unsupportedTaskClasses = ['identity-mapping']
+    expectInvalid('skill-version.v1', overlap, 'Skill task classes cannot overlap')
+
+    const route = sample('skill-version.v1')
+    const routes = route.compatibleModelRoutes as Record<string, unknown>[]
+    routes[0]!.dataClasses = ['public']
+    expectInvalid('skill-version.v1', route, 'Skill model route expands data classes')
+
+    const lifecycle = sample('skill-lifecycle-event.v1')
+    lifecycle.toStatus = 'active'
+    lifecycle.certificationId = 'certification_s1'
+    expectInvalid('skill-lifecycle-event.v1', lifecycle, 'First skill event must enter quarantine')
+
+    const uncertified = sample('skill-lifecycle-event.v1')
+    uncertified.sequence = 2
+    uncertified.fromStatus = 'quarantined'
+    uncertified.toStatus = 'certified'
+    uncertified.certificationId = 'certification_s1'
+    uncertified.evidenceIds = []
+    expectInvalid(
+      'skill-lifecycle-event.v1',
+      uncertified,
+      'Certified or active skill requires evidence'
+    )
+  })
+})
+
 describe('additional lineage and observability boundaries', () => {
   it('orders proposition validity, context positions, and attempt leases', () => {
     const proposition = sample('proposition.v1')
@@ -388,7 +458,7 @@ describe('additional lineage and observability boundaries', () => {
     expectInvalid('proposition.v1', proposition, 'effectiveUntil must not precede effectiveFrom')
 
     const context = sample('context-manifest.v1')
-    const items = context.items as Array<Record<string, unknown>>
+    const items = context.items as Record<string, unknown>[]
     items[0]!.position = 1
     expectInvalid(
       'context-manifest.v1',

@@ -1,0 +1,135 @@
+{
+  "$id": "urn:orca:migration-control-plane:skill-lifecycle-event.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "certificationId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 15,
+          "pattern": "^certification_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "type": "array"
+    },
+    "fromStatus": {
+      "anyOf": [
+        {
+          "enum": ["quarantined", "certified", "active", "deprecated", "revoked"],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^skill_lifecycle_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "skill-lifecycle-event",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 512,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "sequence": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "skillId": {
+      "maxLength": 128,
+      "minLength": 7,
+      "pattern": "^skill_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "skillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "toStatus": {
+      "enum": ["quarantined", "certified", "active", "deprecated", "revoked"],
+      "type": "string"
+    },
+    "transitionedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "skillId",
+    "skillVersionId",
+    "sequence",
+    "fromStatus",
+    "toStatus",
+    "certificationId",
+    "evidenceIds",
+    "reason",
+    "transitionedBy"
+  ],
+  "title": "skill-lifecycle-event.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "skill-lifecycle-event.v1"
+  }
+}

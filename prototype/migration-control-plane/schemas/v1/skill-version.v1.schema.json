@@ -1,0 +1,488 @@
+{
+  "$id": "urn:orca:migration-control-plane:skill-version.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "mediaType": {
+          "maxLength": 255,
+          "minLength": 3,
+          "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "span": {
+          "default": {
+            "kind": "whole"
+          },
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "whole",
+                  "type": "string"
+                }
+              },
+              "required": ["kind"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "endLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                },
+                "kind": {
+                  "const": "text-lines",
+                  "type": "string"
+                },
+                "startLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                }
+              },
+              "required": ["kind", "startLine", "endLine"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "json-pointer",
+                  "type": "string"
+                },
+                "pointer": {
+                  "maxLength": 4096,
+                  "pattern": "^(?:\\/[^/]*)*$",
+                  "type": "string"
+                }
+              },
+              "required": ["kind", "pointer"],
+              "type": "object"
+            }
+          ]
+        },
+        "uri": {
+          "maxLength": 4096,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9+.-]*:",
+          "type": "string"
+        }
+      },
+      "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+      "type": "object"
+    },
+    "artifactDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "authorityEnvelope": {
+      "additionalProperties": false,
+      "properties": {
+        "effectClasses": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "filesystemScopes": {
+          "items": {
+            "maxLength": 4096,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "networkDestinations": {
+          "items": {
+            "format": "uri",
+            "maxLength": 4096,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "secretScopes": {
+          "items": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "toolNames": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        }
+      },
+      "required": [
+        "toolNames",
+        "networkDestinations",
+        "filesystemScopes",
+        "secretScopes",
+        "effectClasses"
+      ],
+      "type": "object"
+    },
+    "compatibleModelRoutes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "dataClasses": {
+            "items": {
+              "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+              "type": "string"
+            },
+            "maxItems": 6,
+            "minItems": 1,
+            "type": "array"
+          },
+          "effort": {
+            "enum": ["lo", "med", "hi"],
+            "type": "string"
+          },
+          "model": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "provider": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "revision": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["provider", "model", "revision", "effort", "dataClasses"],
+        "type": "object"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "compatibleRuntimes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "harness": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "runtime": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "versionConstraint": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["runtime", "versionConstraint", "harness"],
+        "type": "object"
+      },
+      "maxItems": 64,
+      "minItems": 1,
+      "type": "array"
+    },
+    "contract": {
+      "additionalProperties": false,
+      "properties": {
+        "contractDigest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "properties": {
+            "digest": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^[a-z][a-z0-9-]*\\.v[1-9][0-9]*$",
+              "type": "string"
+            },
+            "version": {
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          "required": ["name", "version", "digest"],
+          "type": "object"
+        },
+        "output": {
+          "additionalProperties": false,
+          "properties": {
+            "digest": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 256,
+              "minLength": 1,
+              "pattern": "^[a-z][a-z0-9-]*\\.v[1-9][0-9]*$",
+              "type": "string"
+            },
+            "version": {
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991,
+              "type": "integer"
+            }
+          },
+          "required": ["name", "version", "digest"],
+          "type": "object"
+        }
+      },
+      "required": ["input", "output", "contractDigest"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "createdBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "dataClasses": {
+      "items": {
+        "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "type": "array"
+    },
+    "dependencyVersionIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 15,
+        "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 0,
+      "type": "array"
+    },
+    "description": {
+      "maxLength": 8192,
+      "minLength": 1,
+      "type": "string"
+    },
+    "discoveryKeywords": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "evaluationContractIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 21,
+        "pattern": "^evaluation_contract_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "skill-version",
+      "type": "string"
+    },
+    "license": {
+      "maxLength": 256,
+      "minLength": 1,
+      "type": "string"
+    },
+    "predecessorVersionId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 15,
+          "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "requiredTools": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "approval": {
+            "enum": ["read", "write", "exec"],
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schemaDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["name", "version", "schemaDigest", "approval"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "signer": {
+      "anyOf": [
+        {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "skillId": {
+      "maxLength": 128,
+      "minLength": 7,
+      "pattern": "^skill_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "supportedTaskClasses": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "unsupportedTaskClasses": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "version": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "skillId",
+    "version",
+    "artifact",
+    "artifactDigest",
+    "description",
+    "discoveryKeywords",
+    "contract",
+    "compatibleModelRoutes",
+    "compatibleRuntimes",
+    "requiredTools",
+    "evaluationContractIds",
+    "dataClasses",
+    "authorityEnvelope",
+    "dependencyVersionIds",
+    "supportedTaskClasses",
+    "unsupportedTaskClasses",
+    "predecessorVersionId",
+    "license",
+    "signer",
+    "createdBy"
+  ],
+  "title": "skill-version.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "skill-version.v1"
+  }
+}

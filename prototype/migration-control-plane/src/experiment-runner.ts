@@ -20,8 +20,10 @@ import {
   buildIdentityMappingBaseline,
   evaluateIdentityMapping
 } from './identity-mapping-evaluator.js'
+import { runMemoryHelpHarmExperiment } from './memory-help-harm-experiment.js'
 import { RunArtifactStore } from './run-artifact-store.js'
 import { calibrateS1Fixture, inspectOmpWorkerFixture } from './s1-fixture-calibration.js'
+import { runRetrievalBenchmarkExperiment } from './retrieval-benchmark-experiment.js'
 import { runSpecialistDisagreementExperiment } from './specialist-disagreement-experiment.js'
 import { loadS1IdentityFixture } from './s1-fixture-loader.js'
 import type { S1IdentityFixture } from './s1-fixture-contracts.js'
@@ -32,6 +34,8 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'BASELINE-EXP-01': ['baseline'],
   'WORKER-EXP-01': ['baseline'],
   'EXP-05': ['baseline'],
+  'EXP-06': ['baseline'],
+  'EXP-07': ['baseline'],
   'DUR-EXP-01': ['baseline']
 }
 
@@ -68,7 +72,9 @@ function recordEvent(
 
 export async function runExperiment(options: ExperimentRunOptions): Promise<ExperimentRunSummary> {
   const allowedArms = EXPERIMENT_ARMS[options.experimentId]
-  if (!allowedArms) throw new TypeError(`Unknown experiment: ${options.experimentId}`)
+  if (!allowedArms) {
+    throw new TypeError(`Unknown experiment: ${options.experimentId}`)
+  }
   if (!allowedArms.includes(options.arm)) {
     throw new TypeError(`${options.experimentId} does not support arm ${options.arm}`)
   }
@@ -211,6 +217,10 @@ async function executeExperiment(
     }
     case 'EXP-05':
       return runSpecialistDisagreementExperiment(seed)
+    case 'EXP-06':
+      return runRetrievalBenchmarkExperiment(seed)
+    case 'EXP-07':
+      return runMemoryHelpHarmExperiment(seed)
     case 'DUR-EXP-01': {
       const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
       if (!connectionString) {

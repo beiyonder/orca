@@ -320,9 +320,9 @@ node scripts/migration-control-plane-lab.mjs verify
 - Phase 3 contracts, five migrations, atomic persistence/delivery, DAG/lifecycle/effect authority, exact replay, restart dispositions, and convergence experiment now exist.
 - No external adapter call is executable; effect records prove state semantics without granting production authority.
 - Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
-- Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
+- Memory and skill capability records now have immutable quarantine/validation/use/invalidation/lifecycle contracts; automated production skill promotion, drift, canary, and rollback remain future `P7-EVAL` work.
 - `WORKER-EXP-01` now passes through a digest-verified real pinned OMP `EXP-10` report; production model/provider behavior remains outside this synthetic containment proof.
 
 ## Next coordinate
 
-`P5-KNOW-09` — persist memory candidates as non-authoritative quarantined proposals.
+`P6-DISC-01` — freeze the first licensed source fixture and exact version before defining its adapter contract.

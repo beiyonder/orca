@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P5-KNOW-09` — Implement quarantined typed memory candidates.**
+**`P6-DISC-01` — Select the first licensed source fixture and exact version.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 4 remains complete. `P5-KNOW-01` through `P5-KNOW-03` establish immutable governed corpus identity and provenance. `P5-KNOW-04` adds transparent structured/BM25-simple lexical scoring with exact source/version/digest/span candidates and RRF traces. `P5-KNOW-05` adds an optional derived sparse semantic projection whose version and configuration digest are recorded; a paraphrase test proves coverage beyond lexical-only retrieval without changing authority. `P5-KNOW-06` performs depth/candidate-bounded tenant-local relational BFS and returns only provenance chunks. `P5-KNOW-07` rejects tenant, source-class, data-class, scope, source-allowlist, render-policy, digest, stale, and superseded candidates before any ranking channel. `P5-KNOW-08` deterministically packs cited/redacted/deduplicated items within token budget and records every exclusion plus rendered digest. Migration 007 persists immutable query/trace/context records. Verification passes 23 unit files / 137 tests, 11 PostgreSQL files / 35 tests, 49 schemas, and fingerprint `892bba1b55d739af5ab01926ec5a2dce344453c77dd72d22d462798bfd1117e2`. Next: memory enters quarantine.
+Phase 5 is complete. `P5-KNOW-01` through `P5-KNOW-08` provide immutable governed corpus identity, exact provenance, pre-ranking authorization, transparent structured/BM25/semantic/graph retrieval, RRF traces, and byte-reproducible cited/redacted/token-bounded contexts. `P5-KNOW-09` admits mission, episodic, procedural, failure, and evaluator memory candidates only into provenance-bound quarantine. `P5-KNOW-10` adds exact tenant/role/task/data/environment/product/version/time recall, immutable use attribution, ordered versions, and complete-use invalidation into stale/deprecated/revoked/forgotten states. `P5-KNOW-11` persists typed skill artifacts/contracts, model/runtime/tool/data/authority compatibility, dependencies, and quarantined→certified→active→deprecated/revoked lifecycle. Sealed `EXP-06` seed 506 retrieves 20/20 known answers from a 55-document conflict/stale/cross-tenant/distractor corpus, cites 20/20, uses zero denied items, and gains five answers from the optional semantic channel. Sealed `EXP-07` seed 507 improves held-out accuracy from 10/20 to 20/20 with zero poisoned, cross-tenant, or post-invalidation recall while retaining 20 use traces. Migration 008 binds 55 contracts and immutable memory/skill records; verification passes 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests, and fingerprint `2ade23da3f4f440587f0c9bcdfca038ec6ac67d9d6b421f541609d30f5b4bf5e`. `G5-KNOW` passes. Next: select and freeze the first licensed discovery fixture.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P5-KNOW-09
+P6-DISC-01
 ```
 
 Means:
 
-- Phase 5
-- Knowledge, memory, and capability track
-- Task 9
+- Phase 6
+- Source discovery and gap resolution track
+- Task 1
 
 Gate format:
 
@@ -66,9 +66,9 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P5-KNOW-09`: implement the quarantined memory candidate model.”
+> “We are at `P6-DISC-01`: select the first licensed source fixture and exact version.”
 
-Do not say only “we are working on knowledge.”
+Do not say only “we are working on discovery.”
 
 ## Status vocabulary
 
@@ -137,32 +137,34 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | Level | System characteristic | Current Orca / OMP position |
 | --- | --- | --- |
 | `A0 — Tool agent` | Model can reason, call tools, observe results, and return structured output. | **Strong:** OMP already provides the core model/tool loop and coding tools. |
-| `A1 — Stateful worker` | Sessions, context compaction, resumable working history, scoped memory. | **Partial/strong mechanics:** OMP sessions, compaction, Mnemopi, recall/retain/reflect. Memory quality and authority separation are not product-proven. |
-| `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **Patterns only:** Orca has durable task/dispatch/run semantics; no migration mission kernel or evidence-backed world model exists. |
-| `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **Partial primitives:** OMP subagents and Orca orchestration exist; no proven apex controller or evidence-based disagreement loop. |
-| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **Mostly missing:** tools exist, but no durable epistemic state, gap engine, or retrieval acceptance contract. |
-| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Missing as a system:** tests/tools exist; no product evaluation coordinator or closed correction loop. |
-| `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Primitive only:** OMP memory/skills exist; certification, promotion, drift, demotion, and harm tracing are missing. |
-| `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **Patterns only:** Orca has capabilities, receipts, relay, stale-attempt rejection, and recovery patterns; no migration effect protocol exists. |
+| `A1 — Stateful worker` | Sessions, context compaction, resumable working history, scoped memory. | **Strong mechanics plus isolated governance proof:** OMP sessions/compaction and product-owned memory candidate/version/use/invalidation pass synthetic scope, harm and replay tests; integrated mission recall remains unproven. |
+| `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **M2/M3 kernel proof:** product PostgreSQL commands/events/projections/plans/attempts/effects/replay/restart converge under faults; the complete mission/world-model loop is not assembled. |
+| `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
+| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **Partial M2 proof:** epistemic contracts/probes plus governed corpus, authorization-first retrieval and exact context manifests pass; live source discovery and integrated gap resolution begin in Phase 6. |
+| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Contract/baseline only:** deterministic fixture evaluation exists, but the product evaluation coordinator and closed correction loop remain Phase 7 work. |
+| `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
+| `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Not started beyond architecture/research inventory.** |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Starting at `P6-DISC-01`:** no source adapter has executed yet. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
 
-We are not at zero, and we are not yet at a durable intelligent system.
+We have bounded component proof through knowledge/memory, not yet an integrated autonomous migration system.
 
 ```text
-A0 Tool agent                 OMP: strong
-A1 Stateful worker            OMP: partial/strong mechanics
-A2 Durable mission            Orca: useful patterns, product layer missing
-A3 Specialist orchestration   OMP + Orca: partial primitives
-A4–A6 Intelligence loops      mostly missing
-A7 Bounded execution          Orca patterns only
-A8–A10 Integrated product     not built
+A0 Tool agent                 strong
+A1 Stateful worker            strong mechanics; governed memory M2
+A2 Durable mission            durable kernel M2/M3
+A3 Specialist orchestration   isolated typed/contained proof M2
+A4 Evidence seeking           retrieval/context M2; discovery/gaps partial
+A5 Self-correction            contract/baseline only
+A6 Self-improvement           governed memory/skill skeleton M2
+A7 Bounded execution          state semantics only; no target effect
+A8–A10 Integrated product     not assembled
 ```
 
-The next research wave must turn A0–A7 into a capability contract, then map exact Orca/OMP symbols and tests onto it. Only then do we pick the smallest A2–A6 integration slice to build.
+The next wave pressure-tests A4/A9 against one frozen licensed source estate. `P6-DISC-01` must fix the fixture boundary before adapter and sandbox implementation.
 
 ## Working prototype definition
 
@@ -392,11 +394,11 @@ Failure route: `L-AGNT-01`.
 | `DONE` | `P5-KNOW-06` | Implement bounded graph expansion. | Tenant-local relational BFS enforces depth/candidate bounds, records visited entities/edges, and contributes only exact provenance chunks; graph score never changes eligibility. |
 | `DONE` | `P5-KNOW-07` | Implement retrieval authorization. | Tenant, class, scope, source, render, digest, current-version, applicability, and freshness denials occur before scoring with attributable reasons and zero channel scores. |
 | `DONE` | `P5-KNOW-08` | Implement context assembler. | Repeated compilation is byte-identical; cited items are ordered, deduplicated, literal-redacted, token-bounded, digest-bound, and every excluded candidate retains its reason. |
-| `CURRENT` | `P5-KNOW-09` | Implement memory candidate model. | Mission, episodic, procedural, failure, and evaluator memories enter quarantine with provenance. |
-| `WAIT` | `P5-KNOW-10` | Implement memory validation/invalidation. | Memory can be promoted, expired, deprecated, revoked, and traced to every downstream use. |
-| `WAIT` | `P5-KNOW-11` | Implement skill registry skeleton. | Typed skill versions, tools, evaluators, envelope, compatibility, and lifecycle are persisted. |
-| `WAIT` | `P5-KNOW-12` | Run retrieval benchmark. | EXP-06 meets coverage, citation, freshness, and authorization thresholds. |
-| `WAIT` | `P5-KNOW-13` | Run memory help/harm benchmark. | EXP-07 proves positive task effect, poison rejection, invalidation, and zero cross-tenant recall. |
+| `DONE` | `P5-KNOW-09` | Implement memory candidate model. | All five memory classes require canonical record/evidence provenance, digest-bound content, scope/applicability/retention/validation metadata, no authority delta, and exact quarantined/no-use/not-run state. |
+| `DONE` | `P5-KNOW-10` | Implement memory validation/invalidation. | Ordered immutable versions, exact recall boundaries, downstream use attribution, complete-use impact review, and stale/deprecated/revoked/forgotten replacement states survive PostgreSQL reconstruction. |
+| `DONE` | `P5-KNOW-11` | Implement skill registry skeleton. | Typed versioned artifacts/contracts, evaluators, authority, dependencies, model/runtime/tool/data/task compatibility, and quarantine/certification/activation/deprecation/revocation lifecycle are persisted immutably. |
+| `DONE` | `P5-KNOW-12` | Run retrieval benchmark. | Sealed `EXP-06` seed 506 retrieves 20/20 known answers from 55 conflict/stale/cross-tenant/distractor documents, cites 20/20, uses zero denied items, and records all query traces. |
+| `DONE` | `P5-KNOW-13` | Run memory help/harm benchmark. | Sealed `EXP-07` seed 507 moves held-out accuracy from 10/20 to 20/20, rejects all seeded wrong/stale memory, leaks zero cross-tenant memory, revokes future recall, and retains 20 use traces. |
 
 ### `G5-KNOW` — Knowledge and memory gate
 
@@ -409,6 +411,8 @@ Pass when:
 - the same context manifest can be reconstructed;
 - graph/vector machinery remains derived and replaceable.
 
+**Gate status: `DONE`.** All predicates pass with exact source/version citations, pre-ranking stale/tenant exclusion, reversible use-traced memory, quarantine-first skill lifecycle, sealed `EXP-06`/`EXP-07`, 55 schemas, 8 migrations / 17 tables, 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests, and schema fingerprint `2ade23da…b4bf5e`.
+
 Failure route: `L-KNOW-01`.
 
 ---
@@ -419,7 +423,7 @@ Failure route: `L-KNOW-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P6-DISC-01` | Select first source fixture and version. | Licensed fixture, exact revision, runtime, checksum, and expected estate documented. |
+| `CURRENT` | `P6-DISC-01` | Select first source fixture and version. | Licensed fixture, exact revision, runtime, checksum, and expected estate documented. |
 | `WAIT` | `P6-DISC-02` | Define source-adapter contract. | Capabilities, versions, permissions, evidence, limits, errors, and recovery are typed. |
 | `WAIT` | `P6-DISC-03` | Implement read-only source sandbox. | Adapter cannot write source; network/filesystem/time/data limits are enforced. |
 | `WAIT` | `P6-DISC-04` | Implement system and schema inventory. | Catalogs, objects, columns, keys, indexes, views, routines, and grants are captured. |
@@ -641,8 +645,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
-| Phase 5 — Knowledge | `G5-KNOW` | `CURRENT` at `P5-KNOW-09` |
-| Phase 6 — Discovery | `G6-DISC` | `WAIT` |
+| Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
+| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-01` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
@@ -650,6 +654,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P5-KNOW-09`** — Admit typed memory candidates into quarantine only.
-2. **`P5-KNOW-10`** — Enforce validation, use tracing, expiry, and invalidation.
-3. **`P5-KNOW-11`** — Persist versioned skill capability lifecycles.
+1. **`P6-DISC-01`** — Select and freeze the first licensed source fixture and version.
+2. **`P6-DISC-02`** — Define the typed, versioned source-adapter contract.
+3. **`P6-DISC-03`** — Implement a read-only source sandbox.

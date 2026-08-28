@@ -1,5 +1,5 @@
 {
-  "registryDigest": "54356e502bde78fb9ce4fa600bb372ed0f3724ee1936443684f0f95a850bfc0c",
+  "registryDigest": "21e090687ee57eb3f248a48e8a08284c037a5ce3f99dd50507fbd5aea3239f50",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -208,6 +208,30 @@
       "sha256": "cf9e35df3e4c12b19c2c61d22b7e114f4dda75575cb56d9b36164a762c76c2d9"
     },
     {
+      "bytes": 8987,
+      "file": "memory-candidate.v1.schema.json",
+      "name": "memory-candidate.v1",
+      "sha256": "fe783a4af55604347abd9fccf3146b91e003dcf43d0309ed5f22dbe5c015c192"
+    },
+    {
+      "bytes": 3638,
+      "file": "memory-invalidation.v1.schema.json",
+      "name": "memory-invalidation.v1",
+      "sha256": "7cff905a4dc4f786704aaeea6d0cb40da65eb86958e288cde50b99ba60f40d24"
+    },
+    {
+      "bytes": 3170,
+      "file": "memory-use.v1.schema.json",
+      "name": "memory-use.v1",
+      "sha256": "e7387a73fdd34c0b13b86dd043157cf11158ef389c23fc64c00bee549f2f0942"
+    },
+    {
+      "bytes": 9328,
+      "file": "memory-version.v1.schema.json",
+      "name": "memory-version.v1",
+      "sha256": "f0ed3d41e89e4e83c14916939338b3a728e8e890db931ae8b6009246ff54e6cb"
+    },
+    {
       "bytes": 4137,
       "file": "mission-command.v1.schema.json",
       "name": "mission-command.v1",
@@ -284,6 +308,18 @@
       "file": "secret-lease.v1.schema.json",
       "name": "secret-lease.v1",
       "sha256": "e6397fc2d35b40efae95d8320973451be434aacb43f1cf7906bf5dead6d53a9c"
+    },
+    {
+      "bytes": 3358,
+      "file": "skill-lifecycle-event.v1.schema.json",
+      "name": "skill-lifecycle-event.v1",
+      "sha256": "c4c4d7b96e2154200775caf29f61961f92d3b14ea718ba1bf8bf419e1203a962"
+    },
+    {
+      "bytes": 12349,
+      "file": "skill-version.v1.schema.json",
+      "name": "skill-version.v1",
+      "sha256": "70ef0c03f8b010236fc3dc96acf07c2d40245d28495ca85354804f50d9071c83"
     },
     {
       "bytes": 7567,

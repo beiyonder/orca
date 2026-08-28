@@ -54,6 +54,20 @@ export class CorpusCatalog {
 
   private constructor() {}
 
+  static fromRecords(
+    sources: readonly CorpusSourceManifestV1[],
+    bundles: readonly CorpusParseBundle[]
+  ): CorpusCatalog {
+    const catalog = new CorpusCatalog()
+    for (const source of sources) {
+      catalog.#insert(catalog.#sources, source.id, source, 'source')
+    }
+    for (const bundle of bundles) {
+      catalog.#addBundle(bundle)
+    }
+    return catalog
+  }
+
   static async load(store: ImmutableCorpusStore): Promise<CorpusCatalog> {
     const catalog = new CorpusCatalog()
     const [manifestIds, parseIds] = await Promise.all([
