@@ -109,6 +109,8 @@ const EVENT_TYPES = [
 const EventFrameSchema = z.object({ type: z.enum(EVENT_TYPES) }).catchall(JsonValueSchema)
 
 export type OmpRpcChunk = z.infer<typeof OmpRpcChunkSchema>
+export type OmpHostToolCall = z.infer<typeof HostToolCallSchema>
+export type OmpHostToolCancel = z.infer<typeof HostToolCancelSchema>
 export type OmpRpcFrame =
   | { category: 'ready'; value: z.infer<typeof ReadyFrameSchema> }
   | { category: 'response'; value: z.infer<typeof SuccessResponseSchema> }

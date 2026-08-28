@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P4-AGNT-04` — deliver the exact immutable context manifest to the isolated OMP worker.
+`P4-AGNT-08` — define typed authority-free assignment/result contracts for all nine specialist roles.
