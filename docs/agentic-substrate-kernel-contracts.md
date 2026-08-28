@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P4-AGNT-04` — deliver immutable context to the isolated framed worker while preserving durable-kernel authority.
+`P4-AGNT-08` — define authority-free typed specialist contracts on top of the now-contained worker boundary.

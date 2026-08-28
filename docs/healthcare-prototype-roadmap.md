@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P4-AGNT-04` — Deliver the exact immutable context manifest to the worker.**
+**`P4-AGNT-08` — Define the typed specialist-agent contracts.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 3 is complete. `P4-AGNT-01` proves bounded one-child supervision. `P4-AGNT-02` now creates exclusive private home/workspace/agent/temp/XDG roots, copies only platform runtime variables, redirects Git/npm/cloud/config paths, omits profiles/hooks/brokers/model/cloud/SSH credentials, and records value digests without secret disclosure. `P4-AGNT-03` adds a fail-closed JSONL decoder for exact OMP 18.0.6 protocol limits, ready-first negotiation, v2 chunk reassembly, responses/events/host-tool call/cancel/errors, UTF-8/JSON/schema/order/length failures, and 1 MiB/64 MiB bounds. Eleven focused tests pass; the complete lab passes 13 files / 76 tests. The next move delivers one immutable context manifest.
+Phase 3 is complete. `P4-AGNT-01` through `P4-AGNT-03` prove bounded one-child supervision, hostile-parent environment isolation, and fail-closed OMP framing. `P4-AGNT-04` now delivers a byte-reconstructable, tenant/mission/assignment/attempt/budget-bound prompt from exact source versions, digests, spans, exclusions, and item-level redactions in a private workspace. `P4-AGNT-05` admits only strict typed current-attempt results with host-observed digest/usage/budget and in-scope evidence/artifact/gap/plan references. `P4-AGNT-06/07` bind exact tool schemas/arguments to an active attempt, allow policy, capability, and minimum use budget; duplicate, cancelled, or revoked calls cannot start an effect. Fifteen focused tests pass; the complete lab passes 16 files / 91 tests. The next move defines every specialist role as a typed authority-free assignment/result contract.
 
 ## How to use coordinates
 
@@ -350,11 +350,11 @@ Failure route: `L-KERN-01`.
 | `DONE` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Eight real-child tests prove start/observe/natural failure, duplicate-start rejection, spawn failure, bounded flood output, runtime timeout, idempotent cancellation, graceful/forced termination, descendant cleanup, and safe Windows command resolution with no leaked fixture process. |
 | `DONE` | `P4-AGNT-02` | Generate isolated OMP environment. | Four tests prove exclusive private roots, empty workspace, 0700/0600 permissions, value-digest manifest, hostile parent credential/profile/config/hook omission, explicit runtime allowlist, cleanup/reuse, and real-child cwd/environment isolation. |
 | `DONE` | `P4-AGNT-03` | Implement OMP RPC frame handling. | Seven tests prove ready-first v1/v2 negotiation, fragmented JSONL, bounded chunk reassembly, typed response/event/host-tool/cancel/error frames, and fail-closed handling of overflow, UTF-8, JSON, schema, order, base64, interruption, and trailing data. |
-| `CURRENT` | `P4-AGNT-04` | Implement context-manifest delivery. | Exact sources, versions, exclusions, redactions, tenant, and budget are recorded. |
-| `WAIT` | `P4-AGNT-05` | Implement typed assignment result. | Unsupported prose-only completion is rejected; gaps and evidence refs are required. |
-| `WAIT` | `P4-AGNT-06` | Implement host-tool capability bridge. | Tool call requires active attempt, capability, schema, budget, and policy. |
-| `WAIT` | `P4-AGNT-07` | Implement cancellation and revocation. | No tool effect starts after cancellation/revocation acknowledgement. |
-| `WAIT` | `P4-AGNT-08` | Define specialist-agent contracts. | Source, architecture, CDC, mapping, research, security, build, evaluation, and recovery roles have typed contracts. |
+| `DONE` | `P4-AGNT-04` | Implement context-manifest delivery. | Four tests prove exact source/version/digest/span/order, exclusion/redaction, tenant/mission/assignment/attempt/budget binding, byte-identical reconstruction, private read-only materialization, and prompt delivery. |
+| `DONE` | `P4-AGNT-05` | Implement typed assignment result. | Five tests reject prose-only/omitted/extra/stale/oversized/over-budget/out-of-scope output and admit only current strict proposal records with host-observed digest and usage. |
+| `DONE` | `P4-AGNT-06` | Implement host-tool capability bridge. | Six tests require active attempt, exact registered schema/arguments, allow policy, bound capability, and minimum use budget before execution; duplicate IDs and invalid results fail closed. |
+| `DONE` | `P4-AGNT-07` | Implement cancellation and revocation. | Per-call OMP cancellation aborts the active signal; attempt cancellation and capability revocation close the synchronous start gate before acknowledgement and remain idempotent. |
+| `CURRENT` | `P4-AGNT-08` | Define specialist-agent contracts. | Source, architecture, CDC, mapping, research, security, build, evaluation, and recovery roles have typed contracts. |
 | `WAIT` | `P4-AGNT-09` | Implement apex next-action loop. | Apex reads durable mission state, chooses one action, dispatches, and records proposed decision without owning state. |
 | `WAIT` | `P4-AGNT-10` | Implement disagreement-resolution loop. | Competing specialist results create a discriminating evidence request or explicit unresolved tie. |
 | `WAIT` | `P4-AGNT-11` | Test process reconstruction. | Killed worker restarts from assignment/context/ledger without hidden live state. |
@@ -638,7 +638,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
-| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-04` |
+| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-08` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
@@ -648,6 +648,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P4-AGNT-04`** — Deliver the exact immutable context manifest.
-2. **`P4-AGNT-05`** — Admit only typed assignment results.
-3. **`P4-AGNT-06`** — Bridge host tools through current capability authority.
+1. **`P4-AGNT-08`** — Define typed contracts for every specialist role.
+2. **`P4-AGNT-09`** — Let apex choose one evidence-backed next action.
+3. **`P4-AGNT-10`** — Resolve specialist disagreement through discriminating evidence.

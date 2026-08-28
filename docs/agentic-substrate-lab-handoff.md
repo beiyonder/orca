@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P4-AGNT-04`.
+Current roadmap coordinate: `P4-AGNT-08`.
 
 ## Coordinate evidence
 
@@ -41,6 +41,7 @@ Current roadmap coordinate: `P4-AGNT-04`.
 | `P2-LAB-10` | Pinned OMP 18.0.6/source-commit/RPC/frame/tool/schema/cancel/archive/version-skew fixture and validator. Real binary exercise remains explicitly inconclusive. |
 | `P2-LAB-11` | `buildIdentityMappingBaseline`; chooses the smallest observed unique key without model calls and passes six deterministic evaluator measures. |
 | `P2-LAB-12` | Stable `migration-control-plane-lab.mjs` setup/build/typecheck/test/verify/experiment entry, strict CLI validation and immutable run output. |
+| `P4-AGNT-04` through `P4-AGNT-07` | Exact immutable prompt/workspace delivery, strict current-attempt result admission, capability/policy/schema/budget-bound host tool execution, and synchronous idempotent cancellation/revocation gate; 15 focused tests, full lab 16 files / 91 tests. |
 
 ## Stable commands
 
@@ -149,9 +150,10 @@ Rejected for the Phase 2 baseline:
 3. Database crash/replay/restart semantics are now real. Network and external-target recovery remain simulated until their agent/effect execution coordinates.
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. `P4-AGNT-01` now supervises one real child with bounded output/time, observable lifecycle, idempotent cancellation, graceful/forced tree termination, and no leaked fixture process; it does not yet sanitize the child environment.
-6. `P4-AGNT-02/03` now isolate every OMP state/config/credential root and fail closed on malformed, oversized, out-of-order, or unknown RPC frames; context/result/tool authority remains absent.
-7. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
-8. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+6. `P4-AGNT-02/03` isolate every OMP state/config/credential root and fail closed on malformed, oversized, out-of-order, or unknown RPC frames; the real pinned-binary containment experiment remains `P4-AGNT-12`.
+7. `P4-AGNT-04/07` now deliver reproducible scoped context, admit only current typed proposals, and start host tools only under current policy/capability/schema/budget authority; specialist/apex orchestration remains absent.
+8. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
+9. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -174,7 +176,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P4-AGNT-04`: deliver the exact immutable context manifest to the worker.
+Start `P4-AGNT-08`: define authority-free typed assignment/result contracts for all nine specialist roles.
 
 First verification command after any change:
 

@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P4-AGNT-04`.
-- `G2-LAB`, Phase 3, and `P4-AGNT-01` through `P4-AGNT-03` verification are complete; context/result/tool and later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P4-AGNT-08`.
+- `G2-LAB`, Phase 3, and `P4-AGNT-01` through `P4-AGNT-07` verification are complete; specialist/orchestration and later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -111,6 +111,16 @@ Gate verification:
 - ready-first v1, negotiate-to-v2, ordered canonical-base64 reassembly, response/event/host-tool-call/host-tool-cancel/error categories;
 - overflow, unterminated, UTF-8, JSON, schema, unknown type, duplicate ready, pre-ready, chunk order/metadata/interruption/length/base64 failures reject and poison the decoder;
 - eleven focused tests pass; complete lab verification is 13 files / 76 tests.
+
+## `P4-AGNT-04` through `P4-AGNT-07` context/result/tool authority evidence
+
+- one canonical prompt carries the exact schema-validated manifest and ordered source spans; its bytes and digest reconstruct identically in fresh isolated workspaces;
+- source IDs/versions/full-source digests, text/JSON-pointer spans, exclusions, whole-item redactions, role, tenant, mission, assignment, attempt, base revision, model route, prompt/tool/output digests, and budget are bound before delivery;
+- private exclusive context path and 0400 payload prevent accidental in-place reuse; a redacted source span never enters prompt bytes;
+- successful assignment output requires the strict typed schema, at least one in-scope evidence reference, explicit gap/artifact/plan arrays, current assignment/attempt/fence, exact captured digest, and host-observed usage within budget;
+- registered host-tool JSON schema digest, canonical arguments, active attempt, policy allow/grant, workload-bound capability, expiry/revocation state, and minimum use budget all pass before the implementation starts;
+- duplicate host IDs, invalid schemas/arguments/results, stale authority, exhaustion, OMP per-call cancel, attempt cancellation, and capability revocation fail closed; cancellation/revocation close the start gate synchronously and idempotently before acknowledgement returns;
+- fifteen focused tests pass; complete lab verification is 16 files / 91 tests.
 
 ## Queue classes
 
@@ -364,4 +374,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P4-AGNT-04` immutable context-manifest delivery; the worker must receive exactly the admitted source IDs/versions/digests/spans/order/exclusions/redactions/tenant/budget.
+Begin `P4-AGNT-08` typed specialist contracts; each of the nine roles must pin owned/read scope, tools, output schema, budget, evidence obligations, abstention behavior, and authority exclusions.

@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P4-AGNT-04` — deliver the exact context manifest over the bounded isolated OMP process boundary; PostgreSQL remains authority.
+`P4-AGNT-08` — define the typed specialist role boundary; PostgreSQL remains authority and OMP remains a replaceable worker.

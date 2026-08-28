@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P4-AGNT-04` — deliver the immutable context manifest inside the isolated workspace.
+`P4-AGNT-08` — define the nine typed specialist contracts inside the private lab.
