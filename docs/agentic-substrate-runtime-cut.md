@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P4-AGNT-01` — supervise the first bounded OMP process over the completed PostgreSQL/`pg` authority boundary; DBOS and Inspect remain behind their challenger gates.
+`P4-AGNT-02` — generate an isolated environment for the bounded child supervisor; PostgreSQL remains authority and DBOS/Inspect remain behind challenger gates.

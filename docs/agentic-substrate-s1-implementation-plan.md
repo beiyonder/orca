@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P4-AGNT-01` — implement the bounded agent-gateway process supervisor over the completed durable kernel.
+`P4-AGNT-02` — generate an isolated OMP environment for the bounded child supervisor.
