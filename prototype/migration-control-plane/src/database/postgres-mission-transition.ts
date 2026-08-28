@@ -37,6 +37,12 @@ export type MissionTransitionResult = {
   projectionSha256: string
 }
 
+export type MissionTransitionInput = {
+  event: unknown
+  mission: unknown
+  outbox: unknown
+}
+
 function reject(code: string, message: string, details: JsonValue = null): never {
   throw new CommandRejectedError(code, message, details)
 }
@@ -44,14 +50,26 @@ function reject(code: string, message: string, details: JsonValue = null): never
 export async function commitMissionTransition(
   client: PoolClient,
   command: MissionCommandEnvelopeV1,
-  input: { event: unknown; mission: unknown; outbox: unknown }
+  input: MissionTransitionInput
 ): Promise<MissionTransitionResult> {
   const event = MissionEventEnvelopeV1Schema.parse(input.event)
   const mission = MissionRecordV1Schema.parse(input.mission)
   const outbox = OutboxMessageSchema.parse(input.outbox)
+  const missionJson = canonicalJson(mission)
   const eventPayloadJson = canonicalJson(event.payload)
   if (sha256Text(eventPayloadJson) !== event.payloadDigest) {
     reject('event_payload_digest_mismatch', 'Mission event payload does not match payloadDigest')
+  }
+  const payloadRecord =
+    typeof event.payload === 'object' && event.payload !== null && !Array.isArray(event.payload)
+      ? event.payload
+      : null
+  const payloadMission = MissionRecordV1Schema.safeParse(payloadRecord?.mission)
+  if (!payloadMission.success || canonicalJson(payloadMission.data) !== missionJson) {
+    reject(
+      'event_projection_mismatch',
+      'Mission event payload must contain the exact post-transition mission projection'
+    )
   }
   if (
     event.tenantId !== command.tenantId ||
@@ -105,7 +123,6 @@ export async function commitMissionTransition(
     reject('event_type_mismatch', 'create-mission must emit mission-created')
   }
 
-  const missionJson = canonicalJson(mission)
   const missionSha256 = sha256Text(missionJson)
   const eventJson = canonicalJson(event)
   const eventSha256 = sha256Text(eventJson)

@@ -114,3 +114,15 @@ jobs:
 
       - name: Verify PostgreSQL kernel
         run: node scripts/migration-control-plane-lab.mjs database verify
+
+      - name: Run durable convergence experiment
+        run: node scripts/migration-control-plane-lab.mjs experiment run --experiment DUR-EXP-01 --seed 1 --arm baseline --fault none --output .runs/ci-durable
+
+      - name: Upload failed durable evidence
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: migration-control-plane-postgres
+          path: prototype/migration-control-plane/.runs/
+          if-no-files-found: ignore
+          retention-days: 7

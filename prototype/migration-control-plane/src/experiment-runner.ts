@@ -1,6 +1,7 @@
 import { arch, platform } from 'node:os'
 import { resolve } from 'node:path'
 import { canonicalizeJson } from './canonical-json.js'
+import { runDurableConvergenceExperiment } from './durable-convergence-experiment.js'
 import { DeterministicRuntime, type EventStamp } from './deterministic-runtime.js'
 import {
   createEvaluationMeasure as measure,
@@ -27,7 +28,8 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'LAB-EXP-01': ['baseline'],
   'S1-FIXTURE-EXP-01': ['baseline'],
   'BASELINE-EXP-01': ['baseline'],
-  'WORKER-EXP-01': ['baseline']
+  'WORKER-EXP-01': ['baseline'],
+  'DUR-EXP-01': ['baseline']
 }
 
 export type ExperimentRunOptions = {
@@ -105,7 +107,14 @@ export async function runExperiment(options: ExperimentRunOptions): Promise<Expe
 
   let result: ExperimentResult
   try {
-    result = executeExperiment(options.experimentId, fixture, runtime, faultInjector, events)
+    result = await executeExperiment(
+      options.experimentId,
+      options.seed,
+      fixture,
+      runtime,
+      faultInjector,
+      events
+    )
     faultInjector.hit('object.before_write')
     await store.writeJson('outputs/experiment-result.json', result.outputs)
     faultInjector.hit('object.after_write')
@@ -159,13 +168,14 @@ export async function runExperiment(options: ExperimentRunOptions): Promise<Expe
   return { runId, runPath, status: result.status, summary: result.summary }
 }
 
-function executeExperiment(
+async function executeExperiment(
   experimentId: string,
+  seed: number,
   fixture: S1IdentityFixture,
   runtime: DeterministicRuntime,
   faultInjector: FaultInjector,
   events: RunEvent[]
-): ExperimentResult {
+): Promise<ExperimentResult> {
   switch (experimentId) {
     case 'LAB-EXP-01':
       return executeLabBoundary(runtime, faultInjector, events)
@@ -190,6 +200,13 @@ function executeExperiment(
       faultInjector.hit('network.after_dispatch')
       faultInjector.hit('process.worker_result_ready')
       return inspectOmpWorkerFixture(fixture)
+    case 'DUR-EXP-01': {
+      const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
+      if (!connectionString) {
+        throw new Error('MIGRATION_CONTROL_DATABASE_URL is required for DUR-EXP-01')
+      }
+      return runDurableConvergenceExperiment(connectionString, seed)
+    }
     default:
       throw new TypeError(`Unknown experiment: ${experimentId}`)
   }

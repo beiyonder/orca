@@ -234,6 +234,7 @@ node scripts/migration-control-plane-lab.mjs contracts check
 node scripts/migration-control-plane-lab.mjs database migrate
 node scripts/migration-control-plane-lab.mjs database fingerprint
 node scripts/migration-control-plane-lab.mjs database verify
+node scripts/migration-control-plane-lab.mjs experiment run --experiment DUR-EXP-01 --seed 103 --arm baseline --fault none --output .runs/durable-final
 node scripts/migration-control-plane-lab.mjs verify
 ```
 
@@ -241,9 +242,9 @@ node scripts/migration-control-plane-lab.mjs verify
 
 `contracts check` fails on missing, extra, or byte-stale schema files.
 
-`database migrate` applies three forward-only SQL migrations under a PostgreSQL advisory lock, validates all previously recorded names/checksums, and records each migration inside its own transaction.
+`database migrate` applies five forward-only SQL migrations under a PostgreSQL advisory lock, validates all previously recorded names/checksums, and records each migration inside its own transaction.
 
-`database fingerprint` hashes deterministic catalog structure, applied migration checksums, kernel metadata, and the 41 contract-schema rows.
+`database fingerprint` hashes deterministic catalog structure—including functions/triggers—applied migration checksums, kernel metadata, and the 41 contract-schema rows.
 
 `database verify` requires `MIGRATION_CONTROL_DATABASE_URL` and runs the real PostgreSQL integration suite.
 
@@ -264,7 +265,7 @@ node scripts/migration-control-plane-lab.mjs verify
 - 41/41 export parseable strict Draft 2020-12 schemas with stable IDs.
 - Full tenant/mission record set admits once and rejects duplicate IDs/cross-tenant/cross-mission data.
 - 18 targeted invariant tests cover mission, epistemic, planning, assignment, artifact, evaluation/correction, learning, and effect failure paths.
-- Complete lab verification: 8 test files / 46 tests, formatting, lint, typecheck, build, and 41-file schema drift check pass.
+- Complete lab verification: 10 test files / 57 tests, formatting, lint, typecheck, build, and 41-file schema drift check pass.
 
 ## P3-KERN-02 persistence evidence
 
@@ -297,15 +298,26 @@ node scripts/migration-control-plane-lab.mjs verify
 - Rival or lease-expired attempt output cannot mutate the task or authoritative attempt.
 - Migration 004 adds dedicated effect-attempt authority, corrects the current-attempt foreign key, and admits explicit `reconciling`.
 - Effect transitions preserve immutable attempt/fence identity, parameter digest, receipt identity, target observations, and evaluation receipt lineage through accepted/rejected state.
-- Current schema: 4 migrations / 17 tables / fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`.
-- Verification: 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests.
+- P3-KERN-10 schema-v4: 4 migrations / 17 tables / fingerprint `97a92746b9eb9b4fa014436c8829b4c0f4081ef2496c29ed00bf225d2a1efd4b`.
+- Verification at P3-KERN-10: 10 unit files / 57 tests and 6 PostgreSQL files / 25 tests.
+
+## P3-KERN-11 through P3-KERN-13 convergence evidence
+
+- Every appended event carries the exact post-transition mission projection and separate full-event/payload SHA-256 digests.
+- Migration 005 installs an append-only statement trigger that rejects event update, delete, and truncate.
+- Rebuild verifies contiguous positions, event identity, full-event digest, payload digest, and embedded projection identity before atomically replacing aggregate/domain/current views.
+- Dropped/corrupted views rebuild to the original projection digest; event tamper and position gaps fail.
+- Restart scans all nonterminal task/attempt/effect/outbox rows and idempotently upserts one deterministic recovery disposition; active leases defer rather than imply worker death.
+- Task completion with `requiresEvaluation` requires persisted passing results that cover every contract and trace to the current attempt/fence and accepted assignment result.
+- Current schema: 5 migrations / 17 tables / fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`.
+- Verification: 10 unit files / 57 tests and 9 PostgreSQL files / 33 tests.
+- `DUR-EXP-01` passes three integration seeds plus sealed CLI seed 103; all seven duplicate/crash/stale/replay/atomic/terminal/restart measures pass and the artifact SHA-256 index verifies.
 
 ---
 
 # Intentional limits
 
-- Contracts, four migrations, atomic command/event/projection/delivery, DAG admission, task/attempt authority, fencing, and effect state records now exist.
-- Projection replay/rebuild, restart reconciliation, and the durable-convergence experiment do not.
+- Phase 3 contracts, five migrations, atomic persistence/delivery, DAG/lifecycle/effect authority, exact replay, restart dispositions, and convergence experiment now exist.
 - No external adapter call is executable; effect records prove state semantics without granting production authority.
 - Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
 - Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
@@ -313,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P3-KERN-11` — rebuild dropped current projections exactly from the verified append-only event position.
+`P4-AGNT-01` — implement the bounded agent-gateway process supervisor while preserving the completed durable-kernel authority boundary.

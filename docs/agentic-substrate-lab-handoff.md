@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P3-KERN-11`.
+Current roadmap coordinate: `P4-AGNT-01`.
 
 ## Coordinate evidence
 
@@ -146,8 +146,8 @@ Rejected for the Phase 2 baseline:
 
 1. `WORKER-EXP-01` is **inconclusive**, not passed. P2 creates the exact contract fixture; a real pinned OMP binary RPC/schema/cancel/artifact probe belongs to the agent integration path.
 2. PR #1 observed 19 passing GitHub checks (10 correctly skipped), including Node 24 Ubuntu/macOS/Windows lab verification and PostgreSQL 16 integration.
-3. Fault points and artifact preservation are real; database/network/target recovery semantics are simulated in `LAB-EXP-01` until their P3/P8 components exist.
-4. PostgreSQL migrations, atomic command/event/delivery, validated plans, guarded task/attempt authority, fencing, and explicit effect state now pass. Projection replay, restart reconciliation, and durable convergence remain P3 work beginning with `P3-KERN-11`.
+3. Database crash/replay/restart semantics are now real. Network and external-target recovery remain simulated until their agent/effect execution coordinates.
+4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
 6. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
@@ -172,7 +172,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P3-KERN-11`: drop and rebuild current projections exactly from verified event positions.
+Start `P4-AGNT-01`: implement the bounded agent-gateway process supervisor without moving authority out of PostgreSQL.
 
 First verification command after any change:
 
