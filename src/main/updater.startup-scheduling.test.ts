@@ -239,13 +239,14 @@ describe('updater', () => {
       changelog: null
     })
 
-    await vi.advanceTimersByTimeAsync(23 * 60 * 60 * 1000 + 59 * 60 * 1000)
+    // Why: vi.waitFor advances fake time while polling; keep an hour of margin so its helper ticks
+    // cannot turn a one-minute pre-boundary assertion into the scheduled 24-hour boundary.
+    await vi.advanceTimersByTimeAsync(23 * 60 * 60 * 1000)
     expect(autoUpdaterMock.checkForUpdates).toHaveBeenCalledTimes(1)
 
-    await vi.advanceTimersByTimeAsync(60 * 1000)
-    // Why: the boundary tick sweeps the updater's other timers (30-minute nudge poll, 45-second
-    // stall guard) too, so pin the reschedule itself — nothing before 24h, a check once it elapses —
-    // rather than an exact process-wide call total.
+    await vi.advanceTimersByTimeAsync(60 * 60 * 1000)
+    // Why: the boundary tick sweeps the updater's other timers too, so pin the reschedule itself —
+    // nothing through 23h, a check once 24h elapses — rather than an exact process-wide call total.
     await vi.waitFor(() => {
       expect(autoUpdaterMock.checkForUpdates.mock.calls.length).toBeGreaterThanOrEqual(2)
     })
