@@ -15,6 +15,25 @@ if (mode === 'echo') {
 } else if (mode === 'flood') {
   const payload = Buffer.alloc(128 * 1024, 'x')
   await Promise.all([writeAsync(process.stdout, payload), writeAsync(process.stderr, payload)])
+} else if (mode === 'print-env') {
+  const names = [
+    'HOME',
+    'USERPROFILE',
+    'XDG_CONFIG_HOME',
+    'PI_CODING_AGENT_DIR',
+    'AWS_ACCESS_KEY_ID',
+    'ANTHROPIC_API_KEY',
+    'OMP_PROFILE',
+    'PI_CONFIG_FILES',
+    'NODE_OPTIONS',
+    'SSH_AUTH_SOCK'
+  ]
+  process.stdout.write(
+    `${JSON.stringify({
+      cwd: process.cwd(),
+      variables: Object.fromEntries(names.map((name) => [name, process.env[name] ?? null]))
+    })}\n`
+  )
 } else if (mode === 'idle' || mode === 'ignore-term' || mode === 'tree') {
   if (mode === 'idle') {
     process.on('SIGTERM', () => process.exit(0))

@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P4-AGNT-02` and `P4-AGNT-03` — isolate the supervised child's environment and validate every RPC frame.
+1. `P4-AGNT-04` through `P4-AGNT-07` — deliver exact context/results and bind host tools/cancellation to current authority.
 2. Preserve the completed durable-kernel command/event/fence/evaluation authority boundary during agent integration.
 3. Keep `WORKER-EXP-01` inconclusive until the real pinned OMP binary contract is exercised; do not infer it from the fixture validator.

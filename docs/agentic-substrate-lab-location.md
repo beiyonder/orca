@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P4-AGNT-02` — generate the isolated OMP child environment inside the private lab.
+`P4-AGNT-04` — deliver the immutable context manifest inside the isolated workspace.

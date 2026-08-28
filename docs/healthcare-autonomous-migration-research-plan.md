@@ -589,7 +589,7 @@ The playing-field map now exists:
 3. **Research landscape and decisions** — durable, epistemic, orchestration, context, memory, evaluation, improvement, bounded-action, and gap-filler cards.
 4. **Corpus/fixture plan** — architecture corpus plan plus the frozen six-row synthetic S1 identity-key fixture.
 5. **Atomic experiment backlog** — `docs/agentic-substrate-experiment-queue.md` contains all 70 research experiments plus six lab/integration contracts.
-6. **Architecture decision register** — the atlas contains 33 versioned decisions/hypotheses with evidence and reversal conditions.
+6. **Architecture decision register** — the atlas contains 34 versioned decisions/hypotheses with evidence and reversal conditions.
 7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These are research/design artifacts plus bounded implementation evidence—not proof that the complete substrate works. Phase 3 passes its durable gate. `P4-AGNT-01` now proves one-child start/observation/cancellation/output/time/process-tree supervision without mission authority. `P4-AGNT-02` is current: remove ambient user state before launching OMP.
+These are research/design artifacts plus bounded implementation evidence—not proof that the complete substrate works. Phase 3 passes its durable gate. `P4-AGNT-01` through `P4-AGNT-03` now prove one-child supervision, hostile-parent environment isolation, and bounded fail-closed OMP JSONL/v2 chunk framing. `P4-AGNT-04` is current: deliver exactly the admitted context manifest.
