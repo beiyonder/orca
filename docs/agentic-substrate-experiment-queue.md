@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P4-AGNT-01`.
-- `G2-LAB` and every `P3-KERN` coordinate are complete; agent/runtime and later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P4-AGNT-02`.
+- `G2-LAB`, every `P3-KERN` coordinate, and `P4-AGNT-01` verification are complete; environment/RPC and later experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -89,6 +89,16 @@ Gate verification:
 - schema v5: 5 migrations, 17 tables, fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`;
 - verification passes 10 unit files / 57 tests and 9 PostgreSQL files / 33 tests;
 - `DUR-EXP-01` passes three integration seeds and sealed CLI seed 103 (`dur-exp-01-103-baseline-none-run_000000_873d4c1794ee4292`); all seven measures and artifact integrity pass.
+
+## `P4-AGNT-01` process-supervisor evidence
+
+- exactly one absolute executable/cwd and explicit environment per supervisor incarnation;
+- observable idle/starting/running/cancelling/exited/failed lifecycle without mission-state authority;
+- `shell: false`, hidden Windows consoles, safe `.cmd` quoting, and detached POSIX process groups;
+- independently bounded stdout/stderr prefixes plus full observed byte counts and truncation flags;
+- bounded startup/runtime/cancellation/force timeouts and idempotent cancellation;
+- graceful exit, forced kill, spawned-descendant cleanup, natural nonzero exit, spawn failure, output flood, and duplicate-start paths;
+- eight real-child tests pass with no remaining `agent-process-child.mjs` process; complete lab verification is 11 files / 65 tests.
 
 ## Queue classes
 
@@ -342,4 +352,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P4-AGNT-01` bounded agent-gateway process supervision; DBOS remains blocked unless it beats the now-complete native durable-kernel baseline under the same experiment contract.
+Begin `P4-AGNT-02` isolated OMP environment generation; no user home, credentials, hooks, MCP servers, skills, or config may cross into the supervised child.

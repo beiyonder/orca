@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P4-AGNT-01` — Implement the bounded agent-gateway process supervisor.**
+**`P4-AGNT-02` — Generate an isolated OMP environment without ambient user state.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 3 is complete. Five checksum-locked PostgreSQL 16 migrations create 17 tables plus an append-only event trigger at fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`. Strict contracts, idempotent commands, expected-version atomic append/projection/outbox, delivery deduplication, DAG/lifecycle/effect guards, fenced attempt authority, evaluation-gated completion, exact projection replay, and deterministic restart dispositions pass 10 unit files / 57 tests and 9 PostgreSQL files / 33 tests. `DUR-EXP-01` passes three integration seeds and sealed CLI seed 103 across duplicate, crash, stale, replay, terminal, atomicity, and restart predicates. The next move begins bounded OMP process supervision.
+Phase 3 is complete at schema fingerprint `15aca9dc2ee49e138bd997e2ee076ef779a6e6ec5932a173bc988cd807d9a56c`. `P4-AGNT-01` now adds a one-child gateway supervisor with explicit incarnation/lifecycle observation, absolute executable/cwd contracts, shell-free hidden Windows launch including safe `.cmd` handling, bounded stdout/stderr accounting, startup/runtime limits, idempotent cancellation, graceful-to-force escalation, and verified POSIX/Windows process-tree cleanup. Eight real-child tests pass; the complete lab now passes 11 unit files / 65 tests plus the unchanged 9 PostgreSQL files / 33 tests. The next move removes ambient environment state before the first OMP launch.
 
 ## How to use coordinates
 
@@ -347,8 +347,8 @@ Failure route: `L-KERN-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `CURRENT` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Gateway starts, observes, cancels, and cleans one child without leaking resources. |
-| `WAIT` | `P4-AGNT-02` | Generate isolated OMP environment. | No user home, credentials, hooks, MCP servers, skills, or config leak into assignment. |
+| `DONE` | `P4-AGNT-01` | Implement agent-gateway process supervisor. | Eight real-child tests prove start/observe/natural failure, duplicate-start rejection, spawn failure, bounded flood output, runtime timeout, idempotent cancellation, graceful/forced termination, descendant cleanup, and safe Windows command resolution with no leaked fixture process. |
+| `CURRENT` | `P4-AGNT-02` | Generate isolated OMP environment. | No user home, credentials, hooks, MCP servers, skills, or config leak into assignment. |
 | `WAIT` | `P4-AGNT-03` | Implement OMP RPC frame handling. | Ready, negotiate, chunk, response, event, host-tool, cancel, and error frames are bounded and validated. |
 | `WAIT` | `P4-AGNT-04` | Implement context-manifest delivery. | Exact sources, versions, exclusions, redactions, tenant, and budget are recorded. |
 | `WAIT` | `P4-AGNT-05` | Implement typed assignment result. | Unsupported prose-only completion is rejected; gaps and evidence refs are required. |
@@ -638,7 +638,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
-| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-01` |
+| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-02` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
@@ -648,6 +648,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P4-AGNT-01`** — Implement the bounded agent-gateway process supervisor.
-2. **`P4-AGNT-02`** — Generate an isolated OMP environment without ambient state.
-3. **`P4-AGNT-03`** — Bound and validate every OMP RPC frame.
+1. **`P4-AGNT-02`** — Generate an isolated OMP environment without ambient state.
+2. **`P4-AGNT-03`** — Bound and validate every OMP RPC frame.
+3. **`P4-AGNT-04`** — Deliver the exact immutable context manifest.
