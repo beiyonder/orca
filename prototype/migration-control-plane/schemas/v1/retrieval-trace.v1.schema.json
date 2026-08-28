@@ -1,0 +1,390 @@
+{
+  "$id": "urn:orca:migration-control-plane:retrieval-trace.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "channelRanks": {
+            "additionalProperties": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000,
+              "type": "integer"
+            },
+            "propertyNames": {
+              "enum": ["structured", "lexical", "semantic", "graph"],
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "channels": {
+            "items": {
+              "enum": ["structured", "lexical", "semantic", "graph"],
+              "type": "string"
+            },
+            "maxItems": 4,
+            "type": "array"
+          },
+          "chunkId": {
+            "maxLength": 128,
+            "minLength": 14,
+            "pattern": "^corpus_chunk_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "contentDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "dataClass": {
+            "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+            "type": "string"
+          },
+          "eligible": {
+            "type": "boolean"
+          },
+          "exclusionReason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "tenant-mismatch",
+                  "source-class-denied",
+                  "data-class-denied",
+                  "scope-mismatch",
+                  "source-not-allowed",
+                  "render-forbidden",
+                  "stale",
+                  "superseded",
+                  "digest-invalid",
+                  "below-score",
+                  "duplicate",
+                  "token-budget"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^retrieval_candidate_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "parseVersionId": {
+            "maxLength": 128,
+            "minLength": 14,
+            "pattern": "^corpus_parse_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "scores": {
+            "additionalProperties": false,
+            "properties": {
+              "exact": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "fused": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "graph": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "lexical": {
+                "minimum": 0,
+                "type": "number"
+              },
+              "semantic": {
+                "minimum": 0,
+                "type": "number"
+              }
+            },
+            "required": ["exact", "lexical", "semantic", "graph", "fused"],
+            "type": "object"
+          },
+          "sourceClass": {
+            "enum": [
+              "product-instruction",
+              "product-state",
+              "environment-evidence",
+              "reference",
+              "customer-artifact",
+              "live-research"
+            ],
+            "type": "string"
+          },
+          "sourceDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "sourceId": {
+            "maxLength": 128,
+            "minLength": 15,
+            "pattern": "^corpus_source_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "sourceManifestId": {
+            "maxLength": 128,
+            "minLength": 17,
+            "pattern": "^corpus_manifest_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "sourceSpan": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "whole",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "endLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "kind": {
+                    "const": "text-lines",
+                    "type": "string"
+                  },
+                  "startLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  }
+                },
+                "required": ["kind", "startLine", "endLine"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "json-pointer",
+                    "type": "string"
+                  },
+                  "pointer": {
+                    "maxLength": 4096,
+                    "pattern": "^(?:\\/[^/]*)*$",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind", "pointer"],
+                "type": "object"
+              }
+            ]
+          },
+          "sourceVersion": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "tokenEstimate": {
+            "exclusiveMinimum": 0,
+            "maximum": 1000000,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "chunkId",
+          "sourceManifestId",
+          "sourceId",
+          "sourceVersion",
+          "sourceDigest",
+          "parseVersionId",
+          "sourceSpan",
+          "contentDigest",
+          "tokenEstimate",
+          "dataClass",
+          "sourceClass",
+          "channels",
+          "channelRanks",
+          "scores",
+          "eligible",
+          "exclusionReason"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "channelVersions": {
+      "additionalProperties": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "propertyNames": {
+        "enum": ["structured", "lexical", "semantic", "graph", "fusion"],
+        "type": "string"
+      },
+      "required": ["structured", "lexical", "semantic", "graph", "fusion"],
+      "type": "object"
+    },
+    "completedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "coverage": {
+      "additionalProperties": false,
+      "properties": {
+        "covered": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "missing": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "required": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        }
+      },
+      "required": ["required", "covered", "missing"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "excluded": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "candidateId": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^retrieval_candidate_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "reason": {
+            "enum": [
+              "tenant-mismatch",
+              "source-class-denied",
+              "data-class-denied",
+              "scope-mismatch",
+              "source-not-allowed",
+              "render-forbidden",
+              "stale",
+              "superseded",
+              "digest-invalid",
+              "below-score",
+              "duplicate",
+              "token-budget"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["candidateId", "reason"],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^retrieval_trace_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "includedCandidateIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 21,
+        "pattern": "^retrieval_candidate_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "kind": {
+      "const": "retrieval-trace",
+      "type": "string"
+    },
+    "policyVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "queryId": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^retrieval_query_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "queryId",
+    "policyVersion",
+    "channelVersions",
+    "candidates",
+    "includedCandidateIds",
+    "excluded",
+    "coverage",
+    "warnings",
+    "completedAt"
+  ],
+  "title": "retrieval-trace.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "retrieval-trace.v1"
+  }
+}

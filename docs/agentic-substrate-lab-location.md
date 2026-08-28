@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P5-KNOW-04` — implement the lexical retrieval baseline inside the private lab.
+`P5-KNOW-09` — implement quarantined memory candidates inside the private lab.

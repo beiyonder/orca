@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P5-KNOW-04`.
-- `G2-LAB`, Phase 3, Phase 4, and `P5-KNOW-01` through `P5-KNOW-03` evidence are complete; retrieval channels are next.
+- First dependency-ready roadmap coordinate: `P5-KNOW-09`.
+- `G2-LAB`, Phase 3, Phase 4, and `P5-KNOW-01` through `P5-KNOW-08` evidence are complete; governed memory/capability records are next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -143,6 +143,17 @@ Gate verification:
 - migration 006 binds all 46 generated contract digests, updates registry digest `cf9dadff…841947`, and prevents update/delete of persisted corpus domain rows;
 - PostgreSQL fingerprint is `4895a52248479b57d340faa725866bba81ec8fb58d2afa28d754ea4966b30dac`; 6 migrations / 17 tables;
 - complete verification passes 22 unit files / 127 tests and 10 PostgreSQL files / 34 tests.
+
+## `P5-KNOW-04` through `P5-KNOW-08` retrieval and context evidence
+
+- structured exact/entity signals and BM25-simple lexical scores are independent, inspectable channels; RRF records per-channel rank and fused score without treating score as authority;
+- every candidate carries exact source manifest/source ID/version/source digest, parse/chunk IDs, span, content digest, token estimate, class, channels/ranks/scores, and attributable eligibility or exclusion;
+- optional sparse semantic projection is version/configuration-digest bound and recovers the repeated-record/compound-identifier paraphrase missed by lexical-only retrieval;
+- tenant-local relational BFS records visited entities/relations, enforces depth/candidate limits, and contributes only original provenance chunks;
+- tenant/source-class/data-class/scope/source-list/render/digest/current/applicability/freshness checks run before any ranking; denied candidates have no channel ranks or scores;
+- deterministic context assembly preserves citation metadata, performs literal redaction and content-digest dedupe, enforces token budget, records exclusions, and reproduces exact rendered/context digests;
+- migration 007 registers immutable query/trace/context records; registry has 49 schemas and PostgreSQL fingerprint is `892bba1b…d1117e2`;
+- complete verification passes 23 unit files / 137 tests and 11 PostgreSQL files / 35 tests.
 
 ## Queue classes
 
@@ -396,4 +407,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P5-KNOW-04` lexical retrieval; exact/structured matches and transparent lexical scores must return current cited spans before any semantic or graph channel can contribute.
+Begin `P5-KNOW-09` memory candidates; every mission/episodic/procedural/failure/evaluator proposal must cite canonical records and remain unavailable in quarantine.

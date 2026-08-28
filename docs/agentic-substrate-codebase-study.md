@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P5-KNOW-04` through `P5-KNOW-06` — establish lexical retrieval, an optional derived semantic channel, and bounded provenance-preserving graph expansion.
-2. Keep eligibility before every ranking channel; similarity and graph distance cannot create authority.
-3. Reuse the immutable corpus IDs/version/digests/spans from `P5-KNOW-01/03`; never create a retrieval-only source identity.
+1. `P5-KNOW-09` through `P5-KNOW-11` — quarantine typed memory candidates, enforce reversible lifecycle/use tracing, and persist skill capability versions.
+2. Keep every memory/skill pointer subordinate to canonical corpus/evidence/evaluation records.
+3. Do not let semantic score, graph distance, retrieval frequency, or successful-looking output promote knowledge.

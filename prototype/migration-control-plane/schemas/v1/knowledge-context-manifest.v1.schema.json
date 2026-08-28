@@ -1,0 +1,298 @@
+{
+  "$id": "urn:orca:migration-control-plane:knowledge-context-manifest.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "compiledBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "compilerVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "excluded": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "candidateId": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^retrieval_candidate_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "reason": {
+            "enum": [
+              "tenant-mismatch",
+              "source-class-denied",
+              "data-class-denied",
+              "scope-mismatch",
+              "source-not-allowed",
+              "render-forbidden",
+              "stale",
+              "superseded",
+              "digest-invalid",
+              "below-score",
+              "duplicate",
+              "token-budget"
+            ],
+            "type": "string"
+          }
+        },
+        "required": ["candidateId", "reason"],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 19,
+      "pattern": "^knowledge_context_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "candidateId": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^retrieval_candidate_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "channels": {
+            "items": {
+              "enum": ["structured", "lexical", "semantic", "graph"],
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "type": "array"
+          },
+          "chunkId": {
+            "maxLength": 128,
+            "minLength": 14,
+            "pattern": "^corpus_chunk_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "fusedScore": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "inclusionReason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "position": {
+            "maximum": 10000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "redactions": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 64,
+            "type": "array"
+          },
+          "renderedContent": {
+            "maxLength": 131072,
+            "minLength": 1,
+            "type": "string"
+          },
+          "renderedDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "sourceDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "sourceManifestId": {
+            "maxLength": 128,
+            "minLength": 17,
+            "pattern": "^corpus_manifest_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "sourceSpan": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "whole",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "endLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "kind": {
+                    "const": "text-lines",
+                    "type": "string"
+                  },
+                  "startLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  }
+                },
+                "required": ["kind", "startLine", "endLine"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "json-pointer",
+                    "type": "string"
+                  },
+                  "pointer": {
+                    "maxLength": 4096,
+                    "pattern": "^(?:\\/[^/]*)*$",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind", "pointer"],
+                "type": "object"
+              }
+            ]
+          },
+          "sourceVersion": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "tokenEstimate": {
+            "exclusiveMinimum": 0,
+            "maximum": 1000000,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "candidateId",
+          "chunkId",
+          "sourceManifestId",
+          "sourceVersion",
+          "sourceDigest",
+          "sourceSpan",
+          "renderedContent",
+          "renderedDigest",
+          "tokenEstimate",
+          "position",
+          "channels",
+          "fusedScore",
+          "redactions",
+          "inclusionReason"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "kind": {
+      "const": "knowledge-context-manifest",
+      "type": "string"
+    },
+    "policyVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "queryId": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^retrieval_query_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "renderedContextDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "tokenAllocation": {
+      "maximum": 10000000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "tokenBudget": {
+      "exclusiveMinimum": 0,
+      "maximum": 10000000,
+      "type": "integer"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^retrieval_trace_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "queryId",
+    "traceId",
+    "compilerVersion",
+    "policyVersion",
+    "tokenBudget",
+    "tokenAllocation",
+    "items",
+    "excluded",
+    "renderedContextDigest",
+    "compiledBy"
+  ],
+  "title": "knowledge-context-manifest.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "knowledge-context-manifest.v1"
+  }
+}

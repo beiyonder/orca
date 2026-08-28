@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P5-KNOW-04` — retrieve corpus spans without letting derived ranking bypass kernel authority.
+`P5-KNOW-09` — persist memory candidates as non-authoritative quarantined proposals.

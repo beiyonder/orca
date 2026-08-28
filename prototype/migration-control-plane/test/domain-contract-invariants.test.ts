@@ -341,6 +341,45 @@ describe('corpus authority invariants', () => {
   })
 })
 
+describe('retrieval and knowledge context invariants', () => {
+  it('binds semantic and graph configuration to enabled channels', () => {
+    const semantic = sample('retrieval-query.v1')
+    semantic.semanticQuery = 'semantic query'
+    expectInvalid(
+      'retrieval-query.v1',
+      semantic,
+      'Semantic channel and query must be enabled together'
+    )
+
+    const graph = sample('retrieval-query.v1')
+    graph.maxGraphDepth = 1
+    expectInvalid('retrieval-query.v1', graph, 'Graph channel and depth must be enabled together')
+  })
+
+  it('requires attributable exclusion and bounded contiguous context allocation', () => {
+    const trace = sample('retrieval-trace.v1')
+    const candidates = trace.candidates as Record<string, unknown>[]
+    candidates[0]!.eligible = false
+    expectInvalid('retrieval-trace.v1', trace, 'Eligibility and exclusion reason disagree')
+
+    const context = sample('knowledge-context-manifest.v1')
+    context.tokenAllocation = 1_001
+    expectInvalid(
+      'knowledge-context-manifest.v1',
+      context,
+      'Context allocation exceeds token budget'
+    )
+    context.tokenAllocation = 8
+    const items = context.items as Record<string, unknown>[]
+    items[0]!.position = 1
+    expectInvalid(
+      'knowledge-context-manifest.v1',
+      context,
+      'Knowledge context positions must be contiguous'
+    )
+  })
+})
+
 describe('additional lineage and observability boundaries', () => {
   it('orders proposition validity, context positions, and attempt leases', () => {
     const proposition = sample('proposition.v1')
