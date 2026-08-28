@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P3-KERN-01`.
-- Only the `G2-LAB` evidence listed below is reported as run; all other experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P3-KERN-02`.
+- Only `G2-LAB` runs and the `P3-KERN-01` contract verification below are reported complete; all other experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -38,6 +38,17 @@ Gate verification:
 - artifact SHA-256 indexes detect modification;
 - non-agent baseline passes six hard mapping measures with zero model calls/effects.
 
+## `P3-KERN-01` contract evidence
+
+- exact `zod 4.4.3` runtime dependency isolated in the lab;
+- 41 strict V1 runtime schemas and 41 deterministic Draft 2020-12 files;
+- registry digest `c625dd7c6ea4d45dfb98d477959681f85bea23c314ef23e2237ce615c3948164`;
+- 41 canonical samples parse;
+- all 41 reject unknown top-level fields and schema version 2;
+- full record-set admission rejects duplicate IDs, tenant mismatch, and mission mismatch;
+- 18 targeted tests cover authority, lineage, time, verdict, correction, learning, idempotency, capability, receipt, recovery, and compensation invariants;
+- complete lab verification passes 8 test files / 46 tests plus generated-schema drift check.
+
 ## Queue classes
 
 | Class | Meaning |
@@ -50,7 +61,7 @@ Gate verification:
 
 ## Execution contract
 
-The Phase 2 runner must use:
+The stable runner uses:
 
 ```text
 node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs experiment run \
@@ -62,6 +73,13 @@ node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs e
 ```
 
 The stable Node entry delegates to the compiled TypeScript runner; future OMP/DBOS/Inspect arms remain separate processes and must preserve the semantic arguments.
+
+Contract generation and drift verification use:
+
+```text
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs contracts generate
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs contracts check
+```
 
 Every run directory must contain:
 
@@ -280,4 +298,4 @@ Every state change records:
 
 ## Next queue action
 
-Implement `P3-KERN-01` contracts, then execute the durable-state queue beginning with `DUR-EXP-01`; do not activate DBOS until the native PostgreSQL baseline exists.
+Implement `P3-KERN-02` real PostgreSQL migrations and prove empty/upgrade checksum convergence before beginning command idempotency or `DUR-EXP-01`; DBOS remains blocked on the native baseline.

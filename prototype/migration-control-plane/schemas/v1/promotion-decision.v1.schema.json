@@ -1,0 +1,136 @@
+{
+  "$id": "urn:orca:migration-control-plane:promotion-decision.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "abortConditions": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "capabilityId": {
+      "maxLength": 128,
+      "minLength": 12,
+      "pattern": "^capability_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "capabilityVersion": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "certificationId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^certification_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "decidedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 11,
+      "pattern": "^promotion_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "promotion-decision",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "stableCapabilityId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 12,
+          "pattern": "^capability_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stage": {
+      "enum": ["shadow", "canary", "active", "aborted"],
+      "type": "string"
+    },
+    "taskLimit": {
+      "maximum": 9007199254740991,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "timeLimitMs": {
+      "exclusiveMinimum": 0,
+      "maximum": 31536000000,
+      "type": "integer"
+    },
+    "trafficLimitPercent": {
+      "maximum": 100,
+      "minimum": 0,
+      "type": "number"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "capabilityId",
+    "capabilityVersion",
+    "certificationId",
+    "stableCapabilityId",
+    "stage",
+    "trafficLimitPercent",
+    "taskLimit",
+    "timeLimitMs",
+    "abortConditions",
+    "decidedBy"
+  ],
+  "title": "promotion-decision.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "promotion-decision.v1"
+  }
+}

@@ -84,7 +84,7 @@ oxfmt
 oxlint
 ```
 
-Initial runtime dependencies: **none**.
+Phase 2 runtime dependencies: **none**. `P3-KERN-01` subsequently added exact `zod 4.4.3` inside the private lab for strict persisted/worker/evaluator/adapter contracts and deterministic Draft 2020-12 export; Orca root remains unchanged.
 
 Rules:
 
@@ -167,4 +167,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P3-KERN-01` — define compiling versioned product-domain contracts; keep OMP, PostgreSQL, DBOS, and Inspect behind the selected process/dependency boundaries.
+`P3-KERN-02` — implement real PostgreSQL migrations from the compiled V1 registry; keep OMP, DBOS, and Inspect behind the selected process/dependency boundaries.

@@ -1,0 +1,251 @@
+{
+  "$id": "urn:orca:migration-control-plane:correction-result.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "acceptanceContractId": {
+      "maxLength": 128,
+      "minLength": 21,
+      "pattern": "^evaluation_contract_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "acceptanceContractVersion": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "changedPaths": {
+      "items": {
+        "maxLength": 1024,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "completedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 19,
+      "pattern": "^correction_result_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "correction-result",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "newSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        },
+        "version": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        }
+      },
+      "required": ["kind", "id", "version", "schemaVersion", "digest"],
+      "type": "object"
+    },
+    "priorSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        },
+        "version": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        }
+      },
+      "required": ["kind", "id", "version", "schemaVersion", "digest"],
+      "type": "object"
+    },
+    "producedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 20,
+      "pattern": "^correction_request_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "unresolvedGapIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 5,
+        "pattern": "^gap_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "usage": {
+      "additionalProperties": false,
+      "properties": {
+        "cacheReadTokens": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cacheWriteTokens": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "costUsd": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "inputTokens": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "outputTokens": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "toolCalls": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "wallTimeMs": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "inputTokens",
+        "outputTokens",
+        "cacheReadTokens",
+        "cacheWriteTokens",
+        "toolCalls",
+        "wallTimeMs",
+        "costUsd"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "requestId",
+    "priorSubject",
+    "newSubject",
+    "changedPaths",
+    "evidenceIds",
+    "unresolvedGapIds",
+    "acceptanceContractId",
+    "acceptanceContractVersion",
+    "usage",
+    "completedAt",
+    "producedBy"
+  ],
+  "title": "correction-result.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "correction-result.v1"
+  }
+}

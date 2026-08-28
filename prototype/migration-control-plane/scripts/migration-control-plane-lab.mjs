@@ -32,7 +32,8 @@ function verify() {
     'lint:internal',
     'typecheck:internal',
     'test:internal',
-    'build:internal'
+    'build:internal',
+    'contracts:check:internal'
   ]) {
     const status = runPnpmScript(script)
     if (status !== 0) return status
@@ -47,6 +48,7 @@ function usage() {
   node scripts/migration-control-plane-lab.mjs typecheck
   node scripts/migration-control-plane-lab.mjs test
   node scripts/migration-control-plane-lab.mjs verify
+  node scripts/migration-control-plane-lab.mjs contracts generate|check
   node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm <baseline|candidate> --fault <name|none> --output <path>`)
   return 2
 }
@@ -66,6 +68,17 @@ switch (command) {
   case 'verify':
     status = verify()
     break
+  case 'contracts': {
+    if (args[0] !== 'generate' && args[0] !== 'check') {
+      status = usage()
+      break
+    }
+    status = runPnpmScript('build:internal')
+    if (status === 0) {
+      status = runPnpmScript(`contracts:${args[0]}:internal`)
+    }
+    break
+  }
   case 'experiment': {
     if (args[0] !== 'run') {
       status = usage()

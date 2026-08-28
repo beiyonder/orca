@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P3-KERN-01` — Define compiling versioned domain contracts inside the isolated lab.**
+**`P3-KERN-02` — Implement real PostgreSQL migrations from the V1 domain contracts.**
 
 Current artifacts already exist:
 
@@ -27,9 +27,10 @@ Current artifacts already exist:
 - `docs/agentic-substrate-lab-location.md`
 - `docs/agentic-substrate-runtime-cut.md`
 - `docs/agentic-substrate-lab-handoff.md`
+- `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 2 built and verified the isolated Node/TypeScript lab at `prototype/migration-control-plane/`: deterministic runtime, named faults, sealed run artifacts, synthetic fixture/oracle/mutations/negatives, pinned OMP contract fixture, non-agent baseline, one-command runner, and three-platform CI. The current move is to define the durable product domain contracts before persistence.
+Phase 2 established the reproducible lab. `P3-KERN-01` now adds a strict V1 Zod registry with 41 runtime/Draft 2020-12 schemas spanning mission, epistemic state, plans, tasks/attempts/context, artifacts, evaluation/correction, learning, and future effects; 46 tests and generated-schema drift checks pass. The current move is real PostgreSQL migrations—never a SQLite semantic substitute.
 
 ## How to use coordinates
 
@@ -310,8 +311,8 @@ Failure route: `L-LAB-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `CURRENT` | `P3-KERN-01` | Define versioned domain contracts. | Mission, evidence, gap, decision, plan, task, attempt, effect, evaluation, and learning schemas compile. |
-| `WAIT` | `P3-KERN-02` | Implement database migrations. | Empty and upgraded databases converge to the same schema with checksums. |
+| `DONE` | `P3-KERN-01` | Define versioned domain contracts. | Forty-one strict V1 Zod/runtime and deterministic Draft 2020-12 schemas compile; prefixed IDs, tenant/mission admission, authority/lineage invariants, 41 canonical samples, JSON registry digest, and 46-test verification pass. |
+| `CURRENT` | `P3-KERN-02` | Implement database migrations. | Empty and upgraded databases converge to the same schema with checksums. |
 | `WAIT` | `P3-KERN-03` | Implement command idempotency. | Duplicate identical commands replay result; mismatched payload reuse is rejected. |
 | `WAIT` | `P3-KERN-04` | Implement aggregate event append. | Expected-version transaction rejects concurrent conflicting updates. |
 | `WAIT` | `P3-KERN-05` | Implement transactional projections. | Event, current projection, and outbox update atomically. |
@@ -634,7 +635,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
-| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-01` |
+| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-02` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
@@ -645,6 +646,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P3-KERN-01`** — Define compiling versioned mission, evidence, plan, assignment, evaluation, learning, and future-effect contracts.
-2. **`P3-KERN-02`** — Implement real PostgreSQL migrations with empty/upgrade checksum convergence.
-3. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
+1. **`P3-KERN-02`** — Implement real PostgreSQL migrations with empty/upgrade checksum convergence.
+2. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
+3. **`P3-KERN-04`** — Implement expected-version aggregate event append transactions.

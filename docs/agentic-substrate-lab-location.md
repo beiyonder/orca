@@ -130,7 +130,7 @@ It does not:
 - ship in Electron/Vite/native release output;
 - publish a package.
 
-The lab has its own private Node/TypeScript `package.json`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`. It currently has no runtime dependencies; its five development tools are isolated from Orca root. Future Go or Python challenger processes require separate subordinate module/lock files and cannot become baseline imports.
+The lab has its own private Node/TypeScript `package.json`, `pnpm-workspace.yaml`, and `pnpm-lock.yaml`. `P3-KERN-01` added exact `zod 4.4.3` as its sole runtime dependency; its five development tools remain isolated from Orca root. Future Go or Python challenger processes require separate subordinate module/lock files and cannot become baseline imports.
 
 ## Import boundary
 
@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P3-KERN-01` — define compiling versioned product-domain contracts inside the verified lab.
+`P3-KERN-02` — implement real PostgreSQL migrations from the verified V1 product-domain contracts.

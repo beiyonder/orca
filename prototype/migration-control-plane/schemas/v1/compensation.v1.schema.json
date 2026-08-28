@@ -1,0 +1,114 @@
+{
+  "$id": "urn:orca:migration-control-plane:compensation.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authorizedByPolicyDecisionId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^policy_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "compensationEffectId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^effect_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evaluatedReceiptId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 9,
+          "pattern": "^receipt_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "forwardEffectId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^effect_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 14,
+      "pattern": "^compensation_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "compensation",
+      "type": "string"
+    },
+    "knownResidualEffects": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "preconditions": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "restorationClaim": {
+      "enum": ["full", "partial", "none"],
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "forwardEffectId",
+    "compensationEffectId",
+    "restorationClaim",
+    "preconditions",
+    "knownResidualEffects",
+    "authorizedByPolicyDecisionId",
+    "evaluatedReceiptId"
+  ],
+  "title": "compensation.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "compensation.v1"
+  }
+}

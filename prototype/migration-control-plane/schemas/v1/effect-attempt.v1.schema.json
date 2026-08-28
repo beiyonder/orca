@@ -1,0 +1,367 @@
+{
+  "$id": "urn:orca:migration-control-plane:effect-attempt.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapterName": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "adapterVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "attemptNumber": {
+      "exclusiveMinimum": 0,
+      "maximum": 100,
+      "type": "integer"
+    },
+    "capabilityEnvelopeId": {
+      "maxLength": 128,
+      "minLength": 10,
+      "pattern": "^envelope_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "effectId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^effect_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "fence": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 16,
+      "pattern": "^effect_attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "idempotencyKeyHash": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "kind": {
+      "const": "effect-attempt",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "preRequestJournal": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "mediaType": {
+          "maxLength": 255,
+          "minLength": 3,
+          "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "span": {
+          "default": {
+            "kind": "whole"
+          },
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "whole",
+                  "type": "string"
+                }
+              },
+              "required": ["kind"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "endLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                },
+                "kind": {
+                  "const": "text-lines",
+                  "type": "string"
+                },
+                "startLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                }
+              },
+              "required": ["kind", "startLine", "endLine"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "json-pointer",
+                  "type": "string"
+                },
+                "pointer": {
+                  "maxLength": 4096,
+                  "pattern": "^(?:\\/[^/]*)*$",
+                  "type": "string"
+                }
+              },
+              "required": ["kind", "pointer"],
+              "type": "object"
+            }
+          ]
+        },
+        "uri": {
+          "maxLength": 4096,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9+.-]*:",
+          "type": "string"
+        }
+      },
+      "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+      "type": "object"
+    },
+    "requestDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "runnerDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "state": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "prepared",
+              "type": "string"
+            }
+          },
+          "required": ["status"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "providerRequestId": {
+              "anyOf": [
+                {
+                  "maxLength": 1024,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "requestStartedAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "status": {
+              "const": "issued",
+              "type": "string"
+            }
+          },
+          "required": ["status", "requestStartedAt", "providerRequestId"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "reason": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "status": {
+              "const": "unknown",
+              "type": "string"
+            },
+            "unknownAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            }
+          },
+          "required": ["status", "reason", "unknownAt"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "receiptId": {
+              "maxLength": 128,
+              "minLength": 9,
+              "pattern": "^receipt_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "settledAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "status": {
+              "enum": ["applied", "absent", "failed"],
+              "type": "string"
+            }
+          },
+          "required": ["status", "receiptId", "settledAt"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "observationIds": {
+              "items": {
+                "maxLength": 128,
+                "minLength": 20,
+                "pattern": "^target_observation_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "maxItems": 1000,
+              "minItems": 0,
+              "type": "array"
+            },
+            "status": {
+              "const": "reconciling",
+              "type": "string"
+            }
+          },
+          "required": ["status", "observationIds"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "evaluationAssignmentIds": {
+              "items": {
+                "maxLength": 128,
+                "minLength": 23,
+                "pattern": "^evaluation_assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "maxItems": 128,
+              "minItems": 1,
+              "type": "array"
+            },
+            "receiptId": {
+              "maxLength": 128,
+              "minLength": 9,
+              "pattern": "^receipt_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "status": {
+              "const": "evaluating",
+              "type": "string"
+            }
+          },
+          "required": ["status", "receiptId", "evaluationAssignmentIds"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "completedAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "evaluationResultIds": {
+              "items": {
+                "maxLength": 128,
+                "minLength": 19,
+                "pattern": "^evaluation_result_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "maxItems": 128,
+              "minItems": 1,
+              "type": "array"
+            },
+            "receiptId": {
+              "maxLength": 128,
+              "minLength": 9,
+              "pattern": "^receipt_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "status": {
+              "enum": ["accepted", "rejected"],
+              "type": "string"
+            }
+          },
+          "required": ["status", "receiptId", "evaluationResultIds", "completedAt"],
+          "type": "object"
+        }
+      ]
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "effectId",
+    "attemptNumber",
+    "fence",
+    "capabilityEnvelopeId",
+    "adapterName",
+    "adapterVersion",
+    "runnerDigest",
+    "requestDigest",
+    "idempotencyKeyHash",
+    "preRequestJournal",
+    "state"
+  ],
+  "title": "effect-attempt.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "effect-attempt.v1"
+  }
+}

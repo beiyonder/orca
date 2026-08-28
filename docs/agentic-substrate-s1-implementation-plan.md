@@ -564,6 +564,8 @@ S1 needs versioned schemas for:
 
 S1 may omit physical effect/secret/target tables if compiled contracts preserve the future identifiers/status vocabulary without pretending an effect occurred.
 
+`P3-KERN-01` implements these as 41 strict V1 Zod/runtime and Draft 2020-12 schemas in the isolated lab. Future effect/secret/target records compile as non-executable seams; physical tables and behavior remain deferred to their roadmap coordinates.
+
 ## Authority invariants
 
 - expected mission/base versions on commands/plan changes;
@@ -885,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P3-KERN-01` — define compiling versioned product-domain contracts inside the verified lab before implementing PostgreSQL persistence.
+`P3-KERN-02` — translate the V1 contracts into real PostgreSQL migrations and prove empty/upgrade schema checksum convergence.

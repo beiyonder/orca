@@ -1,0 +1,228 @@
+{
+  "$id": "urn:orca:migration-control-plane:evaluation-assignment.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "costLimitUsd": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "outputByteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400000,
+          "type": "integer"
+        },
+        "tokenLimit": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "toolCallLimit": {
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": ["tokenLimit", "timeLimitMs", "toolCallLimit", "outputByteLimit", "costLimitUsd"],
+      "type": "object"
+    },
+    "contextManifestId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^context_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "contractId": {
+      "maxLength": 128,
+      "minLength": 21,
+      "pattern": "^evaluation_contract_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "contractVersion": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "deadlineAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evaluatorAttemptId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "evaluatorFence": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "evaluatorId": {
+      "maxLength": 128,
+      "minLength": 11,
+      "pattern": "^evaluator_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "evaluatorVersion": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 23,
+      "pattern": "^evaluation_assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "inputEvidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "kind": {
+      "const": "evaluation-assignment",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "producer": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "kind": {
+              "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["kind", "id"],
+          "type": "object"
+        },
+        "assignmentId": {
+          "maxLength": 128,
+          "minLength": 12,
+          "pattern": "^assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "attemptId": {
+          "maxLength": 128,
+          "minLength": 9,
+          "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "fence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        }
+      },
+      "required": ["actor", "assignmentId", "attemptId", "fence"],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "subject": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaVersion": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        },
+        "version": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        }
+      },
+      "required": ["kind", "id", "version", "schemaVersion", "digest"],
+      "type": "object"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "contractId",
+    "contractVersion",
+    "evaluatorId",
+    "evaluatorVersion",
+    "subject",
+    "contextManifestId",
+    "inputEvidenceIds",
+    "producer",
+    "evaluatorAttemptId",
+    "evaluatorFence",
+    "deadlineAt",
+    "budget"
+  ],
+  "title": "evaluation-assignment.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "evaluation-assignment.v1"
+  }
+}
