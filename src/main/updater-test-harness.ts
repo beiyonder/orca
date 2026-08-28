@@ -253,6 +253,8 @@ export function createUpdaterMocks(): UpdaterMocks {
       url: 'http://127.0.0.1:1234/token/',
       close: closeLocalBuildFeedMock
     })
+    // Why: resetModules cannot cancel timers owned by the prior module instance; discard them before restoring real timers.
+    vi.clearAllTimers()
     vi.unstubAllGlobals()
     vi.useRealTimers()
   }
