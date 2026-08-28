@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "propertyNames": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "urn:orca:migration-control-plane:probe-request.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "byteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "type": "integer"
+        },
+        "rowLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 1000000,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400000,
+          "type": "integer"
+        }
+      },
+      "required": ["timeLimitMs", "rowLimit", "byteLimit"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "expectedEvidenceDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "gapId": {
+      "maxLength": 128,
+      "minLength": 5,
+      "pattern": "^gap_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 7,
+      "pattern": "^probe_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "probe-request",
+      "type": "string"
+    },
+    "method": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "predictedOutcomes": {
+      "items": {
+        "$ref": "#/$defs/__schema0"
+      },
+      "maxItems": 32,
+      "minItems": 2,
+      "type": "array"
+    },
+    "question": {
+      "maxLength": 32768,
+      "minLength": 1,
+      "type": "string"
+    },
+    "requestedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "gapId",
+    "method",
+    "question",
+    "parameters",
+    "expectedEvidenceDigest",
+    "predictedOutcomes",
+    "budget",
+    "requestedBy"
+  ],
+  "title": "probe-request.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "probe-request.v1"
+  }
+}

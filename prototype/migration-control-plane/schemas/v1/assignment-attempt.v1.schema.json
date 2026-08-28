@@ -1,0 +1,222 @@
+{
+  "$id": "urn:orca:migration-control-plane:assignment-attempt.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignmentId": {
+      "maxLength": 128,
+      "minLength": 12,
+      "pattern": "^assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "attemptNumber": {
+      "exclusiveMinimum": 0,
+      "maximum": 100,
+      "type": "integer"
+    },
+    "contextManifestId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^context_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "fence": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "assignment-attempt",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "startedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "state": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "leaseExpiresAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "status": {
+              "enum": ["claimed", "running"],
+              "type": "string"
+            }
+          },
+          "required": ["status", "leaseExpiresAt"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "resultId": {
+              "maxLength": 128,
+              "minLength": 19,
+              "pattern": "^assignment_result_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "status": {
+              "const": "result-submitted",
+              "type": "string"
+            },
+            "submittedAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            }
+          },
+          "required": ["status", "resultId", "submittedAt"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "evaluationAssignmentIds": {
+              "items": {
+                "maxLength": 128,
+                "minLength": 23,
+                "pattern": "^evaluation_assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "maxItems": 128,
+              "minItems": 1,
+              "type": "array"
+            },
+            "resultId": {
+              "maxLength": 128,
+              "minLength": 19,
+              "pattern": "^assignment_result_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "status": {
+              "const": "evaluating",
+              "type": "string"
+            }
+          },
+          "required": ["status", "resultId", "evaluationAssignmentIds"],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "completedAt": {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            "reason": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "status": {
+              "enum": ["succeeded", "failed", "cancelled", "stale"],
+              "type": "string"
+            }
+          },
+          "required": ["status", "reason", "completedAt"],
+          "type": "object"
+        }
+      ]
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "worker": {
+      "additionalProperties": false,
+      "properties": {
+        "processIncarnation": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "protocolVersion": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "runtime": {
+          "enum": ["omp-rpc", "deterministic-runner", "external-evaluator"],
+          "type": "string"
+        },
+        "runtimeVersion": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionRef": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "runtime",
+        "runtimeVersion",
+        "protocolVersion",
+        "processIncarnation",
+        "sessionRef"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "assignmentId",
+    "attemptNumber",
+    "fence",
+    "worker",
+    "contextManifestId",
+    "state",
+    "startedAt"
+  ],
+  "title": "assignment-attempt.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "assignment-attempt.v1"
+  }
+}

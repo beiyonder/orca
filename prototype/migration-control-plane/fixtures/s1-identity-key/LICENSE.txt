@@ -1,0 +1,4 @@
+SPDX-License-Identifier: MIT
+
+This fixture is original synthetic test data created for the Orca migration-control-plane prototype.
+It is covered by the repository MIT License. It contains no real person, customer, credential, or PHI data.

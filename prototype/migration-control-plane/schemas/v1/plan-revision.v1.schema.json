@@ -1,0 +1,445 @@
+{
+  "$id": "urn:orca:migration-control-plane:plan-revision.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "baseMissionRevision": {
+      "maximum": 9007199254740991,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "basePlanRevisionId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 6,
+          "pattern": "^plan_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "committedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "createdBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "decisionIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^decision_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "findingIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 9,
+        "pattern": "^finding_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 6,
+      "pattern": "^plan_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "plan-revision",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "oneOf": [
+          {
+            "additionalProperties": false,
+            "properties": {
+              "capability": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "dependencyTaskIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 6,
+                  "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 1000,
+                "minItems": 0,
+                "type": "array"
+              },
+              "operation": {
+                "const": "add-task",
+                "type": "string"
+              },
+              "proofObligations": {
+                "items": {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "maxItems": 128,
+                "minItems": 1,
+                "type": "array"
+              },
+              "recoveryPolicy": {
+                "additionalProperties": false,
+                "properties": {
+                  "maxAttempts": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 100,
+                    "type": "integer"
+                  },
+                  "onStaleResult": {
+                    "const": "reject-authority-retain-evidence",
+                    "type": "string"
+                  },
+                  "onWorkerLoss": {
+                    "enum": ["retry", "reconstruct", "quarantine", "fail"],
+                    "type": "string"
+                  },
+                  "requiresEvaluation": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["onWorkerLoss", "onStaleResult", "maxAttempts", "requiresEvaluation"],
+                "type": "object"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "title": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "operation",
+              "taskId",
+              "title",
+              "capability",
+              "dependencyTaskIds",
+              "proofObligations",
+              "recoveryPolicy"
+            ],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "childTaskIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 6,
+                  "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 128,
+                "minItems": 2,
+                "type": "array"
+              },
+              "operation": {
+                "const": "split-task",
+                "type": "string"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "childTaskIds"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "const": "merge-tasks",
+                "type": "string"
+              },
+              "sourceTaskIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 6,
+                  "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 128,
+                "minItems": 2,
+                "type": "array"
+              },
+              "targetTaskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "sourceTaskIds", "targetTaskId"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "dependencyTaskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              },
+              "operation": {
+                "const": "add-dependency",
+                "type": "string"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "dependencyTaskId"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "gapIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 5,
+                  "pattern": "^gap_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 1000,
+                "minItems": 1,
+                "type": "array"
+              },
+              "operation": {
+                "const": "block-task",
+                "type": "string"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "gapIds"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "const": "unblock-task",
+                "type": "string"
+              },
+              "resolvedGapIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 5,
+                  "pattern": "^gap_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 1000,
+                "minItems": 1,
+                "type": "array"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "resolvedGapIds"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "const": "cancel-task",
+                "type": "string"
+              },
+              "reason": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "reason"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "const": "quarantine-task",
+                "type": "string"
+              },
+              "reason": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "reason"],
+            "type": "object"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "operation": {
+                "const": "supersede-task",
+                "type": "string"
+              },
+              "replacementTaskIds": {
+                "items": {
+                  "maxLength": 128,
+                  "minLength": 6,
+                  "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                  "type": "string"
+                },
+                "maxItems": 128,
+                "minItems": 1,
+                "type": "array"
+              },
+              "taskId": {
+                "maxLength": 128,
+                "minLength": 6,
+                "pattern": "^task_[a-z0-9][a-z0-9_-]{0,111}$",
+                "type": "string"
+              }
+            },
+            "required": ["operation", "taskId", "replacementTaskIds"],
+            "type": "object"
+          }
+        ]
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "rationale": {
+      "maxLength": 32768,
+      "minLength": 1,
+      "type": "string"
+    },
+    "revision": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "revision",
+    "basePlanRevisionId",
+    "baseMissionRevision",
+    "operations",
+    "decisionIds",
+    "evidenceIds",
+    "findingIds",
+    "rationale",
+    "createdBy",
+    "committedAt"
+  ],
+  "title": "plan-revision.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "plan-revision.v1"
+  }
+}

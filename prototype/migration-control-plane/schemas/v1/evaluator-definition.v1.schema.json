@@ -1,0 +1,470 @@
+{
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "propertyNames": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "urn:orca:migration-control-plane:evaluator-definition.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "costLimitUsd": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "outputByteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400000,
+          "type": "integer"
+        },
+        "tokenLimit": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "toolCallLimit": {
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": ["tokenLimit", "timeLimitMs", "toolCallLimit", "outputByteLimit", "costLimitUsd"],
+      "type": "object"
+    },
+    "calibrationCorpus": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "bytes": {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "mediaType": {
+              "maxLength": 255,
+              "minLength": 3,
+              "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "span": {
+              "default": {
+                "kind": "whole"
+              },
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "whole",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "endLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    },
+                    "kind": {
+                      "const": "text-lines",
+                      "type": "string"
+                    },
+                    "startLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["kind", "startLine", "endLine"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "json-pointer",
+                      "type": "string"
+                    },
+                    "pointer": {
+                      "maxLength": 4096,
+                      "pattern": "^(?:\\/[^/]*)*$",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind", "pointer"],
+                  "type": "object"
+                }
+              ]
+            },
+            "uri": {
+              "maxLength": 4096,
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9+.-]*:",
+              "type": "string"
+            }
+          },
+          "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evaluatorType": {
+      "enum": ["deterministic", "model", "human", "composite"],
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 11,
+      "pattern": "^evaluator_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "implementation": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "mediaType": {
+          "maxLength": 255,
+          "minLength": 3,
+          "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "span": {
+          "default": {
+            "kind": "whole"
+          },
+          "oneOf": [
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "whole",
+                  "type": "string"
+                }
+              },
+              "required": ["kind"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "endLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                },
+                "kind": {
+                  "const": "text-lines",
+                  "type": "string"
+                },
+                "startLine": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991,
+                  "type": "integer"
+                }
+              },
+              "required": ["kind", "startLine", "endLine"],
+              "type": "object"
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "json-pointer",
+                  "type": "string"
+                },
+                "pointer": {
+                  "maxLength": 4096,
+                  "pattern": "^(?:\\/[^/]*)*$",
+                  "type": "string"
+                }
+              },
+              "required": ["kind", "pointer"],
+              "type": "object"
+            }
+          ]
+        },
+        "uri": {
+          "maxLength": 4096,
+          "minLength": 3,
+          "pattern": "^[a-z][a-z0-9+.-]*:",
+          "type": "string"
+        }
+      },
+      "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+      "type": "object"
+    },
+    "independence": {
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "enum": ["independent-required", "recorded"],
+          "type": "string"
+        },
+        "credentials": {
+          "enum": ["separate-required", "not-applicable"],
+          "type": "string"
+        },
+        "model": {
+          "enum": ["different-required", "different-preferred", "not-applicable"],
+          "type": "string"
+        },
+        "process": {
+          "enum": ["different-required", "recorded"],
+          "type": "string"
+        },
+        "producerMayEvaluate": {
+          "const": false,
+          "type": "boolean"
+        },
+        "producerReasoningVisible": {
+          "const": false,
+          "type": "boolean"
+        },
+        "provider": {
+          "enum": ["different-required", "different-preferred", "not-applicable"],
+          "type": "string"
+        }
+      },
+      "required": [
+        "producerMayEvaluate",
+        "process",
+        "model",
+        "provider",
+        "context",
+        "credentials",
+        "producerReasoningVisible"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "evaluator-definition",
+      "type": "string"
+    },
+    "knownLimitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "measures": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "hard": {
+            "type": "boolean"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "operator": {
+            "enum": ["eq", "neq", "lt", "lte", "gt", "gte", "contains", "custom"],
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "threshold": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "unit": {
+            "maxLength": 64,
+            "type": "string"
+          },
+          "valueType": {
+            "enum": ["boolean", "integer", "number", "string", "json"],
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "valueType",
+          "unit",
+          "hard",
+          "required",
+          "operator",
+          "threshold",
+          "description"
+        ],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "requiredTools": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "approval": {
+            "enum": ["read", "write", "exec"],
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schemaDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["name", "version", "schemaDigest", "approval"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "revokedAt": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "supportedSubjectKinds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "supportedSubjectSchemaVersions": {
+      "items": {
+        "exclusiveMinimum": 0,
+        "maximum": 9007199254740991,
+        "type": "integer"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "version": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "version",
+    "evaluatorType",
+    "implementation",
+    "supportedSubjectKinds",
+    "supportedSubjectSchemaVersions",
+    "requiredTools",
+    "independence",
+    "measures",
+    "calibrationCorpus",
+    "knownLimitations",
+    "budget",
+    "revokedAt"
+  ],
+  "title": "evaluator-definition.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "evaluator-definition.v1"
+  }
+}

@@ -1,0 +1,358 @@
+{
+  "$id": "urn:orca:migration-control-plane:context-manifest.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignmentId": {
+      "maxLength": 128,
+      "minLength": 12,
+      "pattern": "^assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "attemptId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "baseMissionRevision": {
+      "maximum": 9007199254740991,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "costLimitUsd": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "outputByteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400000,
+          "type": "integer"
+        },
+        "tokenLimit": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "toolCallLimit": {
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": ["tokenLimit", "timeLimitMs", "toolCallLimit", "outputByteLimit", "costLimitUsd"],
+      "type": "object"
+    },
+    "compiledBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "excludedEvidence": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidenceId": {
+            "maxLength": 128,
+            "minLength": 10,
+            "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["evidenceId", "reason"],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^context_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "dataClass": {
+            "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+            "type": "string"
+          },
+          "evidenceDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "evidenceId": {
+            "maxLength": 128,
+            "minLength": 10,
+            "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "evidenceVersion": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "freshness": {
+            "enum": ["current", "stale", "unknown"],
+            "type": "string"
+          },
+          "itemId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "position": {
+            "maximum": 100000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "sourceRole": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "span": {
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "whole",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "endLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  "kind": {
+                    "const": "text-lines",
+                    "type": "string"
+                  },
+                  "startLine": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  }
+                },
+                "required": ["kind", "startLine", "endLine"],
+                "type": "object"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "json-pointer",
+                    "type": "string"
+                  },
+                  "pointer": {
+                    "maxLength": 4096,
+                    "pattern": "^(?:\\/[^/]*)*$",
+                    "type": "string"
+                  }
+                },
+                "required": ["kind", "pointer"],
+                "type": "object"
+              }
+            ]
+          },
+          "trust": {
+            "enum": ["direct", "derived", "unverified"],
+            "type": "string"
+          }
+        },
+        "required": [
+          "itemId",
+          "evidenceId",
+          "evidenceVersion",
+          "evidenceDigest",
+          "span",
+          "sourceRole",
+          "dataClass",
+          "position",
+          "trust",
+          "freshness"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "kind": {
+      "const": "context-manifest",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "modelRoute": {
+      "additionalProperties": false,
+      "properties": {
+        "dataClasses": {
+          "items": {
+            "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+            "type": "string"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "type": "array"
+        },
+        "effort": {
+          "enum": ["lo", "med", "hi"],
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "provider": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "revision": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["provider", "model", "revision", "effort", "dataClasses"],
+      "type": "object"
+    },
+    "outputSchemaDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "redactions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "itemId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["itemId", "reason"],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "renderedContextDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "role": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "strategyVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "systemPromptDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "toolSetDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "assignmentId",
+    "attemptId",
+    "baseMissionRevision",
+    "role",
+    "strategyVersion",
+    "modelRoute",
+    "budget",
+    "items",
+    "excludedEvidence",
+    "redactions",
+    "systemPromptDigest",
+    "toolSetDigest",
+    "outputSchemaDigest",
+    "renderedContextDigest",
+    "compiledBy"
+  ],
+  "title": "context-manifest.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "context-manifest.v1"
+  }
+}

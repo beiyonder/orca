@@ -1,0 +1,181 @@
+# Agentic-Substrate Lab Handoff
+
+## Goal and outcome
+
+Complete `P2-LAB-02` through `P2-LAB-12` and close `G2-LAB` without changing Orca desktop production code or claiming later kernel/agent behavior.
+
+Outcome: **`G2-LAB` passes.**
+
+The isolated lab exists at:
+
+```text
+prototype/migration-control-plane/
+```
+
+Runtime baseline:
+
+- Node.js 24+;
+- strict TypeScript;
+- private pnpm workspace/lockfile;
+- Vitest, Oxlint and Oxfmt development tooling;
+- no runtime dependencies;
+- OMP remains an external Bun process;
+- PostgreSQL begins in P3, not through a SQLite substitute.
+
+Post-handoff update: `P3-KERN-01` added exact `zod 4.4.3` to the private lab for the V1 domain contract registry. The Phase 2 gate itself had no runtime dependency.
+
+Current roadmap coordinate after the contract-registry update: `P3-KERN-02`.
+
+## Coordinate evidence
+
+| Coordinate | Implemented evidence |
+| --- | --- |
+| `P2-LAB-02` | `docs/agentic-substrate-runtime-cut.md`; private Node/TypeScript package, lockfile, configs, stable command and three-platform CI workflow. |
+| `P2-LAB-03` | `src/deterministic-runtime.ts`; seeded SHA-256 IDs, explicit deterministic clock/tick/event sequence and golden replay tests. |
+| `P2-LAB-04` | `src/fault-injection.ts`; 14 named points across database, process, network, object, evaluator, target, memory and mission boundaries; occurrence control and unreachable-point failure. |
+| `P2-LAB-05` | `src/run-artifact-store.ts` and `run-artifact-integrity.ts`; pending-to-final atomic publication, exclusive writes, path containment, canonical JSON, SHA-256 artifact index and tamper verification. |
+| `P2-LAB-06` | `fixtures/s1-identity-key/`; six synthetic rows, MIT/no-PHI provenance, exact byte counts and SHA-256 manifest. |
+| `P2-LAB-07` | Stale customer architecture claim, observed profile refutation, deterministic single/composite key probe and expected results. |
+| `P2-LAB-08` | Critical dropped-facility-key mutation and benign description mutation with exact expected failed measures/verdicts. |
+| `P2-LAB-09` | Six role/tenant/stale/injection/quarantined-memory/denied-input negative cases with deterministic policy dispositions. |
+| `P2-LAB-10` | Pinned OMP 18.0.6/source-commit/RPC/frame/tool/schema/cancel/archive/version-skew fixture and validator. Real binary exercise remains explicitly inconclusive. |
+| `P2-LAB-11` | `buildIdentityMappingBaseline`; chooses the smallest observed unique key without model calls and passes six deterministic evaluator measures. |
+| `P2-LAB-12` | Stable `migration-control-plane-lab.mjs` setup/build/typecheck/test/verify/experiment entry, strict CLI validation and immutable run output. |
+
+## Stable commands
+
+From `prototype/migration-control-plane/`:
+
+```text
+node scripts/migration-control-plane-lab.mjs setup
+node scripts/migration-control-plane-lab.mjs build
+node scripts/migration-control-plane-lab.mjs typecheck
+node scripts/migration-control-plane-lab.mjs test
+node scripts/migration-control-plane-lab.mjs verify
+node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm baseline --fault none --output .runs
+```
+
+`setup` uses the private frozen lockfile. `verify` runs formatting, lint, typecheck, all lab tests, and build. `experiment run` builds first and executes the compiled CLI.
+
+## Commands run and results
+
+```text
+pnpm install
+```
+
+- private lockfile generated;
+- 54 development packages installed;
+- root Orca lockfile/workspace untouched.
+
+```text
+node scripts/migration-control-plane-lab.mjs setup
+```
+
+- frozen lockfile accepted;
+- already up to date.
+
+```text
+node scripts/migration-control-plane-lab.mjs verify
+```
+
+- format check passed;
+- lint passed with zero warnings;
+- strict TypeScript passed;
+- 6 test files / 22 tests passed;
+- build passed.
+
+Tests cover:
+
+- deterministic replay and invalid clock/ID inputs;
+- all required fault categories, selected occurrences and unreachable faults;
+- atomic/contained/exclusive/sealed artifacts and tamper detection;
+- fixture checksums and six-row key truth;
+- contradiction/probe outcomes;
+- critical/benign mutation calibration;
+- six negative cases;
+- OMP contract validation and explicit binary uncertainty;
+- baseline correctness/order independence/no-key failure/malformed output;
+- deterministic run replay;
+- every registered fault producing an inspectable failed run;
+- immutable run ID reuse rejection;
+- unknown experiment/unsupported arm rejection.
+
+Final sealed experiment evidence generated locally under ignored `.runs/`:
+
+| Experiment | Seed | Status | Run ID |
+| --- | ---: | --- | --- |
+| `BASELINE-EXP-01` | 204 | `passed` | `baseline-exp-01-204-baseline-none-run_000000_fac5e8ac236c1090` |
+| `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
+| `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
+| `WORKER-EXP-01` | 207 | `inconclusive` | `worker-exp-01-207-baseline-none-run_000000_980daf1e78f39ccb` |
+
+Injected target-boundary fault evidence:
+
+```text
+LAB-EXP-01 seed 203
+fault target.after_response
+status failed
+summary Run stopped at injected fault target.after_response.
+```
+
+Failed runs intentionally exit non-zero while preserving sealed artifacts.
+
+## `G2-LAB` gate evidence
+
+- **Clean install/run:** private frozen setup and stable command completed.
+- **Licenses/checksums:** synthetic MIT/no-PHI license plus eight-file byte/SHA-256 manifest validated on every fixture load.
+- **Determinism:** same seed reproduces run ID, events, metrics, verdict, usage and output bytes in independent output roots.
+- **Fault artifacts:** all 14 registered points create inspectable finalized failed runs; run indexes detect later modification.
+- **Baselines first:** non-agent mapping/evaluator baseline exists and passes before apex/agent implementation.
+- **Cross-platform contract:** commands use Node argument arrays/path utilities; CI matrix pins Node 24 on Ubuntu, macOS and Windows.
+- **Isolation:** no production Orca source import, runtime dependency, root package/workspace/lock/test/build change, Electron build, real customer data, secret or external effect.
+
+## Decisions and rejected options
+
+Selected Node/TypeScript because Phase 2 is JSON contracts, fixtures, deterministic file/process orchestration and OMP RPC. It matches Orca’s Node 24 baseline without coupling product code to OMP’s Bun runtime.
+
+Rejected for the Phase 2 baseline:
+
+- Bun as the product runtime: couples control code to the first worker runtime.
+- Go: adds cross-language schema/build cost before service/load evidence.
+- day-one Node/Go polyglot: invents a distributed boundary before need.
+- permanent Python evaluator service: promotes Inspect before a native baseline.
+- SQLite durability substitute: cannot prove PostgreSQL transaction/locking claims.
+
+## Known risks and intentional limits
+
+1. `WORKER-EXP-01` is **inconclusive**, not passed. P2 creates the exact contract fixture; a real pinned OMP binary RPC/schema/cancel/artifact probe belongs to the agent integration path.
+2. The local machine ran Node 26.7.0. The package declares Node 24+, and CI pins Node 24; CI results are not observed until the pushed workflow runs.
+3. Fault points and artifact preservation are real; database/network/target recovery semantics are simulated in `LAB-EXP-01` until their P3/P8 components exist.
+4. PostgreSQL migrations, command idempotency, event/projection/outbox transactions and replay were not Phase 2 work. `P3-KERN-01` now defines their V1 record contracts; behavior still begins with `P3-KERN-02`.
+5. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
+6. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+
+## Files created
+
+```text
+prototype/migration-control-plane/
+├── package.json / pnpm-lock.yaml / pnpm-workspace.yaml
+├── tsconfig.json / tsconfig.build.json / vitest.config.ts
+├── .oxlintrc.json / .oxfmtrc.json / .gitignore
+├── scripts/migration-control-plane-lab.mjs
+├── src/*.ts
+├── test/*.test.ts
+└── fixtures/s1-identity-key/*
+```
+
+Repository integration:
+
+- `.github/workflows/migration-control-plane-lab.yml`
+- `docs/agentic-substrate-runtime-cut.md`
+- this handoff plus roadmap/atlas/research/queue updates.
+
+## Exact next action
+
+Start `P3-KERN-02`: implement real PostgreSQL migrations from the 41-schema V1 registry and prove empty/upgrade schema checksum convergence.
+
+First verification command after any change:
+
+```text
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs verify
+```

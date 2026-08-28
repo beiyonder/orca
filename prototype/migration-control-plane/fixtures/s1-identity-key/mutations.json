@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "mutations": [
+    {
+      "id": "S1-MUT-KEY-001",
+      "class": "critical",
+      "operation": "drop-source-key-column",
+      "column": "facility_id",
+      "expectedVerdict": "failed",
+      "expectedFailedMeasures": ["decision_alignment", "source_key_unique"]
+    },
+    {
+      "id": "S1-MUT-BENIGN-001",
+      "class": "benign",
+      "operation": "add-description",
+      "description": "Synthetic patient identity mapping.",
+      "expectedVerdict": "passed",
+      "expectedFailedMeasures": []
+    }
+  ]
+}

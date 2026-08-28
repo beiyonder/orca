@@ -1,0 +1,138 @@
+{
+  "$id": "urn:orca:migration-control-plane:recovery-disposition.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": ["wait", "same-key-retry", "repair", "compensate", "quarantine", "escalate"],
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "effectId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^effect_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 10,
+      "pattern": "^recovery_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "recovery-disposition",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "observationIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 20,
+        "pattern": "^target_observation_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "providerKeyStillValid": {
+      "type": "boolean"
+    },
+    "rationale": {
+      "maxLength": 512,
+      "minLength": 1,
+      "type": "string"
+    },
+    "receiptIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 9,
+        "pattern": "^receipt_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "residualRisk": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "selectedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "triggeringAttemptId": {
+      "maxLength": 128,
+      "minLength": 16,
+      "pattern": "^effect_attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "effectId",
+    "triggeringAttemptId",
+    "receiptIds",
+    "observationIds",
+    "action",
+    "providerKeyStillValid",
+    "rationale",
+    "residualRisk",
+    "selectedBy"
+  ],
+  "title": "recovery-disposition.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "recovery-disposition.v1"
+  }
+}

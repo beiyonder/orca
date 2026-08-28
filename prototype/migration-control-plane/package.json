@@ -1,0 +1,39 @@
+{
+  "name": "@orca/migration-control-plane-prototype",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lab": "node scripts/migration-control-plane-lab.mjs",
+    "setup": "node scripts/migration-control-plane-lab.mjs setup",
+    "build": "node scripts/migration-control-plane-lab.mjs build",
+    "typecheck": "node scripts/migration-control-plane-lab.mjs typecheck",
+    "test": "node scripts/migration-control-plane-lab.mjs test",
+    "verify": "node scripts/migration-control-plane-lab.mjs verify",
+    "experiment": "node scripts/migration-control-plane-lab.mjs experiment run",
+    "contracts:generate": "node scripts/migration-control-plane-lab.mjs contracts generate",
+    "contracts:check": "node scripts/migration-control-plane-lab.mjs contracts check",
+    "format": "oxfmt --write src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts .oxlintrc.json .oxfmtrc.json",
+    "build:internal": "tsc -p tsconfig.build.json",
+    "contracts:generate:internal": "node dist/generate-domain-schemas.js --write",
+    "contracts:check:internal": "node dist/generate-domain-schemas.js --check",
+    "typecheck:internal": "tsc --noEmit -p tsconfig.json",
+    "test:internal": "vitest run --config vitest.config.ts",
+    "lint:internal": "oxlint --config .oxlintrc.json --deny-warnings src test scripts vitest.config.ts",
+    "format:check:internal": "oxfmt --check src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts .oxlintrc.json .oxfmtrc.json"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "oxfmt": "0.52.0",
+    "oxlint": "1.80.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@10.24.0"
+}
