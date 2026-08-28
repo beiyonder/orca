@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P3-KERN-02` — Implement real PostgreSQL migrations from the V1 domain contracts.**
+**`P3-KERN-03` — Implement command idempotency over the PostgreSQL authority boundary.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 2 established the reproducible lab. `P3-KERN-01` now adds a strict V1 Zod registry with 41 runtime/Draft 2020-12 schemas spanning mission, epistemic state, plans, tasks/attempts/context, artifacts, evaluation/correction, learning, and future effects; 46 tests and generated-schema drift checks pass. The current move is real PostgreSQL migrations—never a SQLite semantic substitute.
+Phase 2 established the reproducible lab. `P3-KERN-01` added the strict 41-schema V1 registry. `P3-KERN-02` now adds three checksum-locked PostgreSQL 16 migrations, 16 constrained/indexed tables, an exact `pg 8.23.0` driver decision, advisory-locked transactional application, and schema fingerprint `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`; empty and staged-upgrade paths converge in real-server tests. The current move is command idempotency.
 
 ## How to use coordinates
 
@@ -312,8 +312,8 @@ Failure route: `L-LAB-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P3-KERN-01` | Define versioned domain contracts. | Forty-one strict V1 Zod/runtime and deterministic Draft 2020-12 schemas compile; prefixed IDs, tenant/mission admission, authority/lineage invariants, 41 canonical samples, JSON registry digest, and 46-test verification pass. |
-| `CURRENT` | `P3-KERN-02` | Implement database migrations. | Empty and upgraded databases converge to the same schema with checksums. |
-| `WAIT` | `P3-KERN-03` | Implement command idempotency. | Duplicate identical commands replay result; mismatched payload reuse is rejected. |
+| `DONE` | `P3-KERN-02` | Implement database migrations. | Three transactional checksum-locked migrations create 16 PostgreSQL 16 tables; empty and staged-upgrade paths converge to fingerprint `48406f18…8d82b74b`, concurrent runners serialize, reapply is inert, and altered or gapped history is rejected in four real-server tests. |
+| `CURRENT` | `P3-KERN-03` | Implement command idempotency. | Duplicate identical commands replay result; mismatched payload reuse is rejected. |
 | `WAIT` | `P3-KERN-04` | Implement aggregate event append. | Expected-version transaction rejects concurrent conflicting updates. |
 | `WAIT` | `P3-KERN-05` | Implement transactional projections. | Event, current projection, and outbox update atomically. |
 | `WAIT` | `P3-KERN-06` | Implement outbox and inbox. | At-least-once delivery and duplicate import preserve one logical outcome. |
@@ -635,7 +635,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 0 — Architecture | `G0-ARCH` | `DONE` provisionally; reopens through `L-ARCH-01` |
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
-| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-02` |
+| Phase 3 — Kernel | `G3-KERN` | `CURRENT` at `P3-KERN-03` |
 | Phase 4 — Agents | `G4-AGNT` | `WAIT` |
 | Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
@@ -646,6 +646,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P3-KERN-02`** — Implement real PostgreSQL migrations with empty/upgrade checksum convergence.
-2. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
-3. **`P3-KERN-04`** — Implement expected-version aggregate event append transactions.
+1. **`P3-KERN-03`** — Implement command idempotency with identical replay and mismatched-payload rejection.
+2. **`P3-KERN-04`** — Implement expected-version aggregate event append transactions.
+3. **`P3-KERN-05`** — Atomically commit event, projection, and outbox state.

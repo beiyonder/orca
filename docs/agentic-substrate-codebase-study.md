@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P3-KERN-02` — implement real PostgreSQL migrations with empty/upgrade checksum convergence.
-2. `P3-KERN-03` through `P3-KERN-13` — prove idempotency, event/projection/outbox atomicity, attempts/fences, replay, restart reconciliation, and durable convergence.
+1. `P3-KERN-03` through `P3-KERN-06` — prove command idempotency plus event/projection/outbox/inbox atomicity on the migrated PostgreSQL baseline.
+2. `P3-KERN-07` through `P3-KERN-13` — prove DAG guards, task/attempt/effect state, fencing, replay, restart reconciliation, and durable convergence.
 3. Keep `WORKER-EXP-01` inconclusive until the real pinned OMP binary contract is exercised; do not infer it from the fixture validator.

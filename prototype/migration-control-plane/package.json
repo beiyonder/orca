@@ -13,20 +13,28 @@
     "experiment": "node scripts/migration-control-plane-lab.mjs experiment run",
     "contracts:generate": "node scripts/migration-control-plane-lab.mjs contracts generate",
     "contracts:check": "node scripts/migration-control-plane-lab.mjs contracts check",
-    "format": "oxfmt --write src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts .oxlintrc.json .oxfmtrc.json",
+    "database:migrate": "node scripts/migration-control-plane-lab.mjs database migrate",
+    "database:fingerprint": "node scripts/migration-control-plane-lab.mjs database fingerprint",
+    "database:verify": "node scripts/migration-control-plane-lab.mjs database verify",
+    "format": "oxfmt --write src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts vitest.postgres.config.ts .oxlintrc.json .oxfmtrc.json",
     "build:internal": "tsc -p tsconfig.build.json",
     "contracts:generate:internal": "node dist/generate-domain-schemas.js --write",
     "contracts:check:internal": "node dist/generate-domain-schemas.js --check",
+    "database:migrate:internal": "node dist/database-cli.js migrate",
+    "database:fingerprint:internal": "node dist/database-cli.js fingerprint",
+    "test:postgres:internal": "vitest run --config vitest.postgres.config.ts",
     "typecheck:internal": "tsc --noEmit -p tsconfig.json",
     "test:internal": "vitest run --config vitest.config.ts",
-    "lint:internal": "oxlint --config .oxlintrc.json --deny-warnings src test scripts vitest.config.ts",
-    "format:check:internal": "oxfmt --check src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts .oxlintrc.json .oxfmtrc.json"
+    "lint:internal": "oxlint --config .oxlintrc.json --deny-warnings src test scripts vitest.config.ts vitest.postgres.config.ts",
+    "format:check:internal": "oxfmt --check src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts vitest.postgres.config.ts .oxlintrc.json .oxfmtrc.json"
   },
   "dependencies": {
+    "pg": "8.23.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
     "@types/node": "24.13.3",
+    "@types/pg": "8.23.1",
     "oxfmt": "0.52.0",
     "oxlint": "1.80.0",
     "typescript": "7.0.2",

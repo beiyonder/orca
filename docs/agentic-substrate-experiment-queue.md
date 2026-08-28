@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P3-KERN-02`.
-- Only `G2-LAB` runs and the `P3-KERN-01` contract verification below are reported complete; all other experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P3-KERN-03`.
+- `G2-LAB`, `P3-KERN-01` contract verification, and `P3-KERN-02` real PostgreSQL migration verification are complete; all other experiments remain specified/deferred.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -49,6 +49,15 @@ Gate verification:
 - 18 targeted tests cover authority, lineage, time, verdict, correction, learning, idempotency, capability, receipt, recovery, and compensation invariants;
 - complete lab verification passes 8 test files / 46 tests plus generated-schema drift check.
 
+## `P3-KERN-02` migration evidence
+
+- exact `pg 8.23.0` runtime dependency and direct SQL transaction boundary;
+- PostgreSQL 16 baseline with three contiguous checksum-locked migrations;
+- 16 tables covering schema/contract metadata, domain records, mission authority, events/projections, delivery, plans/tasks/attempts/effects, and recovery;
+- empty and migration-001 upgrade paths converge to fingerprint `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`;
+- concurrent migrators serialize, reapplication is inert, and changed applied bytes fail;
+- real PostgreSQL integration verification passes 1 file / 4 tests.
+
 ## Queue classes
 
 | Class | Meaning |
@@ -79,6 +88,9 @@ Contract generation and drift verification use:
 ```text
 node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs contracts generate
 node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs contracts check
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs database migrate
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs database fingerprint
+node prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs database verify
 ```
 
 Every run directory must contain:
@@ -298,4 +310,4 @@ Every state change records:
 
 ## Next queue action
 
-Implement `P3-KERN-02` real PostgreSQL migrations and prove empty/upgrade checksum convergence before beginning command idempotency or `DUR-EXP-01`; DBOS remains blocked on the native baseline.
+Implement `P3-KERN-03` command idempotency with identical-result replay and mismatched-payload rejection before event append or `DUR-EXP-01`; DBOS remains blocked on the complete native durable-kernel baseline.

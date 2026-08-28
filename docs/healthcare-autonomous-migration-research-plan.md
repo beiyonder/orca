@@ -589,7 +589,7 @@ The playing-field map now exists:
 3. **Research landscape and decisions** — durable, epistemic, orchestration, context, memory, evaluation, improvement, bounded-action, and gap-filler cards.
 4. **Corpus/fixture plan** — architecture corpus plan plus the frozen six-row synthetic S1 identity-key fixture.
 5. **Atomic experiment backlog** — `docs/agentic-substrate-experiment-queue.md` contains all 70 research experiments plus six lab/integration contracts.
-6. **Architecture decision register** — the atlas contains 28 versioned decisions/hypotheses with evidence and reversal conditions.
+6. **Architecture decision register** — the atlas contains 29 versioned decisions/hypotheses with evidence and reversal conditions.
 7. **Scope control** — 52 S1 deferrals were reviewed at `G1-RSCH`; none was silently promoted.
 
-These are research/design artifacts, not proof that the complete substrate works. Phase 2 supplies the reproducible lab; `P3-KERN-01` now supplies 41 strict V1 runtime/JSON contracts and generated drift evidence across every authority domain. `P3-KERN-02` is current: translate those contracts into real PostgreSQL migrations and prove empty/upgrade checksum convergence before command or event behavior.
+These are research/design artifacts, not proof that the complete substrate works. Phase 2 supplies the reproducible lab; `P3-KERN-01` supplies 41 strict V1 runtime/JSON contracts. `P3-KERN-02` supplies three checksum-locked PostgreSQL 16 migrations whose empty and staged-upgrade paths converge to one catalog fingerprint. `P3-KERN-03` is current: prove command retry identity before event behavior.

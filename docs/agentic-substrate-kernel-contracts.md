@@ -49,6 +49,8 @@ Reason:
 
 No dependency was added to Orca root. The prototype remains independently installed and locked.
 
+`P3-KERN-02` subsequently adds exact `pg 8.23.0` plus development-only `@types/pg 8.23.1`. Direct parameterized SQL and explicit transactions preserve the PostgreSQL contract without an ORM or migration framework. PostgreSQL 16 is the kernel baseline; the driver supports Node 16+, is MIT licensed, and remains isolated from Orca root.
+
 ---
 
 # Compatibility rules
@@ -229,12 +231,21 @@ External consumers may use JSON Schema for structural admission, but authoritati
 ```text
 node scripts/migration-control-plane-lab.mjs contracts generate
 node scripts/migration-control-plane-lab.mjs contracts check
+node scripts/migration-control-plane-lab.mjs database migrate
+node scripts/migration-control-plane-lab.mjs database fingerprint
+node scripts/migration-control-plane-lab.mjs database verify
 node scripts/migration-control-plane-lab.mjs verify
 ```
 
 `contracts generate` builds the lab and writes canonical-key-ordered, Oxfmt-stable schema bytes plus `schemas/v1/manifest.json`.
 
 `contracts check` fails on missing, extra, or byte-stale schema files.
+
+`database migrate` applies three forward-only SQL migrations under a PostgreSQL advisory lock, validates all previously recorded names/checksums, and records each migration inside its own transaction.
+
+`database fingerprint` hashes deterministic catalog structure, applied migration checksums, kernel metadata, and the 41 contract-schema rows.
+
+`database verify` requires `MIGRATION_CONTROL_DATABASE_URL` and runs the real PostgreSQL integration suite.
 
 `verify` now runs:
 
@@ -255,12 +266,22 @@ node scripts/migration-control-plane-lab.mjs verify
 - 18 targeted invariant tests cover mission, epistemic, planning, assignment, artifact, evaluation/correction, learning, and effect failure paths.
 - Complete lab verification: 8 test files / 46 tests, formatting, lint, typecheck, build, and 41-file schema drift check pass.
 
+## P3-KERN-02 persistence evidence
+
+- PostgreSQL 16.15 exercised locally; PR CI uses the pinned `postgres:16.15-alpine` service.
+- Three contiguous, transactionally applied migrations create 16 constrained/indexed tables.
+- The contract table binds all 41 V1 schema names, URNs, and generated file digests.
+- Empty and migration-001 upgrade paths converge byte-for-byte at the catalog snapshot layer.
+- Current schema fingerprint: `48406f183d566eeb66ec2f21d7ba1009d8a89e203be20c0ea6d614918d82b74b`.
+- Reapplication is inert, concurrent migrators serialize, and altered or gapped applied history is rejected.
+- PostgreSQL integration verification: 1 file / 4 tests; cross-platform lab verification remains 8 files / 46 tests.
+
 ---
 
 # Intentional limits
 
-- No database or migration exists yet.
-- Cross-record referential integrity beyond tenant/mission/ID uniqueness is not claimed; repositories and transactions enforce it later.
+- PostgreSQL tables and migrations now exist; command handlers, event append, projection mutation, delivery claims, leases, and reconciliation do not.
+- Cross-record referential integrity now covers durable table ownership keys; semantic references still require repositories and guarded transactions.
 - Command/event payload envelope binds schema/digest, while command-specific handler schemas arrive with command implementation.
 - Effect contracts preserve future state/authority vocabulary; no target effect is executable.
 - Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
@@ -268,4 +289,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P3-KERN-02` — implement real PostgreSQL migrations generated from these V1 contracts, then prove empty and upgrade paths converge to the same checksummed schema.
+`P3-KERN-03` — implement command idempotency so an identical retry replays the stored outcome and payload mismatch under the same command ID is rejected.

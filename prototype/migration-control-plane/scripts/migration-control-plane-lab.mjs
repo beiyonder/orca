@@ -1,12 +1,36 @@
 #!/usr/bin/env node
 
 import { spawnSync } from 'node:child_process'
-import { dirname, join } from 'node:path'
+import { existsSync } from 'node:fs'
+import { delimiter, dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const labRoot = dirname(dirname(fileURLToPath(import.meta.url)))
-const pnpm = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm'
 const node = process.execPath
+const pnpmInvocation =
+  process.platform === 'win32'
+    ? { command: node, args: [resolveWindowsPnpmCli()] }
+    : { command: 'pnpm', args: [] }
+
+function resolveWindowsPnpmCli() {
+  const searchRoots = [process.env.PNPM_HOME, ...(process.env.PATH ?? '').split(delimiter)].filter(
+    Boolean
+  )
+  for (const root of searchRoots) {
+    for (const candidate of [
+      join(root, 'pnpm.cjs'),
+      resolve(root, '..', 'pnpm', 'bin', 'pnpm.cjs'),
+      join(root, 'node_modules', 'pnpm', 'bin', 'pnpm.cjs'),
+      join(root, '.tools', 'pnpm', '10.24.0', 'bin', 'pnpm.cjs'),
+      join(root, 'node_modules', 'corepack', 'dist', 'pnpm.js')
+    ]) {
+      if (existsSync(candidate)) {
+        return candidate
+      }
+    }
+  }
+  throw new Error('Unable to locate the pnpm JavaScript entrypoint on Windows')
+}
 
 function run(command, args) {
   const result = spawnSync(command, args, {
@@ -22,8 +46,12 @@ function run(command, args) {
   return result.status ?? 1
 }
 
+function runPnpm(args) {
+  return run(pnpmInvocation.command, [...pnpmInvocation.args, ...args])
+}
+
 function runPnpmScript(name) {
-  return run(pnpm, ['run', name])
+  return runPnpm(['run', name])
 }
 
 function verify() {
@@ -49,6 +77,7 @@ function usage() {
   node scripts/migration-control-plane-lab.mjs test
   node scripts/migration-control-plane-lab.mjs verify
   node scripts/migration-control-plane-lab.mjs contracts generate|check
+  node scripts/migration-control-plane-lab.mjs database migrate|fingerprint|verify
   node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm <baseline|candidate> --fault <name|none> --output <path>`)
   return 2
 }
@@ -58,7 +87,7 @@ let status
 
 switch (command) {
   case 'setup':
-    status = run(pnpm, ['install', '--frozen-lockfile'])
+    status = runPnpm(['install', '--frozen-lockfile'])
     break
   case 'build':
   case 'typecheck':
@@ -69,13 +98,29 @@ switch (command) {
     status = verify()
     break
   case 'contracts': {
-    if (args[0] !== 'generate' && args[0] !== 'check') {
+    if (args.length !== 1 || (args[0] !== 'generate' && args[0] !== 'check')) {
       status = usage()
       break
     }
     status = runPnpmScript('build:internal')
     if (status === 0) {
       status = runPnpmScript(`contracts:${args[0]}:internal`)
+    }
+    break
+  }
+  case 'database': {
+    if (
+      args.length !== 1 ||
+      (args[0] !== 'migrate' && args[0] !== 'fingerprint' && args[0] !== 'verify')
+    ) {
+      status = usage()
+      break
+    }
+    status = runPnpmScript('build:internal')
+    if (status === 0) {
+      status = runPnpmScript(
+        args[0] === 'verify' ? 'test:postgres:internal' : `database:${args[0]}:internal`
+      )
     }
     break
   }
