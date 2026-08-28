@@ -11,6 +11,7 @@
     "test": "node scripts/migration-control-plane-lab.mjs test",
     "verify": "node scripts/migration-control-plane-lab.mjs verify",
     "experiment": "node scripts/migration-control-plane-lab.mjs experiment run",
+    "experiment:omp-containment": "pnpm run build:internal && node dist/omp-containment-cli.js",
     "contracts:generate": "node scripts/migration-control-plane-lab.mjs contracts generate",
     "contracts:check": "node scripts/migration-control-plane-lab.mjs contracts check",
     "database:migrate": "node scripts/migration-control-plane-lab.mjs database migrate",

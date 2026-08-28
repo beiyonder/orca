@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P4-AGNT-08`.
+Current roadmap coordinate: `P5-KNOW-01`.
 
 ## Coordinate evidence
 
@@ -38,10 +38,11 @@ Current roadmap coordinate: `P4-AGNT-08`.
 | `P2-LAB-07` | Stale customer architecture claim, observed profile refutation, deterministic single/composite key probe and expected results. |
 | `P2-LAB-08` | Critical dropped-facility-key mutation and benign description mutation with exact expected failed measures/verdicts. |
 | `P2-LAB-09` | Six role/tenant/stale/injection/quarantined-memory/denied-input negative cases with deterministic policy dispositions. |
-| `P2-LAB-10` | Pinned OMP 18.0.6/source-commit/RPC/frame/tool/schema/cancel/archive/version-skew fixture and validator. Real binary exercise remains explicitly inconclusive. |
+| `P2-LAB-10` | Pinned OMP 18.0.6/source-commit/RPC/frame/tool/schema/cancel/archive/version-skew fixture and validator; the formerly deferred real-binary proof now passes under `P4-AGNT-12`. |
 | `P2-LAB-11` | `buildIdentityMappingBaseline`; chooses the smallest observed unique key without model calls and passes six deterministic evaluator measures. |
 | `P2-LAB-12` | Stable `migration-control-plane-lab.mjs` setup/build/typecheck/test/verify/experiment entry, strict CLI validation and immutable run output. |
 | `P4-AGNT-04` through `P4-AGNT-07` | Exact immutable prompt/workspace delivery, strict current-attempt result admission, capability/policy/schema/budget-bound host tool execution, and synchronous idempotent cancellation/revocation gate; 15 focused tests, full lab 16 files / 91 tests. |
+| `P4-AGNT-08` through `P4-AGNT-13` | Nine typed proposal-only specialist roles, one-action apex, evidence-seeking disagreement, force-kill reconstruction, real pinned OMP containment, and the 20-case disagreement benchmark; full lab 21 files / 118 tests. |
 
 ## Stable commands
 
@@ -54,6 +55,7 @@ node scripts/migration-control-plane-lab.mjs typecheck
 node scripts/migration-control-plane-lab.mjs test
 node scripts/migration-control-plane-lab.mjs verify
 node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm baseline --fault none --output .runs
+pnpm run experiment:omp-containment -- --omp-binary <absolute-path> --omp-digest <sha256> --output .runs --prototype-revision <revision>
 ```
 
 `setup` uses the private frozen lockfile. `verify` runs formatting, lint, typecheck, all lab tests, and build. `experiment run` builds first and executes the compiled CLI.
@@ -94,12 +96,13 @@ Tests cover:
 - contradiction/probe outcomes;
 - critical/benign mutation calibration;
 - six negative cases;
-- OMP contract validation and explicit binary uncertainty;
+- pinned OMP worker contract import with exact report digest;
 - baseline correctness/order independence/no-key failure/malformed output;
 - deterministic run replay;
 - every registered fault producing an inspectable failed run;
 - immutable run ID reuse rejection;
-- unknown experiment/unsupported arm rejection.
+- unknown experiment/unsupported arm rejection;
+- 20-case specialist disagreement benchmark with cited probe/tie traces.
 
 Final sealed experiment evidence generated locally under ignored `.runs/`:
 
@@ -108,7 +111,9 @@ Final sealed experiment evidence generated locally under ignored `.runs/`:
 | `BASELINE-EXP-01` | 204 | `passed` | `baseline-exp-01-204-baseline-none-run_000000_fac5e8ac236c1090` |
 | `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
 | `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
-| `WORKER-EXP-01` | 207 | `inconclusive` | `worker-exp-01-207-baseline-none-run_000000_980daf1e78f39ccb` |
+| `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
+| `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
+| `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 
 Injected target-boundary fault evidence:
 
@@ -145,15 +150,13 @@ Rejected for the Phase 2 baseline:
 
 ## Known risks and intentional limits
 
-1. `WORKER-EXP-01` is **inconclusive**, not passed. P2 creates the exact contract fixture; a real pinned OMP binary RPC/schema/cancel/artifact probe belongs to the agent integration path.
+1. `WORKER-EXP-01` now **passes** from real pinned OMP 18.0.6 `EXP-10` report `bb4343a2…a73482d`; the local deterministic provider uses no production credentials or customer data.
 2. PR #1 observed 19 passing GitHub checks (10 correctly skipped), including Node 24 Ubuntu/macOS/Windows lab verification and PostgreSQL 16 integration.
-3. Database crash/replay/restart semantics are now real. Network and external-target recovery remain simulated until their agent/effect execution coordinates.
+3. Database crash/replay/restart and OMP worker/process recovery are real. External target recovery remains simulated until its effect-execution coordinates.
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
-5. `P4-AGNT-01` now supervises one real child with bounded output/time, observable lifecycle, idempotent cancellation, graceful/forced tree termination, and no leaked fixture process; it does not yet sanitize the child environment.
-6. `P4-AGNT-02/03` isolate every OMP state/config/credential root and fail closed on malformed, oversized, out-of-order, or unknown RPC frames; the real pinned-binary containment experiment remains `P4-AGNT-12`.
-7. `P4-AGNT-04/07` now deliver reproducible scoped context, admit only current typed proposals, and start host tools only under current policy/capability/schema/budget authority; specialist/apex orchestration remains absent.
-8. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
-9. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+5. Phase 4 is complete: isolated framed processes, exact context/results/tools, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, and real containment all pass.
+6. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
+7. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -176,7 +179,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P4-AGNT-08`: define authority-free typed assignment/result contracts for all nine specialist roles.
+Start `P5-KNOW-01`: define the governed corpus manifest with owner, license, version, checksum, data class, scope, and freshness policy.
 
 First verification command after any change:
 

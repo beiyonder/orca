@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P4-AGNT-08` — Define the typed specialist-agent contracts.**
+**`P5-KNOW-01` — Implement the governed corpus manifest model.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 3 is complete. `P4-AGNT-01` through `P4-AGNT-03` prove bounded one-child supervision, hostile-parent environment isolation, and fail-closed OMP framing. `P4-AGNT-04` now delivers a byte-reconstructable, tenant/mission/assignment/attempt/budget-bound prompt from exact source versions, digests, spans, exclusions, and item-level redactions in a private workspace. `P4-AGNT-05` admits only strict typed current-attempt results with host-observed digest/usage/budget and in-scope evidence/artifact/gap/plan references. `P4-AGNT-06/07` bind exact tool schemas/arguments to an active attempt, allow policy, capability, and minimum use budget; duplicate, cancelled, or revoked calls cannot start an effect. Fifteen focused tests pass; the complete lab passes 16 files / 91 tests. The next move defines every specialist role as a typed authority-free assignment/result contract.
+Phase 4 is complete. `P4-AGNT-01` through `P4-AGNT-07` prove bounded isolated/framed OMP execution plus exact context, typed result, capability, policy, budget, cancellation, and revocation boundaries. `P4-AGNT-08` adds nine role-specific proposal-only specialist contracts; `P4-AGNT-09` records exactly one evidence-backed apex action without mutation authority; `P4-AGNT-10` preserves specialist conflict as a blocker gap and selects only a bounded discriminating probe or explicit tie. `P4-AGNT-11` kills and reconstructs a worker from persisted assignment/context/ledger with no hidden state. The real pinned OMP 18.0.6 `EXP-10` run `exp-10-3040f76381e7a97eaa2d` passes 11 containment measures, and imported `WORKER-EXP-01` run `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` passes the RPC/schema/cancel/artifact contract. `EXP-05` run `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` achieves 15/15 correct resolvable choices, 20/20 cited cases, and 5/5 explicit true ties. The complete lab passes 21 files / 118 tests. Phase 5 begins with the corpus manifest.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P4-AGNT-08
+P5-KNOW-01
 ```
 
 Means:
 
-- Phase 4
-- Agent runtime and orchestration track
-- Task 8
+- Phase 5
+- Knowledge, memory, and capability track
+- Task 1
 
 Gate format:
 
@@ -66,9 +66,9 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P4-AGNT-08`: implement the apex next-action loop.”
+> “We are at `P5-KNOW-01`: implement the governed corpus manifest model.”
 
-Do not say only “we are working on orchestration.”
+Do not say only “we are working on knowledge.”
 
 ## Status vocabulary
 
@@ -354,12 +354,12 @@ Failure route: `L-KERN-01`.
 | `DONE` | `P4-AGNT-05` | Implement typed assignment result. | Five tests reject prose-only/omitted/extra/stale/oversized/over-budget/out-of-scope output and admit only current strict proposal records with host-observed digest and usage. |
 | `DONE` | `P4-AGNT-06` | Implement host-tool capability bridge. | Six tests require active attempt, exact registered schema/arguments, allow policy, bound capability, and minimum use budget before execution; duplicate IDs and invalid results fail closed. |
 | `DONE` | `P4-AGNT-07` | Implement cancellation and revocation. | Per-call OMP cancellation aborts the active signal; attempt cancellation and capability revocation close the synchronous start gate before acknowledgement and remain idempotent. |
-| `CURRENT` | `P4-AGNT-08` | Define specialist-agent contracts. | Source, architecture, CDC, mapping, research, security, build, evaluation, and recovery roles have typed contracts. |
-| `WAIT` | `P4-AGNT-09` | Implement apex next-action loop. | Apex reads durable mission state, chooses one action, dispatches, and records proposed decision without owning state. |
-| `WAIT` | `P4-AGNT-10` | Implement disagreement-resolution loop. | Competing specialist results create a discriminating evidence request or explicit unresolved tie. |
-| `WAIT` | `P4-AGNT-11` | Test process reconstruction. | Killed worker restarts from assignment/context/ledger without hidden live state. |
-| `WAIT` | `P4-AGNT-12` | Run OMP containment experiment. | EXP-10 passes malformed frame, flood, cancellation, context, subagent, and crash cases. |
-| `WAIT` | `P4-AGNT-13` | Run specialist disagreement experiment. | EXP-05 meets supported-choice, citation, and abstention thresholds. |
+| `DONE` | `P4-AGNT-08` | Define specialist-agent contracts. | Six tests prove nine role-specific typed briefs/results with exact scope, tools, output schema, budget, claim citations, abstention, and complete proposal-only authority exclusions. |
+| `DONE` | `P4-AGNT-09` | Implement apex next-action loop. | Six tests prove digest-bound durable snapshots, exactly one evidence-backed action, current-revision/gap/evidence/role/budget validation, specialist dispatch, and proposed-only decision records without snapshot mutation. |
+| `DONE` | `P4-AGNT-10` | Implement disagreement-resolution loop. | Six tests preserve all cited conflicting results, reject cross-state/duplicate/non-conflicting inputs, choose the cheapest admissible discriminating probe, and retain majority or unprobeable cases as explicit ties. |
+| `DONE` | `P4-AGNT-11` | Test process reconstruction. | Four tests force-kill and replace a real child from persisted assignment/context/ledger/executable digests, reconstruct identical logical invocation bytes in a fresh root, reject drift, and observe no hidden worker state. |
+| `DONE` | `P4-AGNT-12` | Run OMP containment experiment. | Real pinned OMP 18.0.6 `EXP-10` passes v2 negotiation, subagent query, strict host schema, context→artifact, active cancellation, zero post-cancel starts, flood/overflow, malformed frame, crash replacement, and bounded-frame measures. |
+| `DONE` | `P4-AGNT-13` | Run specialist disagreement experiment. | Sealed `EXP-05` seed 413 passes 15/15 resolvable choices, 20/20 citation coverage, and 5/5 explicit true ties; no majority silently selects a stance. |
 
 ### `G4-AGNT` — Bounded intelligence gate
 
@@ -372,6 +372,8 @@ Pass when:
 - apex and specialists cannot directly advance authoritative state;
 - disagreement triggers evidence gathering rather than voting or bluffing.
 
+**Gate status: `DONE`.** Every bounded-intelligence predicate passes with 21 test files / 118 tests, sealed `EXP-10`, passing real-binary `WORKER-EXP-01`, sealed `EXP-05`, and no leaked OMP or fixture process. OMP output, apex action, specialist result, and tool correlation remain proposals/observations until product-owned validation and reconciliation.
+
 Failure route: `L-AGNT-01`.
 
 ---
@@ -382,7 +384,7 @@ Failure route: `L-AGNT-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P5-KNOW-01` | Implement corpus manifest model. | Every source has owner, license, version, checksum, data class, scope, and freshness policy. |
+| `CURRENT` | `P5-KNOW-01` | Implement corpus manifest model. | Every source has owner, license, version, checksum, data class, scope, and freshness policy. |
 | `WAIT` | `P5-KNOW-02` | Implement immutable source ingestion. | Original objects and parse versions are preserved and addressable. |
 | `WAIT` | `P5-KNOW-03` | Implement chunks and relational metadata. | Documents, schemas, code, entities, edges, and applicability are queryable with provenance. |
 | `WAIT` | `P5-KNOW-04` | Implement lexical retrieval baseline. | Known-answer benchmark returns cited current sources without vector search. |
@@ -638,8 +640,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 1 — Substrate research and codebase placement | `G1-RSCH` | `DONE`; reopens through `L-RSCH-01` |
 | Phase 2 — Lab | `G2-LAB` | `DONE`; reopens through `L-LAB-01` |
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
-| Phase 4 — Agents | `G4-AGNT` | `CURRENT` at `P4-AGNT-08` |
-| Phase 5 — Knowledge | `G5-KNOW` | `WAIT` |
+| Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
+| Phase 5 — Knowledge | `G5-KNOW` | `CURRENT` at `P5-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `WAIT` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
@@ -648,6 +650,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P4-AGNT-08`** — Define typed contracts for every specialist role.
-2. **`P4-AGNT-09`** — Let apex choose one evidence-backed next action.
-3. **`P4-AGNT-10`** — Resolve specialist disagreement through discriminating evidence.
+1. **`P5-KNOW-01`** — Implement the governed corpus manifest model.
+2. **`P5-KNOW-02`** — Ingest immutable source bytes and parse versions.
+3. **`P5-KNOW-03`** — Add provenance-preserving chunks and relational metadata.

@@ -157,6 +157,23 @@ describe('one-command experiment runner core', () => {
     })
   })
 
+  it('seals the 20-case EXP-05 disagreement benchmark', async () => {
+    const summary = await runExperiment({
+      labRoot,
+      outputRoot: await outputRoot(),
+      experimentId: 'EXP-05',
+      seed: 413,
+      arm: 'baseline',
+      fault: 'none',
+      prototypeRevision: 'test'
+    })
+    expect(summary.status).toBe('passed')
+    expect(await readJson(join(summary.runPath, 'verdict.json'))).toMatchObject({
+      status: 'passed',
+      summary: '15/15 resolvable choices correct; 20/20 cited; 5/5 true ties explicit.'
+    })
+  })
+
   it('rejects unknown experiments, unsupported arms, and immutable run reuse', async () => {
     const output = await outputRoot()
     await expect(

@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P4-AGNT-08`.
-- `G2-LAB`, Phase 3, and `P4-AGNT-01` through `P4-AGNT-07` verification are complete; specialist/orchestration and later experiments remain specified/deferred.
+- First dependency-ready roadmap coordinate: `P5-KNOW-01`.
+- `G2-LAB`, Phase 3, and all `P4-AGNT-01` through `P4-AGNT-13` evidence are complete; Phase 5 corpus/knowledge experiments are next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -24,9 +24,9 @@ Local sealed runs under ignored `.runs/`:
 | `BASELINE-EXP-01` | 204 | `passed` | `baseline-exp-01-204-baseline-none-run_000000_fac5e8ac236c1090` |
 | `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
 | `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
-| `WORKER-EXP-01` | 207 | `inconclusive` | `worker-exp-01-207-baseline-none-run_000000_980daf1e78f39ccb` |
-
-`WORKER-EXP-01` remains inconclusive by design: its P2 fixture is valid, but the real pinned OMP binary RPC/schema/cancel/artifact path has not run.
+| `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
+| `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
+| `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 
 Gate verification:
 
@@ -121,6 +121,17 @@ Gate verification:
 - registered host-tool JSON schema digest, canonical arguments, active attempt, policy allow/grant, workload-bound capability, expiry/revocation state, and minimum use budget all pass before the implementation starts;
 - duplicate host IDs, invalid schemas/arguments/results, stale authority, exhaustion, OMP per-call cancel, attempt cancellation, and capability revocation fail closed; cancellation/revocation close the start gate synchronously and idempotently before acknowledgement returns;
 - fifteen focused tests pass; complete lab verification is 16 files / 91 tests.
+
+## `P4-AGNT-08` through `P4-AGNT-13` orchestration and qualification evidence
+
+- nine role-specific specialist contracts pin typed brief/result, owned/read scope, tool order/schema, output contract, maximum budget, claim-level citation, abstention, and complete proposal-only authority exclusions;
+- digest-bound apex snapshots admit exactly one current evidence/gap/role/budget-valid action and record it as `reconciler-required`; the input snapshot is unchanged;
+- disagreement preserves every cited specialist result, opens a blocker gap, and chooses only the cheapest current read-only deterministic discriminator; majority and unprobeable conflict remain explicit ties;
+- a force-killed child reconstructs from persisted assignment/attempt/fence/context/ledger/executable digests into a fresh root with identical logical invocation/context bytes and no hidden marker;
+- real pinned OMP `18.0.6` (`68d91103…eda6be4c`) negotiates v2, returns typed subagent state, accepts strict host tools, receives the digest-bound context, requests/writes a checksum-bound isolated artifact, cancels an active local provider request, starts zero effects after acknowledgement, rejects gateway flood/context overflow, returns an explicit malformed-frame error, and reconstructs after crash in under 30 seconds;
+- `EXP-10` run `exp-10-3040f76381e7a97eaa2d` passes all eleven measures with report digest `bb4343a2…a73482d`; imported `WORKER-EXP-01` seed 417 passes both contract and binary measures;
+- `EXP-05` seed 413 passes 15/15 resolvable choices, 20/20 citation coverage, and 5/5 explicit true ties;
+- all three sealed run indexes verify; complete lab verification is 21 files / 118 tests; no OMP or fixture child remains.
 
 ## Queue classes
 
@@ -374,4 +385,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P4-AGNT-08` typed specialist contracts; each of the nine roles must pin owned/read scope, tools, output schema, budget, evidence obligations, abstention behavior, and authority exclusions.
+Begin `P5-KNOW-01` governed corpus manifests; every source needs immutable owner/license/version/checksum/data-class/scope/freshness authority before ingestion or retrieval.

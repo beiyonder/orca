@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { arch, platform } from 'node:os'
 import { resolve } from 'node:path'
 import { canonicalizeJson } from './canonical-json.js'
@@ -21,6 +22,7 @@ import {
 } from './identity-mapping-evaluator.js'
 import { RunArtifactStore } from './run-artifact-store.js'
 import { calibrateS1Fixture, inspectOmpWorkerFixture } from './s1-fixture-calibration.js'
+import { runSpecialistDisagreementExperiment } from './specialist-disagreement-experiment.js'
 import { loadS1IdentityFixture } from './s1-fixture-loader.js'
 import type { S1IdentityFixture } from './s1-fixture-contracts.js'
 
@@ -29,6 +31,7 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'S1-FIXTURE-EXP-01': ['baseline'],
   'BASELINE-EXP-01': ['baseline'],
   'WORKER-EXP-01': ['baseline'],
+  'EXP-05': ['baseline'],
   'DUR-EXP-01': ['baseline']
 }
 
@@ -191,7 +194,7 @@ async function executeExperiment(
       }
     case 'BASELINE-EXP-01':
       return executeBaseline(fixture, runtime, faultInjector, events)
-    case 'WORKER-EXP-01':
+    case 'WORKER-EXP-01': {
       faultInjector.hit('process.worker_started')
       faultInjector.hit('network.before_dispatch')
       recordEvent(events, runtime, 'worker.contract_inspected', {
@@ -199,7 +202,15 @@ async function executeExperiment(
       })
       faultInjector.hit('network.after_dispatch')
       faultInjector.hit('process.worker_result_ready')
-      return inspectOmpWorkerFixture(fixture)
+      const evidencePath = process.env.OMP_CONTAINMENT_REPORT_PATH
+      const containmentEvidence =
+        evidencePath === undefined
+          ? undefined
+          : (JSON.parse(await readFile(resolve(evidencePath), 'utf8')) as unknown)
+      return inspectOmpWorkerFixture(fixture, containmentEvidence)
+    }
+    case 'EXP-05':
+      return runSpecialistDisagreementExperiment(seed)
     case 'DUR-EXP-01': {
       const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
       if (!connectionString) {

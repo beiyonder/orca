@@ -139,8 +139,8 @@ export async function prepareIsolatedOmpEnvironment(
         .filter((path) => path !== root)
         .map(async (path) => createPrivateDirectory(path))
     )
+    await createPrivateDirectory(join(directories.config, 'aws'))
     await Promise.all([
-      createPrivateDirectory(join(directories.config, 'aws')),
       createPrivateFile(join(directories.config, 'gitconfig')),
       createPrivateFile(join(directories.config, 'npmrc')),
       createPrivateFile(join(directories.config, 'kubeconfig')),

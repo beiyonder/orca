@@ -321,8 +321,8 @@ node scripts/migration-control-plane-lab.mjs verify
 - No external adapter call is executable; effect records prove state semantics without granting production authority.
 - Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
 - Capability certification/promotion contracts are future seams; S1 only creates a quarantined candidate.
-- `WORKER-EXP-01` remains inconclusive until a real pinned OMP binary is exercised.
+- `WORKER-EXP-01` now passes through a digest-verified real pinned OMP `EXP-10` report; production model/provider behavior remains outside this synthetic containment proof.
 
 ## Next coordinate
 
-`P4-AGNT-08` — define authority-free typed specialist contracts on top of the now-contained worker boundary.
+`P5-KNOW-01` — implement governed corpus source identity without weakening kernel or worker authority.

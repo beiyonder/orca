@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { canonicalJson, sha256Text } from '../src/canonical-json.js'
 import {
   applyIdentityMappingMutation,
   buildIdentityMappingBaseline,
@@ -18,6 +19,37 @@ import { evaluateNegativeCase } from '../src/s1-negative-case-policy.js'
 const fixtureRoot = fileURLToPath(new URL('../fixtures/s1-identity-key', import.meta.url))
 const temporaryRoots: string[] = []
 let fixture: S1IdentityFixture
+function containmentReport(): Record<string, unknown> {
+  const body = {
+    schemaVersion: 1,
+    experimentId: 'EXP-10',
+    runId: 'exp-10-fixture',
+    status: 'passed',
+    ompVersion: 'omp/18.0.6',
+    executableDigest: 'a'.repeat(64),
+    protocolVersion: 2,
+    maxPhysicalFrameBytes: 1_048_576,
+    maxReassembledFrameBytes: 67_108_864,
+    contextDeliveryDigest: 'b'.repeat(64),
+    measures: [
+      'pinned-binary',
+      'v2-negotiation',
+      'subagent-containment',
+      'host-tool-schema',
+      'context-host-tool-artifact',
+      'context-and-cancellation',
+      'post-cancel-tool-effect',
+      'flood-and-context-overflow',
+      'malformed-frame',
+      'crash-replacement',
+      'bounded-observation'
+    ].map((name) => ({ name, passed: true, evidence: name })),
+    protocolFrameCategories: ['ready', 'response', 'event', 'error', 'host-tool-call'],
+    startedAt: '2026-01-01T00:00:00.000Z',
+    completedAt: '2026-01-01T00:00:10.000Z'
+  }
+  return { ...body, reportDigest: sha256Text(canonicalJson(body)) }
+}
 
 beforeEach(async () => {
   fixture = await loadS1IdentityFixture(fixtureRoot)
@@ -80,6 +112,23 @@ describe('S1 identity-key fixture', () => {
         expect.objectContaining({ name: 'omp_binary_exercised', status: 'unknown' })
       ])
     )
+  })
+
+  it('closes WORKER-EXP-01 only with an intact passing real-binary containment report', () => {
+    const passed = inspectOmpWorkerFixture(fixture, containmentReport())
+    expect(passed).toMatchObject({
+      status: 'passed',
+      limitations: [],
+      measures: [
+        { name: 'worker_contract_valid', status: 'pass' },
+        { name: 'omp_binary_exercised', status: 'pass' }
+      ]
+    })
+    const tampered = { ...containmentReport(), reportDigest: 'f'.repeat(64) }
+    expect(inspectOmpWorkerFixture(fixture, tampered)).toMatchObject({
+      status: 'failed',
+      measures: [expect.any(Object), { name: 'omp_binary_exercised', status: 'fail' }]
+    })
   })
 
   it('kills the critical mutation and accepts the benign mutation', () => {

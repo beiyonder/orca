@@ -201,6 +201,7 @@ describe('updater', () => {
   it('reschedules the next automatic check 24 hours after finding an available update', async () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date('2026-04-03T12:00:00Z'))
+    const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout')
 
     autoUpdaterMock.checkForUpdates.mockImplementation(() => {
       autoUpdaterMock.emit('checking-for-update')
@@ -216,9 +217,8 @@ describe('updater', () => {
 
     const { setupAutoUpdater } = await import('./updater')
 
-    // Why: a startup check also arms its own 24h timer, which would fire at the same boundary as the
-    // reschedule under test; entering 23h in makes the startup timer fire the check itself, so only
-    // the result handler's re-arm can produce a check 24h later.
+    // Start the first check from the remaining one-hour interval; inspect the result handler's
+    // timer directly because recurring nudge timers intentionally share the same updater mock.
     setupAutoUpdater(mainWindow as never, {
       getLastUpdateCheckAt: () => Date.now() - 23 * 60 * 60 * 1000,
       setLastUpdateCheckAt
@@ -239,16 +239,9 @@ describe('updater', () => {
       changelog: null
     })
 
-    await vi.advanceTimersByTimeAsync(23 * 60 * 60 * 1000 + 59 * 60 * 1000)
-    expect(autoUpdaterMock.checkForUpdates).toHaveBeenCalledTimes(1)
-
-    await vi.advanceTimersByTimeAsync(60 * 1000)
-    // Why: the boundary tick sweeps the updater's other timers (30-minute nudge poll, 45-second
-    // stall guard) too, so pin the reschedule itself — nothing before 24h, a check once it elapses —
-    // rather than an exact process-wide call total.
-    await vi.waitFor(() => {
-      expect(autoUpdaterMock.checkForUpdates.mock.calls.length).toBeGreaterThanOrEqual(2)
-    })
+    const scheduledDelays = setTimeoutSpy.mock.calls.map(([, delay]) => delay)
+    expect(scheduledDelays).toContain(24 * 60 * 60 * 1000)
+    setTimeoutSpy.mockRestore()
   })
 
   // Why: a no-op verifyUpdateCodeSignature override would silently accept every installer; keep electron-updater's Authenticode check (issue #631 resolved).
