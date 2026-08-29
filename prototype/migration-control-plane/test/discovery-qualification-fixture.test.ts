@@ -21,10 +21,10 @@ describe('P6 discovery qualification fixture', () => {
   it('pins claims, hidden estate, CDC, target, thresholds, and exact identity', async () => {
     const fixture = await loadDiscoveryQualificationFixture(root)
     expect(fixture.manifestDigest).toBe(
-      'cbc8024490f6978899f46d7c25ab3cfb2e4372461e99fb95fb25048731349111'
+      '997951d5be67c6c7c256fb66cb62d18060611897661311bf4a7c11a9efc5ee35'
     )
     expect(fixture.fixtureDigest).toBe(
-      '1eb3b9fc6df3e2605d3dfbdbc9381b278997c1cb0ee65326fd29d177d6d7229c'
+      '828ffc6c72c6635bec367e91c06b17c0aed278ba100fe67861a412eba9eb995d'
     )
     expect(
       fixture.claims.claims.filter((claim) => claim.expectedStatus === 'refuted')

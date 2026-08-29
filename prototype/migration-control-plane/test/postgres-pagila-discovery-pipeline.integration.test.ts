@@ -35,7 +35,7 @@ describe('full Pagila discovery pipeline', () => {
       labRoot
     })
     expect(result.cases.fixtureDigest).toBe(
-      '1eb3b9fc6df3e2605d3dfbdbc9381b278997c1cb0ee65326fd29d177d6d7229c'
+      '828ffc6c72c6635bec367e91c06b17c0aed278ba100fe67861a412eba9eb995d'
     )
     expect(result.comparison.summary).toEqual({
       supported: 1,
