@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P6-DISC-08` — infer CDC semantics on the existing Node/PostgreSQL cut before adding streaming infrastructure.
+`P7-EVAL-01` — implement the evaluation contract layer without adding a permanent Python service.

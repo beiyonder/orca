@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "p6-discovery-cases-v1",
+  "coordinates": [
+    "P6-DISC-08",
+    "P6-DISC-09",
+    "P6-DISC-10",
+    "P6-DISC-11",
+    "P6-DISC-12",
+    "P6-DISC-13",
+    "P6-DISC-14",
+    "P6-DISC-15",
+    "P6-DISC-16"
+  ],
+  "baseFixture": {
+    "fixtureId": "p6-pagila-v3.1.0",
+    "fixtureDigest": "c22e7c170feafc06e70bee21771181e1880b5ef9c8ccc8567b093eeaf4fe025d"
+  },
+  "license": "MIT",
+  "dataClass": "synthetic-no-phi",
+  "createdBy": "Orca migration-control-plane prototype research",
+  "files": [
+    {
+      "path": "LICENSE.txt",
+      "bytes": 1108,
+      "sha256": "fe59d40220aedf3084cb4882623c93b29be7be2277fc62c33128b1856ba0cf1e"
+    },
+    {
+      "path": "supplied-claims.json",
+      "bytes": 2215,
+      "sha256": "a6f5f078e9980f7836b183cf902332429ac5a8184b75ea247ccbafde066bc249"
+    },
+    {
+      "path": "hidden-estate.json",
+      "bytes": 2083,
+      "sha256": "161387de6d3735f93c29c174306a34c67ee44c083190c8f3a4d9aaffd4abf7f3"
+    },
+    {
+      "path": "cdc-trace.json",
+      "bytes": 5206,
+      "sha256": "6492846cb5335553bed0adb7842cd389c636faccede431aa1522fa226bf87276"
+    },
+    {
+      "path": "target-capability.json",
+      "bytes": 1659,
+      "sha256": "895ca99d1355e8fd17a8620df4228757d283f87a586bd083eace53b629039889"
+    }
+  ],
+  "thresholds": {
+    "materialContradictions": 8,
+    "minimumHiddenRecall": 9,
+    "maximumFabricatedAccepted": 0,
+    "explicitDenials": 2,
+    "cdcFinalStateExact": true,
+    "cdcEveryEventDisposed": true
+  },
+  "limitations": [
+    "Cases are synthetic overlays on frozen Pagila and do not represent production CDC or healthcare semantics.",
+    "Denied schemas are modeled as attributable observations; no restricted source bytes are included.",
+    "The target capability is an observed synthetic contract and grants no target effect authority."
+  ]
+}

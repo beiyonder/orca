@@ -1,3 +1,6 @@
+import { CDC_REASONING_CONTRACT_SAMPLES } from './cdc-reasoning-contract-samples.js'
+import { MIGRATION_PROPOSAL_CONTRACT_SAMPLES } from './migration-proposal-contract-samples.js'
+
 const createdAt = '2026-01-01T00:01:00.000Z'
 const digestA = 'a'.repeat(64)
 const source = {
@@ -224,5 +227,7 @@ export const SOURCE_DISCOVERY_CONTRACT_SAMPLES = {
       }
     ],
     unresolvedReferences: []
-  }
+  },
+  ...CDC_REASONING_CONTRACT_SAMPLES,
+  ...MIGRATION_PROPOSAL_CONTRACT_SAMPLES
 }

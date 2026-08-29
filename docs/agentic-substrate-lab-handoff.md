@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P6-DISC-08`.
+Current roadmap coordinate: `P7-EVAL-01`.
 
 ## Coordinate evidence
 
@@ -49,6 +49,7 @@ Current roadmap coordinate: `P6-DISC-08`.
 | `P6-DISC-01` | Frozen Pagila `pagila-v3.1.0` / `fef96757…ddf90e` source, exact permissive license/schema/data bytes, PostgreSQL 16.15 UTF8/C runtime, expected catalog and row-count oracle, fixture digest `c22e7c17…f4fe025d`, strict loader, shared file defenses, and real-server reconstruction; 27 unit files / 158 tests, 13 PostgreSQL files / 37 tests. |
 | `P6-DISC-02` through `P6-DISC-03` | Four immutable adapter/access/request/observation contracts, cross-record authority registry, PostgreSQL repeatable-read/read-only sandbox, exact endpoint/database/version checks, serialized bounded query session, mutation rejection and migration 009 persistence. |
 | `P6-DISC-04` through `P6-DISC-07` | Exact Pagila system/schema inventory, digest-only bounded profiles, checksum-bound code extraction and provenance-separated lineage; registry 64, migrations 10, fingerprint `374e03e9…82ec42`, 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests. |
+| `P6-DISC-08` through `P6-DISC-16` | Exact CDC analyzer, cited claim/refutation/denial comparison, deterministic gap and mixed probe/exception planning, target capability registry, full proposal-only Pagila design, checksum-bound qualification overlay, sealed EXP-02/03/04 and closed G6; registry 71, migrations 11, fingerprint `7acfcb43…8769156`, 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests. |
 
 ## Stable commands
 
@@ -120,6 +121,9 @@ Final sealed experiment evidence generated locally under ignored `.runs/`:
 | `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
 | `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
 | `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
+| `EXP-02` | 602 | `passed` | `exp-02-602-baseline-none-run_000000_eb8a1afb7fb61c4c` |
+| `EXP-03` | 603 | `passed` | `exp-03-603-baseline-none-run_000000_757028aec38917d2` |
+| `EXP-04` | 604 | `passed` | `exp-04-604-baseline-none-run_000000_9e3c9160451ac11f` |
 | `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 | `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
@@ -172,8 +176,9 @@ Rejected for the Phase 2 baseline:
 6. Phase 5 is complete: governed corpus/retrieval/context, memory candidates and reversible use lifecycle, typed skill versions, and sealed `EXP-06`/`EXP-07` pass; migration 008 fingerprints 55 contract bindings at `2ade23da…b4bf5e`.
 7. Pagila is synthetic and operationally rich but not a true legacy or healthcare estate; hidden assets, denials, misleading documents, CDC faults, and domain semantics remain future planted layers.
 8. Source operation handlers are trusted product code and receive only a bounded read session; arbitrary third-party connector code still requires the later process/container sandbox boundary.
-9. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen fixture source bytes and exact license/provenance manifests are tracked.
-10. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+9. The qualification overlay is synthetic and reaches the hidden-estate threshold at 9/10; it does not prove production CDC, restricted-schema contents or healthcare semantics.
+10. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen source/qualification fixture bytes and exact license/provenance manifests are tracked.
+11. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -185,7 +190,7 @@ prototype/migration-control-plane/
 ├── scripts/migration-control-plane-lab.mjs
 ├── src/*.ts
 ├── test/*.test.ts
-├── fixtures/s1-identity-key/* and fixtures/p6-pagila-v3.1.0/*
+├── fixtures/s1-identity-key/*, fixtures/p6-pagila-v3.1.0/* and fixtures/p6-discovery-cases-v1/*
 ```
 
 Repository integration:
@@ -196,7 +201,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P6-DISC-08`: analyze explicit change traces for snapshot boundaries, ordering, transactions, deletes, amendments, DDL, restart and checkpoint behavior.
+Start `P7-EVAL-01`: make evaluator, subject, input, measure, threshold and evidence versions the explicit acceptance contract before correction or skill promotion.
 
 First verification command after any change:
 

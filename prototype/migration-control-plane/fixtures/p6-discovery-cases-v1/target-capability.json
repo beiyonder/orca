@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "target-capability-snapshot",
+  "id": "target_capability_snapshot_fixture_v1",
+  "tenantId": "tenant_s1",
+  "createdAt": "2026-01-01T00:03:00.000Z",
+  "targetId": "target_fixture_warehouse",
+  "version": 1,
+  "predecessorSnapshotId": null,
+  "provider": "fixture",
+  "platform": "postgresql-warehouse",
+  "platformVersion": "16.15",
+  "resources": [
+    {
+      "id": "resource_target_database",
+      "kind": "database",
+      "version": "16.15",
+      "region": null,
+      "limits": { "storageBytes": 1073741824, "schemas": 10 },
+      "evidenceIds": ["evidence_target_capability"]
+    }
+  ],
+  "identity": {
+    "principalReference": "principal://fixture/migration-builder",
+    "roles": ["schema-designer"],
+    "secretReferences": ["secret://fixture/target-credential"]
+  },
+  "operations": [
+    {
+      "name": "inspect-schema",
+      "class": "read",
+      "idempotency": "none",
+      "supported": true,
+      "evidenceIds": ["evidence_target_capability"]
+    },
+    {
+      "name": "create-schema-artifact",
+      "class": "declarative-write",
+      "idempotency": "caller-key",
+      "supported": true,
+      "evidenceIds": ["evidence_target_capability"]
+    }
+  ],
+  "dataClasses": ["synthetic"],
+  "compatibility": {
+    "sourceEngines": ["postgresql"],
+    "requiredFormats": ["sql", "json"],
+    "unsupportedFeatures": ["production-cutover"]
+  },
+  "status": "observed",
+  "coverage": {
+    "requested": ["database", "identity", "operations"],
+    "observed": ["database", "identity", "operations"],
+    "denied": [],
+    "complete": true
+  },
+  "observedAt": "2026-01-01T00:03:00.000Z",
+  "observedBy": { "kind": "system", "id": "target-capability-reader", "version": "1" }
+}

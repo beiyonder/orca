@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P6-DISC-08` — infer explicit snapshot and CDC semantics from traces, never schema shape.
-2. `P6-DISC-09` — compare supplied claims with immutable source observations.
-3. `P6-DISC-10` — rank resulting evidence gaps with deterministic next tests.
+1. `P7-EVAL-01` — make evaluator, subject, input, measure, threshold and evidence versions explicit.
+2. `P7-EVAL-02` — coordinate independent evaluation without producer verdict authority.
+3. `P7-EVAL-03` — implement deterministic schema/contract/compatibility/policy checks.

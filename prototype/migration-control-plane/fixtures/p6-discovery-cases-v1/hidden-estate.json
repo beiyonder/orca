@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "p6-discovery-cases-v1",
+  "planted": [
+    {
+      "id": "hidden_payment_partition",
+      "kind": "asset",
+      "identity": "public.payment",
+      "evidenceKey": "relation:public.payment"
+    },
+    {
+      "id": "hidden_rental_category_mview",
+      "kind": "asset",
+      "identity": "public.rental_by_category",
+      "evidenceKey": "relation:public.rental_by_category"
+    },
+    {
+      "id": "hidden_actor_info_view",
+      "kind": "asset",
+      "identity": "public.actor_info",
+      "evidenceKey": "relation:public.actor_info"
+    },
+    {
+      "id": "hidden_rewards_report",
+      "kind": "asset",
+      "identity": "public.rewards_report(min_monthly_purchases numeric, min_dollar_amount_purchased numeric)",
+      "evidenceKey": "routine:public.rewards_report(min_monthly_purchases numeric, min_dollar_amount_purchased numeric)"
+    },
+    {
+      "id": "hidden_film_fulltext_trigger",
+      "kind": "asset",
+      "identity": "public.film.film_fulltext_trigger",
+      "evidenceKey": "trigger:public.film.film_fulltext_trigger"
+    },
+    {
+      "id": "hidden_bigint_domain",
+      "kind": "asset",
+      "identity": "public.bıgınt",
+      "evidenceKey": "type:public.bıgınt"
+    },
+    {
+      "id": "hidden_payment_sequence",
+      "kind": "asset",
+      "identity": "public.payment_payment_id_seq",
+      "evidenceKey": "sequence:public.payment_payment_id_seq"
+    },
+    {
+      "id": "hidden_inventory_film_fk",
+      "kind": "dependency",
+      "identity": "public.inventory->public.film",
+      "edgeKind": "foreign-key"
+    },
+    {
+      "id": "hidden_film_trigger_function",
+      "kind": "dependency",
+      "identity": "public.film.last_updated->public.last_updated",
+      "edgeKind": "trigger-invokes"
+    },
+    {
+      "id": "hidden_actor_view_dependency",
+      "kind": "dependency",
+      "identity": "public.actor_info->public.actor",
+      "edgeKind": "view-depends-on"
+    }
+  ],
+  "denials": [
+    { "scope": "private_audit", "reason": "USAGE denied for the source identity." },
+    { "scope": "restricted_reporting", "reason": "USAGE denied for the source identity." }
+  ],
+  "decoy": { "identity": "public.customer_archive", "mustNotBeAccepted": true },
+  "thresholds": {
+    "minimumPlantedRecall": 9,
+    "maximumFabricatedAccepted": 0,
+    "requiredExplicitDenials": 2
+  }
+}

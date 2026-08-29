@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P6-DISC-08` — analyze CDC behavior inside the private lab without expanding adapter authority.
+`P7-EVAL-01` — implement the independent evaluation contract layer inside the private lab.

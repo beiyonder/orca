@@ -1,0 +1,294 @@
+{
+  "$id": "urn:orca:migration-control-plane:source-cdc-analysis.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "analyzedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "analyzedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "eventDispositions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "disposition": {
+            "enum": ["applied", "duplicate", "ignored", "invalid"],
+            "type": "string"
+          },
+          "position": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "sequence": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": ["sequence", "position", "disposition", "reason"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "finalRecordCount": {
+      "maximum": 9007199254740991,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "finalStateDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "gaps": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 21,
+      "pattern": "^source_cdc_analysis_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "source-cdc-analysis",
+      "type": "string"
+    },
+    "lineage": {
+      "additionalProperties": false,
+      "properties": {
+        "capturedAt": {
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "type": "string"
+        },
+        "capturedBy": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "kind": {
+              "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["kind", "id"],
+          "type": "object"
+        },
+        "observationId": {
+          "maxLength": 128,
+          "minLength": 20,
+          "pattern": "^source_observation_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 16,
+          "pattern": "^source_request_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "snapshotToken": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "source": {
+          "additionalProperties": false,
+          "properties": {
+            "databaseName": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "endpointDigest": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "engine": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "engineVersion": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "fixtureDigest": {
+              "anyOf": [
+                {
+                  "pattern": "^[a-f0-9]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sourceSystemId": {
+              "maxLength": 128,
+              "minLength": 15,
+              "pattern": "^source_system_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sourceSystemId",
+            "engine",
+            "engineVersion",
+            "databaseName",
+            "endpointDigest",
+            "fixtureDigest"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "source",
+        "requestId",
+        "observationId",
+        "snapshotToken",
+        "capturedAt",
+        "capturedBy"
+      ],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "semantics": {
+      "additionalProperties": false,
+      "properties": {
+        "amendments": {
+          "enum": ["ordered-update", "append-correction", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "checkpoint": {
+          "enum": ["monotonic", "regressed", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "ddl": {
+          "enum": ["versioned-event", "out-of-band", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "deletes": {
+          "enum": ["explicit", "tombstone", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "lateEvents": {
+          "enum": ["ordered-by-position", "discarded", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "ordering": {
+          "enum": ["source-position-total", "per-key", "unordered", "unknown"],
+          "type": "string"
+        },
+        "restart": {
+          "enum": ["resume-token", "snapshot-restart", "not-observed", "unknown"],
+          "type": "string"
+        },
+        "snapshot": {
+          "enum": ["consistent-boundary", "inconsistent", "not-observed"],
+          "type": "string"
+        },
+        "transactions": {
+          "enum": ["atomic", "partial", "not-observed", "unknown"],
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshot",
+        "ordering",
+        "transactions",
+        "deletes",
+        "amendments",
+        "ddl",
+        "restart",
+        "checkpoint",
+        "lateEvents"
+      ],
+      "type": "object"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 18,
+      "pattern": "^source_cdc_trace_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "traceId",
+    "lineage",
+    "semantics",
+    "eventDispositions",
+    "finalStateDigest",
+    "finalRecordCount",
+    "gaps",
+    "analyzedAt",
+    "analyzedBy"
+  ],
+  "title": "source-cdc-analysis.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "source-cdc-analysis.v1"
+  }
+}

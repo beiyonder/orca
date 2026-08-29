@@ -1,0 +1,50 @@
+import { runDurableConvergenceExperiment } from './durable-convergence-experiment.js'
+import {
+  runCdcInferenceExperiment,
+  runContradictionExperiment,
+  runHiddenEstateExperiment
+} from './discovery-phase-experiments.js'
+import type { ExperimentResult } from './experiment-contracts.js'
+import { runMemoryHelpHarmExperiment } from './memory-help-harm-experiment.js'
+import { runRetrievalBenchmarkExperiment } from './retrieval-benchmark-experiment.js'
+import { runSpecialistDisagreementExperiment } from './specialist-disagreement-experiment.js'
+
+export async function executePhaseExperiment(
+  experimentId: string,
+  seed: number,
+  labRoot: string
+): Promise<ExperimentResult | null> {
+  switch (experimentId) {
+    case 'EXP-02': {
+      const connectionString = process.env.PAGILA_DISCOVERY_DATABASE_URL
+      if (!connectionString) {
+        throw new Error('PAGILA_DISCOVERY_DATABASE_URL is required for EXP-02')
+      }
+      return runContradictionExperiment(connectionString, labRoot)
+    }
+    case 'EXP-03': {
+      const connectionString = process.env.PAGILA_DISCOVERY_DATABASE_URL
+      if (!connectionString) {
+        throw new Error('PAGILA_DISCOVERY_DATABASE_URL is required for EXP-03')
+      }
+      return runHiddenEstateExperiment(connectionString, labRoot)
+    }
+    case 'EXP-04':
+      return runCdcInferenceExperiment(labRoot)
+    case 'EXP-05':
+      return runSpecialistDisagreementExperiment(seed)
+    case 'EXP-06':
+      return runRetrievalBenchmarkExperiment(seed)
+    case 'EXP-07':
+      return runMemoryHelpHarmExperiment(seed)
+    case 'DUR-EXP-01': {
+      const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
+      if (!connectionString) {
+        throw new Error('MIGRATION_CONTROL_DATABASE_URL is required for DUR-EXP-01')
+      }
+      return runDurableConvergenceExperiment(connectionString, seed)
+    }
+    default:
+      return null
+  }
+}
