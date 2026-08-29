@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P7-EVAL-03`.
+Current roadmap coordinate: `P7-EVAL-04`.
 
 ## Coordinate evidence
 
@@ -52,6 +52,7 @@ Current roadmap coordinate: `P7-EVAL-03`.
 | `P6-DISC-08` through `P6-DISC-16` | Exact CDC analyzer, cited claim/refutation/denial comparison, deterministic gap and mixed probe/exception planning, target capability registry, full proposal-only Pagila design, checksum-bound qualification overlay, sealed EXP-02/03/04 and closed G6; registry 71, migrations 11, fingerprint `7acfcb43…8769156`, 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests. |
 | `P7-EVAL-01` | Four V2 evaluator/contract/assignment/result schemas, immutable version/digest lineage, exact subject/input/evidence/threshold/independence pins, registry admission, PostgreSQL evidence readback and V2 task gate; registry 75, migrations 12, fingerprint `c82229f9…1d9e782d`, 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests. |
 | `P7-EVAL-02` | Product-owned independent assignment/outbox dispatch, derived separation dimensions, immutable deadline/result/disagreement coordination snapshots, advisory-locked idempotency, fresh-pool reconstruction and unrelated branch progress; registry 76, migrations 13, fingerprint `cd7f8c60…d612e3a8`, 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests. |
+| `P7-EVAL-03` | Pinned no-network/no-filesystem/no-model suite, five hard structural/type/lineage/compatibility/policy checks, immutable report/evidence/result, critical/benign/stale cases, claim-fenced atomic persistence and redelivery replay; registry 78, migrations 14, fingerprint `5561a9ce…1c3e5fe`, 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests. |
 
 ## Stable commands
 
@@ -203,7 +204,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P7-EVAL-03`: run deterministic structural, type, contract, compatibility and policy evaluators under the exact V2 assignments and persist typed evidence/results.
+Start `P7-EVAL-04`: evaluate counts, keys, deletes, ordering, watermarks, replay equality and explicit event dispositions under exact V2 assignments.
 
 First verification command after any change:
 

@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P7-EVAL-03` — execute deterministic checks under the frozen V2 assignments.
+`P7-EVAL-04` — evaluate counts, keys, deletes, ordering, watermarks and replay.
