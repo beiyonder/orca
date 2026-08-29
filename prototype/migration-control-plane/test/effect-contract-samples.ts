@@ -1,0 +1,246 @@
+const tenantId = 'tenant_s1'
+const missionId = 'mission_s1'
+const createdAt = '2026-01-01T00:00:00.000Z'
+const laterAt = '2026-01-01T00:01:00.000Z'
+const digestA = 'a'.repeat(64)
+const actor = { kind: 'system', id: 'system_s1' }
+const content = {
+  uri: 'artifact://s1/source',
+  sha256: digestA,
+  mediaType: 'application/json',
+  bytes: 128,
+  span: { kind: 'whole' }
+}
+const budget = {
+  tokenLimit: 10_000,
+  timeLimitMs: 60_000,
+  toolCallLimit: 10,
+  outputByteLimit: 1_000_000,
+  costLimitUsd: 10
+}
+const tool = {
+  name: 'evidence_read',
+  version: '1',
+  schemaDigest: digestA,
+  approval: 'read'
+}
+const target = {
+  provider: 'fixture',
+  account: 'synthetic',
+  project: null,
+  region: null,
+  resourceType: 'profile',
+  resourceId: 'legacy_patient'
+}
+
+export const EFFECT_CONTRACT_SAMPLES = {
+  'effect-intent.v1': {
+    schemaVersion: 1,
+    kind: 'effect-intent',
+    id: 'effect_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    operationClass: 'pure-read',
+    adapter: { name: 'fixture', version: '1', method: 'read-profile' },
+    target,
+    parameters: { entity: 'legacy_patient' },
+    parameterDigest: digestA,
+    expectedPreState: {},
+    desiredPostState: {},
+    expectedTargetVersion: null,
+    idempotency: {
+      kind: 'none',
+      key: null,
+      retentionExpiresAt: null,
+      parameterDigest: digestA
+    },
+    requiredTools: [tool],
+    allowedNetworkDestinations: [],
+    requiredSecretScopes: [],
+    dataClasses: ['synthetic'],
+    budget,
+    reversible: false,
+    compensationId: null,
+    evaluatorContractIds: ['evaluation_contract_s1'],
+    evidenceRecordIds: ['evidence_s1'],
+    proposedBy: actor
+  },
+  'policy-decision.v1': {
+    schemaVersion: 1,
+    kind: 'policy-decision',
+    id: 'policy_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    intentDigest: digestA,
+    policyBundleVersion: '1',
+    policyBundleDigest: digestA,
+    structuredInputDigest: digestA,
+    decision: 'allow',
+    grant: {
+      target,
+      adapterName: 'fixture',
+      adapterMethod: 'read-profile',
+      parameterDigest: digestA,
+      toolNames: ['evidence_read'],
+      networkDestinations: [],
+      secretScopes: [],
+      maxUses: 1,
+      expiresAt: laterAt
+    },
+    obligations: ['Record evidence digest.'],
+    ruleIds: ['synthetic-read'],
+    reasons: ['Synthetic read-only fixture.'],
+    decidedBy: actor,
+    expiresAt: laterAt
+  },
+  'secret-lease.v1': {
+    schemaVersion: 1,
+    kind: 'secret-lease',
+    id: 'secret_lease_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    secretReference: 'secret://synthetic/none',
+    recipient: {
+      assignmentId: 'assignment_s1',
+      attemptId: 'attempt_s1',
+      fence: 1,
+      audience: 'fixture-adapter'
+    },
+    target,
+    scopes: ['read'],
+    issuedAt: createdAt,
+    expiresAt: laterAt,
+    maxUses: 1,
+    revokedAt: null
+  },
+  'capability-envelope.v1': {
+    schemaVersion: 1,
+    kind: 'capability-envelope',
+    id: 'envelope_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    intentDigest: digestA,
+    policyDecisionId: 'policy_s1',
+    workload: {
+      assignmentId: 'assignment_s1',
+      attemptId: 'attempt_s1',
+      fence: 1,
+      audience: 'fixture-adapter'
+    },
+    target,
+    adapterName: 'fixture',
+    adapterMethod: 'read-profile',
+    parameterDigest: digestA,
+    allowedTools: [tool],
+    allowedNetworkDestinations: [],
+    dataClasses: ['synthetic'],
+    secretLeaseIds: ['secret_lease_s1'],
+    budget,
+    maxUses: 1,
+    issuedAt: createdAt,
+    expiresAt: laterAt,
+    revokedAt: null
+  },
+  'effect-attempt.v1': {
+    schemaVersion: 1,
+    kind: 'effect-attempt',
+    id: 'effect_attempt_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    attemptNumber: 1,
+    fence: 1,
+    capabilityEnvelopeId: 'envelope_s1',
+    adapterName: 'fixture',
+    adapterVersion: '1',
+    runnerDigest: digestA,
+    requestDigest: digestA,
+    idempotencyKeyHash: null,
+    preRequestJournal: content,
+    state: { status: 'prepared' }
+  },
+  'effect-receipt.v1': {
+    schemaVersion: 1,
+    kind: 'effect-receipt',
+    id: 'receipt_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    attemptId: 'effect_attempt_s1',
+    fence: 1,
+    adapterName: 'fixture',
+    adapterVersion: '1',
+    runnerDigest: digestA,
+    requestDigest: digestA,
+    idempotencyKeyHash: null,
+    providerRequestId: null,
+    providerResourceIds: ['legacy_patient'],
+    status: 'applied',
+    responseCategory: 'read-complete',
+    beforeEvidence: null,
+    afterEvidence: content,
+    residualResources: [],
+    rawResponse: content,
+    signer: 'fixture-adapter',
+    observedAt: laterAt
+  },
+  'target-observation.v1': {
+    schemaVersion: 1,
+    kind: 'target-observation',
+    id: 'target_observation_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    target,
+    method: 'read-profile',
+    identity: 'fixture-reader',
+    observedState: { rows: 6 },
+    observedVersion: '1',
+    classification: 'applied',
+    evidence: content,
+    observedAt: laterAt,
+    observedBy: actor
+  },
+  'recovery-disposition.v1': {
+    schemaVersion: 1,
+    kind: 'recovery-disposition',
+    id: 'recovery_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    effectId: 'effect_s1',
+    triggeringAttemptId: 'effect_attempt_s1',
+    receiptIds: ['receipt_s1'],
+    observationIds: ['target_observation_s1'],
+    action: 'wait',
+    providerKeyStillValid: false,
+    rationale: 'No recovery mutation is required.',
+    residualRisk: [],
+    selectedBy: actor
+  },
+  'compensation.v1': {
+    schemaVersion: 1,
+    kind: 'compensation',
+    id: 'compensation_s1',
+    tenantId,
+    missionId,
+    createdAt,
+    forwardEffectId: 'effect_s1',
+    compensationEffectId: 'effect_s2',
+    restorationClaim: 'partial',
+    preconditions: ['Forward effect remains current.'],
+    knownResidualEffects: ['External observers may have seen the prior state.'],
+    authorizedByPolicyDecisionId: 'policy_s1',
+    evaluatedReceiptId: null
+  }
+}

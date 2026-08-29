@@ -429,12 +429,12 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1, Phase 2, and first kernel coordinate closeout
+## Phase 1 through Phase 5 closeout
 
-`P1-RSCH-01` through `P1-RSCH-16`, `P2-LAB-01` through `P2-LAB-12`, and `P3-KERN-01` are complete. The exact audits, combined placement, maturity, gap decisions, S1 contract, deferred register, 76-item queue, lab decisions/handoff, and 41-schema V1 kernel contract are linked in the study header.
+`P1-RSCH-01` through `P5-KNOW-13` are complete. The linked audits, placement/maturity decisions, S1 contract, deferred register, experiment queue, lab/runtime decisions, durable kernel, bounded OMP orchestration, and governed corpus/retrieval/memory/skill evidence now close `G1-RSCH` through `G5-KNOW`.
 
 Next:
 
-1. `P5-KNOW-09` through `P5-KNOW-11` — quarantine typed memory candidates, enforce reversible lifecycle/use tracing, and persist skill capability versions.
-2. Keep every memory/skill pointer subordinate to canonical corpus/evidence/evaluation records.
-3. Do not let semantic score, graph distance, retrieval frequency, or successful-looking output promote knowledge.
+1. `P6-DISC-01` — select and freeze one licensed source fixture, exact revision/runtime/checksum, and expected estate.
+2. `P6-DISC-02` — define the versioned read-only source-adapter contract from that frozen boundary.
+3. Preserve canonical source/evidence ownership, tenant/data boundaries, and proposal-only worker authority throughout discovery.

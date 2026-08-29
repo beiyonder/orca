@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P5-KNOW-09` — implement quarantined memory candidates inside the private lab.
+`P6-DISC-01` — select and freeze the first licensed source fixture inside the private lab boundary.

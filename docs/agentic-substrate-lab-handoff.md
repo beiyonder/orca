@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P5-KNOW-09`.
+Current roadmap coordinate: `P6-DISC-01`.
 
 ## Coordinate evidence
 
@@ -45,6 +45,7 @@ Current roadmap coordinate: `P5-KNOW-09`.
 | `P4-AGNT-08` through `P4-AGNT-13` | Nine typed proposal-only specialist roles, one-action apex, evidence-seeking disagreement, force-kill reconstruction, real pinned OMP containment, and the 20-case disagreement benchmark; full lab 21 files / 118 tests. |
 | `P5-KNOW-01` through `P5-KNOW-03` | Five governed corpus contracts, private content-addressed immutable originals/parses, deterministic provenance catalog, and migration 006 corpus persistence; 22 unit files / 127 tests, 10 PostgreSQL files / 34 tests. |
 | `P5-KNOW-04` through `P5-KNOW-08` | Pre-ranking authorization, structured/BM25 lexical, optional versioned semantic projection, bounded relational graph expansion, immutable retrieval traces, and byte-reproducible cited/redacted/token-bounded contexts; 23 unit files / 137 tests, 11 PostgreSQL files / 35 tests. |
+| `P5-KNOW-09` through `P5-KNOW-13` | Five-class quarantined memory candidates, ordered reversible memory/use/invalidation lifecycle, compatible versioned skill registry, immutable PostgreSQL persistence, and sealed retrieval/help-harm qualification; 55 schemas, migration 008, 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests. |
 
 ## Stable commands
 
@@ -105,6 +106,8 @@ Tests cover:
 - immutable run ID reuse rejection;
 - unknown experiment/unsupported arm rejection;
 - 20-case specialist disagreement benchmark with cited probe/tie traces.
+- 55-document `EXP-06` known-answer benchmark with version conflict, stale, cross-tenant, distractor, exact citation, and semantic-ablation traces;
+- 20-case `EXP-07` no-memory/memory ablation with poisoned/stale/cross-tenant isolation, retained use attribution, and post-invalidation denial.
 
 Final sealed experiment evidence generated locally under ignored `.runs/`:
 
@@ -116,6 +119,8 @@ Final sealed experiment evidence generated locally under ignored `.runs/`:
 | `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
 | `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
+| `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
+| `EXP-07` | 507 | `passed` | `exp-07-507-baseline-none-run_000000_81c0168e84e967df` |
 
 Injected target-boundary fault evidence:
 
@@ -157,8 +162,9 @@ Rejected for the Phase 2 baseline:
 3. Database crash/replay/restart and OMP worker/process recovery are real. External target recovery remains simulated until its effect-execution coordinates.
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. Phase 4 is complete: isolated framed processes, exact context/results/tools, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, and real containment all pass.
-6. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
-7. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+6. Phase 5 is complete: governed corpus/retrieval/context, memory candidates and reversible use lifecycle, typed skill versions, and sealed `EXP-06`/`EXP-07` pass; migration 008 fingerprints 55 contract bindings at `2ade23da…b4bf5e`.
+7. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
+8. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -181,7 +187,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P5-KNOW-09`: admit typed mission/episodic/procedural/failure/evaluator memory candidates into provenance-bound quarantine with no recall policy.
+Start `P6-DISC-01`: select one licensed source fixture and pin its exact revision, runtime, checksum, and expected estate before adapter design.
 
 First verification command after any change:
 

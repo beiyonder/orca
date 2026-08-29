@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P5-KNOW-09` — admit provenance-bound memory candidates into quarantine with no recall policy.
+`P6-DISC-01` — select and freeze the first licensed source fixture before widening S1 into discovery.

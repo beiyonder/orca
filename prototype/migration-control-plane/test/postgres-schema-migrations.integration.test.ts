@@ -50,7 +50,7 @@ afterEach(async () => {
 describe.sequential('PostgreSQL schema migrations', () => {
   it('keeps a contiguous immutable migration catalog', async () => {
     const catalog = await loadPostgresMigrationCatalog()
-    expect(catalog.map((migration) => migration.version)).toEqual([1, 2, 3, 4, 5, 6, 7])
+    expect(catalog.map((migration) => migration.version)).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
     expect(catalog.every((migration) => /^[a-f0-9]{64}$/.test(migration.sha256))).toBe(true)
   })
 
@@ -62,8 +62,8 @@ describe.sequential('PostgreSQL schema migrations', () => {
       migratePostgresSchema({ connectionString: emptyPath.connectionString })
     ).resolves.toMatchObject({
       previousVersion: 0,
-      currentVersion: 7,
-      appliedVersions: [1, 2, 3, 4, 5, 6, 7]
+      currentVersion: 8,
+      appliedVersions: [1, 2, 3, 4, 5, 6, 7, 8]
     })
 
     await expect(
@@ -73,8 +73,8 @@ describe.sequential('PostgreSQL schema migrations', () => {
       migratePostgresSchema({ connectionString: upgradePath.connectionString })
     ).resolves.toMatchObject({
       previousVersion: 1,
-      currentVersion: 7,
-      appliedVersions: [2, 3, 4, 5, 6, 7]
+      currentVersion: 8,
+      appliedVersions: [2, 3, 4, 5, 6, 7, 8]
     })
 
     const [emptySnapshot, upgradeSnapshot, emptyFingerprint, upgradeFingerprint] =
@@ -87,7 +87,7 @@ describe.sequential('PostgreSQL schema migrations', () => {
     expect(upgradeSnapshot).toEqual(emptySnapshot)
     expect(upgradeFingerprint).toBe(emptyFingerprint)
     expect(emptyFingerprint).toBe(
-      '892bba1b55d739af5ab01926ec5a2dce344453c77dd72d22d462798bfd1117e2'
+      '2ade23da3f4f440587f0c9bcdfca038ec6ac67d9d6b421f541609d30f5b4bf5e'
     )
     expect(emptySnapshot.contracts).toEqual(await expectedContractRows())
     expect(
@@ -115,7 +115,7 @@ describe.sequential('PostgreSQL schema migrations', () => {
     ])
     expect(emptySnapshot.metadata).toContainEqual({
       key: 'contract_registry_digest',
-      value: '54356e502bde78fb9ce4fa600bb372ed0f3724ee1936443684f0f95a850bfc0c'
+      value: '21e090687ee57eb3f248a48e8a08284c037a5ce3f99dd50507fbd5aea3239f50'
     })
     expect(emptySnapshot.objects.some((object) => object.object_name === 'mission_events')).toBe(
       true
@@ -130,7 +130,7 @@ describe.sequential('PostgreSQL schema migrations', () => {
     await migratePostgresSchema({ connectionString: created.connectionString })
     await expect(
       migratePostgresSchema({ connectionString: created.connectionString })
-    ).resolves.toMatchObject({ previousVersion: 7, currentVersion: 7, appliedVersions: [] })
+    ).resolves.toMatchObject({ previousVersion: 8, currentVersion: 8, appliedVersions: [] })
 
     const secondMigration = (await loadPostgresMigrationCatalog())[1]!
     const client = new Client({ connectionString: created.connectionString })
@@ -163,7 +163,7 @@ describe.sequential('PostgreSQL schema migrations', () => {
       migratePostgresSchema({ connectionString: created.connectionString })
     ])
     expect(results.map((result) => result.appliedVersions.length).sort((a, b) => a - b)).toEqual([
-      0, 7
+      0, 8
     ])
     expect(await fingerprintPostgresSchema(created.connectionString)).toMatch(/^[a-f0-9]{64}$/)
   })

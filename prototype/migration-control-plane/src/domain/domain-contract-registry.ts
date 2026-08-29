@@ -53,6 +53,12 @@ import {
   PromotionDecisionV1Schema
 } from './learning-contracts.js'
 import {
+  MemoryCandidateV1Schema,
+  MemoryInvalidationV1Schema,
+  MemoryUseV1Schema,
+  MemoryVersionV1Schema
+} from './memory-contracts.js'
+import {
   MissionCommandEnvelopeV1Schema,
   MissionEventEnvelopeV1Schema,
   MissionRecordV1Schema
@@ -63,6 +69,7 @@ import {
   RetrievalQueryV1Schema,
   RetrievalTraceV1Schema
 } from './retrieval-contracts.js'
+import { SkillLifecycleEventV1Schema, SkillVersionV1Schema } from './skill-contracts.js'
 
 export const DOMAIN_SCHEMA_REGISTRY = {
   'accepted-finding.v1': AcceptedFindingV1Schema,
@@ -99,6 +106,10 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'impact-review.v1': ImpactReviewV1Schema,
   'knowledge-context-manifest.v1': KnowledgeContextManifestV1Schema,
   'learning-candidate.v1': LearningCandidateV1Schema,
+  'memory-candidate.v1': MemoryCandidateV1Schema,
+  'memory-invalidation.v1': MemoryInvalidationV1Schema,
+  'memory-use.v1': MemoryUseV1Schema,
+  'memory-version.v1': MemoryVersionV1Schema,
   'mission-command.v1': MissionCommandEnvelopeV1Schema,
   'mission-event.v1': MissionEventEnvelopeV1Schema,
   'mission-record.v1': MissionRecordV1Schema,
@@ -112,6 +123,8 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'retrieval-query.v1': RetrievalQueryV1Schema,
   'retrieval-trace.v1': RetrievalTraceV1Schema,
   'secret-lease.v1': SecretLeaseV1Schema,
+  'skill-lifecycle-event.v1': SkillLifecycleEventV1Schema,
+  'skill-version.v1': SkillVersionV1Schema,
   'target-observation.v1': TargetObservationV1Schema,
   'task-record.v1': TaskRecordV1Schema
 } as const satisfies Record<string, z.ZodType>
