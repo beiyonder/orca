@@ -129,7 +129,9 @@ export function runMemoryHelpHarmExperiment(seed: number): ExperimentResult {
     tenantId: 'tenant_other',
     content: { lesson: 'Tenant-private identity rule.' }
   })
-  for (const entry of [helpful, poisoned, stale, crossTenant]) registry.admitCandidate(entry)
+  for (const entry of [helpful, poisoned, stale, crossTenant]) {
+    registry.admitCandidate(entry)
+  }
   const helpfulV1 = registry.registerVersion(
     version({ candidate: helpful, id: 'helpful_v1', status: 'active' })
   )

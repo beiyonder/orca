@@ -71,7 +71,7 @@ export class SkillCapabilityRegistry {
             registry.#versions.has(version.predecessorVersionId)) &&
           version.dependencyVersionIds.every((id) => registry.#versions.has(id))
       )
-      if (readyIndex < 0) {
+      if (readyIndex === -1) {
         throw failure(
           'unresolved_skill_graph',
           'Skill reconstruction has a missing or cyclic predecessor or dependency'
@@ -103,7 +103,9 @@ export class SkillCapabilityRegistry {
     }
     const prior = this.#latestVersion(version.tenantId, version.skillId)
     if (version.version === 1) {
-      if (prior) throw failure('version_conflict', 'First skill version already exists')
+      if (prior) {
+        throw failure('version_conflict', 'First skill version already exists')
+      }
     } else if (
       !prior ||
       version.version !== prior.version + 1 ||
@@ -183,10 +185,18 @@ export class SkillCapabilityRegistry {
     authorityEnvelope: SkillVersionV1['authorityEnvelope']
   }): SkillVersionV1 | null {
     const version = this.#latestVersion(input.tenantId, input.skillId)
-    if (!version || this.status(version.tenantId, version.id) !== 'active') return null
-    if (!version.dataClasses.includes(input.dataClass)) return null
-    if (!version.supportedTaskClasses.includes(input.taskClass)) return null
-    if (version.unsupportedTaskClasses.includes(input.taskClass)) return null
+    if (!version || this.status(version.tenantId, version.id) !== 'active') {
+      return null
+    }
+    if (!version.dataClasses.includes(input.dataClass)) {
+      return null
+    }
+    if (!version.supportedTaskClasses.includes(input.taskClass)) {
+      return null
+    }
+    if (version.unsupportedTaskClasses.includes(input.taskClass)) {
+      return null
+    }
     if (
       version.requiredTools.some(
         (required) =>

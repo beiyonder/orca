@@ -189,9 +189,13 @@ export function createRetrievalBenchmarkCorpus(seed: number): {
         })
       )
     }
-    if (!lexical) conceptGroups[`concept_${key}`] = [queryPhrase, sourcePhrase]
+    if (!lexical) {
+      conceptGroups[`concept_${key}`] = [queryPhrase, sourcePhrase]
+    }
   }
-  if (seed % 2 === 1) documents.reverse()
+  if (seed % 2 === 1) {
+    documents.reverse()
+  }
   const sources = documents.map((entry) => entry.source)
   const bundles = documents.map((entry) => ({
     parse: entry.record.parse,

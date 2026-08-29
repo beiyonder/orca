@@ -62,7 +62,9 @@ function expectMemoryError(operation: () => unknown, code: string): void {
     operation()
     throw new Error('Expected governed memory registry error')
   } catch (error) {
-    if (!(error instanceof GovernedMemoryRegistryError)) throw error
+    if (!(error instanceof GovernedMemoryRegistryError)) {
+      throw error
+    }
     expect(error.code).toBe(code)
   }
 }
@@ -72,7 +74,9 @@ function expectSkillError(operation: () => unknown, code: string): void {
     operation()
     throw new Error('Expected skill capability registry error')
   } catch (error) {
-    if (!(error instanceof SkillCapabilityRegistryError)) throw error
+    if (!(error instanceof SkillCapabilityRegistryError)) {
+      throw error
+    }
     expect(error.code).toBe(code)
   }
 }

@@ -10,6 +10,11 @@ import {
   type MemoryUseV1,
   type MemoryVersionV1
 } from './domain/memory-contracts.js'
+import {
+  isMemoryVersionValidAt,
+  memoryCandidateVersionFailure,
+  memoryInvalidationFailure
+} from './governed-memory-rules.js'
 
 export type MemoryRecallRequest = {
   tenantId: string
@@ -123,34 +128,15 @@ export class GovernedMemoryRegistry {
     if (!candidate || candidate.tenantId !== version.tenantId) {
       throw failure('candidate_not_found', 'Memory version candidate is unavailable')
     }
-    if (candidate.memoryType !== version.memoryType) {
-      throw failure('candidate_type_mismatch', 'Memory version type differs from its candidate')
-    }
-    if (version.contentDigest !== candidate.contentDigest) {
-      throw failure('candidate_content_mismatch', 'Memory version differs from its candidate')
-    }
-    if (
-      canonicalJson(version.scope) !== canonicalJson(candidate.proposedScope) ||
-      canonicalJson(version.applicability) !== canonicalJson(candidate.applicability)
-    ) {
-      throw failure('candidate_scope_mismatch', 'Memory version expands candidate scope')
-    }
-    if (version.usePolicy.dataClasses.some((dataClass) => dataClass !== candidate.dataClass)) {
-      throw failure('candidate_data_class_mismatch', 'Memory version expands candidate data class')
-    }
-    if (
-      version.canonicalSourceRecordIds.some(
-        (recordId) => !candidate.sourceRecordIds.includes(recordId)
-      ) ||
-      version.canonicalSourceEvidenceIds.some(
-        (evidenceId) => !candidate.sourceEvidenceIds.includes(evidenceId)
-      )
-    ) {
-      throw failure('candidate_provenance_mismatch', 'Memory version expands candidate provenance')
+    const candidateFailure = memoryCandidateVersionFailure(candidate, version)
+    if (candidateFailure) {
+      throw failure(candidateFailure.code, candidateFailure.message)
     }
     const prior = this.#latestVersion(version.tenantId, version.memoryId)
     if (version.version === 1) {
-      if (prior) throw failure('version_conflict', 'First memory version already exists')
+      if (prior) {
+        throw failure('version_conflict', 'First memory version already exists')
+      }
     } else if (
       !prior ||
       version.version !== prior.version + 1 ||
@@ -166,21 +152,39 @@ export class GovernedMemoryRegistry {
 
   recall(request: MemoryRecallRequest): readonly MemoryVersionV1[] {
     const asOf = Date.parse(request.asOf)
-    if (!Number.isFinite(asOf)) return []
+    if (!Number.isFinite(asOf)) {
+      return []
+    }
     const latest = new Map<string, MemoryVersionV1>()
     for (const version of this.#versions.values()) {
-      if (version.tenantId !== request.tenantId) continue
+      if (version.tenantId !== request.tenantId) {
+        continue
+      }
       const current = latest.get(version.memoryId)
-      if (!current || version.version > current.version) latest.set(version.memoryId, version)
+      if (!current || version.version > current.version) {
+        latest.set(version.memoryId, version)
+      }
     }
     return [...latest.values()]
       .filter((version) => {
-        if (!version.usePolicy.allowRecall) return false
-        if (!version.usePolicy.roles.includes(request.role)) return false
-        if (!version.usePolicy.taskClasses.includes(request.taskClass)) return false
-        if (!version.usePolicy.dataClasses.includes(request.dataClass)) return false
-        if (canonicalJson(version.scope) !== canonicalJson(request.scope)) return false
-        if (version.applicability.environment !== request.scope.environment) return false
+        if (!version.usePolicy.allowRecall) {
+          return false
+        }
+        if (!version.usePolicy.roles.includes(request.role)) {
+          return false
+        }
+        if (!version.usePolicy.taskClasses.includes(request.taskClass)) {
+          return false
+        }
+        if (!version.usePolicy.dataClasses.includes(request.dataClass)) {
+          return false
+        }
+        if (canonicalJson(version.scope) !== canonicalJson(request.scope)) {
+          return false
+        }
+        if (version.applicability.environment !== request.scope.environment) {
+          return false
+        }
         if (
           version.applicability.product !== null &&
           version.applicability.product !== request.product
@@ -254,60 +258,15 @@ export class GovernedMemoryRegistry {
     target: MemoryVersionV1,
     replacement: MemoryVersionV1
   ): void {
-    if (
-      target.tenantId !== invalidation.tenantId ||
-      replacement.tenantId !== invalidation.tenantId ||
-      replacement.memoryId !== target.memoryId ||
-      replacement.supersedesVersionId !== target.id ||
-      replacement.status !== invalidation.disposition ||
-      invalidation.replacementVersionId !== replacement.id
-    ) {
-      throw failure(
-        'invalidation_transition_mismatch',
-        'Replacement memory does not apply invalidation'
-      )
-    }
     const uses = [...this.#uses.values()].filter((use) => use.memoryVersionId === target.id)
-    const expectedUses = uses.map((use) => use.id).toSorted()
-    if (
-      canonicalJson(expectedUses) !== canonicalJson([...invalidation.impactedUseIds].toSorted())
-    ) {
-      throw failure('incomplete_use_impact', 'Memory invalidation must name every prior use')
-    }
-    const invalidatedAt = Date.parse(invalidation.createdAt)
-    if (
-      invalidatedAt < Date.parse(target.createdAt) ||
-      Date.parse(replacement.createdAt) < invalidatedAt ||
-      uses.some((use) => Date.parse(use.createdAt) > invalidatedAt)
-    ) {
-      throw failure(
-        'invalidation_timeline_mismatch',
-        'Memory invalidation timeline is inconsistent'
-      )
+    const invalidationFailure = memoryInvalidationFailure(invalidation, target, replacement, uses)
+    if (invalidationFailure) {
+      throw failure(invalidationFailure.code, invalidationFailure.message)
     }
   }
 
   #validAt(version: MemoryVersionV1, instant: number): boolean {
-    if (!Number.isFinite(instant)) return false
-    const candidate = this.#candidates.get(version.candidateId)
-    if (!candidate) return false
-    if (instant < Date.parse(version.validFrom)) return false
-    if (version.validUntil !== null && instant >= Date.parse(version.validUntil)) return false
-    if (
-      version.applicability.validFrom !== null &&
-      instant < Date.parse(version.applicability.validFrom)
-    ) {
-      return false
-    }
-    if (
-      version.applicability.validUntil !== null &&
-      instant >= Date.parse(version.applicability.validUntil)
-    ) {
-      return false
-    }
-    return !(
-      candidate.retention.expiresAt !== null && instant >= Date.parse(candidate.retention.expiresAt)
-    )
+    return isMemoryVersionValidAt(version, this.#candidates.get(version.candidateId), instant)
   }
   #latestVersion(tenantId: string, memoryId: string): MemoryVersionV1 | null {
     return (

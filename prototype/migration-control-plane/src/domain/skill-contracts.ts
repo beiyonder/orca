@@ -102,16 +102,14 @@ export const SkillVersionV1Schema = z
     ) {
       context.addIssue({ code: 'custom', message: 'Skill authority must match required tools' })
     }
-    if (
-      skill.supportedTaskClasses.some((taskClass) =>
-        skill.unsupportedTaskClasses.includes(taskClass)
-      )
-    ) {
+    const unsupportedTaskClasses = new Set(skill.unsupportedTaskClasses)
+    if (skill.supportedTaskClasses.some((taskClass) => unsupportedTaskClasses.has(taskClass))) {
       context.addIssue({ code: 'custom', message: 'Skill task classes cannot overlap' })
     }
+    const dataClasses = new Set(skill.dataClasses)
     if (
       skill.compatibleModelRoutes.some((route) =>
-        route.dataClasses.some((dataClass) => !skill.dataClasses.includes(dataClass))
+        route.dataClasses.some((dataClass) => !dataClasses.has(dataClass))
       )
     ) {
       context.addIssue({ code: 'custom', message: 'Skill model route expands data classes' })
