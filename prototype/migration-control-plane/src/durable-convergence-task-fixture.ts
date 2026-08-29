@@ -4,20 +4,18 @@ import {
   AssignmentResultV1Schema,
   TaskRecordV1Schema
 } from './domain/assignment-contracts.js'
-import {
-  EvaluationAssignmentV1Schema,
-  EvaluationResultV1Schema
-} from './domain/evaluation-contracts.js'
 import { PlanRevisionV1Schema } from './domain/planning-contracts.js'
 import {
   DURABLE_FIXTURE_ACTOR,
   DURABLE_FIXTURE_BUDGET,
   DURABLE_FIXTURE_DIGEST
 } from './durable-convergence-mission-fixture.js'
+import { buildDurableEvaluationFixture } from './durable-evaluation-fixture.js'
 import type { DurableMissionFixture, DurableTaskFixture } from './durable-convergence-types.js'
 
 export function buildDurableTaskFixture(mission: DurableMissionFixture): DurableTaskFixture {
-  const { suffix, tenantId, missionId, planId, createdAt, changedAt, leaseExpiresAt } = mission
+  const { suffix, tenantId, missionId, planId, createdAt, changedAt, completedAt, leaseExpiresAt } =
+    mission
   const taskId = `task_dur_${suffix}`
   const assignmentId = `assignment_dur_${suffix}`
   const attemptId = `attempt_dur_${suffix}`
@@ -163,71 +161,18 @@ export function buildDurableTaskFixture(mission: DurableMissionFixture): Durable
     submittedAt: changedAt,
     submittedBy: DURABLE_FIXTURE_ACTOR
   })
-  const evaluationSubject = {
-    kind: 'assignment-result',
-    id: assignmentResultId,
-    version: 1,
-    schemaVersion: 1,
-    digest: assignmentResult.outputDigest
-  }
-  const evaluationAssignment = EvaluationAssignmentV1Schema.parse({
-    schemaVersion: 1,
-    kind: 'evaluation-assignment',
-    id: evaluationAssignmentId,
+  const evaluation = buildDurableEvaluationFixture({
+    suffix,
     tenantId,
     missionId,
     createdAt,
-    contractId: evaluationContractId,
-    contractVersion: 1,
-    evaluatorId: `evaluator_dur_${suffix}`,
-    evaluatorVersion: 1,
-    subject: evaluationSubject,
-    contextManifestId: assignment.contextManifestId,
-    inputEvidenceIds: [],
-    producer: { actor: DURABLE_FIXTURE_ACTOR, assignmentId, attemptId, fence: 1 },
-    evaluatorAttemptId: `attempt_evaluator_dur_${suffix}`,
-    evaluatorFence: 1,
-    deadlineAt: leaseExpiresAt,
-    budget: DURABLE_FIXTURE_BUDGET
-  })
-  const evaluationResult = EvaluationResultV1Schema.parse({
-    schemaVersion: 1,
-    kind: 'evaluation-result',
-    id: evaluationResultId,
-    tenantId,
-    missionId,
-    createdAt,
-    assignmentId: evaluationAssignmentId,
-    contractId: evaluationContractId,
-    contractVersion: 1,
-    evaluatorId: evaluationAssignment.evaluatorId,
-    evaluatorVersion: 1,
-    subject: evaluationSubject,
-    status: 'passed',
-    measures: [
-      {
-        name: 'durable-state',
-        status: 'pass',
-        value: true,
-        threshold: true,
-        evidenceIds: [],
-        failureCode: null
-      }
-    ],
-    coverage: 'complete',
-    evidenceIds: [],
-    limitations: [],
-    usage: {
-      inputTokens: 0,
-      outputTokens: 0,
-      cacheReadTokens: 0,
-      cacheWriteTokens: 0,
-      toolCalls: 0,
-      wallTimeMs: 1,
-      costUsd: 0
-    },
-    completedAt: mission.completedAt,
-    resultDigest: DURABLE_FIXTURE_DIGEST
+    changedAt,
+    completedAt,
+    evaluationContractId,
+    evaluationAssignmentId,
+    evaluationResultId,
+    assignment,
+    assignmentResult
   })
   return {
     taskId,
@@ -238,8 +183,7 @@ export function buildDurableTaskFixture(mission: DurableMissionFixture): Durable
     assignmentResult,
     attempt,
     assignmentResultId,
-    evaluationAssignment,
-    evaluationResult,
+    ...evaluation,
     staleObservedAt: changedAt,
     activeObservedAt: changedAt
   }

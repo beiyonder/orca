@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P7-EVAL-01` — make the unchanged independent evaluator contract the next acceptance boundary.
+`P7-EVAL-02` — assign independent runners under the frozen V2 evaluator contract.

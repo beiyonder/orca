@@ -33,20 +33,23 @@ describe('versioned domain contract registry', () => {
     }
   })
 
-  it('rejects unknown top-level fields and future schema versions for every V1 record', () => {
+  it('rejects unknown top-level fields and future schema versions for every record', () => {
     for (const name of DOMAIN_SCHEMA_NAMES) {
       const sample = DOMAIN_CONTRACT_SAMPLES[name] as Record<string, unknown>
+      const schemaVersion = Number(/\.v([1-9][0-9]*)$/.exec(name)?.[1])
       expect(DOMAIN_SCHEMA_REGISTRY[name].safeParse({ ...sample, unexpected: true }).success).toBe(
         false
       )
-      expect(DOMAIN_SCHEMA_REGISTRY[name].safeParse({ ...sample, schemaVersion: 2 }).success).toBe(
-        false
-      )
+      expect(
+        DOMAIN_SCHEMA_REGISTRY[name].safeParse({ ...sample, schemaVersion: schemaVersion + 1 })
+          .success
+      ).toBe(false)
     }
   })
 
-  it('exports strict Draft 2020-12 JSON schemas with stable IDs and V1 constants', () => {
+  it('exports strict Draft 2020-12 JSON schemas with stable IDs and version constants', () => {
     for (const name of DOMAIN_SCHEMA_NAMES) {
+      const schemaVersion = Number(/\.v([1-9][0-9]*)$/.exec(name)?.[1])
       const schema = exportDomainJsonSchema(name)
       expect(z.json().parse(schema)).toEqual(schema)
       expect(schema).toMatchObject({
@@ -60,7 +63,7 @@ describe('versioned domain contract registry', () => {
         },
         additionalProperties: false,
         properties: {
-          schemaVersion: { const: 1 }
+          schemaVersion: { const: schemaVersion }
         }
       })
     }

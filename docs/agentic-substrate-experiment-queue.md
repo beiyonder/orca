@@ -9,9 +9,9 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-01`.
-- `G2-LAB` through `G6-DISC` are complete; the independent evaluation contract layer is next.
-- Source research cards remain the authoritative fixture and pass/fail specifications.
+- First dependency-ready roadmap coordinate: `P7-EVAL-02`.
+- `G2-LAB` through `G6-DISC` and `P7-EVAL-01` are complete; independent evaluation coordination is next.
+- Source and evaluation research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
 
@@ -201,7 +201,7 @@ Gate verification:
 
 ## `P6-DISC-08` through `P6-DISC-16` reasoning and qualification evidence
 
-- checksum-bound overlay fixture `1eb3b9fc…d6d7229c` supplies ten claims, ten hidden estate items, two attributable denials, one decoy, a ten-event CDC trace and versioned synthetic target capability;
+- checksum-bound overlay fixture `828ffc6c…9eb995d` supplies ten claims, ten hidden estate items, two attributable denials, one decoy, a ten-event CDC trace and versioned synthetic target capability;
 - CDC analysis replays snapshot rows, atomic updates/inserts, explicit delete, versioned DDL, checkpoint, restart duplicate and late update by source position; every event has one disposition and final state is checksum-exact;
 - claim comparison retains supplied/observed digests and citations across supported/refuted/unresolved/denied/stale states; denied scope cannot prove absence;
 - deterministic gap scoring checks impact + uncertainty + blocking − cost − risk; safe-probe planning selects bounded observable work while retaining unrelated exception-only gaps for accountable input;
@@ -211,6 +211,14 @@ Gate verification:
 - sealed `EXP-03` seed 603 passes 9/10 planted recall, zero fabricated accepted assets, 2/2 explicit denials and proposal-only authority;
 - sealed `EXP-04` seed 604 passes 10/10 event dispositions, exact final state and zero gaps; all three artifact indexes verify;
 - migration 011 persists seven reasoning/target/proposal contracts; registry 71, migrations 11 / tables 17, fingerprint `7acfcb43…8769156`; verification passes 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests.
+
+## `P7-EVAL-01` versioned acceptance-contract evidence
+
+- frozen V1 evaluation history remains parseable while V2 evaluator-definition, evaluation-contract, evaluation-assignment and evaluation-result records add predecessor/digest lineage and exact implementation, subject, input, schema, threshold, evidence, budget and independence pins;
+- producer and evaluator runtime identities record process/model/provider/context/credential/corpus separation; producer reasoning is absent and assignment/result records carry literal `none` acceptance authority;
+- registry admission rejects version gaps, digest drift, revoked authority, unsupported subjects, stale or under-evidenced inputs, budget expansion, producer self-evaluation, threshold/operator/type drift, deadline violations and a second result for one immutable assignment;
+- PostgreSQL task completion reconstructs definition→contract→assignment→result V2 lineage, ties the subject to the current attempt/fence and accepted output, and reads every referenced evidence version/digest before the product reconciler may advance the task;
+- migration 012 permits positive schema versions in generic domain storage, registers four V2 schemas, and makes all evaluation/evaluator records immutable; registry 75, migrations 12 / tables 17, fingerprint `c82229f9…1d9e782d`; verification passes 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests.
 
 ## Queue classes
 
@@ -465,4 +473,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-01`: make evaluator/subject/input/measure/threshold/evidence versions the explicit acceptance contract before adding correction or skill promotion.
+Begin `P7-EVAL-02`: assign independent evaluator runners from the frozen V2 contract while keeping missing, contradictory, failed and stale evaluation unresolved.

@@ -11,6 +11,13 @@ export type PostgresDomainRecordInput = {
   payload: unknown
   createdAt: string
 }
+function domainSchemaVersion(schemaName: string): number {
+  const match = /\.v([1-9][0-9]*)$/.exec(schemaName)
+  if (!match) {
+    throw new TypeError(`Domain schema name has no positive version suffix: ${schemaName}`)
+  }
+  return Number(match[1])
+}
 
 export async function insertPostgresDomainRecords(
   client: PoolClient,
@@ -26,6 +33,7 @@ export async function insertPostgresDomainRecords(
       record_id: input.recordId,
       mission_id: input.missionId,
       schema_name: input.schemaName,
+      schema_version: domainSchemaVersion(input.schemaName),
       record_kind: input.recordKind,
       record_state: input.recordState,
       payload: input.payload,
@@ -38,7 +46,7 @@ export async function insertPostgresDomainRecords(
        tenant_id, record_id, mission_id, schema_name, schema_version, record_kind,
        aggregate_revision, record_state, payload, payload_sha256, created_at, updated_at
      )
-     SELECT tenant_id, record_id, mission_id, schema_name, 1, record_kind,
+     SELECT tenant_id, record_id, mission_id, schema_name, schema_version, record_kind,
             NULL, record_state, payload, payload_sha256, created_at,
             transaction_timestamp()
      FROM jsonb_to_recordset($1::jsonb) AS record(
@@ -46,6 +54,7 @@ export async function insertPostgresDomainRecords(
        record_id text,
        mission_id text,
        schema_name text,
+       schema_version smallint,
        record_kind text,
        record_state text,
        payload jsonb,

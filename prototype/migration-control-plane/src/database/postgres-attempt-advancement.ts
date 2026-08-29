@@ -1,22 +1,8 @@
-import type { Pool, PoolClient } from 'pg'
+import type { Pool } from 'pg'
 import { canonicalJson, sha256Text } from '../canonical-json.js'
-import {
-  MissingTaskEvaluationError,
-  StaleAttemptAuthorityError,
-  type AttemptAdvanceInput
-} from '../attempt-authority.js'
-import {
-  AssignmentAttemptV1Schema,
-  AssignmentResultV1Schema,
-  TaskRecordV1Schema,
-  type AssignmentAttemptV1,
-  type TaskRecordV1
-} from '../domain/assignment-contracts.js'
+import { StaleAttemptAuthorityError, type AttemptAdvanceInput } from '../attempt-authority.js'
+import { AssignmentAttemptV1Schema, TaskRecordV1Schema } from '../domain/assignment-contracts.js'
 import { IsoDateTimeSchema } from '../domain/common-contracts.js'
-import {
-  EvaluationAssignmentV1Schema,
-  EvaluationResultV1Schema
-} from '../domain/evaluation-contracts.js'
 import {
   assertAttemptTaskStatePair,
   attemptCompletedAt,
@@ -24,6 +10,7 @@ import {
   validateAttemptTransition,
   validateTaskTransition
 } from '../task-attempt-lifecycle.js'
+import { assertPostgresTaskEvaluationGate } from './postgres-task-evaluation-gate.js'
 import { withPostgresTransaction } from './postgres-transaction.js'
 
 type AttemptAuthorityRow = {
@@ -33,73 +20,6 @@ type AttemptAuthorityRow = {
   attempt: unknown
   fence: string
   lease_expires_at: Date
-}
-
-async function assertTaskEvaluationGate(
-  client: PoolClient,
-  task: TaskRecordV1,
-  attempt: AssignmentAttemptV1,
-  evaluationResultIds: readonly string[] | undefined
-): Promise<void> {
-  if (task.state.status !== 'completed' || !task.recoveryPolicy.requiresEvaluation) {
-    return
-  }
-  const requiredContracts = new Set(task.requiredEvaluationContractIds)
-  const resultIds = [...new Set(evaluationResultIds ?? [])]
-  if (requiredContracts.size === 0 || resultIds.length === 0) {
-    throw new MissingTaskEvaluationError(task.id)
-  }
-  const rows = await client.query<{ result: unknown; assignment: unknown; subject: unknown }>(
-    `SELECT result.payload AS result,
-            assignment.payload AS assignment,
-            subject.payload AS subject
-     FROM control_plane.domain_records AS result
-     JOIN control_plane.domain_records AS assignment
-       ON assignment.tenant_id = result.tenant_id
-       AND assignment.record_id = result.payload ->> 'assignmentId'
-       AND assignment.schema_name = 'evaluation-assignment.v1'
-     JOIN control_plane.domain_records AS subject
-       ON subject.tenant_id = assignment.tenant_id
-       AND subject.record_id = assignment.payload #>> '{subject,id}'
-       AND subject.schema_name = 'assignment-result.v1'
-     WHERE result.tenant_id = $1
-       AND result.schema_name = 'evaluation-result.v1'
-       AND result.record_id = ANY($2::text[])`,
-    [task.tenantId, resultIds]
-  )
-  if (rows.rows.length !== resultIds.length) {
-    throw new MissingTaskEvaluationError(task.id)
-  }
-  const passedContracts = new Set<string>()
-  const acceptedResultIds = new Set<string>(task.state.acceptedAssignmentResultIds)
-  for (const row of rows.rows) {
-    const result = EvaluationResultV1Schema.parse(row.result)
-    const assignment = EvaluationAssignmentV1Schema.parse(row.assignment)
-    const subject = AssignmentResultV1Schema.parse(row.subject)
-    if (
-      result.status !== 'passed' ||
-      result.assignmentId !== assignment.id ||
-      result.contractId !== assignment.contractId ||
-      assignment.producer.assignmentId !== attempt.assignmentId ||
-      assignment.producer.attemptId !== attempt.id ||
-      assignment.producer.fence !== attempt.fence ||
-      result.subject.id !== subject.id ||
-      assignment.subject.id !== subject.id ||
-      assignment.subject.digest !== subject.outputDigest ||
-      subject.attemptId !== attempt.id ||
-      subject.fence !== attempt.fence ||
-      subject.outcome.status !== 'succeeded' ||
-      !acceptedResultIds.has(subject.id)
-    ) {
-      throw new MissingTaskEvaluationError(task.id)
-    }
-    passedContracts.add(result.contractId)
-  }
-  for (const contractId of requiredContracts) {
-    if (!passedContracts.has(contractId)) {
-      throw new MissingTaskEvaluationError(task.id)
-    }
-  }
 }
 
 export async function advanceAuthoritativeAttempt(
@@ -153,7 +73,13 @@ export async function advanceAuthoritativeAttempt(
       next: nextTask,
       authority: { attemptId: input.attemptId, fence: input.fence }
     })
-    await assertTaskEvaluationGate(client, nextTask, nextAttempt, input.acceptedEvaluationResultIds)
+    await assertPostgresTaskEvaluationGate(
+      client,
+      nextTask,
+      nextAttempt,
+      input.acceptedEvaluationResultIds,
+      observedAt
+    )
 
     const attemptJson = canonicalJson(nextAttempt)
     const attemptSha256 = sha256Text(attemptJson)
