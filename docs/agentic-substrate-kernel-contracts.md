@@ -148,7 +148,7 @@ Covers task DAG refs/state/proof/evaluator/recovery, owned/read scope, exact too
 
 Immutable logical artifact lineage with producer assignment/attempt/fence, content digest, decisions/evidence, and proposed/evaluating/accepted/rejected/quarantined state.
 
-## Evaluation and correction — 18
+## Evaluation and correction — 21
 
 - `evaluator-definition.v1`
 - `evaluator-definition.v2`
@@ -166,10 +166,13 @@ Immutable logical artifact lineage with producer assignment/attempt/fence, conte
 - `semantic-evaluation-report.v1`
 - `evaluation-result.v1`
 - `evaluation-result.v2`
+- `subject-acceptance.v1`
+- `evaluation-diagnosis.v1`
+- `correction-cycle.v1`
 - `correction-request.v1`
 - `correction-result.v1`
 
-Contracts now cover exact independent assignment, coordination, side-effect-free structural checks, CDC state reconciliation, clean compiler output and held-out semantic scoring. Every evaluator artifact remains immutable and non-authoritative; acceptance and correction remain product-owned.
+Evaluator records remain immutable observations; product acceptance owns legal state. Failed measures create typed gaps; correction preserves evaluator/threshold identity and creates a new subject version. Learning remains quarantined.
 
 ## Learning lifecycle — 6
 
@@ -351,6 +354,10 @@ A required suite input drives five hard structural/type/lineage/compatibility/po
 
 The ten-event CDC oracle passes exact count/key/delete/order/watermark/replay/disposition checks. A pinned TypeScript compiler builds a private clean bundle twice to one digest and rejects build/envelope/path/provenance defects. Ten held-out semantic groups pass exact scoring while false accepts fail and abstention/disagreement remain inconclusive. Registry 83; fingerprint `8681ec82…0864993a`; 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests.
 
+## `P7-EVAL-07` through `P7-EVAL-10` evidence
+
+Product acceptance alone moves unknown/hypothesis/supported/accepted/rejected/quarantined state. Failed measures become typed gaps, an effect-capable V1 is corrected to independently passing V2 under the same contract, and success/failure candidates remain no-use quarantined. Registry 86; fingerprint `e1ef3246…d783ba38`; 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests.
+
 ## Next coordinate
 
-`P7-EVAL-07` — make product acceptance state explicit and exclusive.
+`P7-EVAL-11` — certify skills only against frozen held-out evidence and rollback.

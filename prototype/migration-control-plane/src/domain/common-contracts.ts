@@ -57,6 +57,11 @@ export const EvaluationReportIdSchema = opaqueId('evaluation_report').brand<'Eva
 export const SemanticCorpusIdSchema = opaqueId('semantic_corpus').brand<'SemanticCorpusId'>()
 export const SemanticReportIdSchema = opaqueId('semantic_report').brand<'SemanticReportId'>()
 export const EvaluationResultIdSchema = opaqueId('evaluation_result').brand<'EvaluationResultId'>()
+export const SubjectAcceptanceIdSchema =
+  opaqueId('subject_acceptance').brand<'SubjectAcceptanceId'>()
+export const EvaluationDiagnosisIdSchema =
+  opaqueId('evaluation_diagnosis').brand<'EvaluationDiagnosisId'>()
+export const CorrectionCycleIdSchema = opaqueId('correction_cycle').brand<'CorrectionCycleId'>()
 export const CorrectionRequestIdSchema =
   opaqueId('correction_request').brand<'CorrectionRequestId'>()
 export const CorrectionResultIdSchema = opaqueId('correction_result').brand<'CorrectionResultId'>()

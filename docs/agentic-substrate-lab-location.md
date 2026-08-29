@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P7-EVAL-07` — implement product-owned acceptance state inside the private lab.
+`P7-EVAL-11` — certify skills inside the private lab.

@@ -1,5 +1,5 @@
 {
-  "registryDigest": "50bee82d8a1db5edb27dbccd16d51e03dad4bef55a0673d8e372d98840ea456b",
+  "registryDigest": "196577415b35f42fe6da18b029e8168fd9281d48e47b963d7cfe7504cf42af20",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -124,6 +124,12 @@
       "sha256": "0c7c0b4ad200ab7e24f81adfb55917a4a07b3f2d2d21b0276f01981d0ec3f9be"
     },
     {
+      "bytes": 10300,
+      "file": "correction-cycle.v1.schema.json",
+      "name": "correction-cycle.v1",
+      "sha256": "b4064319744446044a7d8c6410aea4d297323338aa67c75b75377b74ccff5875"
+    },
+    {
       "bytes": 4471,
       "file": "correction-request.v1.schema.json",
       "name": "correction-request.v1",
@@ -218,6 +224,12 @@
       "file": "evaluation-deterministic-report.v1.schema.json",
       "name": "evaluation-deterministic-report.v1",
       "sha256": "35ce43da763e984098a8ecaf2ef2eb76f522db8d0e2f22c20545c0bc2760b08c"
+    },
+    {
+      "bytes": 7263,
+      "file": "evaluation-diagnosis.v1.schema.json",
+      "name": "evaluation-diagnosis.v1",
+      "sha256": "e3e5831706b01ef32509e5803c9f127b7b53ae3e27a5714b23e969be04f549dc"
     },
     {
       "bytes": 7476,
@@ -482,6 +494,12 @@
       "file": "source-system-inventory.v1.schema.json",
       "name": "source-system-inventory.v1",
       "sha256": "55fe01bfde6100ac9d95668f333ec3cba5ab471641fd4f2589283e4d015ba7db"
+    },
+    {
+      "bytes": 7103,
+      "file": "subject-acceptance.v1.schema.json",
+      "name": "subject-acceptance.v1",
+      "sha256": "ebfc23c5b8bafecbb45e9b16fd1036123f77e64d71324714d07ba60c8c924147"
     },
     {
       "bytes": 8890,

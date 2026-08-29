@@ -9,9 +9,9 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-07`.
-- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`06` are complete; product-owned acceptance is next.
-- Source and evaluation research cards remain the authoritative fixture and pass/fail specifications.
+- First dependency-ready roadmap coordinate: `P7-EVAL-11`.
+- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`10` are complete; held-out skill certification is next.
+- Source, evaluation and improvement research cards remain authoritative.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
 
@@ -245,6 +245,14 @@ Gate verification:
 - held-out semantic corpus uses ten distinct source groups with labels unavailable to producers; deterministic scoring reports accuracy, false accepts, abstention and evaluator disagreement, with non-decisive cases inconclusive rather than forced;
 - mutation tests localize every CDC predicate, compilation/compiler/provenance/path defects, semantic false accepts, abstention and disagreement;
 - migration 015 registers five immutable bundle/corpus/report schemas; registry 83, migrations 15 / tables 17, fingerprint `8681ec82…0864993a`; verification passes 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests.
+
+## `P7-EVAL-07` through `P7-EVAL-10` closed-correction evidence
+
+- immutable product acceptance alone moves unknown→hypothesis→supported→accepted or rejected/quarantined; evaluator/producer authority cannot set acceptance;
+- failed hard measures become typed attributed causes, component paths, evidence and open gaps with generic retry forbidden;
+- an effect-capable V1 proposal fails, a scoped V2 fixes only diagnosed paths, and the same evaluator/threshold contract independently passes while failed history, delta and usage remain;
+- success and failure lessons create only attributable quarantined candidates with `usePolicy: none` and zero authority delta;
+- migration 016 registers acceptance/diagnosis/correction snapshots; registry 86, migrations 16 / tables 17, fingerprint `e1ef3246…d783ba38`; verification passes 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests.
 
 ## Queue classes
 
@@ -499,4 +507,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-07`: enforce product-owned unknown/hypothesis/supported/accepted/rejected/quarantined subject transitions.
+Begin `P7-EVAL-11`: require frozen held-out baseline/candidate comparison, hard gates, protected slices, cost/latency envelope and rollback before skill certification.

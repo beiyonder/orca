@@ -429,12 +429,12 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1 through `P7-EVAL-06` closeout
+## Phase 1 through `P7-EVAL-10` closeout
 
-`P1-RSCH-01` through `P7-EVAL-06` are complete. The linked audits, lab/kernel/orchestration/knowledge/discovery evidence, versioned evaluation contracts, restart-safe coordination, deterministic contract checks, CDC reconciliation, clean artifact builds and held-out semantic scoring establish evaluator breadth without granting acceptance.
+`P1-RSCH-01` through `P7-EVAL-10` are complete. Evaluator breadth now feeds product-only acceptance, typed failure diagnosis, fixed-contract new-version correction and quarantined/no-use learning candidates.
 
 Next:
 
-1. `P7-EVAL-07` — implement product-owned acceptance state.
-2. `P7-EVAL-08` — attribute failed measures to typed diagnosis gaps.
-3. `P7-EVAL-09` — run fixed-contract correction over new subject versions.
+1. `P7-EVAL-11` — certify skills against frozen held-out and protected slices.
+2. `P7-EVAL-12` — demote/revoke regressions and restore predecessor.
+3. `P7-EVAL-13` — run the mutation evaluator experiment.
