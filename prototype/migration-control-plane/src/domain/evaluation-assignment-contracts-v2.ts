@@ -63,13 +63,13 @@ const EvaluationRuntimeIdentityV2Schema = z.strictObject({
   toolSetDigest: Sha256Schema
 })
 
-const EvaluationProducerV2Schema = EvaluationRuntimeIdentityV2Schema.safeExtend({
+export const EvaluationProducerV2Schema = EvaluationRuntimeIdentityV2Schema.safeExtend({
   assignmentId: AssignmentIdSchema,
   attemptId: AttemptIdSchema,
   fence: FenceSchema
 }).strict()
 
-const EvaluatorExecutionV2Schema = EvaluationRuntimeIdentityV2Schema.safeExtend({
+export const EvaluatorExecutionV2Schema = EvaluationRuntimeIdentityV2Schema.safeExtend({
   attemptId: AttemptIdSchema,
   fence: FenceSchema
 }).strict()
@@ -84,7 +84,7 @@ export const EvaluatorIndependenceObservationV2Schema = z.strictObject({
   sharedCorpus: z.enum(['separate', 'shared-declared', 'not-applicable'])
 })
 
-const ContextManifestReferenceV2Schema = z.strictObject({
+export const ContextManifestReferenceV2Schema = z.strictObject({
   id: ContextManifestIdSchema,
   schema: VersionedSchemaReferenceV2Schema,
   digest: Sha256Schema

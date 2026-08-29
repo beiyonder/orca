@@ -36,6 +36,7 @@ import {
 } from './epistemic-contracts.js'
 import { EvaluationAssignmentV2Schema } from './evaluation-assignment-contracts-v2.js'
 import { EvaluationContractV2Schema } from './evaluation-contracts-v2.js'
+import { EvaluationCoordinationV1Schema } from './evaluation-coordination-contracts.js'
 import { EvaluatorDefinitionV2Schema } from './evaluation-definition-contracts-v2.js'
 import { EvaluationResultV2Schema } from './evaluation-result-contracts-v2.js'
 import {
@@ -130,6 +131,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'evaluation-assignment.v2': EvaluationAssignmentV2Schema,
   'evaluation-contract.v1': EvaluationContractV1Schema,
   'evaluation-contract.v2': EvaluationContractV2Schema,
+  'evaluation-coordination.v1': EvaluationCoordinationV1Schema,
   'evaluation-result.v1': EvaluationResultV1Schema,
   'evaluation-result.v2': EvaluationResultV2Schema,
   'evaluator-definition.v1': EvaluatorDefinitionV1Schema,

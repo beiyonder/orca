@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P7-EVAL-02` — Implement the independent evaluation coordinator.**
+**`P7-EVAL-03` — Implement deterministic schema evaluators.**
 
 Current artifacts already exist:
 
@@ -33,6 +33,8 @@ Current artifacts already exist:
 Phase 6 and `G6-DISC` are complete. `P6-DISC-01`–`07` provide the frozen Pagila estate, immutable read-only adapter authority, mutation-proof bounded PostgreSQL observation, exact inventory, digest-only profile, code artifact and provenance-separated lineage. `P6-DISC-08`–`13` add a ten-event CDC state machine covering snapshot, transactions, delete, DDL, checkpoint, restart duplicate and late update; cited claim comparison where denial never proves absence; deterministic gap arithmetic; mixed safe-probe plus human-exception planning; versioned target capability resolution; and a five-task, 22-mapping, proposal-only migration design over all 30 observed assets. The synthetic overlay fixture is checksum-bound at `828ffc6c…9eb995d`. Sealed `EXP-02` seed 602 detects 8/8 material contradictions with 10/10 citations and zero false promotions. Sealed `EXP-03` seed 603 finds 9/10 planted assets/dependencies, accepts zero decoys, retains 2/2 denials and emits the cited proposal. Sealed `EXP-04` seed 604 disposes 10/10 events, reaches the exact final state and reports zero gaps. All run indexes verify. Migration 011 binds 71 schemas; 11 migrations / 17 tables fingerprint `7acfcb43…8769156`. Verification passes 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests.
 
 `P7-EVAL-01` is complete. Four immutable V2 records freeze evaluator implementation/version/limits, contract subject/input/measure/threshold/evidence requirements, an independently attributed assignment, and a non-authoritative result. Runtime registry validation rejects definition/contract lineage drift, unsupported subjects, stale or under-evidenced inputs, producer self-evaluation, budget/independence expansion, threshold drift, stale assignment/result digests and duplicate results. PostgreSQL task completion now reconstructs the exact V2 bundle and verifies referenced evidence bytes before reconciliation. Migration 012 raises the registry to 75 schemas without rewriting frozen V1 history; 12 migrations / 17 tables fingerprint `c82229f9…1d9e782d`. Verification passes 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests.
+
+`P7-EVAL-02` is complete. The product coordinator derives observed independence, creates one exact V2 assignment and durable outbox dispatch per required evaluator, and records immutable versioned coordination snapshots with no acceptance authority. Result reconciliation preserves pending, missing, partial, unavailable, contradictory, error, stale, failed and passing dispositions; pass/fail disagreement is explicit unresolved state rather than majority vote. Missing becomes attributable only at deadline, complete passing work becomes merely eligible for product reconciliation, and every outcome leaves unrelated work runnable. PostgreSQL advisory locking makes concurrent dispatch one insert plus one exact replay; restart-only reconstruction resolves one branch missing while an unrelated branch advances. Migration 013 raises the registry to 76 schemas; 13 migrations / 17 tables fingerprint `cd7f8c60…d612e3a8`. Verification passes 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests.
 
 ## How to use coordinates
 
@@ -68,7 +70,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P7-EVAL-02`: implement the independent evaluation coordinator.”
+> “We are at `P7-EVAL-03`: implement deterministic schema evaluators.”
 
 Do not say only “we are working on evaluation.”
 
@@ -143,7 +145,7 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **M2/M3 kernel proof:** product PostgreSQL commands/events/projections/plans/attempts/effects/replay/restart converge under faults; the complete mission/world-model loop is not assembled. |
 | `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
 | `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M3 discovery proof:** bounded source observations feed claim comparison, contradiction preservation, ranked gaps, safe probes and explicit human exceptions; EXP-02/03 pass without treating denial as absence. |
-| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Versioned contract boundary:** exact evaluator/contract/subject/input/measure/threshold/evidence and independence records now gate synthetic task completion; coordinator, deterministic evaluator breadth and closed correction remain Phase 7 work. |
+| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Contract plus durable coordination boundary:** exact independent assignments/outbox dispatch, immutable result dispositions, deadline-aware missing state, disagreement preservation and restart-safe unrelated progress pass; deterministic evaluator breadth, diagnosis and closed correction remain Phase 7 work. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
@@ -160,7 +162,7 @@ A1 Stateful worker            strong mechanics; governed memory M2
 A2 Durable mission            durable kernel M2/M3
 A3 Specialist orchestration   isolated typed/contained proof M2
 A4 Evidence seeking           integrated discovery proof M3
-A5 Self-correction            versioned independent contract; coordinator pending
+A5 Self-correction            contract + durable coordinator; evaluator implementations pending
 A6 Self-improvement           governed memory/skill skeleton M2
 A7 Bounded execution          state semantics only; no target effect
 A8 Integrated substrate       not assembled
@@ -168,7 +170,7 @@ A9 Migration capability       discovery M3; build/evaluation pending
 A10 Working prototype         not assembled
 ```
 
-`P7-EVAL-01` closes the versioned acceptance-contract boundary. `P7-EVAL-02` must now assign independent runners and preserve missing, contradictory, failed and stale evaluation as unresolved.
+`P7-EVAL-01` and `P7-EVAL-02` close the versioned contract and durable coordination boundaries. `P7-EVAL-03` must now execute reproducible structural, type, compatibility and policy checks under those assignments.
 
 ## Working prototype definition
 
@@ -468,8 +470,8 @@ Failure route: `L-DISC-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P7-EVAL-01` | Implement evaluation contracts. | Four immutable V2 records pin definition/contract lineage, subject and input schema/version/digest, evaluator execution and independence, measures/thresholds, exact evidence, budgets and non-authority; 75 schemas, migration 012, registry reconstruction, task-gate evidence readback, 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests pass. |
-| `CURRENT` | `P7-EVAL-02` | Implement evaluation coordinator. | Independent runners are assigned; missing/contradictory evaluation remains unresolved. |
-| `WAIT` | `P7-EVAL-03` | Implement deterministic schema evaluators. | Structural, type, contract, compatibility, and policy defects are reproducibly detected. |
+| `DONE` | `P7-EVAL-02` | Implement evaluation coordinator. | Product-owned deterministic dispatch creates one independent V2 assignment/outbox message per required evaluator; immutable snapshots preserve missing/contradictory/stale/failure/disagreement as unaccepted, restart reconstruction and unrelated progress pass; registry 76, migration 013, 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests. |
+| `CURRENT` | `P7-EVAL-03` | Implement deterministic schema evaluators. | Structural, type, contract, compatibility, and policy defects are reproducibly detected. |
 | `WAIT` | `P7-EVAL-04` | Implement data movement evaluators. | Counts, keys, deletes, ordering, watermarks, replay, and explicit disposition are checked. |
 | `WAIT` | `P7-EVAL-05` | Implement artifact build evaluators. | Generated code/config builds from clean inputs and records provenance/digests. |
 | `WAIT` | `P7-EVAL-06` | Implement semantic labeled-case evaluator. | Small held-out domain corpus has labels, scorer, disagreement, and abstention behavior. |
@@ -653,13 +655,13 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
-| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-02`; `P7-EVAL-01` done |
+| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-03`; `P7-EVAL-01`–`02` done |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
 | Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
 
 ## Immediate next three coordinates
 
-1. **`P7-EVAL-02`** — Implement the independent evaluation coordinator.
-2. **`P7-EVAL-03`** — Implement deterministic schema evaluators.
-3. **`P7-EVAL-04`** — Implement data-movement evaluators.
+1. **`P7-EVAL-03`** — Implement deterministic schema evaluators.
+2. **`P7-EVAL-04`** — Implement data-movement evaluators.
+3. **`P7-EVAL-05`** — Implement artifact-build evaluators.

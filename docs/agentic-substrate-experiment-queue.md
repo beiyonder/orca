@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-02`.
-- `G2-LAB` through `G6-DISC` and `P7-EVAL-01` are complete; independent evaluation coordination is next.
+- First dependency-ready roadmap coordinate: `P7-EVAL-03`.
+- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`02` are complete; deterministic evaluator implementations are next.
 - Source and evaluation research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -219,6 +219,15 @@ Gate verification:
 - registry admission rejects version gaps, digest drift, revoked authority, unsupported subjects, stale or under-evidenced inputs, budget expansion, producer self-evaluation, threshold/operator/type drift, deadline violations and a second result for one immutable assignment;
 - PostgreSQL task completion reconstructs definition→contract→assignment→result V2 lineage, ties the subject to the current attempt/fence and accepted output, and reads every referenced evidence version/digest before the product reconciler may advance the task;
 - migration 012 permits positive schema versions in generic domain storage, registers four V2 schemas, and makes all evaluation/evaluator records immutable; registry 75, migrations 12 / tables 17, fingerprint `c82229f9…1d9e782d`; verification passes 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests.
+
+## `P7-EVAL-02` independent coordination evidence
+
+- one immutable `evaluation-coordination.v1` snapshot lineage records exact contract, subject, required evaluator definition, assignment digest, outbox dispatch, result reference, deadline, disposition, unresolved reason and literal non-authority;
+- product-owned dispatch derives process/model/provider/context/credential/corpus independence and admits one exact V2 assignment per required evaluator; incomplete runner coverage, shared required process/context, authority drift and excess budget fail closed;
+- reconciliation keeps missing, unavailable, partial, contradictory, error and stale outcomes unresolved; mixed pass/fail required evaluators record `evaluator-disagreement` rather than voting; all-pass is only `eligible-for-reconciliation`;
+- missing is recorded only at deadline, every coordination records `unrelatedWorkDisposition: continue`, and no assignment/result/coordination record can accept its subject;
+- PostgreSQL advisory locking makes concurrent dispatch one insert plus one byte-identical replay, writes assignments and outbox messages atomically, reconstructs only from durable records after a fresh pool, and proves an unresolved branch does not block an unrelated passing branch;
+- migration 013 registers the immutable coordination schema; registry 76, migrations 13 / tables 17, fingerprint `cd7f8c60…d612e3a8`; verification passes 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests.
 
 ## Queue classes
 
@@ -473,4 +482,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-02`: assign independent evaluator runners from the frozen V2 contract while keeping missing, contradictory, failed and stale evaluation unresolved.
+Begin `P7-EVAL-03`: execute deterministic structural, type, contract, compatibility and policy checks under the frozen independent assignments.

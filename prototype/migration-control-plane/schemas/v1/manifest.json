@@ -1,5 +1,5 @@
 {
-  "registryDigest": "cfcbbbe88a88b7bde13f0fd3217470f7203e2496f86d34fa6bc546927010d0d7",
+  "registryDigest": "8ed8a95e276e31d3afe4ad082102c17aeedf1280d3826b2b970234c00b9b3249",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -182,6 +182,12 @@
       "file": "evaluation-contract.v2.schema.json",
       "name": "evaluation-contract.v2",
       "sha256": "9a9ba110db29b2b88bbd5fe5795a5689f654b2b1b70507edcc4cb92b26430ddd"
+    },
+    {
+      "bytes": 10353,
+      "file": "evaluation-coordination.v1.schema.json",
+      "name": "evaluation-coordination.v1",
+      "sha256": "25ecbb038c9385f51daf82c24ce4f282c0cffd49625f67872a56720b62bf12cb"
     },
     {
       "bytes": 7476,
