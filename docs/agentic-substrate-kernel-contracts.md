@@ -362,6 +362,6 @@ Product acceptance alone moves unknown/hypothesis/supported/accepted/rejected/qu
 
 Certification pins a frozen baseline, distinct selection/held-out/adversarial corpora, exact evaluator results, hard/protected/safety gates, cost/latency and execution envelope, repeated seeds, unchanged authority and rollback. Product-owned pointer lineage alone activates the passed candidate; invalid regression is atomic, and attributed drift revokes new candidate use, records impact and restores the predecessor. Sealed `EXP-08` kills 7/7 critical mutations with 0/4 benign false rejections; `EXP-09` proves promotion through rollback. Registry 89; fingerprint `49954cda…1fa28125`; 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests.
 
-## Next coordinate
+## Live continuation
 
-`P8-EXEC-01` — define immutable effect intent before any executable target path.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current branch, merge state and next coordinate. This file defines stable kernel contracts and evidence.

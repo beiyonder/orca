@@ -56,6 +56,7 @@ function runPnpmScript(name) {
 
 function verify() {
   for (const script of [
+    'context:check:internal',
     'format:check:internal',
     'lint:internal',
     'typecheck:internal',

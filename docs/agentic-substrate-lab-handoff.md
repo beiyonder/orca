@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P7-EVAL-11`.
+Live branch, merge, verification and next-action state is generated in [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md); this document is the historical lab evidence ledger.
 
 ## Coordinate evidence
 
@@ -213,7 +213,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P8-EXEC-01`: define an immutable effect intent with exact tool, target, parameters, expected state, proof, identity and recovery before any executable target path.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md). It is generated from the canonical project-state JSON and supersedes historical next-coordinate text.
 
 First verification command after any change:
 

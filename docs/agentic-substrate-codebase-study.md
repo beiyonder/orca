@@ -433,8 +433,6 @@ Those arrive only after the core correction loop is real.
 
 `P1-RSCH-01` through `P7-EVAL-14` and `G7-EVAL` are complete. Evaluation now spans deterministic structure, migrated data, clean artifacts and held-out semantics; product-only acceptance drives typed fixed-contract correction; learning remains quarantined; and certified skill activation has automatic regression revocation and rollback. Sealed `EXP-08` kills 7/7 critical mutations with 0/4 benign false rejections, while `EXP-09` proves promotion, drift detection, demotion, revocation and predecessor restoration.
 
-Next:
+## Live continuation
 
-1. `P8-EXEC-01` — define immutable effect intent.
-2. `P8-EXEC-02` — enforce product policy before effects.
-3. `P8-EXEC-03` — issue exact fenced capability envelopes.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current branch, merge state and next coordinate. This closeout remains historical evidence.

@@ -19,6 +19,7 @@
     "database:verify": "node scripts/migration-control-plane-lab.mjs database verify",
     "format": "oxfmt --write src test scripts package.json tsconfig.json tsconfig.build.json vitest.config.ts vitest.postgres.config.ts .oxlintrc.json .oxfmtrc.json",
     "build:internal": "tsc -p tsconfig.build.json",
+    "context:check:internal": "node ../../scripts/check-agentic-substrate-context.mjs",
     "contracts:generate:internal": "node dist/generate-domain-schemas.js --write",
     "contracts:check:internal": "node dist/generate-domain-schemas.js --check",
     "database:migrate:internal": "node dist/database-cli.js migrate",

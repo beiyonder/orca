@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P8-EXEC-01`.
-- `G2-LAB` through `G7-EVAL` are complete; bounded effect intent and policy are next.
+- Live delivery and next-coordinate state: [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md).
+- Completed experiment evidence remains in this queue; the generated handoff decides what may run next.
 - Source, evaluation and improvement research cards remain authoritative.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -526,4 +526,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-11`: require frozen held-out baseline/candidate comparison, hard gates, protected slices, cost/latency envelope and rollback before skill certification.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md); do not infer the next action from historical queue entries.
