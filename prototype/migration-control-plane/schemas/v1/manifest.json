@@ -1,5 +1,5 @@
 {
-  "registryDigest": "196577415b35f42fe6da18b029e8168fd9281d48e47b963d7cfe7504cf42af20",
+  "registryDigest": "a3a645d3932f206b0fde9ab84660b8b88acff7774ccae8f72a8ea7043289469b",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -412,10 +412,28 @@
       "sha256": "409c0a14c71be7766a06342e4fac94a1a77420710288af0da609a0f59281c679"
     },
     {
+      "bytes": 3706,
+      "file": "skill-active-pointer.v1.schema.json",
+      "name": "skill-active-pointer.v1",
+      "sha256": "e20d366d9363992124f905cb19b206e00e15f3369f19d9b7bcccbc8a7d306c03"
+    },
+    {
+      "bytes": 16669,
+      "file": "skill-certification.v1.schema.json",
+      "name": "skill-certification.v1",
+      "sha256": "1d6ab37d7d11355411a92ff0094e6e6f5aff1281820e94f4edba487c5d5826c7"
+    },
+    {
       "bytes": 3358,
       "file": "skill-lifecycle-event.v1.schema.json",
       "name": "skill-lifecycle-event.v1",
       "sha256": "c4c4d7b96e2154200775caf29f61961f92d3b14ea718ba1bf8bf419e1203a962"
+    },
+    {
+      "bytes": 4529,
+      "file": "skill-regression.v1.schema.json",
+      "name": "skill-regression.v1",
+      "sha256": "b16066ba1249bb7ad2aa11756696136263930e7b289c945c184602d170daff11"
     },
     {
       "bytes": 12349,

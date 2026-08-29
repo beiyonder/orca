@@ -1,0 +1,167 @@
+{
+  "$id": "urn:orca:migration-control-plane:skill-regression.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "enum": ["demote", "revoke"],
+      "type": "string"
+    },
+    "affectedOutputIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100000,
+      "type": "array"
+    },
+    "affectedUseIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 100000,
+      "type": "array"
+    },
+    "applied": {
+      "const": true,
+      "type": "boolean"
+    },
+    "certificationId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^certification_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "detectedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "detectedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "failedMetrics": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 18,
+      "pattern": "^skill_regression_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "inFlightDisposition": {
+      "enum": ["finish-current", "cancel-safe", "quarantine-output"],
+      "type": "string"
+    },
+    "kind": {
+      "const": "skill-regression",
+      "type": "string"
+    },
+    "priorStableSkillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "reEvaluationResultIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 19,
+        "pattern": "^evaluation_result_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 0,
+      "type": "array"
+    },
+    "regressedSkillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "restoredSkillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "skillId": {
+      "maxLength": 128,
+      "minLength": 7,
+      "pattern": "^skill_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "skillId",
+    "regressedSkillVersionId",
+    "priorStableSkillVersionId",
+    "certificationId",
+    "failedMetrics",
+    "affectedUseIds",
+    "affectedOutputIds",
+    "action",
+    "inFlightDisposition",
+    "restoredSkillVersionId",
+    "reEvaluationResultIds",
+    "detectedAt",
+    "detectedBy",
+    "applied"
+  ],
+  "title": "skill-regression.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "skill-regression.v1"
+  }
+}

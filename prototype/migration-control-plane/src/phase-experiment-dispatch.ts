@@ -5,9 +5,11 @@ import {
   runHiddenEstateExperiment
 } from './discovery-phase-experiments.js'
 import type { ExperimentResult } from './experiment-contracts.js'
+import { runEvaluationMutationExperiment } from './evaluation-mutation-experiment.js'
 import { runMemoryHelpHarmExperiment } from './memory-help-harm-experiment.js'
 import { runRetrievalBenchmarkExperiment } from './retrieval-benchmark-experiment.js'
 import { runSpecialistDisagreementExperiment } from './specialist-disagreement-experiment.js'
+import { runSkillLifecycleExperiment } from './skill-lifecycle-experiment.js'
 
 export async function executePhaseExperiment(
   experimentId: string,
@@ -37,6 +39,10 @@ export async function executePhaseExperiment(
       return runRetrievalBenchmarkExperiment(seed)
     case 'EXP-07':
       return runMemoryHelpHarmExperiment(seed)
+    case 'EXP-08':
+      return runEvaluationMutationExperiment(labRoot, seed)
+    case 'EXP-09':
+      return runSkillLifecycleExperiment(seed)
     case 'DUR-EXP-01': {
       const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
       if (!connectionString) {

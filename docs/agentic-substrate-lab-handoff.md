@@ -55,6 +55,7 @@ Current roadmap coordinate: `P7-EVAL-11`.
 | `P7-EVAL-03` | Pinned no-network/no-filesystem/no-model suite, five hard structural/type/lineage/compatibility/policy checks, immutable report/evidence/result, critical/benign/stale cases, claim-fenced atomic persistence and redelivery replay; registry 78, migrations 14, fingerprint `5561a9ce…1c3e5fe`, 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests. |
 | `P7-EVAL-04` through `P7-EVAL-06` | Exact CDC counts/keys/deletes/order/watermark/replay/dispositions, double clean TypeScript build with compiler/provenance pins, and ten-group held-out semantic scoring with explicit false-accept/abstention/disagreement; registry 83, migrations 15, fingerprint `8681ec82…0864993a`, 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests. |
 | `P7-EVAL-07` through `P7-EVAL-10` | Product-only acceptance transitions, typed failed-measure diagnosis/gaps, new-version correction under unchanged evaluator/thresholds, and no-use quarantined success/failure candidates; registry 86, migrations 16, fingerprint `e1ef3246…d783ba38`, 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests. |
+| `P7-EVAL-11` through `G7-EVAL` | Frozen held-out/protected skill certification, product-owned activation, atomic regression revocation/impact/rollback, 7/7 critical and 0/4 false-rejected benign `EXP-08` mutations, sealed `EXP-09` lifecycle qualification, and closed independent-correction gate; registry 89, migrations 17, fingerprint `49954cda…1fa28125`, 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests. |
 
 ## Stable commands
 
@@ -96,8 +97,9 @@ node scripts/migration-control-plane-lab.mjs verify
 - format check passed;
 - lint passed with zero warnings;
 - strict TypeScript passed;
-- 6 test files / 22 tests passed;
-- build passed.
+- 41 unit test files / 217 tests passed;
+- build and 89-schema drift verification passed.
+- 24 PostgreSQL test files / 59 tests passed against PostgreSQL 16.
 
 Tests cover:
 
@@ -117,6 +119,8 @@ Tests cover:
 - 20-case specialist disagreement benchmark with cited probe/tie traces.
 - 55-document `EXP-06` known-answer benchmark with version conflict, stale, cross-tenant, distractor, exact citation, and semantic-ablation traces;
 - 20-case `EXP-07` no-memory/memory ablation with poisoned/stale/cross-tenant isolation, retained use attribution, and post-invalidation denial.
+- seven-class critical mutation killing with exact failed-measure/evidence attribution and four benign controls;
+- frozen held-out skill certification, authority-preserving activation, atomic drift revocation, affected-output trace and predecessor rollback.
 
 Final sealed experiment evidence generated locally under ignored `.runs/`:
 
@@ -133,6 +137,8 @@ Final sealed experiment evidence generated locally under ignored `.runs/`:
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 | `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
 | `EXP-07` | 507 | `passed` | `exp-07-507-baseline-none-run_000000_81c0168e84e967df` |
+| `EXP-08` | 708 | `passed` | `exp-08-708-baseline-none-run_000000_54cd70722ee5bcc1` |
+| `EXP-09` | 709 | `passed` | `exp-09-709-baseline-none-run_000000_61461415d7d39480` |
 
 Injected target-boundary fault evidence:
 
@@ -179,11 +185,12 @@ Rejected for the Phase 2 baseline:
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. Phase 4 is complete: isolated framed processes, exact context/results/tools, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, and real containment all pass.
 6. Phase 5 is complete: governed corpus/retrieval/context, memory candidates and reversible use lifecycle, typed skill versions, and sealed `EXP-06`/`EXP-07` pass; migration 008 fingerprints 55 contract bindings at `2ade23da…b4bf5e`.
-7. Pagila is synthetic and operationally rich but not a true legacy or healthcare estate; hidden assets, denials, misleading documents, CDC faults, and domain semantics remain future planted layers.
-8. Source operation handlers are trusted product code and receive only a bounded read session; arbitrary third-party connector code still requires the later process/container sandbox boundary.
-9. The qualification overlay is synthetic and reaches the hidden-estate threshold at 9/10; it does not prove production CDC, restricted-schema contents or healthcare semantics.
-10. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen source/qualification fixture bytes and exact license/provenance manifests are tracked.
-11. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+7. Phase 7 is complete: product-only acceptance, specialized evaluators, typed fixed-contract correction, quarantined learning, held-out skill certification, automatic regression rollback and sealed `EXP-08`/`EXP-09` pass; migration 017 fingerprints 89 contract bindings at `49954cda…1fa28125`.
+8. Pagila is synthetic and operationally rich but not a true legacy or healthcare estate; hidden assets, denials, misleading documents, CDC faults, and domain semantics remain future planted layers.
+9. Source operation handlers are trusted product code and receive only a bounded read session; arbitrary third-party connector code still requires the later process/container sandbox boundary.
+10. The qualification overlay is synthetic and reaches the hidden-estate threshold at 9/10; it does not prove production CDC, restricted-schema contents or healthcare semantics.
+11. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen source/qualification fixture bytes and exact license/provenance manifests are tracked.
+12. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -206,7 +213,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P7-EVAL-11`: certify skills only on frozen held-out improvement, hard safety/evidence gates, protected slices, cost/latency envelope and rollback.
+Start `P8-EXEC-01`: define an immutable effect intent with exact tool, target, parameters, expected state, proof, identity and recovery before any executable target path.
 
 First verification command after any change:
 

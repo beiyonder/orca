@@ -335,7 +335,7 @@ node scripts/migration-control-plane-lab.mjs verify
 - Phase 3 contracts, five migrations, atomic persistence/delivery, DAG/lifecycle/effect authority, exact replay, restart dispositions, and convergence experiment now exist.
 - No external adapter call is executable; effect records prove state semantics without granting production authority.
 - Command-specific application handlers beyond the generic mission transition arrive with their domain coordinates.
-- Memory and skill capability records now have immutable quarantine/validation/use/invalidation/lifecycle contracts; automated production skill promotion, drift, canary, and rollback remain future `P7-EVAL` work.
+- Memory and skill capability records now have immutable quarantine, validation, use, certification, active-pointer, regression and rollback contracts; synthetic automatic revocation passes, while production canary traffic and autonomous optimization remain triggered future work.
 - `WORKER-EXP-01` now passes through a digest-verified real pinned OMP `EXP-10` report; production model/provider behavior remains outside this synthetic containment proof.
 
 ## `P7-EVAL-01` evidence
@@ -358,6 +358,10 @@ The ten-event CDC oracle passes exact count/key/delete/order/watermark/replay/di
 
 Product acceptance alone moves unknown/hypothesis/supported/accepted/rejected/quarantined state. Failed measures become typed gaps, an effect-capable V1 is corrected to independently passing V2 under the same contract, and success/failure candidates remain no-use quarantined. Registry 86; fingerprint `e1ef3246…d783ba38`; 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests.
 
+## `P7-EVAL-11` through `G7-EVAL` evidence
+
+Certification pins a frozen baseline, distinct selection/held-out/adversarial corpora, exact evaluator results, hard/protected/safety gates, cost/latency and execution envelope, repeated seeds, unchanged authority and rollback. Product-owned pointer lineage alone activates the passed candidate; invalid regression is atomic, and attributed drift revokes new candidate use, records impact and restores the predecessor. Sealed `EXP-08` kills 7/7 critical mutations with 0/4 benign false rejections; `EXP-09` proves promotion through rollback. Registry 89; fingerprint `49954cda…1fa28125`; 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests.
+
 ## Next coordinate
 
-`P7-EVAL-11` — certify skills only against frozen held-out evidence and rollback.
+`P8-EXEC-01` — define immutable effect intent before any executable target path.

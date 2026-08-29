@@ -485,10 +485,10 @@ Failure route: `L-DISC-01`.
 | `DONE` | `P7-EVAL-08` | Implement failed-result diagnosis. | Failed measures map to typed causes, component paths, evidence and open gaps; generic retry is forbidden. |
 | `DONE` | `P7-EVAL-09` | Implement correction loop. | A new V2 proposal fixes the attributed scope, preserves the exact evaluator/thresholds and independently passes with delta/usage/history. |
 | `DONE` | `P7-EVAL-10` | Implement learning-candidate creation. | Success and failure create only attributable quarantined/no-use candidates. Registry 86, migration 016, 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests pass. |
-| `CURRENT` | `P7-EVAL-11` | Implement skill certification. | Frozen baseline, held-out corpus, safety, cost, latency, envelope, and rollback are required. |
-| `WAIT` | `P7-EVAL-12` | Implement skill demotion/revocation. | Injected regression prevents new assignment and restores prior version. |
-| `WAIT` | `P7-EVAL-13` | Run mutation evaluator experiment. | EXP-08 catches every seeded critical defect within false-rejection limit. |
-| `WAIT` | `P7-EVAL-14` | Run skill lifecycle experiment. | EXP-09 proves promotion, drift detection, demotion, revocation, and rollback. |
+| `DONE` | `P7-EVAL-11` | Implement skill certification. | Immutable certification pins baseline/candidate artifacts, distinct selection/held-out/adversarial corpora, exact evaluator results, hard improvement, protected/safety slices, cost/latency envelope, repetitions/seeds, unchanged authority, and rollback. |
+| `DONE` | `P7-EVAL-12` | Implement skill demotion/revocation. | Product-owned active-pointer lineage promotes only passed certification; an attributed regression atomically revokes the candidate, blocks new resolution, records affected uses/outputs, and restores the certified predecessor. Registry 89, migration 017, 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests pass. |
+| `DONE` | `P7-EVAL-13` | Run mutation evaluator experiment. | Sealed `EXP-08` seed 708 kills all 7 schema/mapping/delete/precision/identity/security/recovery defects with exact measure/evidence attribution and rejects 0/4 benign mutations. |
+| `DONE` | `P7-EVAL-14` | Run skill lifecycle experiment. | Sealed `EXP-09` seed 709 proves certification, promotion, injected drift detection, automatic demotion, revocation, impact trace, assignment blocking, and rollback. |
 
 ### `G7-EVAL` — Independent correction gate
 
@@ -500,6 +500,8 @@ Pass when:
 - a failed artifact is diagnosed, changed, and independently re-evaluated;
 - a regressed skill is automatically stopped and rolled back;
 - learning candidates remain quarantined until measured improvement.
+
+**Gate status: `DONE`.** Product-only acceptance and independent coordination prevent producer self-review; evaluator failure remains unaccepted while unrelated work continues; typed diagnosis drives a scoped V2 correction under the unchanged contract; learning candidates remain quarantined/no-use; `EXP-08` kills 7/7 critical mutations with zero benign false rejection; and `EXP-09` revokes the regressed skill and restores its predecessor. Evidence: 89 schemas, 17 migrations / 17 tables, fingerprint `49954cda…1fa28125`, 41 unit files / 217 tests, 24 PostgreSQL files / 59 tests, and verified sealed `EXP-08`/`09`.
 
 Failure route: `L-EVAL-01`.
 
@@ -661,13 +663,13 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
-| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-11`; `P7-EVAL-01`–`10` done |
-| Phase 8 — Execution | `G8-EXEC` | `WAIT` |
+| Phase 7 — Evaluation | `G7-EVAL` | `DONE`; reopens through `L-EVAL-01` |
+| Phase 8 — Execution | `G8-EXEC` | `CURRENT` at `P8-EXEC-01` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
 | Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
 
 ## Immediate next three coordinates
 
-1. **`P7-EVAL-11`** — Implement held-out skill certification.
-2. **`P7-EVAL-12`** — Implement skill demotion/revocation.
-3. **`P7-EVAL-13`** — Run mutation evaluator experiment.
+1. **`P8-EXEC-01`** — Implement effect-intent contract.
+2. **`P8-EXEC-02`** — Implement policy/effect gate.
+3. **`P8-EXEC-03`** — Implement capability envelope.
