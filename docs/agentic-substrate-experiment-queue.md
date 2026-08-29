@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P6-DISC-01`.
-- `G2-LAB` through `G5-KNOW` are complete; the first licensed source fixture and version are next.
+- First dependency-ready roadmap coordinate: `P6-DISC-02`.
+- `G2-LAB` through `G5-KNOW` and `P6-DISC-01` are complete; the typed read-only source-adapter contract is next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -168,6 +168,16 @@ Gate verification:
 - sealed `EXP-06` seed 506 runs 20 queries over 55 current/conflicting/stale/cross-tenant/distractor documents: semantic retrieval covers 20/20 versus lexical 15/20, 20/20 used answers carry exact citations, and zero denied items are included;
 - sealed `EXP-07` seed 507 improves deterministic held-out accuracy from 10/20 to 20/20, rejects both seeded poisoned/stale memories, leaks zero cross-tenant records, removes all post-invalidation recall, and retains 20 attributable use traces;
 - both sealed run indexes verify; complete verification passes 25 unit files / 152 tests and 12 PostgreSQL files / 36 tests.
+
+## `P6-DISC-01` frozen source-fixture evidence
+
+- Pagila tag `pagila-v3.1.0` is pinned to commit `fef9675714cfba1756df4719b5e36075a7ddf90e`; upstream license, schema, and INSERT-form data bytes are retained under exact SHA-256 and Git blob identities;
+- the canonical qualification runtime is PostgreSQL 16.15 with UTF8/C and no extensions; upstream claims PostgreSQL 12+ compatibility;
+- the exact fixture digest is `c22e7c170feafc06e70bee21771181e1880b5ef9c8ccc8567b093eeaf4fe025d`;
+- the expected estate records 21 ordinary tables, one partitioned table with seven monthly children, seven views, one materialized view, 13 sequences, 10 functions, 15 triggers, 55 indexes plus one partitioned index, 36 foreign keys, 22 primary keys, three custom types, and exact row counts;
+- the README claim of “PostgreSQL license” conflicts with the MIT permission text in `LICENSE.txt`; both facts remain explicit and the exact license bytes ship with the fixture;
+- WideWorldImporters, Oracle samples, Synthea, and Debezium examples remain later challengers because their runtime, domain shape, or CDC topology would conflate the first fixture with later coordinates;
+- strict manifest/file/estate validation, upstream INSERT counting, shared path/symlink/hard-link defenses, and real PostgreSQL reconstruction pass; complete verification is 27 unit files / 158 tests and 13 PostgreSQL files / 37 tests.
 
 ## Queue classes
 
@@ -421,4 +431,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P6-DISC-01`: select a licensed source fixture, pin its exact revision/runtime/checksum, and document the expected estate before defining or executing an adapter.
+Begin `P6-DISC-02`: define the versioned source-adapter contract from the frozen Pagila boundary, including read-only capabilities, permission/denial evidence, version identity, limits, errors, and restart behavior.

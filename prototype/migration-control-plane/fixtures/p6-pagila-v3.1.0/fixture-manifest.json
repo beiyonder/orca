@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "p6-pagila-v3.1.0",
+  "coordinate": "P6-DISC-01",
+  "selectedAt": "2026-08-29T03:48:06.000Z",
+  "source": {
+    "name": "Pagila PostgreSQL Sample Database",
+    "repository": "https://github.com/devrimgunduz/pagila",
+    "tag": "pagila-v3.1.0",
+    "revision": "fef9675714cfba1756df4719b5e36075a7ddf90e",
+    "revisionCommittedAt": "2022-12-13T10:02:13.000Z",
+    "upstreamRuntimeClaim": "PostgreSQL 12 and above"
+  },
+  "license": {
+    "spdx": "MIT",
+    "file": "UPSTREAM-LICENSE.txt",
+    "redistributionAllowed": true,
+    "conflictingUpstreamClaim": "README.md states PostgreSQL license while LICENSE.txt contains the MIT permission grant.",
+    "conflictingClaimSourceUrl": "https://raw.githubusercontent.com/devrimgunduz/pagila/fef9675714cfba1756df4719b5e36075a7ddf90e/README.md",
+    "conflictingClaimGitBlobSha": "4069ac974cde04ba8abcda8d521611d698b068f8",
+    "disposition": "Preserve both claims; retain the exact LICENSE.txt bytes with every redistributed fixture and do not infer broader rights."
+  },
+  "dataClass": "synthetic-public",
+  "containsRealPersonalData": false,
+  "runtime": {
+    "engine": "postgresql",
+    "version": "16.15",
+    "majorVersion": 16,
+    "encoding": "UTF8",
+    "collation": "C",
+    "extensions": [],
+    "loadOrder": ["pagila-schema.sql", "pagila-insert-data.sql"]
+  },
+  "files": [
+    {
+      "path": "UPSTREAM-LICENSE.txt",
+      "sourcePath": "LICENSE.txt",
+      "sourceUrl": "https://raw.githubusercontent.com/devrimgunduz/pagila/fef9675714cfba1756df4719b5e36075a7ddf90e/LICENSE.txt",
+      "gitBlobSha": "c6078c708c6f55b56e24f3687c591ca12df567ca",
+      "sha256": "516e7dac679ac1eeb62d5614b01c4e7318154e9a147377d6264954215997ff38",
+      "bytes": 1100,
+      "role": "license"
+    },
+    {
+      "path": "pagila-schema.sql",
+      "sourcePath": "pagila-schema.sql",
+      "sourceUrl": "https://raw.githubusercontent.com/devrimgunduz/pagila/fef9675714cfba1756df4719b5e36075a7ddf90e/pagila-schema.sql",
+      "gitBlobSha": "23718a3adef90ced002e19ad4e1ac98d22aa5870",
+      "sha256": "8ce358e4c8014087b85296694a0893887bd7a4190e3ce407f2721b86b98e5707",
+      "bytes": 52422,
+      "role": "schema"
+    },
+    {
+      "path": "pagila-insert-data.sql",
+      "sourcePath": "pagila-insert-data.sql",
+      "sourceUrl": "https://raw.githubusercontent.com/devrimgunduz/pagila/fef9675714cfba1756df4719b5e36075a7ddf90e/pagila-insert-data.sql",
+      "gitBlobSha": "1a8af13b245bd6e0c368e7d2e61137c588b87f7a",
+      "sha256": "136f3105263a1338a9805da4c06b6b37b60f1abc15ce7dbc8d6f5501f506aa22",
+      "bytes": 5334015,
+      "role": "data"
+    },
+    {
+      "path": "expected-estate.json",
+      "sourcePath": null,
+      "sourceUrl": null,
+      "gitBlobSha": null,
+      "sha256": "46eae50954ffd05c7a161ba1679b58b4b7a4f438b2759ad5927661681f5f97f4",
+      "bytes": 3876,
+      "role": "expected-estate"
+    }
+  ],
+  "selection": {
+    "criteria": [
+      "permissive redistributable source bytes",
+      "immutable upstream revision and local checksums",
+      "cross-platform PostgreSQL runtime already exercised in CI",
+      "relationships, functions, triggers, views, partitions, constraints and nontrivial data",
+      "small enough for deterministic local and CI qualification",
+      "useful discovery pressure without production credentials or personal data"
+    ],
+    "rejectedAlternatives": [
+      {
+        "candidate": "Microsoft WideWorldImporters",
+        "reason": "Richer enterprise estate, but SQL Server runtime and ARM64 portability add infrastructure before the adapter contract exists."
+      },
+      {
+        "candidate": "Oracle sample schemas",
+        "reason": "Strong multi-schema and PL/SQL pressure, but executable Oracle runtime and redistribution boundaries are heavier than the first fixture needs."
+      },
+      {
+        "candidate": "Synthea",
+        "reason": "Apache-2.0 and healthcare-relevant, but it primarily generates exchange records rather than an ugly relational source estate."
+      },
+      {
+        "candidate": "Debezium examples",
+        "reason": "Excellent later CDC pressure, but Kafka/container topology would conflate fixture selection with P6-DISC-08 runtime work."
+      }
+    ]
+  },
+  "limitations": [
+    "Community sample rather than a production legacy estate.",
+    "No access-denial, misleading-documentation, hidden-consumer or CDC mutation cases are planted yet.",
+    "DVD-rental semantics do not establish healthcare-domain correctness.",
+    "PostgreSQL portability does not validate SQL Server, Oracle or cloud-source behavior."
+  ]
+}

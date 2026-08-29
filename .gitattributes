@@ -24,4 +24,6 @@
 /src/main/__fixtures__/shell-wrapper-snapshots/*.txt linguist-generated=true text eol=lf
 # The isolated lab hashes and formats tracked bytes identically on every runner.
 /prototype/migration-control-plane/** text eol=lf
+# Frozen upstream fixture SQL is byte-hashed and must not be normalized or whitespace-checked.
+/prototype/migration-control-plane/fixtures/p6-pagila-v3.1.0/*.sql binary
 /prototype/migration-control-plane/src/deterministic-runtime.ts -text

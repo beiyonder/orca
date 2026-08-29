@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P6-DISC-01` — freeze the first licensed source fixture and exact version before defining its adapter contract.
+`P6-DISC-02` — define a versioned read-only source-adapter contract against frozen Pagila v3.1.0.

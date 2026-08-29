@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P6-DISC-01` — select and freeze one licensed source fixture, exact revision/runtime/checksum, and expected estate.
-2. `P6-DISC-02` — define the versioned read-only source-adapter contract from that frozen boundary.
-3. Preserve canonical source/evidence ownership, tenant/data boundaries, and proposal-only worker authority throughout discovery.
+1. `P6-DISC-02` — define the versioned read-only adapter contract from frozen Pagila v3.1.0 evidence.
+2. `P6-DISC-03` — enforce the contract in a source sandbox with no write path.
+3. `P6-DISC-04` — inventory the expected Pagila estate without treating denial as absence.

@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P6-DISC-01`.
+Current roadmap coordinate: `P6-DISC-02`.
 
 ## Coordinate evidence
 
@@ -46,6 +46,7 @@ Current roadmap coordinate: `P6-DISC-01`.
 | `P5-KNOW-01` through `P5-KNOW-03` | Five governed corpus contracts, private content-addressed immutable originals/parses, deterministic provenance catalog, and migration 006 corpus persistence; 22 unit files / 127 tests, 10 PostgreSQL files / 34 tests. |
 | `P5-KNOW-04` through `P5-KNOW-08` | Pre-ranking authorization, structured/BM25 lexical, optional versioned semantic projection, bounded relational graph expansion, immutable retrieval traces, and byte-reproducible cited/redacted/token-bounded contexts; 23 unit files / 137 tests, 11 PostgreSQL files / 35 tests. |
 | `P5-KNOW-09` through `P5-KNOW-13` | Five-class quarantined memory candidates, ordered reversible memory/use/invalidation lifecycle, compatible versioned skill registry, immutable PostgreSQL persistence, and sealed retrieval/help-harm qualification; 55 schemas, migration 008, 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests. |
+| `P6-DISC-01` | Frozen Pagila `pagila-v3.1.0` / `fef96757…ddf90e` source, exact permissive license/schema/data bytes, PostgreSQL 16.15 UTF8/C runtime, expected catalog and row-count oracle, fixture digest `c22e7c17…f4fe025d`, strict loader, shared file defenses, and real-server reconstruction; 27 unit files / 158 tests, 13 PostgreSQL files / 37 tests. |
 
 ## Stable commands
 
@@ -154,6 +155,10 @@ Rejected for the Phase 2 baseline:
 - day-one Node/Go polyglot: invents a distributed boundary before need.
 - permanent Python evaluator service: promotes Inspect before a native baseline.
 - SQLite durability substitute: cannot prove PostgreSQL transaction/locking claims.
+- WideWorldImporters first: SQL Server runtime and ARM64 portability add infrastructure before a source-adapter contract exists.
+- Oracle samples first: PL/SQL/multi-schema value does not offset the heavier executable runtime and redistribution boundary.
+- Synthea first: healthcare relevance is valuable later, but generated exchange records do not pressure relational estate discovery.
+- Debezium examples first: CDC value belongs at `P6-DISC-08`; Kafka/container topology would confound the first fixture.
 
 ## Known risks and intentional limits
 
@@ -163,8 +168,9 @@ Rejected for the Phase 2 baseline:
 4. Phase 3 is complete: five migrations, atomic command/event/delivery, DAG/lifecycle/effect authority, exact replay, deterministic restart dispositions, and sealed durable convergence pass.
 5. Phase 4 is complete: isolated framed processes, exact context/results/tools, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, and real containment all pass.
 6. Phase 5 is complete: governed corpus/retrieval/context, memory candidates and reversible use lifecycle, typed skill versions, and sealed `EXP-06`/`EXP-07` pass; migration 008 fingerprints 55 contract bindings at `2ade23da…b4bf5e`.
-7. Generated `.runs/`, `dist/`, `node_modules/` and coverage remain ignored. Small fixture/golden inputs and source are tracked.
-8. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+7. Pagila is synthetic and operationally rich but not a true legacy or healthcare estate; hidden assets, denials, misleading documents, CDC faults, and domain semantics remain future planted layers.
+8. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen fixture source bytes and exact license/provenance manifests are tracked.
+9. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -176,7 +182,7 @@ prototype/migration-control-plane/
 ├── scripts/migration-control-plane-lab.mjs
 ├── src/*.ts
 ├── test/*.test.ts
-└── fixtures/s1-identity-key/*
+├── fixtures/s1-identity-key/* and fixtures/p6-pagila-v3.1.0/*
 ```
 
 Repository integration:
@@ -187,7 +193,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P6-DISC-01`: select one licensed source fixture and pin its exact revision, runtime, checksum, and expected estate before adapter design.
+Start `P6-DISC-02`: define the versioned read-only adapter contract for the frozen Pagila boundary, including capability, permission, evidence, limit, error, and recovery records.
 
 First verification command after any change:
 

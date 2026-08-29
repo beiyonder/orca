@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P6-DISC-01` — Select the first licensed source fixture and exact version.**
+**`P6-DISC-02` — Define the typed, versioned source-adapter contract.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 5 is complete. `P5-KNOW-01` through `P5-KNOW-08` provide immutable governed corpus identity, exact provenance, pre-ranking authorization, transparent structured/BM25/semantic/graph retrieval, RRF traces, and byte-reproducible cited/redacted/token-bounded contexts. `P5-KNOW-09` admits mission, episodic, procedural, failure, and evaluator memory candidates only into provenance-bound quarantine. `P5-KNOW-10` adds exact tenant/role/task/data/environment/product/version/time recall, immutable use attribution, ordered versions, and complete-use invalidation into stale/deprecated/revoked/forgotten states. `P5-KNOW-11` persists typed skill artifacts/contracts, model/runtime/tool/data/authority compatibility, dependencies, and quarantined→certified→active→deprecated/revoked lifecycle. Sealed `EXP-06` seed 506 retrieves 20/20 known answers from a 55-document conflict/stale/cross-tenant/distractor corpus, cites 20/20, uses zero denied items, and gains five answers from the optional semantic channel. Sealed `EXP-07` seed 507 improves held-out accuracy from 10/20 to 20/20 with zero poisoned, cross-tenant, or post-invalidation recall while retaining 20 use traces. Migration 008 binds 55 contracts and immutable memory/skill records; verification passes 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests, and fingerprint `2ade23da3f4f440587f0c9bcdfca038ec6ac67d9d6b421f541609d30f5b4bf5e`. `G5-KNOW` passes. Next: select and freeze the first licensed discovery fixture.
+Phase 5 and `G5-KNOW` remain complete. `P6-DISC-01` selects Pagila `pagila-v3.1.0` at immutable revision `fef9675714cfba1756df4719b5e36075a7ddf90e` as the first source estate. The fixture preserves exact upstream license/schema/data bytes, a four-file SHA-256 manifest, PostgreSQL 16.15 UTF8/C runtime, fixture digest `c22e7c17…f4fe025d`, and an expected estate containing 21 ordinary tables, one partitioned parent with seven children, seven views, one materialized view, 13 sequences, 10 functions, 15 triggers, 55 indexes, 36 foreign keys, three custom types, and exact row counts. The upstream README/license-name conflict and pinned README evidence URL/blob are retained rather than normalized; `UPSTREAM-LICENSE.txt` contains the MIT grant. Direct `pg` load and catalog/row-count reconstruction pass without Docker, credentials, personal data, or extensions. Verification now passes 27 unit files / 158 tests and 13 PostgreSQL files / 37 tests. Next: define the adapter contract without granting source writes.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P6-DISC-01
+P6-DISC-02
 ```
 
 Means:
 
 - Phase 6
 - Source discovery and gap resolution track
-- Task 1
+- Task 2
 
 Gate format:
 
@@ -66,7 +66,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P6-DISC-01`: select the first licensed source fixture and exact version.”
+> “We are at `P6-DISC-02`: define the typed, versioned source-adapter contract.”
 
 Do not say only “we are working on discovery.”
 
@@ -145,7 +145,7 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Starting at `P6-DISC-01`:** no source adapter has executed yet. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Fixture boundary selected:** Pagila v3.1.0 is frozen and reproducible; no source adapter has executed yet. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
@@ -164,7 +164,7 @@ A7 Bounded execution          state semantics only; no target effect
 A8–A10 Integrated product     not assembled
 ```
 
-The next wave pressure-tests A4/A9 against one frozen licensed source estate. `P6-DISC-01` must fix the fixture boundary before adapter and sandbox implementation.
+The first A4/A9 pressure boundary is now frozen. `P6-DISC-02` must define what a read-only adapter may observe, return, deny, version, and recover before any source connection executes.
 
 ## Working prototype definition
 
@@ -423,8 +423,8 @@ Failure route: `L-KNOW-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `CURRENT` | `P6-DISC-01` | Select first source fixture and version. | Licensed fixture, exact revision, runtime, checksum, and expected estate documented. |
-| `WAIT` | `P6-DISC-02` | Define source-adapter contract. | Capabilities, versions, permissions, evidence, limits, errors, and recovery are typed. |
+| `DONE` | `P6-DISC-01` | Select first source fixture and version. | Pagila `pagila-v3.1.0` / `fef96757…ddf90e` is frozen with retained permissive license bytes, PostgreSQL 16.15 UTF8/C runtime, four exact file hashes, fixture digest `c22e7c17…f4fe025d`, and a PostgreSQL-qualified expected estate. |
+| `CURRENT` | `P6-DISC-02` | Define source-adapter contract. | Capabilities, versions, permissions, evidence, limits, errors, and recovery are typed. |
 | `WAIT` | `P6-DISC-03` | Implement read-only source sandbox. | Adapter cannot write source; network/filesystem/time/data limits are enforced. |
 | `WAIT` | `P6-DISC-04` | Implement system and schema inventory. | Catalogs, objects, columns, keys, indexes, views, routines, and grants are captured. |
 | `WAIT` | `P6-DISC-05` | Implement data profiler. | Counts, nulls, uniqueness, distributions, anomalies, samples, and explicit coverage are recorded. |
@@ -646,7 +646,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
-| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-01` |
+| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-02` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
@@ -654,6 +654,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P6-DISC-01`** — Select and freeze the first licensed source fixture and version.
-2. **`P6-DISC-02`** — Define the typed, versioned source-adapter contract.
-3. **`P6-DISC-03`** — Implement a read-only source sandbox.
+1. **`P6-DISC-02`** — Define the typed, versioned source-adapter contract.
+2. **`P6-DISC-03`** — Implement a read-only source sandbox.
+3. **`P6-DISC-04`** — Implement system and schema inventory.

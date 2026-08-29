@@ -42,7 +42,7 @@ Update this register whenever:
 
 | ID | Status | Capability intentionally excluded from S1 | Why excluded | Seam preserved in S1 | Re-entry trigger | Planned coordinate |
 | --- | --- | --- | --- | --- | --- | --- |
-| `S1-DEF-001` | `PROMOTED` | Real source connector | S1 tests the substrate, not database access breadth. | `EvidenceItem` and source-adapter interface accept fixture artifacts. | `G5-KNOW` passed and source discovery begins at current coordinate `P6-DISC-01`; adapter implementation remains gated by the frozen fixture and contract. | `P6-DISC-01`–`03` |
+| `S1-DEF-001` | `PROMOTED` | Real source connector | S1 tests the substrate, not database access breadth. | `EvidenceItem` and source-adapter interface accept fixture artifacts. | `G5-KNOW` passed; `P6-DISC-01` froze Pagila v3.1.0 with exact runtime, checksums, license and estate oracle; `P6-DISC-02` now defines the adapter before execution. | `P6-DISC-01`–`03` |
 | `S1-DEF-002` | `DEFERRED` | Snapshot, CDC, schema drift, deletes, late data | Requires source-specific runtime and replay corpus. | Task/evidence/evaluator contracts can represent watermarks and dispositions. | First source adapter selected. | `P6-DISC-08`, `P6-DISC-16` |
 | `S1-DEF-003` | `DEFERRED` | Real Databricks/Snowflake/cloud target mutation | External-effect work must not distract from core correction loop. | `EffectIntent`, capability envelope, receipt, and unknown state remain in schemas. | S1 state/evaluation gates pass. | `P8-EXEC-07`–`12` |
 | `S1-DEF-004` | `DEFERRED` | Remote execution relay and customer-zone spool | No source/target network exists in S1. | Assignment/effect protocols use location-neutral IDs and receipts. | One local effect protocol passes; remote topology needed. | `P8-EXEC-04`–`06` |

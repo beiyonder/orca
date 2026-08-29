@@ -18,13 +18,20 @@ function requiredAdministrativeUrl(): URL {
   return url
 }
 
-export async function createPostgresTestDatabase(): Promise<PostgresTestDatabase> {
+export async function createPostgresTestDatabase(options?: {
+  encoding: 'UTF8'
+  collation: 'C'
+}): Promise<PostgresTestDatabase> {
   const administrativeUrl = requiredAdministrativeUrl()
   const databaseName = `mcp_test_${randomUUID().replaceAll('-', '')}`
   const administrativeClient = new Client({ connectionString: administrativeUrl.toString() })
   await administrativeClient.connect()
   try {
-    await administrativeClient.query(`CREATE DATABASE ${databaseName}`)
+    await administrativeClient.query(
+      options
+        ? `CREATE DATABASE ${databaseName} TEMPLATE template0 ENCODING '${options.encoding}' LC_COLLATE '${options.collation}' LC_CTYPE '${options.collation}'`
+        : `CREATE DATABASE ${databaseName}`
+    )
   } finally {
     await administrativeClient.end()
   }
