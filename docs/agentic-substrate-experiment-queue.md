@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-04`.
-- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`03` are complete; deterministic data-movement evaluation is next.
+- First dependency-ready roadmap coordinate: `P7-EVAL-07`.
+- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`06` are complete; product-owned acceptance is next.
 - Source and evaluation research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -237,6 +237,14 @@ Gate verification:
 - critical structure/type/evidence/version/tenant/authority mutations fail exact cited measures, benign property-order changes replay byte-identically, and an otherwise-passing late result remains stale;
 - one claimed outbox assignment writes report, evidence and V2 result atomically; release/redelivery returns the exact stored result, current-fence acknowledgment succeeds, and coordination becomes only eligible for reconciliation;
 - review also replaced repeated coordinator schema scans with one checked grouping and extracted shared PostgreSQL mission setup; migration 014 registers both immutable schemas; registry 78, migrations 14 / tables 17, fingerprint `5561a9ce…1c3e5fe`; verification passes 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests.
+
+## `P7-EVAL-04` through `P7-EVAL-06` evaluator-breadth evidence
+
+- CDC report checks exact final counts and key digests, delete sequences, source-position order, checkpoint watermark, replay digest and complete per-event dispositions against an independent oracle;
+- artifact bundle/report contracts pin file bytes/digests, relative paths, compiler version/options and provenance; two private clean TypeScript builds must emit the same digest without package installation or network;
+- held-out semantic corpus uses ten distinct source groups with labels unavailable to producers; deterministic scoring reports accuracy, false accepts, abstention and evaluator disagreement, with non-decisive cases inconclusive rather than forced;
+- mutation tests localize every CDC predicate, compilation/compiler/provenance/path defects, semantic false accepts, abstention and disagreement;
+- migration 015 registers five immutable bundle/corpus/report schemas; registry 83, migrations 15 / tables 17, fingerprint `8681ec82…0864993a`; verification passes 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests.
 
 ## Queue classes
 
@@ -491,4 +499,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-04`: deterministically reconcile counts, keys, deletes, ordering, watermarks, replay equality and explicit event disposition.
+Begin `P7-EVAL-07`: enforce product-owned unknown/hypothesis/supported/accepted/rejected/quarantined subject transitions.

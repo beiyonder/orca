@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P7-EVAL-04` — evaluate counts, keys, deletes, ordering, watermarks and replay.
+`P7-EVAL-07` — enforce explicit product acceptance transitions.

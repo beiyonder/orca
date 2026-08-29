@@ -38,6 +38,12 @@ export const ContextManifestIdSchema = opaqueId('context').brand<'ContextManifes
 export const AssignmentResultIdSchema = opaqueId('assignment_result').brand<'AssignmentResultId'>()
 export const ArtifactIdSchema = opaqueId('artifact').brand<'ArtifactId'>()
 export const ArtifactVersionIdSchema = opaqueId('artifact_version').brand<'ArtifactVersionId'>()
+export const ArtifactBuildBundleIdSchema =
+  opaqueId('artifact_build_bundle').brand<'ArtifactBuildBundleId'>()
+export const ArtifactBuildReportIdSchema =
+  opaqueId('artifact_build_report').brand<'ArtifactBuildReportId'>()
+export const DataMovementReportIdSchema =
+  opaqueId('data_movement_report').brand<'DataMovementReportId'>()
 export const DeterministicEvaluatorSuiteIdSchema =
   opaqueId('deterministic_evaluator').brand<'DeterministicEvaluatorSuiteId'>()
 export const EvaluatorIdSchema = opaqueId('evaluator').brand<'EvaluatorId'>()
@@ -48,6 +54,8 @@ export const EvaluationAssignmentIdSchema =
 export const EvaluationCoordinationIdSchema =
   opaqueId('evaluation_coordination').brand<'EvaluationCoordinationId'>()
 export const EvaluationReportIdSchema = opaqueId('evaluation_report').brand<'EvaluationReportId'>()
+export const SemanticCorpusIdSchema = opaqueId('semantic_corpus').brand<'SemanticCorpusId'>()
+export const SemanticReportIdSchema = opaqueId('semantic_report').brand<'SemanticReportId'>()
 export const EvaluationResultIdSchema = opaqueId('evaluation_result').brand<'EvaluationResultId'>()
 export const CorrectionRequestIdSchema =
   opaqueId('correction_request').brand<'CorrectionRequestId'>()

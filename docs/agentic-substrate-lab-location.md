@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P7-EVAL-04` — execute deterministic data-movement evaluators inside the private lab.
+`P7-EVAL-07` — implement product-owned acceptance state inside the private lab.

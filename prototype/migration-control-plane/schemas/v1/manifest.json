@@ -1,5 +1,5 @@
 {
-  "registryDigest": "f80bfe88df0ccde51186f6cf4bb37fd4af6bb80f119d374329e02773dc34bae6",
+  "registryDigest": "50bee82d8a1db5edb27dbccd16d51e03dad4bef55a0673d8e372d98840ea456b",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -8,6 +8,18 @@
       "file": "accepted-finding.v1.schema.json",
       "name": "accepted-finding.v1",
       "sha256": "e9d8be1184049b85a656e6603bfb97be97d3493c9d759463a510a86f244b5f5a"
+    },
+    {
+      "bytes": 4335,
+      "file": "artifact-build-bundle.v1.schema.json",
+      "name": "artifact-build-bundle.v1",
+      "sha256": "57aebcc8f6a2e834453745adf660164e8fb4dc9213ae5a0f1771fbd3da8ad3cc"
+    },
+    {
+      "bytes": 5378,
+      "file": "artifact-build-evaluation-report.v1.schema.json",
+      "name": "artifact-build-evaluation-report.v1",
+      "sha256": "e714153f775a9bf5ed6ef8a639608dd3dfcf7ccf8b0998dc91dcfa758d4c6458"
     },
     {
       "bytes": 9048,
@@ -122,6 +134,12 @@
       "file": "correction-result.v1.schema.json",
       "name": "correction-result.v1",
       "sha256": "117f30c21b5ca604672af6de9e400ef41056eae44c79636468b2a6acc76ea313"
+    },
+    {
+      "bytes": 6265,
+      "file": "data-movement-evaluation-report.v1.schema.json",
+      "name": "data-movement-evaluation-report.v1",
+      "sha256": "4055a5da95b0260e8419942491aeb9c9d97eb837760de0283037985809b66540"
     },
     {
       "bytes": 5257,
@@ -368,6 +386,18 @@
       "file": "secret-lease.v1.schema.json",
       "name": "secret-lease.v1",
       "sha256": "e6397fc2d35b40efae95d8320973451be434aacb43f1cf7906bf5dead6d53a9c"
+    },
+    {
+      "bytes": 6060,
+      "file": "semantic-evaluation-report.v1.schema.json",
+      "name": "semantic-evaluation-report.v1",
+      "sha256": "5ada3685c45a9b375221d2c9778c1e761af876aede068cad6abd80f845004df7"
+    },
+    {
+      "bytes": 4129,
+      "file": "semantic-labeled-corpus.v1.schema.json",
+      "name": "semantic-labeled-corpus.v1",
+      "sha256": "409c0a14c71be7766a06342e4fac94a1a77420710288af0da609a0f59281c679"
     },
     {
       "bytes": 3358,

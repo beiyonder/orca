@@ -1,4 +1,8 @@
 import { z } from 'zod'
+import {
+  ArtifactBuildBundleV1Schema,
+  ArtifactBuildEvaluationReportV1Schema
+} from './artifact-build-evaluator-contracts.js'
 import { ArtifactVersionV1Schema } from './artifact-contracts.js'
 import {
   AssignmentAttemptV1Schema,
@@ -11,6 +15,7 @@ import {
   DeterministicEvaluationReportV1Schema,
   DeterministicEvaluatorSuiteV1Schema
 } from './deterministic-evaluator-contracts.js'
+import { DataMovementEvaluationReportV1Schema } from './data-movement-evaluator-contracts.js'
 import {
   DiscoveryGapRankingV1Schema,
   SafeProbePlanV1Schema,
@@ -87,6 +92,10 @@ import {
   RetrievalQueryV1Schema,
   RetrievalTraceV1Schema
 } from './retrieval-contracts.js'
+import {
+  SemanticEvaluationReportV1Schema,
+  SemanticLabeledCorpusV1Schema
+} from './semantic-evaluator-contracts.js'
 import { SkillLifecycleEventV1Schema, SkillVersionV1Schema } from './skill-contracts.js'
 import {
   SourceAccessEnvelopeV1Schema,
@@ -106,6 +115,8 @@ import { SourceDataProfileV1Schema } from './source-profile-contracts.js'
 
 export const DOMAIN_SCHEMA_REGISTRY = {
   'accepted-finding.v1': AcceptedFindingV1Schema,
+  'artifact-build-bundle.v1': ArtifactBuildBundleV1Schema,
+  'artifact-build-evaluation-report.v1': ArtifactBuildEvaluationReportV1Schema,
   'artifact-version.v1': ArtifactVersionV1Schema,
   'assertion.v1': AssertionV1Schema,
   'assignment-attempt.v1': AssignmentAttemptV1Schema,
@@ -125,6 +136,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'corpus-parse-version.v1': CorpusParseVersionV1Schema,
   'corpus-relation.v1': CorpusRelationV1Schema,
   'corpus-source-manifest.v1': CorpusSourceManifestV1Schema,
+  'data-movement-evaluation-report.v1': DataMovementEvaluationReportV1Schema,
   'decision-record.v1': DecisionRecordV1Schema,
   'deterministic-evaluator-suite.v1': DeterministicEvaluatorSuiteV1Schema,
   'discovery-gap-ranking.v1': DiscoveryGapRankingV1Schema,
@@ -157,6 +169,8 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'mission-record.v1': MissionRecordV1Schema,
   'plan-revision.v1': PlanRevisionV1Schema,
   'policy-decision.v1': PolicyDecisionV1Schema,
+  'semantic-evaluation-report.v1': SemanticEvaluationReportV1Schema,
+  'semantic-labeled-corpus.v1': SemanticLabeledCorpusV1Schema,
   'probe-request.v1': ProbeRequestV1Schema,
   'probe-result.v1': ProbeResultV1Schema,
   'promotion-decision.v1': PromotionDecisionV1Schema,
