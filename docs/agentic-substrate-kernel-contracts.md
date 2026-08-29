@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P6-DISC-08` — analyze explicit snapshot and CDC traces through the bounded source adapter.
+`P7-EVAL-01` — bind every acceptance decision to a versioned independent evaluation contract.

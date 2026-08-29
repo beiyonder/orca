@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P6-DISC-08` — add explicit CDC trace analysis after bounded Pagila inventory, profile, code and lineage proof.
+`P7-EVAL-01` — make the unchanged independent evaluator contract the next acceptance boundary.

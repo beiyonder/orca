@@ -7,7 +7,7 @@ import {
 } from './common-contracts.js'
 import { SourceDiscoveryLineageSchema } from './source-inventory-contracts.js'
 
-const profileId = z
+export const SourceDataProfileIdSchema = z
   .string()
   .min(21)
   .max(128)
@@ -21,7 +21,7 @@ const RelationKeySchema = z.strictObject({
 
 export const SourceDataProfileV1Schema = z
   .strictObject({
-    ...tenantRecordFields('source-data-profile', profileId),
+    ...tenantRecordFields('source-data-profile', SourceDataProfileIdSchema),
     lineage: SourceDiscoveryLineageSchema,
     dataClass: DataClassSchema,
     requestedRelations: z.array(RelationKeySchema).min(1).max(128),

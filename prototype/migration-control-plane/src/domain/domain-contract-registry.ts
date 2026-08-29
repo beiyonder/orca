@@ -8,6 +8,11 @@ import {
   TaskRecordV1Schema
 } from './assignment-contracts.js'
 import {
+  DiscoveryGapRankingV1Schema,
+  SafeProbePlanV1Schema,
+  SourceClaimComparisonV1Schema
+} from './discovery-reasoning-contracts.js'
+import {
   CapabilityEnvelopeV1Schema,
   CompensationV1Schema,
   EffectAttemptV1Schema,
@@ -59,6 +64,10 @@ import {
   MemoryVersionV1Schema
 } from './memory-contracts.js'
 import {
+  MigrationProposalV1Schema,
+  TargetCapabilitySnapshotV1Schema
+} from './migration-proposal-contracts.js'
+import {
   MissionCommandEnvelopeV1Schema,
   MissionEventEnvelopeV1Schema,
   MissionRecordV1Schema
@@ -74,6 +83,7 @@ import {
   SourceAccessEnvelopeV1Schema,
   SourceAdapterDefinitionV1Schema
 } from './source-adapter-contracts.js'
+import { SourceCdcAnalysisV1Schema, SourceCdcTraceV1Schema } from './source-cdc-contracts.js'
 import {
   SourceCodeExtractV1Schema,
   SourceLineageSnapshotV1Schema
@@ -107,6 +117,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'corpus-relation.v1': CorpusRelationV1Schema,
   'corpus-source-manifest.v1': CorpusSourceManifestV1Schema,
   'decision-record.v1': DecisionRecordV1Schema,
+  'discovery-gap-ranking.v1': DiscoveryGapRankingV1Schema,
   'drift-signal.v1': DriftSignalV1Schema,
   'effect-attempt.v1': EffectAttemptV1Schema,
   'effect-intent.v1': EffectIntentV1Schema,
@@ -124,6 +135,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'memory-invalidation.v1': MemoryInvalidationV1Schema,
   'memory-use.v1': MemoryUseV1Schema,
   'memory-version.v1': MemoryVersionV1Schema,
+  'migration-proposal.v1': MigrationProposalV1Schema,
   'mission-command.v1': MissionCommandEnvelopeV1Schema,
   'mission-event.v1': MissionEventEnvelopeV1Schema,
   'mission-record.v1': MissionRecordV1Schema,
@@ -137,10 +149,14 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'retrieval-query.v1': RetrievalQueryV1Schema,
   'retrieval-trace.v1': RetrievalTraceV1Schema,
   'secret-lease.v1': SecretLeaseV1Schema,
+  'safe-probe-plan.v1': SafeProbePlanV1Schema,
   'skill-lifecycle-event.v1': SkillLifecycleEventV1Schema,
   'skill-version.v1': SkillVersionV1Schema,
   'source-access-envelope.v1': SourceAccessEnvelopeV1Schema,
   'source-adapter-definition.v1': SourceAdapterDefinitionV1Schema,
+  'source-cdc-analysis.v1': SourceCdcAnalysisV1Schema,
+  'source-cdc-trace.v1': SourceCdcTraceV1Schema,
+  'source-claim-comparison.v1': SourceClaimComparisonV1Schema,
   'source-code-extract.v1': SourceCodeExtractV1Schema,
   'source-data-profile.v1': SourceDataProfileV1Schema,
   'source-lineage-snapshot.v1': SourceLineageSnapshotV1Schema,
@@ -148,6 +164,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'source-request.v1': SourceRequestV1Schema,
   'source-schema-inventory.v1': SourceSchemaInventoryV1Schema,
   'source-system-inventory.v1': SourceSystemInventoryV1Schema,
+  'target-capability-snapshot.v1': TargetCapabilitySnapshotV1Schema,
   'target-observation.v1': TargetObservationV1Schema,
   'task-record.v1': TaskRecordV1Schema
 } as const satisfies Record<string, z.ZodType>

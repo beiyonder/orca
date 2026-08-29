@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "fixtureId": "p6-discovery-cases-v1",
+  "claims": [
+    {
+      "id": "claim_actor_count",
+      "statement": "The actor table contains 199 rows.",
+      "scope": "public.actor",
+      "material": true,
+      "value": 199,
+      "observedKey": "actor-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_payment_unpartitioned",
+      "statement": "Payment is not partitioned.",
+      "scope": "public.payment",
+      "material": true,
+      "value": false,
+      "observedKey": "payment-partitioned",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_triggers",
+      "statement": "The public schema has no user triggers.",
+      "scope": "public",
+      "material": true,
+      "value": 0,
+      "observedKey": "trigger-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_functions",
+      "statement": "The public schema has no stored functions.",
+      "scope": "public",
+      "material": true,
+      "value": 0,
+      "observedKey": "function-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_materialized_views",
+      "statement": "The source has no materialized views.",
+      "scope": "public",
+      "material": true,
+      "value": 0,
+      "observedKey": "materialized-view-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_domains",
+      "statement": "The source defines no custom domains.",
+      "scope": "public",
+      "material": true,
+      "value": 0,
+      "observedKey": "domain-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_foreign_keys",
+      "statement": "No foreign keys constrain source relationships.",
+      "scope": "public",
+      "material": true,
+      "value": 0,
+      "observedKey": "foreign-key-count",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_no_fulltext_trigger",
+      "statement": "Film full-text values are not trigger-maintained.",
+      "scope": "public.film",
+      "material": true,
+      "value": false,
+      "observedKey": "film-fulltext-trigger",
+      "expectedStatus": "refuted"
+    },
+    {
+      "id": "claim_public_schema",
+      "statement": "The observed application schema is public.",
+      "scope": "database",
+      "material": false,
+      "value": true,
+      "observedKey": "public-schema",
+      "expectedStatus": "supported"
+    },
+    {
+      "id": "claim_private_audit_absent",
+      "statement": "The denied private_audit schema is absent.",
+      "scope": "private_audit",
+      "material": true,
+      "value": false,
+      "observedKey": "private-audit",
+      "expectedStatus": "denied"
+    }
+  ]
+}

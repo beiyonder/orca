@@ -1,0 +1,425 @@
+{
+  "$id": "urn:orca:migration-control-plane:migration-proposal.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authority": {
+      "const": "proposal-only",
+      "type": "string"
+    },
+    "baseProposalId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 20,
+          "pattern": "^migration_proposal_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "decisions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "alternatives": {
+            "items": {
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 128,
+            "minItems": 1,
+            "type": "array"
+          },
+          "evidenceIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 10,
+              "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "question": {
+            "maxLength": 8192,
+            "minLength": 1,
+            "type": "string"
+          },
+          "rationale": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "reversalConditions": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 128,
+            "minItems": 1,
+            "type": "array"
+          },
+          "selected": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "selected",
+          "alternatives",
+          "evidenceIds",
+          "rationale",
+          "reversalConditions"
+        ],
+        "type": "object"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "estate": {
+      "additionalProperties": false,
+      "properties": {
+        "assetCount": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "coverageComplete": {
+          "type": "boolean"
+        },
+        "dependencyCount": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "limitations": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "sourceDigest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "assetCount",
+        "dependencyCount",
+        "sourceDigest",
+        "coverageComplete",
+        "limitations"
+      ],
+      "type": "object"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 20,
+      "pattern": "^migration_proposal_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "migration-proposal",
+      "type": "string"
+    },
+    "mappings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidenceIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 10,
+              "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array"
+          },
+          "source": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "enum": ["proposed", "blocked", "unsupported"],
+            "type": "string"
+          },
+          "target": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "transformation": {
+            "maxLength": 8192,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["source", "target", "transformation", "evidenceIds", "status"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "proposedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "proposedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "reasoning": {
+      "additionalProperties": false,
+      "properties": {
+        "claimComparisonId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "gapRankingId": {
+          "maxLength": 128,
+          "minLength": 23,
+          "pattern": "^discovery_gap_ranking_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "probePlanId": {
+          "maxLength": 128,
+          "minLength": 17,
+          "pattern": "^safe_probe_plan_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        }
+      },
+      "required": ["claimComparisonId", "gapRankingId", "probePlanId"],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "cdcAnalysisId": {
+          "maxLength": 128,
+          "minLength": 21,
+          "pattern": "^source_cdc_analysis_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "codeExtractId": {
+          "maxLength": 128,
+          "minLength": 21,
+          "pattern": "^source_code_extract_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "lineageSnapshotId": {
+          "maxLength": 128,
+          "minLength": 25,
+          "pattern": "^source_lineage_snapshot_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "profileIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^source_data_profile_[a-z0-9][a-z0-9_-]{0,106}$",
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "type": "array"
+        },
+        "schemaInventoryId": {
+          "maxLength": 128,
+          "minLength": 25,
+          "pattern": "^source_schema_inventory_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "systemInventoryId": {
+          "maxLength": 128,
+          "minLength": 25,
+          "pattern": "^source_system_inventory_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "systemInventoryId",
+        "schemaInventoryId",
+        "profileIds",
+        "codeExtractId",
+        "lineageSnapshotId",
+        "cdcAnalysisId"
+      ],
+      "type": "object"
+    },
+    "state": {
+      "const": "reconciler-required",
+      "type": "string"
+    },
+    "targetCapabilityId": {
+      "maxLength": 128,
+      "minLength": 28,
+      "pattern": "^target_capability_snapshot_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "tasks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "dependencyIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 1000,
+            "type": "array"
+          },
+          "evidenceIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 10,
+              "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "proofObligations": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 128,
+            "minItems": 1,
+            "type": "array"
+          },
+          "recovery": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "capability",
+          "dependencyIds",
+          "evidenceIds",
+          "proofObligations",
+          "recovery"
+        ],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "unresolvedGapIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "type": "array"
+    },
+    "version": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "version",
+    "baseProposalId",
+    "source",
+    "reasoning",
+    "targetCapabilityId",
+    "estate",
+    "decisions",
+    "mappings",
+    "tasks",
+    "unresolvedGapIds",
+    "authority",
+    "state",
+    "proposedAt",
+    "proposedBy"
+  ],
+  "title": "migration-proposal.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "migration-proposal.v1"
+  }
+}

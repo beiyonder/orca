@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P6-DISC-08`.
-- `P6-DISC-01` through `P6-DISC-07` are complete; explicit CDC behavior analysis is next.
+- First dependency-ready roadmap coordinate: `P7-EVAL-01`.
+- `G2-LAB` through `G6-DISC` are complete; the independent evaluation contract layer is next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -25,6 +25,9 @@ Local sealed runs under ignored `.runs/`:
 | `LAB-EXP-01` | 205 | `passed` | `lab-exp-01-205-baseline-none-run_000000_121b6d9ce7649417` |
 | `S1-FIXTURE-EXP-01` | 206 | `passed` | `s1-fixture-exp-01-206-baseline-none-run_000000_bc28d1ef6d576c92` |
 | `WORKER-EXP-01` | 417 | `passed` | `worker-exp-01-417-baseline-none-run_000000_766910686f21b20f` |
+| `EXP-02` | 602 | `passed` | `exp-02-602-baseline-none-run_000000_eb8a1afb7fb61c4c` |
+| `EXP-03` | 603 | `passed` | `exp-03-603-baseline-none-run_000000_757028aec38917d2` |
+| `EXP-04` | 604 | `passed` | `exp-04-604-baseline-none-run_000000_9e3c9160451ac11f` |
 | `EXP-05` | 413 | `passed` | `exp-05-413-baseline-none-run_000000_e176cfe9800c0719` |
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 | `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
@@ -195,6 +198,19 @@ Gate verification:
 - lineage nodes/edges distinguish catalog-declared, static-analysis, query-log and runtime-trace methods; missing endpoints remain unresolved rather than fabricated;
 - frozen Pagila qualification returns 30 relations, 58 relation constraints, 56 indexes, 10 routines, 15 triggers, three types, 13 sequences, exact actor statistics, 36 foreign-key and seven partition edges plus view/trigger/sequence/routine dependencies;
 - migration 010 persists five immutable discovery projections; registry 64, migrations 10 / tables 17, fingerprint `374e03e9…82ec42`; verification passes 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests.
+
+## `P6-DISC-08` through `P6-DISC-16` reasoning and qualification evidence
+
+- checksum-bound overlay fixture `1eb3b9fc…d6d7229c` supplies ten claims, ten hidden estate items, two attributable denials, one decoy, a ten-event CDC trace and versioned synthetic target capability;
+- CDC analysis replays snapshot rows, atomic updates/inserts, explicit delete, versioned DDL, checkpoint, restart duplicate and late update by source position; every event has one disposition and final state is checksum-exact;
+- claim comparison retains supplied/observed digests and citations across supported/refuted/unresolved/denied/stale states; denied scope cannot prove absence;
+- deterministic gap scoring checks impact + uncertainty + blocking − cost − risk; safe-probe planning selects bounded observable work while retaining unrelated exception-only gaps for accountable input;
+- immutable target capability versions bind resources, principal/secret references, operations/idempotency, data classes, source compatibility and coverage; incomplete/latest snapshots cannot resolve;
+- the first full Pagila pipeline produces a proposal-only/reconciler-required estate design with 30 assets, cited target/decisions/gaps, 22 proposed raw mappings and five dependency/proof/recovery tasks;
+- sealed `EXP-02` seed 602 passes 8/8 material contradictions, 10/10 citations, zero false promotions and zero denial-as-absence;
+- sealed `EXP-03` seed 603 passes 9/10 planted recall, zero fabricated accepted assets, 2/2 explicit denials and proposal-only authority;
+- sealed `EXP-04` seed 604 passes 10/10 event dispositions, exact final state and zero gaps; all three artifact indexes verify;
+- migration 011 persists seven reasoning/target/proposal contracts; registry 71, migrations 11 / tables 17, fingerprint `7acfcb43…8769156`; verification passes 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests.
 
 ## Queue classes
 
@@ -441,6 +457,7 @@ Every state change records:
 - `G3-KERN`: durable experiments.
 - `G4-AGNT`: worker/orchestration experiments.
 - `G5-KNOW`: retrieval/context authorization, provenance, memory help/harm, and reversible capability lifecycle experiments.
+- `G6-DISC`: contradiction, hidden-estate, denial, CDC replay and cited proposal experiments.
 - `G7-EVAL`: evaluation/correction/improvement experiments.
 - `G8-EXEC`: all `PRE-EFFECT` experiments.
 - `G9-INTEG`: `S1-E2E-01` plus expanded integrated scenario.
@@ -448,4 +465,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P6-DISC-08`: analyze explicit snapshot and change traces for ordering, transactions, deletes, amendments, DDL, restart, and checkpoint behavior; schema shape alone must remain insufficient evidence.
+Begin `P7-EVAL-01`: make evaluator/subject/input/measure/threshold/evidence versions the explicit acceptance contract before adding correction or skill promotion.

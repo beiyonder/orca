@@ -43,7 +43,7 @@ Update this register whenever:
 | ID | Status | Capability intentionally excluded from S1 | Why excluded | Seam preserved in S1 | Re-entry trigger | Planned coordinate |
 | --- | --- | --- | --- | --- | --- | --- |
 | `S1-DEF-001` | `PROMOTED` | Real source connector | S1 tests the substrate, not database access breadth. | `EvidenceItem` and source-adapter interface accept fixture artifacts. | `P6-DISC-01` froze Pagila; `P6-DISC-02`–`07` now prove immutable read-only authority, sandboxed PostgreSQL observation, inventory, profiling, code extraction and provenance-separated lineage. | `P6-DISC-01`–`07` |
-| `S1-DEF-002` | `DEFERRED` | Snapshot, CDC, schema drift, deletes, late data | Requires source-specific runtime and replay corpus. | Task/evidence/evaluator contracts can represent watermarks and dispositions. | First source adapter selected. | `P6-DISC-08`, `P6-DISC-16` |
+| `S1-DEF-002` | `PROMOTED` | Snapshot, CDC, schema drift, deletes, late data | S1 excluded source-specific runtime/replay breadth. | Task/evidence/evaluator contracts represent watermarks and dispositions. | `P6-DISC-08`/`16` now analyze a versioned ten-event snapshot/transaction/delete/DDL/checkpoint/restart/duplicate/late trace; sealed `EXP-04` reaches exact state with 10/10 dispositions. | `P6-DISC-08`, `P6-DISC-16` |
 | `S1-DEF-003` | `DEFERRED` | Real Databricks/Snowflake/cloud target mutation | External-effect work must not distract from core correction loop. | `EffectIntent`, capability envelope, receipt, and unknown state remain in schemas. | S1 state/evaluation gates pass. | `P8-EXEC-07`–`12` |
 | `S1-DEF-004` | `DEFERRED` | Remote execution relay and customer-zone spool | No source/target network exists in S1. | Assignment/effect protocols use location-neutral IDs and receipts. | One local effect protocol passes; remote topology needed. | `P8-EXEC-04`–`06` |
 | `S1-DEF-005` | `DEFERRED` | Production operator console | CLI/minimal inspector is enough to prove state/evidence. | Public query shapes and stable record IDs remain UI-ready. | Integrated mission behavior stabilizes. | `P9-INTEG-03`–`09` |
@@ -141,6 +141,17 @@ Review outcome:
 - `S1-DEF-014` is `PROMOTED`: all five memory classes, use tracing, lifecycle/invalidation, isolation, and help/harm measurement now exist; adaptive consolidation remains separately deferred under `S1-DEF-040`;
 - production memory backend selection, legal deletion orchestration, cross-tenant learning, adaptive consolidation, and skill promotion/drift/canary automation remain deferred;
 - next mandatory review is `G6-DISC`; any earlier scope change must use the promotion procedure below.
+
+## `G6-DISC` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against frozen Pagila/overlay fixtures, read-only adapter authority, database-enforced sandboxing, inventory/profile/code/lineage projections, claim/gap/probe reasoning, target capability, proposal generation and sealed `EXP-02`/`03`/`04`;
+- `S1-DEF-002` is `PROMOTED`: explicit CDC and snapshot behavior now includes delete, DDL, late event, restart, duplicate and checkpoint disposition with exact replay;
+- `S1-DEF-010` remains deferred: 8/8 contradictions and deterministic ranking did not expose combinatorial worlds or incorrect simple acceptance requiring ATMS/formal argumentation;
+- real SQL Server/Oracle/cloud breadth, healthcare semantics, query-log/runtime lineage, production identity/multi-tenancy, target effects and remote relay remain deferred;
+- evaluation/semantic-judge/expert-panel and skill promotion items remain deferred until Phase 7 calibration/correction evidence fires their triggers;
+- next mandatory review is `G7-EVAL`; any earlier scope change must use the promotion procedure below.
 
 ## Promotion procedure
 

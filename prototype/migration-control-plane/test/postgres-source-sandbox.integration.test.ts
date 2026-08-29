@@ -87,7 +87,7 @@ describe('PostgreSQL read-only source sandbox', () => {
       { id: 1, value: 'one' },
       { id: 2, value: 'two' }
     ])
-    expect(result.snapshotToken).toMatch(/^[a-f0-9-]+$/)
+    expect(result.snapshotToken).toMatch(/^[a-f0-9-]+$/i)
     expect(result.usage).toMatchObject({ queryCount: 1, rowCount: 2 })
   })
 

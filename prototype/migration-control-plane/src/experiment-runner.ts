@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 import { arch, platform } from 'node:os'
 import { resolve } from 'node:path'
 import { canonicalizeJson } from './canonical-json.js'
-import { runDurableConvergenceExperiment } from './durable-convergence-experiment.js'
 import { DeterministicRuntime, type EventStamp } from './deterministic-runtime.js'
 import {
   createEvaluationMeasure as measure,
@@ -20,11 +19,9 @@ import {
   buildIdentityMappingBaseline,
   evaluateIdentityMapping
 } from './identity-mapping-evaluator.js'
-import { runMemoryHelpHarmExperiment } from './memory-help-harm-experiment.js'
+import { executePhaseExperiment } from './phase-experiment-dispatch.js'
 import { RunArtifactStore } from './run-artifact-store.js'
 import { calibrateS1Fixture, inspectOmpWorkerFixture } from './s1-fixture-calibration.js'
-import { runRetrievalBenchmarkExperiment } from './retrieval-benchmark-experiment.js'
-import { runSpecialistDisagreementExperiment } from './specialist-disagreement-experiment.js'
 import { loadS1IdentityFixture } from './s1-fixture-loader.js'
 import type { S1IdentityFixture } from './s1-fixture-contracts.js'
 
@@ -33,6 +30,9 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'S1-FIXTURE-EXP-01': ['baseline'],
   'BASELINE-EXP-01': ['baseline'],
   'WORKER-EXP-01': ['baseline'],
+  'EXP-02': ['baseline'],
+  'EXP-03': ['baseline'],
+  'EXP-04': ['baseline'],
   'EXP-05': ['baseline'],
   'EXP-06': ['baseline'],
   'EXP-07': ['baseline'],
@@ -185,6 +185,12 @@ async function executeExperiment(
   faultInjector: FaultInjector,
   events: RunEvent[]
 ): Promise<ExperimentResult> {
+  const labRoot = resolve(fixture.root, '..', '..')
+  const phaseResult = await executePhaseExperiment(experimentId, seed, labRoot)
+  if (phaseResult !== null) {
+    return phaseResult
+  }
+
   switch (experimentId) {
     case 'LAB-EXP-01':
       return executeLabBoundary(runtime, faultInjector, events)
@@ -214,19 +220,6 @@ async function executeExperiment(
           ? undefined
           : (JSON.parse(await readFile(resolve(evidencePath), 'utf8')) as unknown)
       return inspectOmpWorkerFixture(fixture, containmentEvidence)
-    }
-    case 'EXP-05':
-      return runSpecialistDisagreementExperiment(seed)
-    case 'EXP-06':
-      return runRetrievalBenchmarkExperiment(seed)
-    case 'EXP-07':
-      return runMemoryHelpHarmExperiment(seed)
-    case 'DUR-EXP-01': {
-      const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL
-      if (!connectionString) {
-        throw new Error('MIGRATION_CONTROL_DATABASE_URL is required for DUR-EXP-01')
-      }
-      return runDurableConvergenceExperiment(connectionString, seed)
     }
     default:
       throw new TypeError(`Unknown experiment: ${experimentId}`)

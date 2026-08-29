@@ -1,0 +1,200 @@
+{
+  "$id": "urn:orca:migration-control-plane:discovery-gap-ranking.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "comparisonId": {
+      "maxLength": 128,
+      "minLength": 25,
+      "pattern": "^source_claim_comparison_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "gaps": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "cheapestProbeId": {
+            "anyOf": [
+              {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "claimIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array"
+          },
+          "evidenceIds": {
+            "items": {
+              "maxLength": 128,
+              "minLength": 10,
+              "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            },
+            "maxItems": 10000,
+            "type": "array"
+          },
+          "exceptionOnly": {
+            "type": "boolean"
+          },
+          "gapId": {
+            "maxLength": 128,
+            "minLength": 5,
+            "pattern": "^gap_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "impact": {
+            "enum": ["critical", "high", "medium", "low"],
+            "type": "string"
+          },
+          "question": {
+            "maxLength": 8192,
+            "minLength": 1,
+            "type": "string"
+          },
+          "rank": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          },
+          "rationale": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "score": {
+            "additionalProperties": false,
+            "properties": {
+              "blocking": {
+                "maximum": 5,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "impact": {
+                "maximum": 5,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "probeCost": {
+                "maximum": 5,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "probeRisk": {
+                "maximum": 5,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "total": {
+                "maximum": 15,
+                "minimum": -10,
+                "type": "integer"
+              },
+              "uncertainty": {
+                "maximum": 5,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": ["impact", "uncertainty", "blocking", "probeCost", "probeRisk", "total"],
+            "type": "object"
+          }
+        },
+        "required": [
+          "gapId",
+          "claimIds",
+          "question",
+          "impact",
+          "evidenceIds",
+          "cheapestProbeId",
+          "exceptionOnly",
+          "score",
+          "rank",
+          "rationale"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 23,
+      "pattern": "^discovery_gap_ranking_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "discovery-gap-ranking",
+      "type": "string"
+    },
+    "rankedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "rankedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "comparisonId",
+    "gaps",
+    "rankedAt",
+    "rankedBy"
+  ],
+  "title": "discovery-gap-ranking.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "discovery-gap-ranking.v1"
+  }
+}

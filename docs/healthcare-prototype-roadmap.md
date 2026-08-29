@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P6-DISC-08` — Analyze snapshot and CDC behavior semantics.**
+**`P7-EVAL-01` — Implement the evaluation contract layer.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-`P6-DISC-01` through `P6-DISC-07` are complete against frozen Pagila v3.1.0. Four strict adapter authority/request/observation contracts, an immutable cross-record registry, and migration 009 bind adapter/source/runtime/tenant/workload versions, read-only operations, permission evidence, endpoint digests, data class, limits, denial/error/recovery semantics, and every observation to its request. The PostgreSQL sandbox verifies exact endpoint/database/version identity, exports a repeatable-read snapshot, serializes bounded queries, enforces statement/overall/query/row/byte/concurrency limits, exposes no filesystem capability, and relies on a real read-only transaction to reject mutation. Five immutable discovery projections then capture system/schema inventory, digest-only profiles, extracted view/function/trigger bodies in one artifact, and provenance-separated catalog/static/query-log/runtime lineage. Pagila qualification recovers 30 relations, 58 relation constraints plus the domain check, 56 indexes, 10 routines, 15 triggers, three custom types, 13 sequences, exact actor profiles, code digests, 36 foreign-key and seven partition edges, view/trigger dependencies, explicit missing coverage, and no retained sample values. Migration 010 binds 64 schemas; 10 migrations / 17 tables converge to fingerprint `374e03e9…82ec42`. Verification passes 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests. Next: analyze CDC semantics without inferring behavior from schema alone.
+Phase 6 and `G6-DISC` are complete. `P6-DISC-01`–`07` provide the frozen Pagila estate, immutable read-only adapter authority, mutation-proof bounded PostgreSQL observation, exact inventory, digest-only profile, code artifact and provenance-separated lineage. `P6-DISC-08`–`13` add a ten-event CDC state machine covering snapshot, transactions, delete, DDL, checkpoint, restart duplicate and late update; cited claim comparison where denial never proves absence; deterministic gap arithmetic; mixed safe-probe plus human-exception planning; versioned target capability resolution; and a five-task, 22-mapping, proposal-only migration design over all 30 observed assets. The synthetic overlay fixture is checksum-bound at `1eb3b9fc…d6d7229c`. Sealed `EXP-02` seed 602 detects 8/8 material contradictions with 10/10 citations and zero false promotions. Sealed `EXP-03` seed 603 finds 9/10 planted assets/dependencies, accepts zero decoys, retains 2/2 denials and emits the cited proposal. Sealed `EXP-04` seed 604 disposes 10/10 events, reaches the exact final state and reports zero gaps. All run indexes verify. Migration 011 binds 71 schemas; 11 migrations / 17 tables fingerprint `7acfcb43…8769156`. Verification passes 33 unit files / 176 tests and 18 PostgreSQL files / 53 tests. Next: make independent evaluation—not producer confidence—the acceptance boundary.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P6-DISC-08
+P7-EVAL-01
 ```
 
 Means:
 
-- Phase 6
-- Source discovery and gap resolution track
-- Task 8
+- Phase 7
+- Evaluation, self-correction, and skill lifecycle track
+- Task 1
 
 Gate format:
 
@@ -66,9 +66,9 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P6-DISC-08`: analyze snapshot and CDC behavior semantics.”
+> “We are at `P7-EVAL-01`: implement the evaluation contract layer.”
 
-Do not say only “we are working on discovery.”
+Do not say only “we are working on evaluation.”
 
 ## Status vocabulary
 
@@ -140,31 +140,33 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A1 — Stateful worker` | Sessions, context compaction, resumable working history, scoped memory. | **Strong mechanics plus isolated governance proof:** OMP sessions/compaction and product-owned memory candidate/version/use/invalidation pass synthetic scope, harm and replay tests; integrated mission recall remains unproven. |
 | `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **M2/M3 kernel proof:** product PostgreSQL commands/events/projections/plans/attempts/effects/replay/restart converge under faults; the complete mission/world-model loop is not assembled. |
 | `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
-| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M2 discovery proof:** governed retrieval plus versioned read-only adapter authority now produces complete/partial/denied/unavailable inventory, profile, code and lineage evidence; contradiction/gap/probe reasoning remains next. |
+| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M3 discovery proof:** bounded source observations feed claim comparison, contradiction preservation, ranked gaps, safe probes and explicit human exceptions; EXP-02/03 pass without treating denial as absence. |
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Contract/baseline only:** deterministic fixture evaluation exists, but the product evaluation coordinator and closed correction loop remain Phase 7 work. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery substrate M2:** frozen Pagila inventory, profile, code and lineage recover exact expected structure through a mutation-proof sandbox; CDC and proposal qualification remain. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery M3:** Pagila inventory/profile/code/lineage, exact CDC replay, target capability and cited proposal pass EXP-02/03/04; independent artifact/data/semantic evaluation remains Phase 7. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
 
-We have bounded component proof through knowledge/memory, not yet an integrated autonomous migration system.
+We now have an integrated discovery proof, not yet an independently self-correcting migration system.
 
 ```text
 A0 Tool agent                 strong
 A1 Stateful worker            strong mechanics; governed memory M2
 A2 Durable mission            durable kernel M2/M3
 A3 Specialist orchestration   isolated typed/contained proof M2
-A4 Evidence seeking           retrieval/context M2; discovery/gaps partial
+A4 Evidence seeking           integrated discovery proof M3
 A5 Self-correction            contract/baseline only
 A6 Self-improvement           governed memory/skill skeleton M2
 A7 Bounded execution          state semantics only; no target effect
-A8–A10 Integrated product     not assembled
+A8 Integrated substrate       not assembled
+A9 Migration capability       discovery M3; build/evaluation pending
+A10 Working prototype         not assembled
 ```
 
-The source boundary and first discovery projections now work in isolation. `P6-DISC-08` must infer snapshot/ordering/transaction/delete/amendment/DDL/restart/checkpoint behavior from explicit traces rather than database shape or adapter confidence.
+The source-understanding gate is closed. `P7-EVAL-01` must now turn existing evaluator seams into the versioned acceptance contract used by every generated artifact, data movement result and correction.
 
 ## Working prototype definition
 
@@ -430,15 +432,15 @@ Failure route: `L-KNOW-01`.
 | `DONE` | `P6-DISC-05` | Implement data profiler. | Bounded profiles record exact row/null/distinct counts and only value digests; missing/denied relations remain explicit and raw sample values are absent. |
 | `DONE` | `P6-DISC-06` | Implement code/transform extraction. | Views, materialized views, functions, procedures and triggers are extracted into one checksum-bound artifact with per-object identity/digest and coverage. |
 | `DONE` | `P6-DISC-07` | Implement lineage/dependency inference. | Catalog/static/query-log/runtime methods remain distinguished; Pagila yields 36 foreign-key, seven partition, view, trigger, sequence and routine edges with unresolved references retained. |
-| `CURRENT` | `P6-DISC-08` | Implement CDC behavior analysis. | Snapshot boundary, ordering, transaction, delete, amendment, DDL, restart, and checkpoint behavior are inferred/tested. |
-| `WAIT` | `P6-DISC-09` | Implement claim/observation comparison. | Supplied artifacts are compared with discovered reality; contradictions become gaps. |
-| `WAIT` | `P6-DISC-10` | Implement gap ranking. | Gaps carry impact, hypotheses, evidence, cheapest test, and exception conditions. |
-| `WAIT` | `P6-DISC-11` | Implement safe-probe planner. | System selects bounded evidence-gathering actions before escalating. |
-| `WAIT` | `P6-DISC-12` | Implement target capability model. | Available target resources, identity, limits, versions, and operations are discovered. |
-| `WAIT` | `P6-DISC-13` | Generate first estate and migration proposal. | Cited estate model, gaps, decisions, target design, mappings, and build plan produced. |
-| `WAIT` | `P6-DISC-14` | Run contradiction experiment. | EXP-02 detects all material seeded false claims without unsupported promotion. |
-| `WAIT` | `P6-DISC-15` | Run hidden-estate experiment. | EXP-03 meets planted asset/dependency and denial thresholds. |
-| `WAIT` | `P6-DISC-16` | Run CDC inference experiment. | EXP-04 reaches exact target state and explicit event disposition after replay. |
+| `DONE` | `P6-DISC-08` | Implement CDC behavior analysis. | Ten-event trace analysis records snapshot, source-position order, atomic transaction, explicit delete, ordered amendment, DDL, resume checkpoint, duplicate restart and late-event semantics with exact final state. |
+| `DONE` | `P6-DISC-09` | Implement claim/observation comparison. | Supported/refuted/unresolved/denied/stale results retain supplied/observed digests and citations; denial cannot prove absence. |
+| `DONE` | `P6-DISC-10` | Implement gap ranking. | Impact, uncertainty, blocking, probe cost and risk produce checked deterministic scores/ranks with cheapest probes and exception-only gaps. |
+| `DONE` | `P6-DISC-11` | Implement safe-probe planner. | Planner selects the highest-value executable bounded read while retaining unrelated denied scope as an accountable human exception. |
+| `DONE` | `P6-DISC-12` | Implement target capability model. | Immutable target versions bind resources, identity/secret refs, operations, idempotency, data class, compatibility, coverage and predecessor; only complete observed capability resolves. |
+| `DONE` | `P6-DISC-13` | Generate first estate and migration proposal. | Full Pagila pipeline emits cited estate, gaps, three decisions, observed target, 22 proposed mappings and five dependency/proof/recovery tasks with proposal-only authority. |
+| `DONE` | `P6-DISC-14` | Run contradiction experiment. | Sealed `EXP-02` seed 602 detects 8/8 material contradictions, cites 10/10 comparisons, promotes zero false claims and never treats denial as absence. |
+| `DONE` | `P6-DISC-15` | Run hidden-estate experiment. | Sealed `EXP-03` seed 603 finds 9/10 planted items, accepts zero decoys, records 2/2 denials and retains proposal-only output. |
+| `DONE` | `P6-DISC-16` | Run CDC inference experiment. | Sealed `EXP-04` seed 604 disposes 10/10 events, reaches the exact target state and records explicit semantics with zero gaps. |
 
 ### `G6-DISC` — Source understanding gate
 
@@ -451,6 +453,8 @@ Pass when:
 - the system proposes the next evidence action before asking a human;
 - generated target design references exact source evidence.
 
+**Gate status: `DONE`.** Hidden assets and contradictions meet threshold; both denials remain evidence rather than absence; CDC replay is exact; all material claims are cited/refuted/denied; a bounded next probe and human exception coexist; and the generated target design/proposal resolves to exact source, target and reasoning records. Evidence: 71 schemas, 11 migrations / 17 tables, fingerprint `7acfcb43…8769156`, 33 unit files / 176 tests, 18 PostgreSQL files / 53 tests, and verified sealed `EXP-02`/`03`/`04`.
+
 Failure route: `L-DISC-01`.
 
 ---
@@ -461,7 +465,7 @@ Failure route: `L-DISC-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P7-EVAL-01` | Implement evaluation contracts. | Assignment/result schemas pin subject, inputs, evaluator, metrics, thresholds, and evidence. |
+| `CURRENT` | `P7-EVAL-01` | Implement evaluation contracts. | Assignment/result schemas pin subject, inputs, evaluator, metrics, thresholds, and evidence. |
 | `WAIT` | `P7-EVAL-02` | Implement evaluation coordinator. | Independent runners are assigned; missing/contradictory evaluation remains unresolved. |
 | `WAIT` | `P7-EVAL-03` | Implement deterministic schema evaluators. | Structural, type, contract, compatibility, and policy defects are reproducibly detected. |
 | `WAIT` | `P7-EVAL-04` | Implement data movement evaluators. | Counts, keys, deletes, ordering, watermarks, replay, and explicit disposition are checked. |
@@ -646,14 +650,14 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
-| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-08` |
-| Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
+| Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
+| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-01` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
 | Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
 
 ## Immediate next three coordinates
 
-1. **`P6-DISC-08`** — Analyze snapshot and CDC behavior semantics.
-2. **`P6-DISC-09`** — Compare supplied claims with source observations.
-3. **`P6-DISC-10`** — Rank evidence gaps deterministically.
+1. **`P7-EVAL-01`** — Implement the evaluation contract layer.
+2. **`P7-EVAL-02`** — Implement the independent evaluation coordinator.
+3. **`P7-EVAL-03`** — Implement deterministic schema evaluators.
