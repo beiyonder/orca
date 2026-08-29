@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P6-DISC-01` — select and freeze the first licensed source fixture before widening S1 into discovery.
+`P6-DISC-02` — define the read-only adapter contract for the frozen Pagila source before widening S1 into discovery.

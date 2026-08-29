@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P6-DISC-01` — select and freeze the first licensed source fixture inside the private lab boundary.
+`P6-DISC-02` — define the source-adapter contract inside the private lab before any Pagila connection executes.

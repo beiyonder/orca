@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P6-DISC-01` — freeze one licensed source fixture and runtime without changing the measured Node control-plane cut.
+`P6-DISC-02` — define the Pagila adapter contract without changing the measured Node/PostgreSQL runtime cut.
