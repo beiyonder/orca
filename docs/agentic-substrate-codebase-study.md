@@ -429,12 +429,12 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1 through `P7-EVAL-03` closeout
+## Phase 1 through `P7-EVAL-06` closeout
 
-`P1-RSCH-01` through `P7-EVAL-03` are complete. The linked audits, placement/maturity decisions, S1 contract, deferred register, experiment queue, lab/runtime decisions, durable kernel, bounded OMP orchestration, governed knowledge, source discovery, versioned acceptance contracts, restart-safe coordination and the first executable deterministic oracle close `G1-RSCH` through `G6-DISC` and establish the first three Phase 7 boundaries.
+`P1-RSCH-01` through `P7-EVAL-06` are complete. The linked audits, lab/kernel/orchestration/knowledge/discovery evidence, versioned evaluation contracts, restart-safe coordination, deterministic contract checks, CDC reconciliation, clean artifact builds and held-out semantic scoring establish evaluator breadth without granting acceptance.
 
 Next:
 
-1. `P7-EVAL-04` — implement counts/keys/deletes/order/watermark/replay evaluators.
-2. `P7-EVAL-05` — implement clean artifact build/provenance evaluators.
-3. `P7-EVAL-06` — implement the held-out semantic labeled-case evaluator.
+1. `P7-EVAL-07` — implement product-owned acceptance state.
+2. `P7-EVAL-08` — attribute failed measures to typed diagnosis gaps.
+3. `P7-EVAL-09` — run fixed-contract correction over new subject versions.

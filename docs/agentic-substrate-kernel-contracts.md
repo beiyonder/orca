@@ -148,7 +148,7 @@ Covers task DAG refs/state/proof/evaluator/recovery, owned/read scope, exact too
 
 Immutable logical artifact lineage with producer assignment/attempt/fence, content digest, decisions/evidence, and proposed/evaluating/accepted/rejected/quarantined state.
 
-## Evaluation and correction — 13
+## Evaluation and correction — 18
 
 - `evaluator-definition.v1`
 - `evaluator-definition.v2`
@@ -159,12 +159,17 @@ Immutable logical artifact lineage with producer assignment/attempt/fence, conte
 - `evaluation-assignment.v2`
 - `deterministic-evaluator-suite.v1`
 - `evaluation-deterministic-report.v1`
+- `data-movement-evaluation-report.v1`
+- `artifact-build-bundle.v1`
+- `artifact-build-evaluation-report.v1`
+- `semantic-labeled-corpus.v1`
+- `semantic-evaluation-report.v1`
 - `evaluation-result.v1`
 - `evaluation-result.v2`
 - `correction-request.v1`
 - `correction-result.v1`
 
-Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority. Coordination snapshots add assignment/outbox identity, deadline-aware missing state, typed disagreement/unresolved reasons, unrelated-work continuation and reconciliation-only eligibility. Deterministic suite/report records pin five side-effect-free checks and their immutable typed execution evidence.
+Contracts now cover exact independent assignment, coordination, side-effect-free structural checks, CDC state reconciliation, clean compiler output and held-out semantic scoring. Every evaluator artifact remains immutable and non-authoritative; acceptance and correction remain product-owned.
 
 ## Learning lifecycle — 6
 
@@ -342,6 +347,10 @@ Product-owned dispatch creates one derived-independent V2 assignment and durable
 
 A required suite input drives five hard structural/type/lineage/compatibility/policy checks and emits one immutable report/evidence/result set. Critical mutations fail exact measures, property reorder is byte-identical, late work is stale, and claim release/redelivery replays one stored result before current-fence acknowledgment. Registry 78; fingerprint `5561a9ce…1c3e5fe`; 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests.
 
+## `P7-EVAL-04` through `P7-EVAL-06` evidence
+
+The ten-event CDC oracle passes exact count/key/delete/order/watermark/replay/disposition checks. A pinned TypeScript compiler builds a private clean bundle twice to one digest and rejects build/envelope/path/provenance defects. Ten held-out semantic groups pass exact scoring while false accepts fail and abstention/disagreement remain inconclusive. Registry 83; fingerprint `8681ec82…0864993a`; 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests.
+
 ## Next coordinate
 
-`P7-EVAL-04` — execute deterministic data-movement reconciliation checks.
+`P7-EVAL-07` — make product acceptance state explicit and exclusive.

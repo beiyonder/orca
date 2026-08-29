@@ -1,0 +1,232 @@
+{
+  "$id": "urn:orca:migration-control-plane:semantic-evaluation-report.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "acceptanceAuthority": {
+      "const": "none",
+      "type": "string"
+    },
+    "cases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "disposition": {
+            "enum": ["correct", "incorrect", "abstained", "disagreement"],
+            "type": "string"
+          },
+          "expected": {
+            "enum": ["accept", "reject"],
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "primary": {
+            "anyOf": [
+              {
+                "enum": ["accept", "reject"],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "secondary": {
+            "anyOf": [
+              {
+                "enum": ["accept", "reject"],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": ["id", "expected", "primary", "secondary", "disposition"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "corpusDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "corpusId": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^semantic_corpus_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evaluatedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "evaluatedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "evaluatorVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^semantic_report_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "semantic-evaluation-report",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "status": {
+      "enum": ["passed", "failed", "inconclusive"],
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "thresholds": {
+      "additionalProperties": false,
+      "properties": {
+        "maximumDisagreements": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "maximumFalseAccepts": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "minimumAccuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": ["minimumAccuracy", "maximumFalseAccepts", "maximumDisagreements"],
+      "type": "object"
+    },
+    "totals": {
+      "additionalProperties": false,
+      "properties": {
+        "abstained": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "accuracy": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        "cases": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "correct": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "disagreements": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "falseAccepts": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "incorrect": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cases",
+        "correct",
+        "incorrect",
+        "abstained",
+        "disagreements",
+        "falseAccepts",
+        "accuracy"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "corpusId",
+    "corpusDigest",
+    "evaluatorVersion",
+    "cases",
+    "totals",
+    "thresholds",
+    "status",
+    "evaluatedAt",
+    "evaluatedBy",
+    "limitations",
+    "acceptanceAuthority"
+  ],
+  "title": "semantic-evaluation-report.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "semantic-evaluation-report.v1"
+  }
+}

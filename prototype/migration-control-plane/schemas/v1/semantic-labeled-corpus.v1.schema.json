@@ -1,0 +1,167 @@
+{
+  "$id": "urn:orca:migration-control-plane:semantic-labeled-corpus.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "claimClass": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "groupId": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "inputDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "label": {
+            "enum": ["accept", "reject"],
+            "type": "string"
+          },
+          "rationale": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["id", "groupId", "claimClass", "inputDigest", "label", "rationale"],
+        "type": "object"
+      },
+      "maxItems": 10000,
+      "minItems": 10,
+      "type": "array"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 17,
+      "pattern": "^semantic_corpus_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "semantic-labeled-corpus",
+      "type": "string"
+    },
+    "labeledBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "labelsVisibleToProducer": {
+      "const": false,
+      "type": "boolean"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "maximumDisagreements": {
+      "maximum": 10000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "maximumFalseAccepts": {
+      "maximum": 10000,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "minimumAccuracy": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "number"
+    },
+    "predecessorCorpusId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 17,
+          "pattern": "^semantic_corpus_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "split": {
+      "const": "held-out",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "version": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "version",
+    "predecessorCorpusId",
+    "split",
+    "labelsVisibleToProducer",
+    "cases",
+    "minimumAccuracy",
+    "maximumFalseAccepts",
+    "maximumDisagreements",
+    "labeledBy",
+    "limitations"
+  ],
+  "title": "semantic-labeled-corpus.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "semantic-labeled-corpus.v1"
+  }
+}

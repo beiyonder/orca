@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P7-EVAL-04` — Implement data-movement evaluators.**
+**`P7-EVAL-07` — Implement the acceptance state machine.**
 
 Current artifacts already exist:
 
@@ -38,6 +38,8 @@ Phase 6 and `G6-DISC` are complete. `P6-DISC-01`–`07` provide the frozen Pagil
 
 `P7-EVAL-03` is complete. A versioned side-effect-free suite maps five hard boolean measures to structural, runtime type, contract/evidence lineage, schema compatibility and authority-policy checks over the migration proposal. Every run emits an immutable typed report, report evidence and V2 result; critical structure/type/evidence/version/tenant/authority mutations fail exact measures, property-order changes remain byte-identical, and late otherwise-passing work is stale. Claimed outbox work persists report/evidence/result atomically, survives redelivery as one exact replay, acknowledges only the current fence, and advances coordination only to reconciliation eligibility. Review tightened exact suite pinning, rejected duplicate/excess evidence, required JSON serialization, enforced non-effect authority and improved coordinator record-set validation. Migration 014 raises the registry to 78 schemas; 14 migrations / 17 tables fingerprint `5561a9ce…1c3e5fe`. Verification passes 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests.
 
+`P7-EVAL-04` through `P7-EVAL-06` are complete. CDC evaluation now checks exact final counts and key digests, applied deletes, source ordering, checkpoint watermark, replay equality and one disposition per event. Artifact evaluation reconstructs a private clean TypeScript project twice under a pinned compiler/options digest, rejects path/provenance/compiler/build defects and records an emitted digest without package installation or network. A ten-group held-out semantic corpus keeps labels hidden from producers, scores exact predictions, fails false accepts and leaves abstention or evaluator disagreement inconclusive. Five immutable bundle/corpus/report contracts persist under migration 015; registry 83, 15 migrations / 17 tables fingerprint `8681ec82…0864993a`. Verification passes 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests.
+
 ## How to use coordinates
 
 Format:
@@ -72,7 +74,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P7-EVAL-04`: implement deterministic data-movement evaluators.”
+> “We are at `P7-EVAL-07`: implement the acceptance state machine.”
 
 Do not say only “we are working on evaluation.”
 
@@ -147,7 +149,7 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **M2/M3 kernel proof:** product PostgreSQL commands/events/projections/plans/attempts/effects/replay/restart converge under faults; the complete mission/world-model loop is not assembled. |
 | `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
 | `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M3 discovery proof:** bounded source observations feed claim comparison, contradiction preservation, ranked gaps, safe probes and explicit human exceptions; EXP-02/03 pass without treating denial as absence. |
-| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **First executable independent evaluator:** contract plus durable coordination now drives a side-effect-free five-check suite with typed report/evidence/result and at-least-once replay safety; data movement/build/semantic evaluators, diagnosis and closed correction remain Phase 7 work. |
+| `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Broad independent evaluator layer:** contract, durable coordination, five hard contract checks, CDC state reconciliation, clean TypeScript build and held-out semantic scoring pass; acceptance, diagnosis and closed correction remain Phase 7 work. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
@@ -164,7 +166,7 @@ A1 Stateful worker            strong mechanics; governed memory M2
 A2 Durable mission            durable kernel M2/M3
 A3 Specialist orchestration   isolated typed/contained proof M2
 A4 Evidence seeking           integrated discovery proof M3
-A5 Self-correction            contract + coordinator + deterministic contract evaluator
+A5 Self-correction            independent contract/data/build/semantic evaluators; acceptance next
 A6 Self-improvement           governed memory/skill skeleton M2
 A7 Bounded execution          state semantics only; no target effect
 A8 Integrated substrate       not assembled
@@ -172,7 +174,7 @@ A9 Migration capability       discovery M3; build/evaluation pending
 A10 Working prototype         not assembled
 ```
 
-`P7-EVAL-01` through `P7-EVAL-03` close the contract, coordination and first executable-oracle boundaries. `P7-EVAL-04` must now deterministically reconcile counts, keys, deletes, ordering, watermarks, replay and event dispositions.
+`P7-EVAL-01` through `P7-EVAL-06` close contract, coordination and evaluator-breadth boundaries. `P7-EVAL-07` must now make product acceptance state explicit without letting any evaluator record accept itself.
 
 ## Working prototype definition
 
@@ -474,10 +476,10 @@ Failure route: `L-DISC-01`.
 | `DONE` | `P7-EVAL-01` | Implement evaluation contracts. | Four immutable V2 records pin definition/contract lineage, subject and input schema/version/digest, evaluator execution and independence, measures/thresholds, exact evidence, budgets and non-authority; 75 schemas, migration 012, registry reconstruction, task-gate evidence readback, 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests pass. |
 | `DONE` | `P7-EVAL-02` | Implement evaluation coordinator. | Product-owned deterministic dispatch creates one independent V2 assignment/outbox message per required evaluator; immutable snapshots preserve missing/contradictory/stale/failure/disagreement as unaccepted, restart reconstruction and unrelated progress pass; registry 76, migration 013, 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests. |
 | `DONE` | `P7-EVAL-03` | Implement deterministic schema evaluators. | A pinned no-network/no-filesystem/no-model suite emits immutable report/evidence/result for five hard structural/type/lineage/compatibility/policy checks; critical/benign mutations, stale handling, claim-fenced persistence and redelivery replay pass; registry 78, migration 014, 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests. |
-| `CURRENT` | `P7-EVAL-04` | Implement data movement evaluators. | Counts, keys, deletes, ordering, watermarks, replay, and explicit disposition are checked. |
-| `WAIT` | `P7-EVAL-05` | Implement artifact build evaluators. | Generated code/config builds from clean inputs and records provenance/digests. |
-| `WAIT` | `P7-EVAL-06` | Implement semantic labeled-case evaluator. | Small held-out domain corpus has labels, scorer, disagreement, and abstention behavior. |
-| `WAIT` | `P7-EVAL-07` | Implement acceptance state machine. | Unknown, hypothesis, supported, accepted, rejected, and quarantined transitions are enforced. |
+| `DONE` | `P7-EVAL-04` | Implement data movement evaluators. | Exact counts/keys/deletes/order/watermark/replay/dispositions pass the ten-event CDC oracle and localized mutation cases. |
+| `DONE` | `P7-EVAL-05` | Implement artifact build evaluators. | Private clean TypeScript builds run twice under pinned compiler/options, prove output digest/provenance and reject compiler, path, manifest and type defects. |
+| `DONE` | `P7-EVAL-06` | Implement semantic labeled-case evaluator. | Ten isolated held-out groups score exactly; false accepts fail and abstention/disagreement remain inconclusive. Registry 83, migration 015, 38 unit files / 207 tests and 22 PostgreSQL files / 57 tests pass. |
+| `CURRENT` | `P7-EVAL-07` | Implement acceptance state machine. | Unknown, hypothesis, supported, accepted, rejected, and quarantined transitions are enforced. |
 | `WAIT` | `P7-EVAL-08` | Implement failed-result diagnosis. | Failed measures create attributed gaps instead of generic retry prompts. |
 | `WAIT` | `P7-EVAL-09` | Implement correction loop. | Apex revises decision/artifact/skill, reruns independent evaluation, and records the delta. |
 | `WAIT` | `P7-EVAL-10` | Implement learning-candidate creation. | Accepted results and diagnosed failures create quarantined memory/skill candidates. |
@@ -657,13 +659,13 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
-| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-04`; `P7-EVAL-01`–`03` done |
+| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-07`; `P7-EVAL-01`–`06` done |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
 | Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
 
 ## Immediate next three coordinates
 
-1. **`P7-EVAL-04`** — Implement data-movement evaluators.
-2. **`P7-EVAL-05`** — Implement artifact-build evaluators.
-3. **`P7-EVAL-06`** — Implement semantic labeled-case evaluator.
+1. **`P7-EVAL-07`** — Implement acceptance state machine.
+2. **`P7-EVAL-08`** — Implement failed-result diagnosis.
+3. **`P7-EVAL-09`** — Implement fixed-contract correction loop.
