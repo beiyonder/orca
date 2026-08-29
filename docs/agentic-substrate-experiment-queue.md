@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P6-DISC-02`.
-- `G2-LAB` through `G5-KNOW` and `P6-DISC-01` are complete; the typed read-only source-adapter contract is next.
+- First dependency-ready roadmap coordinate: `P6-DISC-08`.
+- `P6-DISC-01` through `P6-DISC-07` are complete; explicit CDC behavior analysis is next.
 - Source research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -178,6 +178,23 @@ Gate verification:
 - the README claim of “PostgreSQL license” conflicts with the MIT permission text in `LICENSE.txt`; both facts remain explicit and the exact license bytes ship with the fixture;
 - WideWorldImporters, Oracle samples, Synthea, and Debezium examples remain later challengers because their runtime, domain shape, or CDC topology would conflate the first fixture with later coordinates;
 - strict manifest/file/estate validation, upstream INSERT counting, shared path/symlink/hard-link defenses, and real PostgreSQL reconstruction pass; complete verification is 27 unit files / 158 tests and 13 PostgreSQL files / 37 tests.
+
+## `P6-DISC-02` through `P6-DISC-03` source authority evidence
+
+- four strict contracts cover adapter definition, access envelope, semantic request and observation; registry reconstruction enforces version lineage, tenant/source/endpoint/operation/data/limit/time/use authority and exact request→observation identity;
+- source operations contain no mutation vocabulary or arbitrary SQL input; permission evidence, credential reference, endpoint digest, read limits, data class, denial-not-absence outcomes, partial evidence and retry disposition are explicit;
+- the PostgreSQL sandbox verifies endpoint/database/version, enters repeatable-read/read-only, exports a snapshot, serializes trusted operation queries, enforces query/row/byte/statement/overall/concurrency limits and exposes no filesystem capability;
+- real tests prove reads, mutation rejection with unchanged rows, network/source mismatch, row/statement deadlines and concurrent-start denial;
+- migration 009 persists all four immutable records and expands the registry from 55 to 59 schemas.
+
+## `P6-DISC-04` through `P6-DISC-07` estate discovery evidence
+
+- system inventory records database/server/schema/extension identity and complete/denied/unavailable coverage; schema inventory records relations, columns, constraints, indexes, routines, triggers, types, sequences and grants;
+- bounded profiling records exact row/null/distinct counts, text-order min/max digests and sample digests only; raw values never enter the durable profile;
+- views, materialized views, functions, procedures and triggers are written into one checksum-bound artifact with per-object digests and explicit coverage;
+- lineage nodes/edges distinguish catalog-declared, static-analysis, query-log and runtime-trace methods; missing endpoints remain unresolved rather than fabricated;
+- frozen Pagila qualification returns 30 relations, 58 relation constraints, 56 indexes, 10 routines, 15 triggers, three types, 13 sequences, exact actor statistics, 36 foreign-key and seven partition edges plus view/trigger/sequence/routine dependencies;
+- migration 010 persists five immutable discovery projections; registry 64, migrations 10 / tables 17, fingerprint `374e03e9…82ec42`; verification passes 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests.
 
 ## Queue classes
 
@@ -431,4 +448,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P6-DISC-02`: define the versioned source-adapter contract from the frozen Pagila boundary, including read-only capabilities, permission/denial evidence, version identity, limits, errors, and restart behavior.
+Begin `P6-DISC-08`: analyze explicit snapshot and change traces for ordering, transactions, deletes, amendments, DDL, restart, and checkpoint behavior; schema shape alone must remain insufficient evidence.

@@ -24,7 +24,7 @@ Runtime baseline:
 
 Post-handoff updates: `P3-KERN-01` added exact `zod 4.4.3` for the V1 registry. `P3-KERN-02` added exact `pg 8.23.0`, three checksum-locked PostgreSQL 16 migrations, and real-server convergence tests. The Phase 2 gate itself had no runtime dependency.
 
-Current roadmap coordinate: `P6-DISC-02`.
+Current roadmap coordinate: `P6-DISC-08`.
 
 ## Coordinate evidence
 
@@ -47,6 +47,8 @@ Current roadmap coordinate: `P6-DISC-02`.
 | `P5-KNOW-04` through `P5-KNOW-08` | Pre-ranking authorization, structured/BM25 lexical, optional versioned semantic projection, bounded relational graph expansion, immutable retrieval traces, and byte-reproducible cited/redacted/token-bounded contexts; 23 unit files / 137 tests, 11 PostgreSQL files / 35 tests. |
 | `P5-KNOW-09` through `P5-KNOW-13` | Five-class quarantined memory candidates, ordered reversible memory/use/invalidation lifecycle, compatible versioned skill registry, immutable PostgreSQL persistence, and sealed retrieval/help-harm qualification; 55 schemas, migration 008, 25 unit files / 152 tests, 12 PostgreSQL files / 36 tests. |
 | `P6-DISC-01` | Frozen Pagila `pagila-v3.1.0` / `fef96757…ddf90e` source, exact permissive license/schema/data bytes, PostgreSQL 16.15 UTF8/C runtime, expected catalog and row-count oracle, fixture digest `c22e7c17…f4fe025d`, strict loader, shared file defenses, and real-server reconstruction; 27 unit files / 158 tests, 13 PostgreSQL files / 37 tests. |
+| `P6-DISC-02` through `P6-DISC-03` | Four immutable adapter/access/request/observation contracts, cross-record authority registry, PostgreSQL repeatable-read/read-only sandbox, exact endpoint/database/version checks, serialized bounded query session, mutation rejection and migration 009 persistence. |
+| `P6-DISC-04` through `P6-DISC-07` | Exact Pagila system/schema inventory, digest-only bounded profiles, checksum-bound code extraction and provenance-separated lineage; registry 64, migrations 10, fingerprint `374e03e9…82ec42`, 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests. |
 
 ## Stable commands
 
@@ -169,8 +171,9 @@ Rejected for the Phase 2 baseline:
 5. Phase 4 is complete: isolated framed processes, exact context/results/tools, nine typed specialists, proposed-only apex action, evidence-driven disagreement, reconstructability, and real containment all pass.
 6. Phase 5 is complete: governed corpus/retrieval/context, memory candidates and reversible use lifecycle, typed skill versions, and sealed `EXP-06`/`EXP-07` pass; migration 008 fingerprints 55 contract bindings at `2ade23da…b4bf5e`.
 7. Pagila is synthetic and operationally rich but not a true legacy or healthcare estate; hidden assets, denials, misleading documents, CDC faults, and domain semantics remain future planted layers.
-8. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen fixture source bytes and exact license/provenance manifests are tracked.
-9. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
+8. Source operation handlers are trusted product code and receive only a bounded read session; arbitrary third-party connector code still requires the later process/container sandbox boundary.
+9. Generated `.runs/`, `dist/`, `node_modules` and coverage remain ignored. Frozen fixture source bytes and exact license/provenance manifests are tracked.
+10. No DBOS or Inspect dependency was added; challenger arms remain gated by their baseline experiments.
 
 ## Files created
 
@@ -193,7 +196,7 @@ Repository integration:
 
 ## Exact next action
 
-Start `P6-DISC-02`: define the versioned read-only adapter contract for the frozen Pagila boundary, including capability, permission, evidence, limit, error, and recovery records.
+Start `P6-DISC-08`: analyze explicit change traces for snapshot boundaries, ordering, transactions, deletes, amendments, DDL, restart and checkpoint behavior.
 
 First verification command after any change:
 

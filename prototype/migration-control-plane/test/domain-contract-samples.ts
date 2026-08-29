@@ -4,6 +4,8 @@ import { KNOWLEDGE_RETRIEVAL_CONTRACT_SAMPLES } from './knowledge-retrieval-cont
 import { LEARNING_CONTRACT_SAMPLES } from './learning-contract-samples.js'
 import { MISSION_PLANNING_CONTRACT_SAMPLES } from './mission-planning-contract-samples.js'
 import { MEMORY_SKILL_CONTRACT_SAMPLES } from './memory-skill-contract-samples.js'
+import { SOURCE_CONTRACT_SAMPLES } from './source-contract-samples.js'
+import { SOURCE_DISCOVERY_CONTRACT_SAMPLES } from './source-discovery-contract-samples.js'
 
 const tenantId = 'tenant_s1'
 const missionId = 'mission_s1'
@@ -79,6 +81,8 @@ export const DOMAIN_CONTRACT_SAMPLES: Record<DomainSchemaName, unknown> = {
   ...MISSION_PLANNING_CONTRACT_SAMPLES,
   ...KNOWLEDGE_RETRIEVAL_CONTRACT_SAMPLES,
   ...MEMORY_SKILL_CONTRACT_SAMPLES,
+  ...SOURCE_CONTRACT_SAMPLES,
+  ...SOURCE_DISCOVERY_CONTRACT_SAMPLES,
   'assignment-record.v1': {
     schemaVersion: 1,
     kind: 'assignment',

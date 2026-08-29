@@ -1,5 +1,5 @@
 {
-  "registryDigest": "21e090687ee57eb3f248a48e8a08284c037a5ce3f99dd50507fbd5aea3239f50",
+  "registryDigest": "4fc4c584935e57367df72965c9a82ad66d5c06ac739b98596c3659cdd04396d1",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -320,6 +320,60 @@
       "file": "skill-version.v1.schema.json",
       "name": "skill-version.v1",
       "sha256": "70ef0c03f8b010236fc3dc96acf07c2d40245d28495ca85354804f50d9071c83"
+    },
+    {
+      "bytes": 8322,
+      "file": "source-access-envelope.v1.schema.json",
+      "name": "source-access-envelope.v1",
+      "sha256": "c69651392054ab9340adc0c9bfb68742d42626dacc7fc1250b3a836c76985441"
+    },
+    {
+      "bytes": 10506,
+      "file": "source-adapter-definition.v1.schema.json",
+      "name": "source-adapter-definition.v1",
+      "sha256": "a1ef5c672ea535c9969c728738fdddfcc5fde93f460ade7d0da56c2c5a5089a5"
+    },
+    {
+      "bytes": 9933,
+      "file": "source-code-extract.v1.schema.json",
+      "name": "source-code-extract.v1",
+      "sha256": "1bc0539c2f611040541e660f288313e59b2aa2c8c7e01bfe65a93499c59a6339"
+    },
+    {
+      "bytes": 12080,
+      "file": "source-data-profile.v1.schema.json",
+      "name": "source-data-profile.v1",
+      "sha256": "2ff73fba5e8ba7b6a8bc02c656c70e53ed9c3f93ea525119310aeddffad7a9c5"
+    },
+    {
+      "bytes": 8864,
+      "file": "source-lineage-snapshot.v1.schema.json",
+      "name": "source-lineage-snapshot.v1",
+      "sha256": "d5717f4a62b22b3d9ccd6af33a9373976303c4557c2b7c0678256fb0005ed6f7"
+    },
+    {
+      "bytes": 28496,
+      "file": "source-observation.v1.schema.json",
+      "name": "source-observation.v1",
+      "sha256": "4ab48e2814f82f508f6c6c2dc6bf2574004cdd8e322d43164f4a8dd5ce3aab4b"
+    },
+    {
+      "bytes": 6241,
+      "file": "source-request.v1.schema.json",
+      "name": "source-request.v1",
+      "sha256": "a63b378168e2ed4c21d8d80db7c0904ef225f2f6403840ef55d502337cf88687"
+    },
+    {
+      "bytes": 16303,
+      "file": "source-schema-inventory.v1.schema.json",
+      "name": "source-schema-inventory.v1",
+      "sha256": "f8654b84f6caba9d31a7bfb9196545813b50322432708b09b4f5468e51c10d2e"
+    },
+    {
+      "bytes": 8759,
+      "file": "source-system-inventory.v1.schema.json",
+      "name": "source-system-inventory.v1",
+      "sha256": "55fe01bfde6100ac9d95668f333ec3cba5ab471641fd4f2589283e4d015ba7db"
     },
     {
       "bytes": 7567,

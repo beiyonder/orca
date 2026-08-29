@@ -1,0 +1,310 @@
+{
+  "$id": "urn:orca:migration-control-plane:source-access-envelope.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapterDefinitionId": {
+      "maxLength": 128,
+      "minLength": 27,
+      "pattern": "^source_adapter_definition_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "allowedOperations": {
+      "items": {
+        "enum": [
+          "inventory-system",
+          "inventory-schema",
+          "profile-data",
+          "extract-code",
+          "infer-lineage",
+          "inspect-cdc",
+          "run-safe-probe",
+          "inspect-capabilities"
+        ],
+        "type": "string"
+      },
+      "maxItems": 8,
+      "minItems": 1,
+      "type": "array"
+    },
+    "assignmentId": {
+      "maxLength": 128,
+      "minLength": 12,
+      "pattern": "^assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "attemptId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "filesystemScopes": {
+          "prefixItems": [],
+          "type": "array"
+        },
+        "mode": {
+          "const": "read-only",
+          "type": "string"
+        },
+        "mutationVocabulary": {
+          "prefixItems": [],
+          "type": "array"
+        },
+        "transactionMode": {
+          "const": "read-only",
+          "type": "string"
+        }
+      },
+      "required": ["mode", "transactionMode", "mutationVocabulary", "filesystemScopes"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "credentialReference": {
+      "anyOf": [
+        {
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dataClasses": {
+      "items": {
+        "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "type": "array"
+    },
+    "expiresAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "fence": {
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "type": "integer"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^source_access_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "issuedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "issuedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "kind": {
+      "const": "source-access-envelope",
+      "type": "string"
+    },
+    "limits": {
+      "additionalProperties": false,
+      "properties": {
+        "byteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 1073741824,
+          "type": "integer"
+        },
+        "concurrencyLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 128,
+          "type": "integer"
+        },
+        "queryLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 10000,
+          "type": "integer"
+        },
+        "rowLimit": {
+          "maximum": 10000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "statementTimeoutMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 600000,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 3600000,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "timeLimitMs",
+        "statementTimeoutMs",
+        "queryLimit",
+        "rowLimit",
+        "byteLimit",
+        "concurrencyLimit"
+      ],
+      "type": "object"
+    },
+    "maxUses": {
+      "exclusiveMinimum": 0,
+      "maximum": 10000,
+      "type": "integer"
+    },
+    "networkEndpointDigests": {
+      "items": {
+        "pattern": "^[a-f0-9]{64}$",
+        "type": "string"
+      },
+      "maxItems": 16,
+      "minItems": 1,
+      "type": "array"
+    },
+    "permissionEvidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 1000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "revokedAt": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "databaseName": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "endpointDigest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "engine": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "engineVersion": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "fixtureDigest": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceSystemId": {
+          "maxLength": 128,
+          "minLength": 15,
+          "pattern": "^source_system_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sourceSystemId",
+        "engine",
+        "engineVersion",
+        "databaseName",
+        "endpointDigest",
+        "fixtureDigest"
+      ],
+      "type": "object"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "adapterDefinitionId",
+    "assignmentId",
+    "attemptId",
+    "fence",
+    "source",
+    "allowedOperations",
+    "permissionEvidenceIds",
+    "credentialReference",
+    "networkEndpointDigests",
+    "dataClasses",
+    "limits",
+    "maxUses",
+    "issuedAt",
+    "expiresAt",
+    "revokedAt",
+    "authority",
+    "issuedBy"
+  ],
+  "title": "source-access-envelope.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "source-access-envelope.v1"
+  }
+}

@@ -70,6 +70,20 @@ import {
   RetrievalTraceV1Schema
 } from './retrieval-contracts.js'
 import { SkillLifecycleEventV1Schema, SkillVersionV1Schema } from './skill-contracts.js'
+import {
+  SourceAccessEnvelopeV1Schema,
+  SourceAdapterDefinitionV1Schema
+} from './source-adapter-contracts.js'
+import {
+  SourceCodeExtractV1Schema,
+  SourceLineageSnapshotV1Schema
+} from './source-code-lineage-contracts.js'
+import {
+  SourceSchemaInventoryV1Schema,
+  SourceSystemInventoryV1Schema
+} from './source-inventory-contracts.js'
+import { SourceObservationV1Schema, SourceRequestV1Schema } from './source-probe-contracts.js'
+import { SourceDataProfileV1Schema } from './source-profile-contracts.js'
 
 export const DOMAIN_SCHEMA_REGISTRY = {
   'accepted-finding.v1': AcceptedFindingV1Schema,
@@ -125,6 +139,15 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'secret-lease.v1': SecretLeaseV1Schema,
   'skill-lifecycle-event.v1': SkillLifecycleEventV1Schema,
   'skill-version.v1': SkillVersionV1Schema,
+  'source-access-envelope.v1': SourceAccessEnvelopeV1Schema,
+  'source-adapter-definition.v1': SourceAdapterDefinitionV1Schema,
+  'source-code-extract.v1': SourceCodeExtractV1Schema,
+  'source-data-profile.v1': SourceDataProfileV1Schema,
+  'source-lineage-snapshot.v1': SourceLineageSnapshotV1Schema,
+  'source-observation.v1': SourceObservationV1Schema,
+  'source-request.v1': SourceRequestV1Schema,
+  'source-schema-inventory.v1': SourceSchemaInventoryV1Schema,
+  'source-system-inventory.v1': SourceSystemInventoryV1Schema,
   'target-observation.v1': TargetObservationV1Schema,
   'task-record.v1': TaskRecordV1Schema
 } as const satisfies Record<string, z.ZodType>
