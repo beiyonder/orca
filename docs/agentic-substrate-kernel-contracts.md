@@ -148,12 +148,13 @@ Covers task DAG refs/state/proof/evaluator/recovery, owned/read scope, exact too
 
 Immutable logical artifact lineage with producer assignment/attempt/fence, content digest, decisions/evidence, and proposed/evaluating/accepted/rejected/quarantined state.
 
-## Evaluation and correction — 10
+## Evaluation and correction — 11
 
 - `evaluator-definition.v1`
 - `evaluator-definition.v2`
 - `evaluation-contract.v1`
 - `evaluation-contract.v2`
+- `evaluation-coordination.v1`
 - `evaluation-assignment.v1`
 - `evaluation-assignment.v2`
 - `evaluation-result.v1`
@@ -161,7 +162,7 @@ Immutable logical artifact lineage with producer assignment/attempt/fence, conte
 - `correction-request.v1`
 - `correction-result.v1`
 
-Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority; runtime registry admission and PostgreSQL evidence readback enforce the cross-record contract.
+Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority. Coordination snapshots add assignment/outbox identity, deadline-aware missing state, typed disagreement/unresolved reasons, unrelated-work continuation and reconciliation-only eligibility.
 
 ## Learning lifecycle — 6
 
@@ -331,6 +332,10 @@ node scripts/migration-control-plane-lab.mjs verify
 
 Four V2 records, registry reconstruction, migration 012 and the task-completion gate bind the accepted output to exact evaluator, contract, subject, input, measure, threshold, evidence, attempt and fence identities. Registry 75; fingerprint `c82229f9…1d9e782d`; 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests.
 
+## `P7-EVAL-02` evidence
+
+Product-owned dispatch creates one derived-independent V2 assignment and durable outbox message per required evaluator. Immutable coordination versions preserve every result disposition without majority vote or acceptance authority; advisory-locked replay, fresh-pool reconstruction and unrelated branch progress pass. Registry 76; fingerprint `cd7f8c60…d612e3a8`; 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests.
+
 ## Next coordinate
 
-`P7-EVAL-02` — coordinate independently assigned evaluator runners without giving their transport or producer authority.
+`P7-EVAL-03` — execute deterministic structural, type, contract, compatibility and policy evaluators.

@@ -1,5 +1,5 @@
 import type { DomainSchemaName } from '../src/domain/domain-contract-registry.js'
-import { EVALUATION_CONTRACT_V2_SAMPLES } from './evaluation-contract-v2-samples.js'
+import { EVALUATION_CONTRACT_SAMPLES } from './evaluation-contract-samples.js'
 import { EFFECT_CONTRACT_SAMPLES } from './effect-contract-samples.js'
 import { KNOWLEDGE_RETRIEVAL_CONTRACT_SAMPLES } from './knowledge-retrieval-contract-samples.js'
 import { LEARNING_CONTRACT_SAMPLES } from './learning-contract-samples.js'
@@ -79,7 +79,7 @@ const evaluationSubjectV1 = {
 }
 
 export const DOMAIN_CONTRACT_SAMPLES: Record<DomainSchemaName, unknown> = {
-  ...EVALUATION_CONTRACT_V2_SAMPLES,
+  ...EVALUATION_CONTRACT_SAMPLES,
   ...MISSION_PLANNING_CONTRACT_SAMPLES,
   ...KNOWLEDGE_RETRIEVAL_CONTRACT_SAMPLES,
   ...MEMORY_SKILL_CONTRACT_SAMPLES,

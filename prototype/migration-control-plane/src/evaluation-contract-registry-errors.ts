@@ -34,8 +34,9 @@ export function putImmutableEvaluationRecord<T extends object>(
         `Evaluation record differs for reused ID: ${id}`
       )
     }
-    return existing
+    return structuredClone(existing)
   }
-  map.set(id, value)
-  return value
+  const stored = structuredClone(value)
+  map.set(id, stored)
+  return structuredClone(stored)
 }

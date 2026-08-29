@@ -429,12 +429,12 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1 through `P7-EVAL-01` closeout
+## Phase 1 through `P7-EVAL-02` closeout
 
-`P1-RSCH-01` through `P7-EVAL-01` are complete. The linked audits, placement/maturity decisions, S1 contract, deferred register, experiment queue, lab/runtime decisions, durable kernel, bounded OMP orchestration, governed knowledge, source discovery and versioned independent acceptance-contract evidence close `G1-RSCH` through `G6-DISC` and establish the Phase 7 contract boundary.
+`P1-RSCH-01` through `P7-EVAL-02` are complete. The linked audits, placement/maturity decisions, S1 contract, deferred register, experiment queue, lab/runtime decisions, durable kernel, bounded OMP orchestration, governed knowledge, source discovery, versioned acceptance contracts and restart-safe independent coordination close `G1-RSCH` through `G6-DISC` and establish the first two Phase 7 boundaries.
 
 Next:
 
-1. `P7-EVAL-02` — coordinate independent evaluation without producer verdict authority.
-2. `P7-EVAL-03` — implement deterministic schema/contract/compatibility/policy checks.
-3. `P7-EVAL-04` — implement counts/keys/deletes/order/watermark/replay evaluators.
+1. `P7-EVAL-03` — implement deterministic schema/contract/compatibility/policy checks.
+2. `P7-EVAL-04` — implement counts/keys/deletes/order/watermark/replay evaluators.
+3. `P7-EVAL-05` — implement clean artifact build/provenance evaluators.

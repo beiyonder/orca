@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P7-EVAL-02` — coordinate independent evaluator runners inside the private lab.
+`P7-EVAL-03` — execute deterministic evaluator workers inside the private lab.

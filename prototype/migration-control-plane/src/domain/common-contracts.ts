@@ -43,6 +43,8 @@ export const EvaluationContractIdSchema =
   opaqueId('evaluation_contract').brand<'EvaluationContractId'>()
 export const EvaluationAssignmentIdSchema =
   opaqueId('evaluation_assignment').brand<'EvaluationAssignmentId'>()
+export const EvaluationCoordinationIdSchema =
+  opaqueId('evaluation_coordination').brand<'EvaluationCoordinationId'>()
 export const EvaluationResultIdSchema = opaqueId('evaluation_result').brand<'EvaluationResultId'>()
 export const CorrectionRequestIdSchema =
   opaqueId('correction_request').brand<'CorrectionRequestId'>()
