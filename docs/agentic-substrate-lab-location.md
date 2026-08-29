@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P7-EVAL-01` — implement the independent evaluation contract layer inside the private lab.
+`P7-EVAL-02` — coordinate independent evaluator runners inside the private lab.

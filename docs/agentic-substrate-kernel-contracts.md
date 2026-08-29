@@ -148,16 +148,20 @@ Covers task DAG refs/state/proof/evaluator/recovery, owned/read scope, exact too
 
 Immutable logical artifact lineage with producer assignment/attempt/fence, content digest, decisions/evidence, and proposed/evaluating/accepted/rejected/quarantined state.
 
-## Evaluation and correction — 6
+## Evaluation and correction — 10
 
 - `evaluator-definition.v1`
+- `evaluator-definition.v2`
 - `evaluation-contract.v1`
+- `evaluation-contract.v2`
 - `evaluation-assignment.v1`
+- `evaluation-assignment.v2`
 - `evaluation-result.v1`
+- `evaluation-result.v2`
 - `correction-request.v1`
 - `correction-result.v1`
 
-Covers implementation/calibration/independence, hard measure definitions/composition, exact subject/context/producer/fence, complete verdict state, bounded allowed mutations, and unchanged acceptance-contract identity.
+Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority; runtime registry admission and PostgreSQL evidence readback enforce the cross-record contract.
 
 ## Learning lifecycle — 6
 
@@ -323,6 +327,10 @@ node scripts/migration-control-plane-lab.mjs verify
 - Memory and skill capability records now have immutable quarantine/validation/use/invalidation/lifecycle contracts; automated production skill promotion, drift, canary, and rollback remain future `P7-EVAL` work.
 - `WORKER-EXP-01` now passes through a digest-verified real pinned OMP `EXP-10` report; production model/provider behavior remains outside this synthetic containment proof.
 
+## `P7-EVAL-01` evidence
+
+Four V2 records, registry reconstruction, migration 012 and the task-completion gate bind the accepted output to exact evaluator, contract, subject, input, measure, threshold, evidence, attempt and fence identities. Registry 75; fingerprint `c82229f9…1d9e782d`; 35 unit files / 188 tests and 19 PostgreSQL files / 54 tests.
+
 ## Next coordinate
 
-`P7-EVAL-01` — bind every acceptance decision to a versioned independent evaluation contract.
+`P7-EVAL-02` — coordinate independently assigned evaluator runners without giving their transport or producer authority.

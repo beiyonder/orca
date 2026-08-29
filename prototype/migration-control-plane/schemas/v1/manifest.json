@@ -1,5 +1,5 @@
 {
-  "registryDigest": "e73d6ad464fc3fbe89d7ec9e4cc9b80eadac2669177fe780491a13805591bf23",
+  "registryDigest": "cfcbbbe88a88b7bde13f0fd3217470f7203e2496f86d34fa6bc546927010d0d7",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -166,10 +166,22 @@
       "sha256": "aa6d468f87438b624c4dfe62160d4870e5938a7c040f7aa4206dd6f0cd057d6b"
     },
     {
+      "bytes": 17375,
+      "file": "evaluation-assignment.v2.schema.json",
+      "name": "evaluation-assignment.v2",
+      "sha256": "f2c0e1fe401024eee5e76c3d330d4d51585de2a03dd05b54d545467bd5976c82"
+    },
+    {
       "bytes": 6321,
       "file": "evaluation-contract.v1.schema.json",
       "name": "evaluation-contract.v1",
       "sha256": "9b38bca23bb287e1abdf8ed22eef6b1f0895cd3d0cb6cc019d023ec595c4ec0d"
+    },
+    {
+      "bytes": 12356,
+      "file": "evaluation-contract.v2.schema.json",
+      "name": "evaluation-contract.v2",
+      "sha256": "9a9ba110db29b2b88bbd5fe5795a5689f654b2b1b70507edcc4cb92b26430ddd"
     },
     {
       "bytes": 7476,
@@ -178,10 +190,22 @@
       "sha256": "15d7ea505e50d93e0b58eead60d061ac458b8dd804ab5e45a290b810f65043f3"
     },
     {
+      "bytes": 11560,
+      "file": "evaluation-result.v2.schema.json",
+      "name": "evaluation-result.v2",
+      "sha256": "08afeda21cd83432a863cf398af4d5eef0e85c700f0b5bec0fd465b57bb5d453"
+    },
+    {
       "bytes": 12611,
       "file": "evaluator-definition.v1.schema.json",
       "name": "evaluator-definition.v1",
       "sha256": "979b52138e13adb809877fcaa88651cbc7860e264c04f1d06bb0c13445f47fa9"
+    },
+    {
+      "bytes": 17910,
+      "file": "evaluator-definition.v2.schema.json",
+      "name": "evaluator-definition.v2",
+      "sha256": "b42eb8a0b1820025ef2372bf388da3c9fe843c43b03dda05aaaa10427ddc3769"
     },
     {
       "bytes": 7416,
