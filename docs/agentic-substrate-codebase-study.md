@@ -435,6 +435,6 @@ Those arrive only after the core correction loop is real.
 
 Next:
 
-1. `P6-DISC-02` — define the versioned read-only adapter contract from frozen Pagila v3.1.0 evidence.
-2. `P6-DISC-03` — enforce the contract in a source sandbox with no write path.
-3. `P6-DISC-04` — inventory the expected Pagila estate without treating denial as absence.
+1. `P6-DISC-08` — infer explicit snapshot and CDC semantics from traces, never schema shape.
+2. `P6-DISC-09` — compare supplied claims with immutable source observations.
+3. `P6-DISC-10` — rank resulting evidence gaps with deterministic next tests.

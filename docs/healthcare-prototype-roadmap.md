@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P6-DISC-02` — Define the typed, versioned source-adapter contract.**
+**`P6-DISC-08` — Analyze snapshot and CDC behavior semantics.**
 
 Current artifacts already exist:
 
@@ -30,7 +30,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-kernel-contracts.md`
 - `docs/agentic-substrate-s1-deferred-register.md`
 
-Phase 5 and `G5-KNOW` remain complete. `P6-DISC-01` selects Pagila `pagila-v3.1.0` at immutable revision `fef9675714cfba1756df4719b5e36075a7ddf90e` as the first source estate. The fixture preserves exact upstream license/schema/data bytes, a four-file SHA-256 manifest, PostgreSQL 16.15 UTF8/C runtime, fixture digest `c22e7c17…f4fe025d`, and an expected estate containing 21 ordinary tables, one partitioned parent with seven children, seven views, one materialized view, 13 sequences, 10 functions, 15 triggers, 55 indexes, 36 foreign keys, three custom types, and exact row counts. The upstream README/license-name conflict and pinned README evidence URL/blob are retained rather than normalized; `UPSTREAM-LICENSE.txt` contains the MIT grant. Direct `pg` load and catalog/row-count reconstruction pass without Docker, credentials, personal data, or extensions. Verification now passes 27 unit files / 158 tests and 13 PostgreSQL files / 37 tests. Next: define the adapter contract without granting source writes.
+`P6-DISC-01` through `P6-DISC-07` are complete against frozen Pagila v3.1.0. Four strict adapter authority/request/observation contracts, an immutable cross-record registry, and migration 009 bind adapter/source/runtime/tenant/workload versions, read-only operations, permission evidence, endpoint digests, data class, limits, denial/error/recovery semantics, and every observation to its request. The PostgreSQL sandbox verifies exact endpoint/database/version identity, exports a repeatable-read snapshot, serializes bounded queries, enforces statement/overall/query/row/byte/concurrency limits, exposes no filesystem capability, and relies on a real read-only transaction to reject mutation. Five immutable discovery projections then capture system/schema inventory, digest-only profiles, extracted view/function/trigger bodies in one artifact, and provenance-separated catalog/static/query-log/runtime lineage. Pagila qualification recovers 30 relations, 58 relation constraints plus the domain check, 56 indexes, 10 routines, 15 triggers, three custom types, 13 sequences, exact actor profiles, code digests, 36 foreign-key and seven partition edges, view/trigger dependencies, explicit missing coverage, and no retained sample values. Migration 010 binds 64 schemas; 10 migrations / 17 tables converge to fingerprint `374e03e9…82ec42`. Verification passes 30 unit files / 167 tests and 16 PostgreSQL files / 48 tests. Next: analyze CDC semantics without inferring behavior from schema alone.
 
 ## How to use coordinates
 
@@ -43,14 +43,14 @@ P<phase>-<track>-<task>
 Example:
 
 ```text
-P6-DISC-02
+P6-DISC-08
 ```
 
 Means:
 
 - Phase 6
 - Source discovery and gap resolution track
-- Task 2
+- Task 8
 
 Gate format:
 
@@ -66,7 +66,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P6-DISC-02`: define the typed, versioned source-adapter contract.”
+> “We are at `P6-DISC-08`: analyze snapshot and CDC behavior semantics.”
 
 Do not say only “we are working on discovery.”
 
@@ -140,12 +140,12 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A1 — Stateful worker` | Sessions, context compaction, resumable working history, scoped memory. | **Strong mechanics plus isolated governance proof:** OMP sessions/compaction and product-owned memory candidate/version/use/invalidation pass synthetic scope, harm and replay tests; integrated mission recall remains unproven. |
 | `A2 — Durable mission agent` | Goal, world model, tasks, attempts, decisions, and recovery survive any worker. | **M2/M3 kernel proof:** product PostgreSQL commands/events/projections/plans/attempts/effects/replay/restart converge under faults; the complete mission/world-model loop is not assembled. |
 | `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
-| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **Partial M2 proof:** epistemic contracts/probes plus governed corpus, authorization-first retrieval and exact context manifests pass; live source discovery and integrated gap resolution begin in Phase 6. |
+| `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M2 discovery proof:** governed retrieval plus versioned read-only adapter authority now produces complete/partial/denied/unavailable inventory, profile, code and lineage evidence; contradiction/gap/probe reasoning remains next. |
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Contract/baseline only:** deterministic fixture evaluation exists, but the product evaluation coordinator and closed correction loop remain Phase 7 work. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Partial M2 proof:** quarantined memory, reversible use/invalidation, typed skill versions and help/harm qualification pass; automated certification, promotion, drift, canary, demotion and rollback remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Fixture boundary selected:** Pagila v3.1.0 is frozen and reproducible; no source adapter has executed yet. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery substrate M2:** frozen Pagila inventory, profile, code and lineage recover exact expected structure through a mutation-proof sandbox; CDC and proposal qualification remain. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
@@ -164,7 +164,7 @@ A7 Bounded execution          state semantics only; no target effect
 A8–A10 Integrated product     not assembled
 ```
 
-The first A4/A9 pressure boundary is now frozen. `P6-DISC-02` must define what a read-only adapter may observe, return, deny, version, and recover before any source connection executes.
+The source boundary and first discovery projections now work in isolation. `P6-DISC-08` must infer snapshot/ordering/transaction/delete/amendment/DDL/restart/checkpoint behavior from explicit traces rather than database shape or adapter confidence.
 
 ## Working prototype definition
 
@@ -424,13 +424,13 @@ Failure route: `L-KNOW-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P6-DISC-01` | Select first source fixture and version. | Pagila `pagila-v3.1.0` / `fef96757…ddf90e` is frozen with retained permissive license bytes, PostgreSQL 16.15 UTF8/C runtime, four exact file hashes, fixture digest `c22e7c17…f4fe025d`, and a PostgreSQL-qualified expected estate. |
-| `CURRENT` | `P6-DISC-02` | Define source-adapter contract. | Capabilities, versions, permissions, evidence, limits, errors, and recovery are typed. |
-| `WAIT` | `P6-DISC-03` | Implement read-only source sandbox. | Adapter cannot write source; network/filesystem/time/data limits are enforced. |
-| `WAIT` | `P6-DISC-04` | Implement system and schema inventory. | Catalogs, objects, columns, keys, indexes, views, routines, and grants are captured. |
-| `WAIT` | `P6-DISC-05` | Implement data profiler. | Counts, nulls, uniqueness, distributions, anomalies, samples, and explicit coverage are recorded. |
-| `WAIT` | `P6-DISC-06` | Implement code/transform extraction. | Stored procedures, queries, ETL definitions, schedules, and source references are linked. |
-| `WAIT` | `P6-DISC-07` | Implement lineage/dependency inference. | Static, runtime, query-log, and declared edges remain distinguished by provenance. |
-| `WAIT` | `P6-DISC-08` | Implement CDC behavior analysis. | Snapshot boundary, ordering, transaction, delete, amendment, DDL, restart, and checkpoint behavior are inferred/tested. |
+| `DONE` | `P6-DISC-02` | Define source-adapter contract. | Four strict contracts plus immutable registry/persistence bind adapter/source/runtime/workload authority, semantic read operations, permission evidence, endpoint/data scope, limits, outcomes, denials, errors and recovery. |
+| `DONE` | `P6-DISC-03` | Implement read-only source sandbox. | PostgreSQL repeatable-read/read-only transactions reject mutation; endpoint/database/version, query/row/byte/time/concurrency bounds and no-filesystem authority pass five real-server tests. |
+| `DONE` | `P6-DISC-04` | Implement system and schema inventory. | Pagila inventory captures database/server/schema/extension coverage plus 30 relations, columns, 58 relation constraints, 56 indexes, 10 routines, 15 triggers, three types, 13 sequences and grants with explicit unavailable scope. |
+| `DONE` | `P6-DISC-05` | Implement data profiler. | Bounded profiles record exact row/null/distinct counts and only value digests; missing/denied relations remain explicit and raw sample values are absent. |
+| `DONE` | `P6-DISC-06` | Implement code/transform extraction. | Views, materialized views, functions, procedures and triggers are extracted into one checksum-bound artifact with per-object identity/digest and coverage. |
+| `DONE` | `P6-DISC-07` | Implement lineage/dependency inference. | Catalog/static/query-log/runtime methods remain distinguished; Pagila yields 36 foreign-key, seven partition, view, trigger, sequence and routine edges with unresolved references retained. |
+| `CURRENT` | `P6-DISC-08` | Implement CDC behavior analysis. | Snapshot boundary, ordering, transaction, delete, amendment, DDL, restart, and checkpoint behavior are inferred/tested. |
 | `WAIT` | `P6-DISC-09` | Implement claim/observation comparison. | Supplied artifacts are compared with discovered reality; contradictions become gaps. |
 | `WAIT` | `P6-DISC-10` | Implement gap ranking. | Gaps carry impact, hypotheses, evidence, cheapest test, and exception conditions. |
 | `WAIT` | `P6-DISC-11` | Implement safe-probe planner. | System selects bounded evidence-gathering actions before escalating. |
@@ -646,7 +646,7 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 3 — Kernel | `G3-KERN` | `DONE`; reopens through `L-KERN-01` |
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
-| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-02` |
+| Phase 6 — Discovery | `G6-DISC` | `CURRENT` at `P6-DISC-08` |
 | Phase 7 — Evaluation | `G7-EVAL` | `WAIT` |
 | Phase 8 — Execution | `G8-EXEC` | `WAIT` |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
@@ -654,6 +654,6 @@ A completed coordinate remains historically completed, but its phase gate become
 
 ## Immediate next three coordinates
 
-1. **`P6-DISC-02`** — Define the typed, versioned source-adapter contract.
-2. **`P6-DISC-03`** — Implement a read-only source sandbox.
-3. **`P6-DISC-04`** — Implement system and schema inventory.
+1. **`P6-DISC-08`** — Analyze snapshot and CDC behavior semantics.
+2. **`P6-DISC-09`** — Compare supplied claims with source observations.
+3. **`P6-DISC-10`** — Rank evidence gaps deterministically.

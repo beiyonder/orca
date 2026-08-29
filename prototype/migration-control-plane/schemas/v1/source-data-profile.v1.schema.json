@@ -1,0 +1,437 @@
+{
+  "$id": "urn:orca:migration-control-plane:source-data-profile.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "coverage": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "denied": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "profiled": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "requested": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "unavailable": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": ["requested", "profiled", "denied", "unavailable", "complete"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "dataClass": {
+      "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+      "type": "string"
+    },
+    "denials": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "absenceConclusion": {
+            "const": false,
+            "type": "boolean"
+          },
+          "reason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "relation": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
+              "schema": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": ["schema", "name"],
+            "type": "object"
+          }
+        },
+        "required": ["relation", "reason", "absenceConclusion"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 21,
+      "pattern": "^source_data_profile_[a-z0-9][a-z0-9_-]{0,106}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "source-data-profile",
+      "type": "string"
+    },
+    "lineage": {
+      "additionalProperties": false,
+      "properties": {
+        "capturedAt": {
+          "format": "date-time",
+          "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+          "type": "string"
+        },
+        "capturedBy": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "kind": {
+              "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["kind", "id"],
+          "type": "object"
+        },
+        "observationId": {
+          "maxLength": 128,
+          "minLength": 20,
+          "pattern": "^source_observation_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 16,
+          "pattern": "^source_request_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "snapshotToken": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "source": {
+          "additionalProperties": false,
+          "properties": {
+            "databaseName": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "endpointDigest": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "engine": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "engineVersion": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "fixtureDigest": {
+              "anyOf": [
+                {
+                  "pattern": "^[a-f0-9]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sourceSystemId": {
+              "maxLength": 128,
+              "minLength": 15,
+              "pattern": "^source_system_[a-z0-9][a-z0-9_-]{0,111}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sourceSystemId",
+            "engine",
+            "engineVersion",
+            "databaseName",
+            "endpointDigest",
+            "fixtureDigest"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "source",
+        "requestId",
+        "observationId",
+        "snapshotToken",
+        "capturedAt",
+        "capturedBy"
+      ],
+      "type": "object"
+    },
+    "profiles": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "columns": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "dataType": {
+                  "maxLength": 1024,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "distinctCount": {
+                  "maximum": 9007199254740991,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "limitations": {
+                  "items": {
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "maxItems": 32,
+                  "type": "array"
+                },
+                "maximumDigest": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[a-f0-9]{64}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "minimumDigest": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[a-f0-9]{64}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "name": {
+                  "maxLength": 256,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "nullCount": {
+                  "maximum": 9007199254740991,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "rowsObserved": {
+                  "maximum": 9007199254740991,
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "sampleValueDigests": {
+                  "items": {
+                    "pattern": "^[a-f0-9]{64}$",
+                    "type": "string"
+                  },
+                  "maxItems": 256,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "name",
+                "dataType",
+                "rowsObserved",
+                "nullCount",
+                "distinctCount",
+                "minimumDigest",
+                "maximumDigest",
+                "sampleValueDigests",
+                "limitations"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "limitations": {
+            "items": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 32,
+            "type": "array"
+          },
+          "relation": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
+              "schema": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": ["schema", "name"],
+            "type": "object"
+          },
+          "rowCount": {
+            "maximum": 9007199254740991,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "rowCountKind": {
+            "enum": ["exact", "bounded", "estimated"],
+            "type": "string"
+          },
+          "rowsScanned": {
+            "maximum": 9007199254740991,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "scanPredicateDigest": {
+            "anyOf": [
+              {
+                "pattern": "^[a-f0-9]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "relation",
+          "rowCount",
+          "rowCountKind",
+          "rowsScanned",
+          "scanPredicateDigest",
+          "columns",
+          "limitations"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "requestedRelations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schema": {
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["schema", "name"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "unavailableRelations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "relation": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
+              "schema": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": ["schema", "name"],
+            "type": "object"
+          }
+        },
+        "required": ["relation", "reason"],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "lineage",
+    "dataClass",
+    "requestedRelations",
+    "profiles",
+    "denials",
+    "unavailableRelations",
+    "coverage"
+  ],
+  "title": "source-data-profile.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "source-data-profile.v1"
+  }
+}

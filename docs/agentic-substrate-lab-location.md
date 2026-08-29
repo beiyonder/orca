@@ -288,4 +288,4 @@ It is committed with Orca but isolated from Orca desktop production code, instal
 
 ## Next coordinate
 
-`P6-DISC-02` — define the source-adapter contract inside the private lab before any Pagila connection executes.
+`P6-DISC-08` — analyze CDC behavior inside the private lab without expanding adapter authority.

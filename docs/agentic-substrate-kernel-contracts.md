@@ -325,4 +325,4 @@ node scripts/migration-control-plane-lab.mjs verify
 
 ## Next coordinate
 
-`P6-DISC-02` — define a versioned read-only source-adapter contract against frozen Pagila v3.1.0.
+`P6-DISC-08` — analyze explicit snapshot and CDC traces through the bounded source adapter.
