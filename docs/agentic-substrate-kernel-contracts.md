@@ -148,7 +148,7 @@ Covers task DAG refs/state/proof/evaluator/recovery, owned/read scope, exact too
 
 Immutable logical artifact lineage with producer assignment/attempt/fence, content digest, decisions/evidence, and proposed/evaluating/accepted/rejected/quarantined state.
 
-## Evaluation and correction — 11
+## Evaluation and correction — 13
 
 - `evaluator-definition.v1`
 - `evaluator-definition.v2`
@@ -157,12 +157,14 @@ Immutable logical artifact lineage with producer assignment/attempt/fence, conte
 - `evaluation-coordination.v1`
 - `evaluation-assignment.v1`
 - `evaluation-assignment.v2`
+- `deterministic-evaluator-suite.v1`
+- `evaluation-deterministic-report.v1`
 - `evaluation-result.v1`
 - `evaluation-result.v2`
 - `correction-request.v1`
 - `correction-result.v1`
 
-Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority. Coordination snapshots add assignment/outbox identity, deadline-aware missing state, typed disagreement/unresolved reasons, unrelated-work continuation and reconciliation-only eligibility.
+Frozen V1 history covers the original kernel seam. V2 adds immutable predecessor/digest lineage, exact implementation and subject/input schema versions, observed independence, measure/operator/threshold/evidence identity, budgets/deadlines and literal non-authority. Coordination snapshots add assignment/outbox identity, deadline-aware missing state, typed disagreement/unresolved reasons, unrelated-work continuation and reconciliation-only eligibility. Deterministic suite/report records pin five side-effect-free checks and their immutable typed execution evidence.
 
 ## Learning lifecycle — 6
 
@@ -336,6 +338,10 @@ Four V2 records, registry reconstruction, migration 012 and the task-completion 
 
 Product-owned dispatch creates one derived-independent V2 assignment and durable outbox message per required evaluator. Immutable coordination versions preserve every result disposition without majority vote or acceptance authority; advisory-locked replay, fresh-pool reconstruction and unrelated branch progress pass. Registry 76; fingerprint `cd7f8c60…d612e3a8`; 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests.
 
+## `P7-EVAL-03` evidence
+
+A required suite input drives five hard structural/type/lineage/compatibility/policy checks and emits one immutable report/evidence/result set. Critical mutations fail exact measures, property reorder is byte-identical, late work is stale, and claim release/redelivery replays one stored result before current-fence acknowledgment. Registry 78; fingerprint `5561a9ce…1c3e5fe`; 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests.
+
 ## Next coordinate
 
-`P7-EVAL-03` — execute deterministic structural, type, contract, compatibility and policy evaluators.
+`P7-EVAL-04` — execute deterministic data-movement reconciliation checks.

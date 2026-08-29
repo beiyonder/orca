@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-03`.
-- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`02` are complete; deterministic evaluator implementations are next.
+- First dependency-ready roadmap coordinate: `P7-EVAL-04`.
+- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`03` are complete; deterministic data-movement evaluation is next.
 - Source and evaluation research cards remain the authoritative fixture and pass/fail specifications.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -228,6 +228,15 @@ Gate verification:
 - missing is recorded only at deadline, every coordination records `unrelatedWorkDisposition: continue`, and no assignment/result/coordination record can accept its subject;
 - PostgreSQL advisory locking makes concurrent dispatch one insert plus one byte-identical replay, writes assignments and outbox messages atomically, reconstructs only from durable records after a fresh pool, and proves an unresolved branch does not block an unrelated passing branch;
 - migration 013 registers the immutable coordination schema; registry 76, migrations 13 / tables 17, fingerprint `cd7f8c60…d612e3a8`; verification passes 36 unit files / 194 tests and 20 PostgreSQL files / 55 tests.
+
+## `P7-EVAL-03` deterministic contract-evaluator evidence
+
+- immutable suite and report contracts pin the exact evaluator definition, subject schema, five measure/check bindings, side-effect-free execution envelope, assignment digest, suite digest, typed check details and non-authority;
+- the suite itself is a required assignment input with version/digest and evidence; runtime rejects an unpinned suite, invalid assignment authority, duplicate/excess/missing evidence, non-JSON subjects and effect-capable authority;
+- five ordered hard checks cover structural shape, authoritative runtime types, subject/input/evidence lineage, schema-version compatibility and tenant/mission/data/access/tool/model/authority policy;
+- critical structure/type/evidence/version/tenant/authority mutations fail exact cited measures, benign property-order changes replay byte-identically, and an otherwise-passing late result remains stale;
+- one claimed outbox assignment writes report, evidence and V2 result atomically; release/redelivery returns the exact stored result, current-fence acknowledgment succeeds, and coordination becomes only eligible for reconciliation;
+- review also replaced repeated coordinator schema scans with one checked grouping and extracted shared PostgreSQL mission setup; migration 014 registers both immutable schemas; registry 78, migrations 14 / tables 17, fingerprint `5561a9ce…1c3e5fe`; verification passes 37 unit files / 201 tests and 21 PostgreSQL files / 56 tests.
 
 ## Queue classes
 
@@ -482,4 +491,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-03`: execute deterministic structural, type, contract, compatibility and policy checks under the frozen independent assignments.
+Begin `P7-EVAL-04`: deterministically reconcile counts, keys, deletes, ordering, watermarks, replay equality and explicit event disposition.

@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P7-EVAL-03` — implement deterministic evaluators without adding a permanent Python service.
+`P7-EVAL-04` — implement data-movement evaluators without adding a permanent Python service.

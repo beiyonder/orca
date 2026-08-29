@@ -38,6 +38,8 @@ export const ContextManifestIdSchema = opaqueId('context').brand<'ContextManifes
 export const AssignmentResultIdSchema = opaqueId('assignment_result').brand<'AssignmentResultId'>()
 export const ArtifactIdSchema = opaqueId('artifact').brand<'ArtifactId'>()
 export const ArtifactVersionIdSchema = opaqueId('artifact_version').brand<'ArtifactVersionId'>()
+export const DeterministicEvaluatorSuiteIdSchema =
+  opaqueId('deterministic_evaluator').brand<'DeterministicEvaluatorSuiteId'>()
 export const EvaluatorIdSchema = opaqueId('evaluator').brand<'EvaluatorId'>()
 export const EvaluationContractIdSchema =
   opaqueId('evaluation_contract').brand<'EvaluationContractId'>()
@@ -45,6 +47,7 @@ export const EvaluationAssignmentIdSchema =
   opaqueId('evaluation_assignment').brand<'EvaluationAssignmentId'>()
 export const EvaluationCoordinationIdSchema =
   opaqueId('evaluation_coordination').brand<'EvaluationCoordinationId'>()
+export const EvaluationReportIdSchema = opaqueId('evaluation_report').brand<'EvaluationReportId'>()
 export const EvaluationResultIdSchema = opaqueId('evaluation_result').brand<'EvaluationResultId'>()
 export const CorrectionRequestIdSchema =
   opaqueId('correction_request').brand<'CorrectionRequestId'>()

@@ -1,5 +1,5 @@
 {
-  "registryDigest": "8ed8a95e276e31d3afe4ad082102c17aeedf1280d3826b2b970234c00b9b3249",
+  "registryDigest": "f80bfe88df0ccde51186f6cf4bb37fd4af6bb80f119d374329e02773dc34bae6",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -130,6 +130,12 @@
       "sha256": "2ed0726f7c53cf16955b13267210b5aa534d5aefb4eb392c971e4b96c52b8f8c"
     },
     {
+      "bytes": 7280,
+      "file": "deterministic-evaluator-suite.v1.schema.json",
+      "name": "deterministic-evaluator-suite.v1",
+      "sha256": "91e66ffa7ee33f11b183e9293c52a4d8d205692dbec29b77e2a9907c54a985dd"
+    },
+    {
       "bytes": 5615,
       "file": "discovery-gap-ranking.v1.schema.json",
       "name": "discovery-gap-ranking.v1",
@@ -188,6 +194,12 @@
       "file": "evaluation-coordination.v1.schema.json",
       "name": "evaluation-coordination.v1",
       "sha256": "25ecbb038c9385f51daf82c24ce4f282c0cffd49625f67872a56720b62bf12cb"
+    },
+    {
+      "bytes": 6994,
+      "file": "evaluation-deterministic-report.v1.schema.json",
+      "name": "evaluation-deterministic-report.v1",
+      "sha256": "35ce43da763e984098a8ecaf2ef2eb76f522db8d0e2f22c20545c0bc2760b08c"
     },
     {
       "bytes": 7476,

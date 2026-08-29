@@ -234,14 +234,32 @@ export async function reconcilePostgresEvaluation(
          )`,
       [input.tenantId, latest.contract.id, assignmentIds, definitionIds]
     )
-    const bySchema = (schemaName: string) =>
-      records.rows.filter((row) => row.schema_name === schemaName).map((row) => row.payload)
+    const bySchema = new Map<string, unknown[]>()
+    for (const row of records.rows) {
+      const payloads = bySchema.get(row.schema_name) ?? []
+      payloads.push(row.payload)
+      bySchema.set(row.schema_name, payloads)
+    }
+    const definitions = bySchema.get('evaluator-definition.v2') ?? []
+    const contracts = bySchema.get('evaluation-contract.v2') ?? []
+    const assignments = bySchema.get('evaluation-assignment.v2') ?? []
+    const results = bySchema.get('evaluation-result.v2') ?? []
+    if (
+      definitions.length !== definitionIds.length ||
+      contracts.length !== 1 ||
+      assignments.length !== assignmentIds.length
+    ) {
+      throw evaluationCoordinationFailure(
+        'record_set_mismatch',
+        'Durable evaluation coordination authority is incomplete'
+      )
+    }
     const coordination = reconcileEvaluationCoordination({
       snapshots: snapshots.rows.map((row) => row.payload),
-      definitions: bySchema('evaluator-definition.v2'),
-      contract: bySchema('evaluation-contract.v2')[0],
-      assignments: bySchema('evaluation-assignment.v2'),
-      results: bySchema('evaluation-result.v2'),
+      definitions,
+      contract: contracts[0],
+      assignments,
+      results,
       observedAt: input.observedAt,
       observedBy: input.observedBy
     })

@@ -8,6 +8,10 @@ import {
   TaskRecordV1Schema
 } from './assignment-contracts.js'
 import {
+  DeterministicEvaluationReportV1Schema,
+  DeterministicEvaluatorSuiteV1Schema
+} from './deterministic-evaluator-contracts.js'
+import {
   DiscoveryGapRankingV1Schema,
   SafeProbePlanV1Schema,
   SourceClaimComparisonV1Schema
@@ -122,6 +126,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'corpus-relation.v1': CorpusRelationV1Schema,
   'corpus-source-manifest.v1': CorpusSourceManifestV1Schema,
   'decision-record.v1': DecisionRecordV1Schema,
+  'deterministic-evaluator-suite.v1': DeterministicEvaluatorSuiteV1Schema,
   'discovery-gap-ranking.v1': DiscoveryGapRankingV1Schema,
   'drift-signal.v1': DriftSignalV1Schema,
   'effect-attempt.v1': EffectAttemptV1Schema,
@@ -132,6 +137,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'evaluation-contract.v1': EvaluationContractV1Schema,
   'evaluation-contract.v2': EvaluationContractV2Schema,
   'evaluation-coordination.v1': EvaluationCoordinationV1Schema,
+  'evaluation-deterministic-report.v1': DeterministicEvaluationReportV1Schema,
   'evaluation-result.v1': EvaluationResultV1Schema,
   'evaluation-result.v2': EvaluationResultV2Schema,
   'evaluator-definition.v1': EvaluatorDefinitionV1Schema,
