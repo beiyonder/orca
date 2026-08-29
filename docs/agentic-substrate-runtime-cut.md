@@ -171,4 +171,4 @@ Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
 ## Next coordinate
 
-`P7-EVAL-07` — implement acceptance state without adding a permanent Python service.
+`P7-EVAL-11` — implement skill certification without adding a permanent Python service.

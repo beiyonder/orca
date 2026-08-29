@@ -887,4 +887,4 @@ and recover from crashes without duplicating accepted state.
 
 ## Next coordinate
 
-`P7-EVAL-07` — enforce explicit product acceptance transitions.
+`P7-EVAL-11` — certify only held-out, bounded, rollback-ready skills.

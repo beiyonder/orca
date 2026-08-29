@@ -165,7 +165,7 @@ export const DETERMINISTIC_EVALUATION_CONTRACT = EvaluationContractV2Schema.pars
       required: true,
       bindsSubject: false,
       minimumEvidenceCount: 1,
-      maxAgeMs: 60_000,
+      maxAgeMs: null,
       description: 'Exact deterministic suite and provenance evidence.'
     }
   ],

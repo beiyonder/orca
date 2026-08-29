@@ -1,5 +1,10 @@
 import { z } from 'zod'
 import {
+  CorrectionCycleV1Schema,
+  EvaluationDiagnosisV1Schema,
+  SubjectAcceptanceV1Schema
+} from './acceptance-correction-contracts.js'
+import {
   ArtifactBuildBundleV1Schema,
   ArtifactBuildEvaluationReportV1Schema
 } from './artifact-build-evaluator-contracts.js'
@@ -129,6 +134,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'compensation.v1': CompensationV1Schema,
   'context-manifest.v1': ContextManifestV1Schema,
   'contradiction-set.v1': ContradictionSetV1Schema,
+  'correction-cycle.v1': CorrectionCycleV1Schema,
   'correction-request.v1': CorrectionRequestV1Schema,
   'correction-result.v1': CorrectionResultV1Schema,
   'corpus-chunk.v1': CorpusChunkV1Schema,
@@ -150,6 +156,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'evaluation-contract.v2': EvaluationContractV2Schema,
   'evaluation-coordination.v1': EvaluationCoordinationV1Schema,
   'evaluation-deterministic-report.v1': DeterministicEvaluationReportV1Schema,
+  'evaluation-diagnosis.v1': EvaluationDiagnosisV1Schema,
   'evaluation-result.v1': EvaluationResultV1Schema,
   'evaluation-result.v2': EvaluationResultV2Schema,
   'evaluator-definition.v1': EvaluatorDefinitionV1Schema,
@@ -182,6 +189,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'safe-probe-plan.v1': SafeProbePlanV1Schema,
   'skill-lifecycle-event.v1': SkillLifecycleEventV1Schema,
   'skill-version.v1': SkillVersionV1Schema,
+  'subject-acceptance.v1': SubjectAcceptanceV1Schema,
   'source-access-envelope.v1': SourceAccessEnvelopeV1Schema,
   'source-adapter-definition.v1': SourceAdapterDefinitionV1Schema,
   'source-cdc-analysis.v1': SourceCdcAnalysisV1Schema,
