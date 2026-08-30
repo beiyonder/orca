@@ -1,12 +1,19 @@
 import { resolve } from 'node:path'
-import { canonicalJson, canonicalizeJson, sha256Text, type JsonValue } from './canonical-json.js'
+import { canonicalizeJson } from './canonical-json.js'
 import { analyzeCdcBehavior } from './cdc-behavior-analyzer.js'
 import { evaluateDataMovement, type DataMovementOracle } from './data-movement-evaluator.js'
 import { loadDiscoveryQualificationFixture } from './discovery-qualification-fixture.js'
-import { SemanticLabeledCorpusV1Schema } from './domain/semantic-evaluator-contracts.js'
+import {
+  EVALUATION_MUTATION_AT as EVALUATED_AT,
+  EVALUATION_MUTATION_VERSIONS as EVALUATOR_VERSIONS,
+  dataOutcome,
+  failedIdentityMeasures,
+  mutationOutcomeMeasure as outcomeMeasure,
+  semanticMutationFixture as semanticFixture,
+  type MutationOutcome
+} from './evaluation-mutation-outcomes.js'
 import {
   createEvaluationMeasure as measure,
-  type EvaluationMeasure,
   type ExperimentResult
 } from './experiment-contracts.js'
 import {
@@ -15,114 +22,7 @@ import {
   evaluateIdentityMapping
 } from './identity-mapping-evaluator.js'
 import { loadS1IdentityFixture } from './s1-fixture-loader.js'
-import { evaluateSemanticLabels, type SemanticPrediction } from './semantic-labeled-evaluator.js'
-
-const EVALUATED_AT = '2026-01-01T00:50:00.000Z'
-const EVALUATOR_VERSIONS = {
-  identityMapping: '1',
-  dataMovement: '1',
-  semanticLabeled: '1'
-} as const
-
-type MutationClass =
-  | 'schema'
-  | 'mapping'
-  | 'delete'
-  | 'precision'
-  | 'identity'
-  | 'security'
-  | 'recovery'
-  | 'benign'
-
-type MutationOutcome = {
-  id: string
-  class: MutationClass
-  critical: boolean
-  rejected: boolean
-  failedMeasures: string[]
-  evidence: string[]
-}
-
-function failedIdentityMeasures(
-  result: ExperimentResult
-): Pick<MutationOutcome, 'failedMeasures' | 'evidence'> {
-  const failed = result.measures.filter((entry) => entry.status !== 'pass')
-  return {
-    failedMeasures: failed.map((entry) => entry.name),
-    evidence: [...new Set(failed.flatMap((entry) => entry.evidence))].toSorted()
-  }
-}
-
-function dataOutcome(input: {
-  id: string
-  class: 'delete' | 'recovery' | 'benign'
-  report: ReturnType<typeof evaluateDataMovement>
-  critical: boolean
-}): MutationOutcome {
-  const failedMeasures = Object.entries(input.report.checks)
-    .filter(([, passed]) => !passed)
-    .map(([name]) => name)
-  return {
-    id: input.id,
-    class: input.class,
-    critical: input.critical,
-    rejected: input.report.status !== 'passed',
-    failedMeasures,
-    evidence: failedMeasures.length === 0 ? [] : input.report.evidenceIds
-  }
-}
-
-function semanticFixture() {
-  const corpus = SemanticLabeledCorpusV1Schema.parse({
-    schemaVersion: 1,
-    kind: 'semantic-labeled-corpus',
-    id: 'semantic_corpus_mutation_qualification_v1',
-    tenantId: 'tenant_s1',
-    createdAt: EVALUATED_AT,
-    version: 1,
-    predecessorCorpusId: null,
-    split: 'held-out',
-    labelsVisibleToProducer: false,
-    cases: Array.from({ length: 10 }, (_, index) => ({
-      id: `mutation-semantic-case-${index + 1}`,
-      groupId: `mutation-semantic-group-${index + 1}`,
-      claimClass: 'mapping-safety',
-      inputDigest: sha256Text(canonicalJson({ seedCase: index + 1 })),
-      label: index % 2 === 0 ? 'accept' : 'reject',
-      rationale:
-        index % 2 === 0 ? 'Mapping preserves the declared key.' : 'Mapping drops a required key.'
-    })),
-    minimumAccuracy: 0.8,
-    maximumFalseAccepts: 0,
-    maximumDisagreements: 0,
-    labeledBy: { kind: 'operator', id: 'held-out-labeler', version: '1' },
-    limitations: ['Synthetic qualification corpus.']
-  })
-  const predictions: SemanticPrediction[] = corpus.cases.map((item) => ({
-    caseId: item.id,
-    primary: item.label,
-    secondary: item.label
-  }))
-  return { corpus, predictions }
-}
-
-function outcomeMeasure(
-  name: string,
-  passed: boolean,
-  value: JsonValue,
-  threshold: string,
-  outcomes: MutationOutcome[]
-): EvaluationMeasure {
-  return measure(
-    name,
-    passed ? 'pass' : 'fail',
-    value,
-    threshold,
-    outcomes
-      .flatMap((outcome) => outcome.evidence)
-      .filter((item, index, all) => all.indexOf(item) === index)
-  )
-}
+import { evaluateSemanticLabels } from './semantic-labeled-evaluator.js'
 
 export async function runEvaluationMutationExperiment(
   labRoot: string,
@@ -136,8 +36,9 @@ export async function runEvaluationMutationExperiment(
   const criticalIdentityMutation = identityFixture.mutations.find(
     (item) => item.class === 'critical'
   )
-  if (!criticalIdentityMutation)
+  if (!criticalIdentityMutation) {
     throw new Error('S1 fixture is missing its critical mapping mutation')
+  }
 
   const schemaResult = evaluateIdentityMapping(identityFixture, { ...mapping, schemaVersion: 2 })
   const mappingResult = evaluateIdentityMapping(
@@ -270,7 +171,9 @@ export async function runEvaluationMutationExperiment(
     schemaVersion: mapping.schemaVersion
   }
   const benignDescription = identityFixture.mutations.find((item) => item.class === 'benign')
-  if (!benignDescription) throw new Error('S1 fixture is missing its benign mapping mutation')
+  if (!benignDescription) {
+    throw new Error('S1 fixture is missing its benign mapping mutation')
+  }
   const benignIdentity = [
     ['EVAL-MUT-BENIGN-ORDER-001', evaluateIdentityMapping(identityFixture, reorderedMapping)],
     [
@@ -294,7 +197,7 @@ export async function runEvaluationMutationExperiment(
       class: 'benign',
       report: evaluateMovement({
         ...oracle,
-        expectedFinalKeyDigests: [...oracle.expectedFinalKeyDigests].reverse()
+        expectedFinalKeyDigests: oracle.expectedFinalKeyDigests.toReversed()
       }),
       critical: false
     }),
@@ -305,7 +208,7 @@ export async function runEvaluationMutationExperiment(
       rejected:
         evaluateSemanticLabels({
           corpus,
-          predictions: [...predictions].reverse(),
+          predictions: predictions.toReversed(),
           evaluatorVersion: EVALUATOR_VERSIONS.semanticLabeled,
           evaluatedAt: EVALUATED_AT
         }).status !== 'passed',
