@@ -8,7 +8,7 @@ import {
   renderSerenaProjectContext
 } from './agentic-substrate-context-render.mjs'
 
-const root = resolve(import.meta.dirname, '..')
+const root = resolve(import.meta.dirname, '../../..')
 const statePath = resolve(root, 'docs/agentic-substrate-project-state.json')
 const handoffPath = resolve(root, 'docs/agentic-substrate-current-handoff.md')
 const serenaMemoryPath = resolve(root, '.serena/memories/project-context.md')
@@ -27,7 +27,7 @@ function fail(message) {
 }
 
 function text(path) {
-  return readFileSync(path, 'utf8')
+  return readFileSync(path, 'utf8').replaceAll('\r\n', '\n')
 }
 
 function exactKeys(value, keys, label) {
@@ -230,7 +230,7 @@ const agents = text(resolve(root, 'AGENTS.md'))
 for (const required of [
   'Authoritative repository: `beiyonder/orca`.',
   'NEVER create or mutate a branch, pull request, issue, release, tag, project item, or other GitHub resource in `stablyai/orca`.',
-  'node scripts/check-agentic-substrate-context.mjs --local'
+  'node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local'
 ]) {
   if (!agents.includes(required)) {
     fail(`AGENTS.md is missing: ${required}`)

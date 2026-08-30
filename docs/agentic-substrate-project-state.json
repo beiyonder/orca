@@ -28,7 +28,7 @@
     "commands": [
       "cd prototype/migration-control-plane && pnpm run verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm run database:verify",
-      "node scripts/check-agentic-substrate-context.mjs --local"
+      "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
     ],
     "domainSchemas": 89,
     "migrations": 17,

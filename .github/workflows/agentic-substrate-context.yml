@@ -17,8 +17,8 @@ on:
       - 'docs/agentic-substrate-experiment-queue.md'
       - 'docs/agentic-substrate-lab-handoff.md'
       - 'docs/healthcare-prototype-roadmap.md'
-      - 'scripts/check-agentic-substrate-context.mjs'
-      - 'scripts/agentic-substrate-context-render.mjs'
+      - '.github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs'
+      - '.github/scripts/agentic-substrate-context/agentic-substrate-context-render.mjs'
       - '.github/workflows/agentic-substrate-context.yml'
   push:
     branches:
@@ -38,8 +38,8 @@ on:
       - 'docs/agentic-substrate-experiment-queue.md'
       - 'docs/agentic-substrate-lab-handoff.md'
       - 'docs/healthcare-prototype-roadmap.md'
-      - 'scripts/check-agentic-substrate-context.mjs'
-      - 'scripts/agentic-substrate-context-render.mjs'
+      - '.github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs'
+      - '.github/scripts/agentic-substrate-context/agentic-substrate-context-render.mjs'
       - '.github/workflows/agentic-substrate-context.yml'
 
 permissions:
@@ -68,4 +68,4 @@ jobs:
           node-version: '24'
 
       - name: Verify canonical context
-        run: node scripts/check-agentic-substrate-context.mjs
+        run: node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs

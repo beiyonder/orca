@@ -53,12 +53,12 @@ At the start of every session in this repository:
 
 1. Read [`docs/agentic-substrate-project-state.json`](./docs/agentic-substrate-project-state.json).
 2. Read the generated [`docs/agentic-substrate-current-handoff.md`](./docs/agentic-substrate-current-handoff.md).
-3. Run `node scripts/check-agentic-substrate-context.mjs --local`.
+3. Run `node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local`.
 4. Treat Git/GitHub state as authoritative when it conflicts with cached conversation or memory.
 
 Before any push, pull request, rebase, or merge, verify the repository, base, head, tracking remote, and commit range. Stop on a `403`, unexpected conflict, wrong owner, or unexpected commit/file count; never work around it by changing targets or rebasing.
 
-Update only `docs/agentic-substrate-project-state.json` for live project status, then run `node scripts/check-agentic-substrate-context.mjs --write`. The generated handoff and Serena memory MUST NOT be edited directly.
+Update only `docs/agentic-substrate-project-state.json` for live project status, then run `node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --write`. The generated handoff and Serena memory MUST NOT be edited directly.
 
 ## Cross-Platform Support
 
