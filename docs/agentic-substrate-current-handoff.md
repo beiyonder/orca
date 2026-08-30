@@ -12,7 +12,7 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `chore/post-p8-project-state`.
+- Branch: `main`.
 - Status: **`merged`**.
 - Implemented through: `G8-EXEC`.
 - Merged through: `G8-EXEC`.
