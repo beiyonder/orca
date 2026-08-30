@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p8-exec-01-13-safe-effects`.
-- Status: **`pull-request-open`**.
+- Branch: `chore/post-p8-project-state`.
+- Status: **`merged`**.
 - Implemented through: `G8-EXEC`.
-- Merged through: `G7-EVAL`.
-- Current coordinate: `G8-EXEC` (`pull-request-open-awaiting-checks`).
+- Merged through: `G8-EXEC`.
+- Current coordinate: `P9-INTEG-01` (`ready-to-start`).
 - Next coordinate after merge: `P9-INTEG-01`.
 - Fork pull request: https://github.com/beiyonder/orca/pull/22.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-08-30T10:50:24Z`.
+- Verified at: `2026-08-30T17:13:16Z`.
 - Registry: 92 schemas; 18 migrations / 17 tables.
 - Fingerprint: `3686f99d21f0a2ea83758a0d4049c24a61cf673c15ff5120b3e54af36dd1dd8f`.
 - Unit: 42 files / 221 tests.
@@ -37,14 +37,14 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
-- `p8-delivery`: **pull-request-open** — P7 merged through PR 21. Qualified P8 is open as beiyonder/orca PR 22 against main; wait for exact-head checks before any merge.
+- `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
 
 ## Next actions
 
-1. Wait for every required check on beiyonder/orca pull request 22 to pass at the exact P8 head.
-2. Before merge, verify repository owner, main base, P8 head SHA, mergeability, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.
-3. Merge pull request 22 only after explicit point-of-risk authorization.
-4. After the P8 merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff.
+1. Review the merged G8 evidence and original Phase 9 plan before implementing P9-INTEG-01.
+2. Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.
+3. Preserve the P8 production-hardening boundaries; do not treat the disposable marker qualification as production authority.
+4. A stablyai Project 13 member should remove or archive the residual PR 17224 project item if it remains.
 
 ## New-session bootstrap
 
