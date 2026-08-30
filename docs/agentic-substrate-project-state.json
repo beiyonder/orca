@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-29T16:26:15Z",
+  "updatedAt": "2026-08-30T10:50:24Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,33 +11,35 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "pushed-not-merged",
-    "currentBranch": "product/p7-eval-11-14-qualification",
+    "status": "local-stacked-not-pushed",
+    "currentBranch": "product/p8-exec-01-13-safe-effects",
     "baseRef": "origin/main",
-    "implementedThrough": "G7-EVAL",
+    "implementedThrough": "G8-EXEC",
     "mergedThrough": "P7-EVAL-10",
-    "currentCoordinate": "G7-EVAL",
-    "currentCoordinateStatus": "delivery-pending",
-    "nextCoordinateAfterMerge": "P8-EXEC-01",
+    "currentCoordinate": "G8-EXEC",
+    "currentCoordinateStatus": "qualification-passed-delivery-blocked-on-p7",
+    "nextCoordinateAfterMerge": "P9-INTEG-01",
     "forkPullRequest": null,
     "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/20",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-08-29T16:45:36Z",
+    "lastVerifiedAt": "2026-08-30T10:50:24Z",
     "commands": [
-      "cd prototype/migration-control-plane && pnpm run verify",
-      "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm run database:verify",
+      "cd prototype/migration-control-plane && pnpm verify",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> node scripts/migration-control-plane-lab.mjs experiment run --experiment EXP-11 --seed 811 --arm baseline --fault none --output .runs/p8-v2",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> node scripts/migration-control-plane-lab.mjs experiment run --experiment EXP-12 --seed 812 --arm baseline --fault none --output .runs/p8-v2",
       "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
     ],
-    "domainSchemas": 89,
-    "migrations": 17,
+    "domainSchemas": 92,
+    "migrations": 18,
     "tables": 17,
-    "schemaFingerprint": "49954cda95e4bdb0dbfe5ed862d6d48e45d812539defa99caa6838fa1fa28125",
-    "unitTestFiles": 41,
-    "unitTests": 217,
-    "postgresTestFiles": 24,
-    "postgresTests": 59,
+    "schemaFingerprint": "3686f99d21f0a2ea83758a0d4049c24a61cf673c15ff5120b3e54af36dd1dd8f",
+    "unitTestFiles": 42,
+    "unitTests": 221,
+    "postgresTestFiles": 25,
+    "postgresTests": 61,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -50,6 +52,18 @@
         "seed": 709,
         "status": "passed",
         "summary": "Certified candidate promoted; injected drift detected; candidate revoked and baseline restored."
+      },
+      {
+        "id": "EXP-11",
+        "seed": 811,
+        "status": "passed",
+        "summary": "50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities."
+      },
+      {
+        "id": "EXP-12",
+        "seed": 812,
+        "status": "passed",
+        "summary": "100/100 seeded attacks denied with zero cross-tenant effects and zero durable raw secrets."
       }
     ]
   },
@@ -66,15 +80,15 @@
       "note": "The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains."
     },
     {
-      "id": "mnemopi-unavailable",
-      "status": "unavailable",
-      "note": "Mnemopi recall/retain reported an uninitialised backend. New-session safety relies on tracked AGENTS, canonical state, generated handoff, Serena memory, Git and GitHub instead."
+      "id": "stacked-p7-p8-delivery",
+      "status": "local-only",
+      "note": "P8 is implemented and qualified on a local branch stacked over pushed-but-unmerged P7; preserve P7-before-P8 delivery order and inspect exact ranges before any GitHub write."
     }
   ],
   "nextActions": [
-    "Do not create or merge a pull request until the user explicitly resumes delivery.",
-    "When delivery resumes, target only beiyonder/orca with base main and head product/p7-eval-11-14-qualification.",
-    "Before creating the fork pull request, inspect the exact commit and file range against origin/main.",
-    "After the fork merge, update this state to merged, advance the current coordinate to P8-EXEC-01, and regenerate the handoff."
+    "Do not push, create, or merge a pull request until the user explicitly authorizes that exact GitHub action.",
+    "Deliver product/p7-eval-11-14-qualification before product/p8-exec-01-13-safe-effects; both target only beiyonder/orca main.",
+    "Before either delivery action, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
+    "After both fork pull requests merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
   ]
 }

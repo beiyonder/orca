@@ -38,6 +38,11 @@ import {
   TargetObservationV1Schema
 } from './effect-contracts.js'
 import {
+  CapabilityEnvelopeV2Schema,
+  EffectIntentV2Schema,
+  PolicyDecisionV2Schema
+} from './effect-execution-contracts-v2.js'
+import {
   AcceptedFindingV1Schema,
   AssertionV1Schema,
   ContradictionSetV1Schema,
@@ -133,6 +138,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'assignment-record.v1': AssignmentRecordV1Schema,
   'assignment-result.v1': AssignmentResultV1Schema,
   'capability-envelope.v1': CapabilityEnvelopeV1Schema,
+  'capability-envelope.v2': CapabilityEnvelopeV2Schema,
   'capability-manifest.v1': CapabilityManifestV1Schema,
   'capability-use.v1': CapabilityUseV1Schema,
   'certification-result.v1': CertificationResultV1Schema,
@@ -154,6 +160,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'drift-signal.v1': DriftSignalV1Schema,
   'effect-attempt.v1': EffectAttemptV1Schema,
   'effect-intent.v1': EffectIntentV1Schema,
+  'effect-intent.v2': EffectIntentV2Schema,
   'effect-receipt.v1': EffectReceiptV1Schema,
   'evaluation-assignment.v1': EvaluationAssignmentV1Schema,
   'evaluation-assignment.v2': EvaluationAssignmentV2Schema,
@@ -181,6 +188,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'mission-record.v1': MissionRecordV1Schema,
   'plan-revision.v1': PlanRevisionV1Schema,
   'policy-decision.v1': PolicyDecisionV1Schema,
+  'policy-decision.v2': PolicyDecisionV2Schema,
   'semantic-evaluation-report.v1': SemanticEvaluationReportV1Schema,
   'semantic-labeled-corpus.v1': SemanticLabeledCorpusV1Schema,
   'probe-request.v1': ProbeRequestV1Schema,

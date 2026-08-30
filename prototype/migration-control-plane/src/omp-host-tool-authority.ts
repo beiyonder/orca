@@ -1,10 +1,10 @@
 import { canonicalJson } from './canonical-json.js'
 import {
-  CapabilityEnvelopeV1Schema,
-  PolicyDecisionV1Schema,
-  type CapabilityEnvelopeV1,
-  type PolicyDecisionV1
-} from './domain/effect-contracts.js'
+  CapabilityEnvelopeV2Schema,
+  PolicyDecisionV2Schema,
+  type CapabilityEnvelopeV2,
+  type PolicyDecisionV2
+} from './domain/effect-execution-contracts-v2.js'
 
 export type ActiveToolAttempt = {
   tenantId: string
@@ -12,6 +12,11 @@ export type ActiveToolAttempt = {
   assignmentId: string
   attemptId: string
   fence: number
+  issuer: string
+  subject: string
+  audience: string
+  subjectVersion: string
+  runnerDigest: string
   status: 'running' | 'cancelled' | 'terminal'
 }
 
@@ -69,8 +74,8 @@ function parseTime(value: string, label: string): number {
 
 export class OmpHostToolAuthority {
   readonly #attempt: ActiveToolAttempt
-  readonly #envelope: CapabilityEnvelopeV1
-  readonly #policy: PolicyDecisionV1
+  readonly #envelope: CapabilityEnvelopeV2
+  readonly #policy: PolicyDecisionV2
   #uses = 0
   #cancelledAt: string | null = null
   #revokedAt: string | null = null
@@ -78,8 +83,8 @@ export class OmpHostToolAuthority {
   constructor(input: OmpHostToolAuthorityInput) {
     this.#attempt = { ...input.attempt }
     try {
-      this.#envelope = CapabilityEnvelopeV1Schema.parse(input.capabilityEnvelope)
-      this.#policy = PolicyDecisionV1Schema.parse(input.policyDecision)
+      this.#envelope = CapabilityEnvelopeV2Schema.parse(input.capabilityEnvelope)
+      this.#policy = PolicyDecisionV2Schema.parse(input.policyDecision)
     } catch (error) {
       throw failure('invalid_authority', 'Capability or policy authority is invalid', error)
     }
@@ -107,7 +112,12 @@ export class OmpHostToolAuthority {
       envelope.missionId !== attempt.missionId ||
       envelope.workload.assignmentId !== attempt.assignmentId ||
       envelope.workload.attemptId !== attempt.attemptId ||
-      envelope.workload.fence !== attempt.fence
+      envelope.workload.fence !== attempt.fence ||
+      envelope.workload.issuer !== attempt.issuer ||
+      envelope.workload.subject !== attempt.subject ||
+      envelope.workload.audience !== attempt.audience ||
+      envelope.subjectVersion !== attempt.subjectVersion ||
+      envelope.runnerDigest !== attempt.runnerDigest
     ) {
       throw failure('capability_binding_mismatch', 'Capability is not bound to this attempt')
     }
@@ -127,8 +137,18 @@ export class OmpHostToolAuthority {
     if (
       !sameJson(envelope.target, grant.target) ||
       envelope.adapterName !== grant.adapterName ||
+      envelope.adapterVersion !== grant.adapterVersion ||
       envelope.adapterMethod !== grant.adapterMethod ||
-      envelope.parameterDigest !== grant.parameterDigest
+      envelope.parameterDigest !== grant.parameterDigest ||
+      envelope.expectedPreStateDigest !== grant.expectedPreStateDigest ||
+      envelope.subjectVersion !== grant.subjectVersion ||
+      envelope.runnerDigest !== grant.runnerDigest ||
+      !sameJson(envelope.allowedNetworkDestinations, grant.networkDestinations) ||
+      envelope.budget.tokenLimit > grant.budget.tokenLimit ||
+      envelope.budget.timeLimitMs > grant.budget.timeLimitMs ||
+      envelope.budget.toolCallLimit > grant.budget.toolCallLimit ||
+      envelope.budget.outputByteLimit > grant.budget.outputByteLimit ||
+      envelope.budget.costLimitUsd > grant.budget.costLimitUsd
     ) {
       throw failure('grant_binding_mismatch', 'Policy grant differs from the capability')
     }

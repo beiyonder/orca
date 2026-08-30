@@ -5,7 +5,7 @@ Always read `AGENTS.md`, `docs/agentic-substrate-project-state.json`, and `docs/
 
 - Writable repository: `beiyonder/orca` through `origin`.
 - `stablyai/orca` is read-only through `upstream`; never create or mutate GitHub resources there.
-- Current branch: `product/p7-eval-11-14-qualification`.
-- Delivery: `pushed-not-merged`; implemented through `G7-EVAL`, merged through `P7-EVAL-10`.
+- Current branch: `product/p8-exec-01-13-safe-effects`.
+- Delivery: `local-stacked-not-pushed`; implemented through `G8-EXEC`, merged through `P7-EVAL-10`.
 - Run `node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local` before any external Git or GitHub action.
 - Treat this memory as a pointer. The canonical JSON and live Git/GitHub state win on conflict.

@@ -138,7 +138,11 @@ exactKeys(
   ],
   'delivery'
 )
-if (!['pushed-not-merged', 'pull-request-open', 'merged'].includes(state.delivery.status)) {
+if (
+  !['local-stacked-not-pushed', 'pushed-not-merged', 'pull-request-open', 'merged'].includes(
+    state.delivery.status
+  )
+) {
   fail('delivery.status is unsupported')
 }
 for (const name of [
@@ -153,8 +157,11 @@ for (const name of [
 ]) {
   nonEmpty(state.delivery[name], `delivery.${name}`)
 }
-if (state.delivery.status === 'pushed-not-merged' && state.delivery.forkPullRequest !== null) {
-  fail('pushed-not-merged delivery cannot name a pull request')
+if (
+  ['local-stacked-not-pushed', 'pushed-not-merged'].includes(state.delivery.status) &&
+  state.delivery.forkPullRequest !== null
+) {
+  fail('delivery without a pull request cannot name one')
 }
 if (
   !state.delivery.lastMergedForkPullRequest.startsWith('https://github.com/beiyonder/orca/pull/')

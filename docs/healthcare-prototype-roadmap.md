@@ -513,19 +513,19 @@ Failure route: `L-EVAL-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P8-EXEC-01` | Implement effect-intent contract. | Tool, target, parameters, expected state, proof, identity, and recovery are explicit. |
-| `WAIT` | `P8-EXEC-02` | Implement policy/effect gate. | Tenant, attempt, skill, tool, scope, budget, expiry, and expected state are checked. |
-| `WAIT` | `P8-EXEC-03` | Implement capability envelope. | Immutable effect identity, fence, expiry, digests, and authority scope are signed/verified. |
-| `WAIT` | `P8-EXEC-04` | Implement relay-gateway skeleton. | Outbound relay authenticates, reconnects, receives bounded sequenced work, and returns acknowledgments. |
-| `WAIT` | `P8-EXEC-05` | Implement execution-relay skeleton. | Local spool, fence/expiry check, secret lease, sandbox launch, and receipt persistence work. |
-| `WAIT` | `P8-EXEC-06` | Implement runner sandbox. | CPU, memory, time, filesystem, process, and network limits are enforced. |
-| `WAIT` | `P8-EXEC-07` | Select one target operation. | Operation is non-production, stable-keyed, idempotent or read-reconcilable, and independently observable. |
-| `WAIT` | `P8-EXEC-08` | Implement target adapter. | Prepare, apply, inspect, reconcile, and cleanup behavior are typed and versioned. |
-| `WAIT` | `P8-EXEC-09` | Implement evidence object upload. | Time-bound tenant key, checksum, size/type limit, verification, and orphan cleanup work. |
-| `WAIT` | `P8-EXEC-10` | Implement signed effect receipt. | Applied/absent/unknown/failed, target IDs, before/after evidence, and runner identity recorded. |
-| `WAIT` | `P8-EXEC-11` | Implement target reconciliation. | Unknown effect is read and classified without blind retry. |
-| `WAIT` | `P8-EXEC-12` | Run kill-point effect experiment. | EXP-11 passes every request/commit/receipt/evaluation/acknowledgment kill point. |
-| `WAIT` | `P8-EXEC-13` | Run tenant and secret isolation experiment. | EXP-12 reports zero cross-tenant disclosures/effects and zero durable raw secrets. |
+| `DONE` | `P8-EXEC-01` | Implement effect-intent contract. | Immutable V1 remains readable; V2 binds plan/task/attempt/fence, workload/skill identity, exact target/parameters/state, blast radius, expiry, evidence, and recovery. |
+| `DONE` | `P8-EXEC-02` | Implement policy/effect gate. | Typed in-process policy checks tenant, attempt, skill, tool, destination/scope, budget, expiry, expected state, data class, idempotency, and recovery before authority exists. |
+| `DONE` | `P8-EXEC-03` | Implement capability envelope. | Ed25519-signed V2 capability binds effect/intent/policy, workload/fence, target, adapter/runner, parameters/pre-state, scope, budget, expiry, use limit, and secret lease; modification and unknown keys fail. |
+| `DONE` | `P8-EXEC-04` | Implement relay-gateway skeleton. | Signed relay sessions, bounded signed dispatch frames, monotonic sequence/dedup, durable accept acknowledgment, reconnect reconstruction, and fail-closed spool capacity pass. |
+| `DONE` | `P8-EXEC-05` | Implement execution-relay skeleton. | Durable local dispatch/request journals, capability/fence/expiry and signed secret-lease checks, sandboxed request preparation, receipt persistence, and restart replay pass. |
+| `DONE` | `P8-EXEC-06` | Implement runner sandbox. | Fixed digest-pinned runner code executes in a no-code-generation VM context with no filesystem/process/network globals plus CPU-time, input, output, and retained-memory bounds. |
+| `DONE` | `P8-EXEC-07` | Select one target operation. | Disposable PostgreSQL `ensure-marker` is non-production, natural-keyed, idempotent, independently SELECT-observable, and cleanup-safe. |
+| `DONE` | `P8-EXEC-08` | Implement target adapter. | Versioned adapter implements typed prepare/apply/inspect/reconcile/cleanup; same-key mismatch and changed-by-other cleanup fail closed. |
+| `DONE` | `P8-EXEC-09` | Implement evidence object upload. | Signed time-bound tenant upload grants enforce exact digest, size, type, key, verification, idempotent replay, and orphan cleanup. |
+| `DONE` | `P8-EXEC-10` | Implement signed effect receipt. | Ed25519-signed receipts record status, exact target IDs, before/after evidence, adapter/runner/request/idempotency identities, residuals, and observation time. |
+| `DONE` | `P8-EXEC-11` | Implement target reconciliation. | Restart reads the immutable pre-request journal and exact target identity; applied/absent/changed/inaccessible states never trigger blind retry. |
+| `DONE` | `P8-EXEC-12` | Run kill-point effect experiment. | Sealed `EXP-11` seed 811 passes 50/50 capability/prepare/send/receipt/evidence/ack kill cases, 50 signed receipts, 50 durable evidence pairs, and 50 distinct effects. |
+| `DONE` | `P8-EXEC-13` | Run tenant and secret isolation experiment. | Sealed `EXP-12` seed 812 denies 100/100 attributable attacks with zero cross-tenant effects and zero durable raw secrets. |
 
 ### `G8-EXEC` — Safe effect gate
 
@@ -537,6 +537,8 @@ Pass when:
 - required evidence survives relay/control restarts;
 - expired or revoked work cannot mutate the target;
 - every seeded tenant/secret attack is denied and attributable.
+
+**Gate status: `DONE`.** V2 effect/policy/capability contracts preserve immutable V1 history; one disposable PostgreSQL marker effect runs only under exact signed authority; 50 kill/restart cases converge without duplicate effects and retain signed evidence; 100 seeded policy/tenant/secret/relay/sandbox/supply-chain attacks are denied. Evidence: 92 schemas, 18 migrations / 17 tables, fingerprint `3686f99d…dd1dd8f`, 42 unit files / 221 tests, 25 PostgreSQL files / 61 tests, and sealed `EXP-11`/`12`. The fixed-code VM sandbox and logical single-database tenancy prove the lab contract, not production hostile-code isolation or enterprise multi-tenancy.
 
 Failure route: `L-EXEC-01`.
 

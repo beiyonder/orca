@@ -163,6 +163,18 @@ Review outcome:
 - cross-tenant learning, adaptive memory, production optimization, executable learned tools, generated curricula and production evaluator operations remain deferred;
 - next mandatory review is `G8-EXEC`; any earlier scope change must use the promotion procedure below.
 
+## `G8-EXEC` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against V2 effect/policy/capability authority, signed relay/secret/evidence/receipt boundaries, durable request journals, fixed-code sandbox containment, the PostgreSQL marker adapter and sealed `EXP-11`/`EXP-12`;
+- no deferred capability is promoted, replaced or dropped: `S1-DEF-003` still names real Databricks/Snowflake/cloud breadth, and `S1-DEF-004` still names a deployed remote customer-zone topology; the qualified operation and relay are local disposable lab baselines;
+- `S1-DEF-026` remains deferred because the typed in-process policy passed all seeded cases without exposing policy ownership/volume that justifies OPA;
+- `S1-DEF-049/050/051` remain deferred because a digest-pinned fixed-code VM and logical workload identities do not select a production hostile-code sandbox, SPIFFE federation, or signed deployable image supply chain;
+- `S1-DEF-052` remains deferred: destructive/irreversible authority is denied, and `ACT-EXP-09` proves fail-closed policy plus exact cleanup rather than authorizing destructive automation;
+- production RLS/enterprise identity, remote relay deployment, real secret manager, cloud target breadth and hostile-code isolation remain deferred;
+- next mandatory review is `G9-INTEG`; any earlier scope change must use the promotion procedure below.
+
 ## Promotion procedure
 
 When a trigger fires:

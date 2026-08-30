@@ -12,37 +12,39 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p7-eval-11-14-qualification`.
-- Status: **`pushed-not-merged`**.
-- Implemented through: `G7-EVAL`.
+- Branch: `product/p8-exec-01-13-safe-effects`.
+- Status: **`local-stacked-not-pushed`**.
+- Implemented through: `G8-EXEC`.
 - Merged through: `P7-EVAL-10`.
-- Current coordinate: `G7-EVAL` (`delivery-pending`).
-- Next coordinate after merge: `P8-EXEC-01`.
+- Current coordinate: `G8-EXEC` (`qualification-passed-delivery-blocked-on-p7`).
+- Next coordinate after merge: `P9-INTEG-01`.
 - Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-08-29T16:45:36Z`.
-- Registry: 89 schemas; 17 migrations / 17 tables.
-- Fingerprint: `49954cda95e4bdb0dbfe5ed862d6d48e45d812539defa99caa6838fa1fa28125`.
-- Unit: 41 files / 217 tests.
-- PostgreSQL: 24 files / 59 tests.
+- Verified at: `2026-08-30T10:50:24Z`.
+- Registry: 92 schemas; 18 migrations / 17 tables.
+- Fingerprint: `3686f99d21f0a2ea83758a0d4049c24a61cf673c15ff5120b3e54af36dd1dd8f`.
+- Unit: 42 files / 221 tests.
+- PostgreSQL: 25 files / 61 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
+- `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
+- `EXP-12` seed 812: **passed** — 100/100 seeded attacks denied with zero cross-tenant effects and zero durable raw secrets.
 
 ## Known residuals
 
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
-- `mnemopi-unavailable`: **unavailable** — Mnemopi recall/retain reported an uninitialised backend. New-session safety relies on tracked AGENTS, canonical state, generated handoff, Serena memory, Git and GitHub instead.
+- `stacked-p7-p8-delivery`: **local-only** — P8 is implemented and qualified on a local branch stacked over pushed-but-unmerged P7; preserve P7-before-P8 delivery order and inspect exact ranges before any GitHub write.
 
 ## Next actions
 
-1. Do not create or merge a pull request until the user explicitly resumes delivery.
-2. When delivery resumes, target only beiyonder/orca with base main and head product/p7-eval-11-14-qualification.
-3. Before creating the fork pull request, inspect the exact commit and file range against origin/main.
-4. After the fork merge, update this state to merged, advance the current coordinate to P8-EXEC-01, and regenerate the handoff.
+1. Do not push, create, or merge a pull request until the user explicitly authorizes that exact GitHub action.
+2. Deliver product/p7-eval-11-14-qualification before product/p8-exec-01-13-safe-effects; both target only beiyonder/orca main.
+3. Before either delivery action, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.
+4. After both fork pull requests merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff.
 
 ## New-session bootstrap
 

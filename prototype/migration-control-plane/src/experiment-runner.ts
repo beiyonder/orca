@@ -38,6 +38,8 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'EXP-07': ['baseline'],
   'EXP-08': ['baseline'],
   'EXP-09': ['baseline'],
+  'EXP-11': ['baseline'],
+  'EXP-12': ['baseline'],
   'DUR-EXP-01': ['baseline']
 }
 
@@ -163,9 +165,15 @@ export async function runExperiment(options: ExperimentRunOptions): Promise<Expe
     summary: result.summary,
     limitations: result.limitations
   })
+  const externalEffects =
+    typeof result.outputs.externalEffects === 'number' &&
+    Number.isSafeInteger(result.outputs.externalEffects) &&
+    result.outputs.externalEffects >= 0
+      ? result.outputs.externalEffects
+      : 0
   await store.writeJson('usage.json', {
     modelCalls: 0,
-    externalEffects: 0,
+    externalEffects,
     eventCount: events.length,
     faultHitCount: faultInjector.hits().length
   })
