@@ -219,7 +219,7 @@ export class EffectRelayGateway {
     }
     return receipts
   }
-  async readExecutionJournal(dispatchPath: string): Promise<unknown | null> {
+  async readExecutionJournal(dispatchPath: string): Promise<unknown> {
     const childPath = relative(this.#root, dispatchPath)
     if (childPath.startsWith('..') || isAbsolute(childPath)) {
       throw new EffectRelayError('invalid_dispatch_path', 'Journal path leaves relay spool')
