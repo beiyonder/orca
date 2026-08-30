@@ -145,6 +145,9 @@ if (
 ) {
   fail('delivery.status is unsupported')
 }
+if (state.delivery.status === 'merged' && state.delivery.currentBranch !== 'main') {
+  fail('merged delivery must name main as the current branch')
+}
 for (const name of [
   'currentBranch',
   'baseRef',
@@ -300,9 +303,7 @@ if (localMode) {
   if (command('git', ['config', '--get', 'branch.main.remote']) !== state.authority.writeRemote) {
     fail('main does not track the writable remote')
   }
-  if (command('git', ['branch', '--show-current']) !== state.delivery.currentBranch) {
-    fail('current branch differs from canonical delivery state')
-  }
+  const currentBranch = command('git', ['branch', '--show-current'])
   const [behind, ahead] = command('git', [
     'rev-list',
     '--left-right',
@@ -311,10 +312,27 @@ if (localMode) {
   ])
     .split(/\s+/)
     .map(Number)
-  if (behind !== 0 || !Number.isSafeInteger(ahead) || ahead < 1) {
-    fail(
-      `branch must be ahead of and not behind ${state.delivery.baseRef}; found ${behind}/${ahead}`
-    )
+  if (state.delivery.status === 'merged') {
+    const onMergedMain = currentBranch === 'main' && behind === 0 && ahead === 0
+    const onContextUpdate =
+      currentBranch.startsWith('chore/') &&
+      behind === 0 &&
+      Number.isSafeInteger(ahead) &&
+      ahead >= 1
+    if (!onMergedMain && !onContextUpdate) {
+      fail(
+        `merged delivery must be on synchronized main or an ahead-only chore branch; found ${currentBranch} ${behind}/${ahead}`
+      )
+    }
+  } else {
+    if (currentBranch !== state.delivery.currentBranch) {
+      fail('current branch differs from canonical delivery state')
+    }
+    if (behind !== 0 || !Number.isSafeInteger(ahead) || ahead < 1) {
+      fail(
+        `branch must be ahead of and not behind ${state.delivery.baseRef}; found ${behind}/${ahead}`
+      )
+    }
   }
   if (
     command('gh', ['repo', 'view', '--json', 'nameWithOwner', '--jq', '.nameWithOwner']) !==
