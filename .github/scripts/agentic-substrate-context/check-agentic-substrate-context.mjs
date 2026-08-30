@@ -139,7 +139,7 @@ exactKeys(
   'delivery'
 )
 if (
-  !['local-stacked-not-pushed', 'pushed-not-merged', 'pull-request-open', 'merged'].includes(
+  !['local-not-pushed', 'pushed-not-merged', 'pull-request-open', 'merged'].includes(
     state.delivery.status
   )
 ) {
@@ -158,7 +158,7 @@ for (const name of [
   nonEmpty(state.delivery[name], `delivery.${name}`)
 }
 if (
-  ['local-stacked-not-pushed', 'pushed-not-merged'].includes(state.delivery.status) &&
+  ['local-not-pushed', 'pushed-not-merged'].includes(state.delivery.status) &&
   state.delivery.forkPullRequest !== null
 ) {
   fail('delivery without a pull request cannot name one')

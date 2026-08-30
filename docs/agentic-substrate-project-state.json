@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-30T10:50:24Z",
+  "updatedAt": "2026-08-30T13:39:00Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,16 +11,16 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-stacked-not-pushed",
+    "status": "local-not-pushed",
     "currentBranch": "product/p8-exec-01-13-safe-effects",
     "baseRef": "origin/main",
     "implementedThrough": "G8-EXEC",
-    "mergedThrough": "P7-EVAL-10",
+    "mergedThrough": "G7-EVAL",
     "currentCoordinate": "G8-EXEC",
-    "currentCoordinateStatus": "qualification-passed-delivery-blocked-on-p7",
+    "currentCoordinateStatus": "qualification-passed-ready-for-delivery",
     "nextCoordinateAfterMerge": "P9-INTEG-01",
     "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/20",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/21",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
@@ -80,15 +80,15 @@
       "note": "The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains."
     },
     {
-      "id": "stacked-p7-p8-delivery",
+      "id": "p8-delivery",
       "status": "local-only",
-      "note": "P8 is implemented and qualified on a local branch stacked over pushed-but-unmerged P7; preserve P7-before-P8 delivery order and inspect exact ranges before any GitHub write."
+      "note": "P7 merged through PR 21. P8 is qualified, rebased onto origin/main, and remains local until its exact fork push and pull request are authorized."
     }
   ],
   "nextActions": [
-    "Do not push, create, or merge a pull request until the user explicitly authorizes that exact GitHub action.",
-    "Deliver product/p7-eval-11-14-qualification before product/p8-exec-01-13-safe-effects; both target only beiyonder/orca main.",
-    "Before either delivery action, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
-    "After both fork pull requests merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
+    "Do not push, create, or merge the P8 pull request until the user explicitly authorizes that exact GitHub action.",
+    "Deliver product/p8-exec-01-13-safe-effects only to beiyonder/orca with base main.",
+    "Before delivery, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
+    "After the P8 fork pull request merges, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
   ]
 }
