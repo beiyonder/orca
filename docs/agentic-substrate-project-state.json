@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-30T16:41:13Z",
+  "updatedAt": "2026-08-30T17:15:02Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "pull-request-open",
-    "currentBranch": "product/p8-exec-01-13-safe-effects",
+    "status": "merged",
+    "currentBranch": "chore/post-p8-project-state",
     "baseRef": "origin/main",
     "implementedThrough": "G8-EXEC",
-    "mergedThrough": "G7-EVAL",
-    "currentCoordinate": "G8-EXEC",
-    "currentCoordinateStatus": "pull-request-open-awaiting-checks",
+    "mergedThrough": "G8-EXEC",
+    "currentCoordinate": "P9-INTEG-01",
+    "currentCoordinateStatus": "ready-to-start",
     "nextCoordinateAfterMerge": "P9-INTEG-01",
     "forkPullRequest": "https://github.com/beiyonder/orca/pull/22",
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/21",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/22",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-08-30T10:50:24Z",
+    "lastVerifiedAt": "2026-08-30T17:13:16Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -80,15 +80,15 @@
       "note": "The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains."
     },
     {
-      "id": "p8-delivery",
-      "status": "pull-request-open",
-      "note": "P7 merged through PR 21. Qualified P8 is open as beiyonder/orca PR 22 against main; wait for exact-head checks before any merge."
+      "id": "p8-production-hardening",
+      "status": "deferred",
+      "note": "G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred."
     }
   ],
   "nextActions": [
-    "Wait for every required check on beiyonder/orca pull request 22 to pass at the exact P8 head.",
-    "Before merge, verify repository owner, main base, P8 head SHA, mergeability, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
-    "Merge pull request 22 only after explicit point-of-risk authorization.",
-    "After the P8 merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
+    "Review the merged G8 evidence and original Phase 9 plan before implementing P9-INTEG-01.",
+    "Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.",
+    "Preserve the P8 production-hardening boundaries; do not treat the disposable marker qualification as production authority.",
+    "A stablyai Project 13 member should remove or archive the residual PR 17224 project item if it remains."
   ]
 }
