@@ -181,19 +181,25 @@ export class EffectRelayGateway {
     try {
       entries = await readdir(this.#root)
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return []
+      }
       throw error
     }
     const pending: PendingDispatch[] = []
     for (const entry of entries.sort()) {
-      if (!/^\d{12}-[A-Za-z0-9_-]{1,128}\.json$/.test(entry)) continue
+      if (!/^\d{12}-[A-Za-z0-9_-]{1,128}\.json$/.test(entry)) {
+        continue
+      }
       const path = join(this.#root, entry)
       const receiptPath = `${path}.receipt.json`
       try {
         await readFile(receiptPath)
         continue
       } catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+        if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+          throw error
+        }
       }
       const frame = verifyEffectRecord(
         JSON.parse(await readFile(path, 'utf8')) as unknown,
@@ -209,12 +215,16 @@ export class EffectRelayGateway {
     try {
       entries = await readdir(this.#root)
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return []
+      }
       throw error
     }
     const receipts: unknown[] = []
     for (const entry of entries.sort()) {
-      if (!/^\d{12}-[A-Za-z0-9_-]{1,128}\.json\.receipt\.json$/.test(entry)) continue
+      if (!/^\d{12}-[A-Za-z0-9_-]{1,128}\.json\.receipt\.json$/.test(entry)) {
+        continue
+      }
       receipts.push(JSON.parse(await readFile(join(this.#root, entry), 'utf8')) as unknown)
     }
     return receipts
@@ -227,7 +237,9 @@ export class EffectRelayGateway {
     try {
       return JSON.parse(await readFile(`${dispatchPath}.journal.json`, 'utf8')) as unknown
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return null
+      }
       throw error
     }
   }
@@ -269,9 +281,13 @@ export class EffectRelayGateway {
       const checkpoint = JSON.parse(
         await readFile(join(this.#root, 'checkpoint.json'), 'utf8')
       ) as { acceptedThrough?: unknown }
-      if (typeof checkpoint.acceptedThrough === 'number') return checkpoint.acceptedThrough + 1
+      if (typeof checkpoint.acceptedThrough === 'number') {
+        return checkpoint.acceptedThrough + 1
+      }
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw error
+      }
     }
     const entries = await readdir(this.#root)
     const sequences = entries

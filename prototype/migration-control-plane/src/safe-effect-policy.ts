@@ -48,8 +48,12 @@ function collectDenials(
 ): string[] {
   const failures: string[] = []
   const authority = intent.authority
-  if (intent.tenantId !== bundle.tenantId) failures.push('tenant')
-  if (canonicalJson(intent.target) !== canonicalJson(bundle.allowedTarget)) failures.push('target')
+  if (intent.tenantId !== bundle.tenantId) {
+    failures.push('tenant')
+  }
+  if (canonicalJson(intent.target) !== canonicalJson(bundle.allowedTarget)) {
+    failures.push('target')
+  }
   if (
     intent.adapter.name !== bundle.allowedAdapter.name ||
     intent.adapter.version !== bundle.allowedAdapter.version ||
@@ -57,7 +61,9 @@ function collectDenials(
   ) {
     failures.push('adapter')
   }
-  if (canonicalJson(authority.skill) !== canonicalJson(bundle.allowedSkill)) failures.push('skill')
+  if (canonicalJson(authority.skill) !== canonicalJson(bundle.allowedSkill)) {
+    failures.push('skill')
+  }
   if (
     authority.workloadIdentity.issuer !== bundle.allowedWorkload.issuer ||
     authority.workloadIdentity.subject !== bundle.allowedWorkload.subject ||
@@ -65,9 +71,15 @@ function collectDenials(
   ) {
     failures.push('identity')
   }
-  if (!budgetWithinLimit(intent.budget, bundle.maxBudget)) failures.push('budget')
-  if (Date.parse(now) >= Date.parse(intent.expiresAt)) failures.push('expiry')
-  if (intent.operationClass !== 'declarative-ensure') failures.push('operation_class')
+  if (!budgetWithinLimit(intent.budget, bundle.maxBudget)) {
+    failures.push('budget')
+  }
+  if (Date.parse(now) >= Date.parse(intent.expiresAt)) {
+    failures.push('expiry')
+  }
+  if (intent.operationClass !== 'declarative-ensure') {
+    failures.push('operation_class')
+  }
   if (intent.idempotency.kind !== 'natural-key' || intent.idempotency.key === null) {
     failures.push('idempotency')
   }

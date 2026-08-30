@@ -6,7 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { BoundedEffectEvidenceStore } from '../src/bounded-effect-evidence-store.js'
 import { sha256Text } from '../src/canonical-json.js'
 import { CapabilityEnvelopeV2Schema } from '../src/domain/effect-execution-contracts-v2.js'
-import { MARKER_RUNNER_DIGEST, MARKER_RUNNER_SOURCE } from '../src/effect-execution-relay.js'
+import { MARKER_RUNNER_DIGEST, MARKER_RUNNER_SOURCE } from '../src/safe-effect-marker-runner.js'
 import {
   createSafeEffectQualificationIntent,
   createSafeEffectQualificationPolicyBundle

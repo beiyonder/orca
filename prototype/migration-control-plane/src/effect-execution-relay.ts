@@ -11,6 +11,7 @@ import {
   type EffectReceiptV1
 } from './domain/effect-contracts.js'
 import type { EffectRelayDispatch, EffectRelayGateway } from './effect-relay-gateway.js'
+import type { EffectRelayFaultHook } from './effect-relay-faults.js'
 import { OmpHostToolAuthority } from './omp-host-tool-authority.js'
 import { POSTGRES_MARKER_ADAPTER } from './postgres-marker-target-adapter.js'
 import type {
@@ -21,42 +22,15 @@ import type {
 } from './postgres-marker-target-adapter.js'
 import { SafeEffectRunnerSandbox } from './safe-effect-runner-sandbox.js'
 import {
+  MARKER_RUNNER_DIGEST,
+  MARKER_RUNNER_SOURCE,
+  markerRequest
+} from './safe-effect-marker-runner.js'
+import {
   signEffectRecord,
   verifyEffectRecord,
   type SignedEffectRecord
 } from './signed-effect-record.js'
-
-export const MARKER_RUNNER_SOURCE = `
-if (
-  typeof input !== "object" || input === null ||
-  input.operation !== "ensure-marker" ||
-  typeof input.request !== "object" || input.request === null
-) throw new TypeError("invalid marker runner input")
-const request = input.request
-if (
-  typeof request.tenantId !== "string" ||
-  typeof request.effectId !== "string" ||
-  typeof request.markerKey !== "string" ||
-  typeof request.subjectVersion !== "string"
-) throw new TypeError("invalid marker request")
-output = JSON.parse(JSON.stringify(request))
-`.trim()
-
-export const MARKER_RUNNER_DIGEST = sha256Text(MARKER_RUNNER_SOURCE)
-
-export type EffectRelayFaultPoint =
-  | 'before_capability'
-  | 'after_capability'
-  | 'before_prepare'
-  | 'after_prepare'
-  | 'before_send'
-  | 'after_send'
-  | 'before_receipt'
-  | 'after_receipt'
-  | 'before_ack'
-  | 'after_ack'
-
-export type EffectRelayFaultHook = (point: EffectRelayFaultPoint) => void | Promise<void>
 
 export type EffectExecutionRelayOptions = {
   gateway: EffectRelayGateway
@@ -75,25 +49,6 @@ export type ProcessedEffectDispatch = {
   dispatchId: string
   receipt: SignedEffectRecord<EffectReceiptV1>
   reconciled: boolean
-}
-
-function markerRequest(dispatch: EffectRelayDispatch): MarkerEffectRequest {
-  const parameters = dispatch.intent.parameters
-  if (typeof parameters !== 'object' || parameters === null || Array.isArray(parameters)) {
-    throw new TypeError('Marker parameters must be an object')
-  }
-  const markerKey = parameters.markerKey
-  const value = parameters.value
-  if (typeof markerKey !== 'string' || value === undefined) {
-    throw new TypeError('Marker parameters require markerKey and value')
-  }
-  return {
-    tenantId: dispatch.tenantId,
-    effectId: dispatch.effectId,
-    markerKey,
-    value,
-    subjectVersion: dispatch.intent.authority.subjectVersion
-  }
 }
 
 export class EffectExecutionRelay {
@@ -217,7 +172,9 @@ export class EffectExecutionRelay {
       const tool = capability.allowedTools.find(
         (candidate) => candidate.name === 'postgres_marker_ensure'
       )
-      if (!tool) throw new TypeError('Capability omits the marker tool')
+      if (!tool) {
+        throw new TypeError('Capability omits the marker tool')
+      }
       const authority = new OmpHostToolAuthority({
         attempt: {
           tenantId: dispatch.tenantId,

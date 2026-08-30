@@ -105,7 +105,9 @@ export class BoundedEffectEvidenceStore {
         )
       }
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+        throw error
+      }
       await writeFile(objectPath, body, { flag: 'wx', mode: 0o600 })
     }
     const metadata = JSON.stringify({
@@ -119,7 +121,9 @@ export class BoundedEffectEvidenceStore {
     try {
       await writeFile(`${objectPath}.metadata.json`, metadata, { flag: 'wx', mode: 0o600 })
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') throw error
+      if ((error as NodeJS.ErrnoException).code !== 'EEXIST') {
+        throw error
+      }
       const existingMetadata = JSON.parse(
         await readFile(`${objectPath}.metadata.json`, 'utf8')
       ) as Record<string, unknown>
@@ -150,9 +154,13 @@ export class BoundedEffectEvidenceStore {
     tenantId: string
   ): Promise<boolean> {
     const prefix = `artifact://safe-effect/${tenantId}/`
-    if (!reference.uri.startsWith(prefix)) return false
+    if (!reference.uri.startsWith(prefix)) {
+      return false
+    }
     const objectKey = reference.uri.slice(prefix.length)
-    if (!SAFE_SEGMENT.test(objectKey)) return false
+    if (!SAFE_SEGMENT.test(objectKey)) {
+      return false
+    }
     const body = await readFile(join(this.#root, tenantId, objectKey))
     return body.byteLength === reference.bytes && sha256Text(body) === reference.sha256
   }
@@ -167,15 +175,23 @@ export class BoundedEffectEvidenceStore {
     try {
       entries = await readdir(directory)
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return []
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        return []
+      }
       throw error
     }
     const removed: string[] = []
     for (const entry of entries) {
-      if (entry.endsWith('.metadata.json') || entry.endsWith('.tmp')) continue
-      if (!SAFE_SEGMENT.test(entry) || referencedObjectKeys.has(entry)) continue
+      if (entry.endsWith('.metadata.json') || entry.endsWith('.tmp')) {
+        continue
+      }
+      if (!SAFE_SEGMENT.test(entry) || referencedObjectKeys.has(entry)) {
+        continue
+      }
       const details = await stat(join(directory, entry))
-      if (details.mtimeMs >= Date.parse(olderThan)) continue
+      if (details.mtimeMs >= Date.parse(olderThan)) {
+        continue
+      }
       await rm(join(directory, entry), { force: true })
       await rm(join(directory, `${entry}.metadata.json`), { force: true })
       removed.push(entry)
