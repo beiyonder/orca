@@ -39,6 +39,27 @@ Never use vague names like `helpers`, `utils`, `common`, `misc`, or `shared-stuf
 
 Always use the primary working directory (the worktree) for all file reads and edits. Never follow absolute paths from subagent results that point to the main repo.
 
+## Repository Authority and Session Bootstrap
+
+This checkout uses the user's fork as its only writable GitHub repository:
+
+- Authoritative repository: `beiyonder/orca`.
+- Writable Git remote: `origin`.
+- Default base: `origin/main`.
+- Read-only public upstream: `stablyai/orca`, remote `upstream`.
+- NEVER create or mutate a branch, pull request, issue, release, tag, project item, or other GitHub resource in `stablyai/orca`.
+
+At the start of every session in this repository:
+
+1. Read [`docs/agentic-substrate-project-state.json`](./docs/agentic-substrate-project-state.json).
+2. Read the generated [`docs/agentic-substrate-current-handoff.md`](./docs/agentic-substrate-current-handoff.md).
+3. Run `node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local`.
+4. Treat Git/GitHub state as authoritative when it conflicts with cached conversation or memory.
+
+Before any push, pull request, rebase, or merge, verify the repository, base, head, tracking remote, and commit range. Stop on a `403`, unexpected conflict, wrong owner, or unexpected commit/file count; never work around it by changing targets or rebasing.
+
+Update only `docs/agentic-substrate-project-state.json` for live project status, then run `node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --write`. The generated handoff and Serena memory MUST NOT be edited directly.
+
 ## Cross-Platform Support
 
 Orca targets macOS, Linux, and Windows. Keep all platform-dependent behavior behind runtime checks:

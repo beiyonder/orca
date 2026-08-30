@@ -286,6 +286,6 @@ prototype/migration-control-plane/
 
 It is committed with Orca but isolated from Orca desktop production code, installs, builds, tests, bundles, and dependencies. The stable cross-platform command owns all lab operations; Node/TypeScript manifests, private lockfile, deterministic primitives, fixtures, evaluator baseline, runner, and CI now exist.
 
-## Next coordinate
+## Live continuation
 
-`P7-EVAL-11` — certify skills inside the private lab.
+The lab-location decision is stable. Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current delivery state and next coordinate.

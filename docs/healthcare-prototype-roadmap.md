@@ -2,7 +2,7 @@
 
 ## Current coordinate
 
-**`P7-EVAL-11` — Implement held-out skill certification.**
+Live status is generated from [`agentic-substrate-project-state.json`](./agentic-substrate-project-state.json). Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) before acting; historical status text below is not delivery authority.
 
 Current artifacts already exist:
 
@@ -42,6 +42,8 @@ Phase 6 and `G6-DISC` are complete. `P6-DISC-01`–`07` provide the frozen Pagil
 
 `P7-EVAL-07` through `P7-EVAL-10` are complete. Product-owned immutable acceptance now enforces unknown→hypothesis→supported→accepted and rejected/quarantined paths; evaluator or producer records cannot accept. Failed measures become attributed typed gaps with no generic retry. A failed effect-capable proposal is corrected into a new V2 subject under the unchanged evaluator and thresholds, independently passes, and preserves failed history/delta/usage. Success and failure lessons create only no-use quarantined learning candidates. Migration 016 raises the registry to 86 schemas; 16 migrations / 17 tables fingerprint `e1ef3246…d783ba38`. Verification passes 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests.
 
+`P7-EVAL-11` through `P7-EVAL-14` and `G7-EVAL` are implemented and verified on the current delivery branch. Frozen held-out certification, product-owned activation, atomic regression revocation/rollback, sealed `EXP-08`/`EXP-09`, registry 89, migration 017 and the closed correction gate pass. The canonical handoff records the separate merge state.
+
 ## How to use coordinates
 
 Format:
@@ -76,7 +78,7 @@ L-<track>-<number>
 
 When discussing work, always name the coordinate:
 
-> “We are at `P7-EVAL-11`: implement held-out skill certification.”
+> “The canonical handoff names the exact current coordinate and delivery state.”
 
 Do not say only “we are working on evaluation.”
 
@@ -152,15 +154,15 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A3 — Orchestrated specialists` | Apex agent decomposes, delegates, compares disagreement, and changes plan from evidence. | **M2 isolated proof:** typed proposal-only specialists, one-action apex, evidence-seeking disagreement, context authority, process replacement, and real OMP containment pass; full mission integration remains ahead. |
 | `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M3 discovery proof:** bounded source observations feed claim comparison, contradiction preservation, ranked gaps, safe probes and explicit human exceptions; EXP-02/03 pass without treating denial as absence. |
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Closed synthetic correction proof:** product acceptance, exact failed-measure diagnosis and new-version correction under an unchanged contract pass; mutation/overfit experiments and broader integration remain. |
-| `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Quarantine boundary:** accepted and failed outcomes create attributable no-use candidates only; held-out certification, active-pointer rollback and regression revocation are next. |
+| `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Synthetic governed lifecycle M2:** candidates remain quarantined; held-out certification, product-owned activation, regression revocation and predecessor rollback pass. Optimizer-generated candidates and production canary traffic remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
 | `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery M3:** Pagila inventory/profile/code/lineage, exact CDC replay, target capability and cited proposal pass EXP-02/03/04; independent artifact/data/semantic evaluation remains Phase 7. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery/evaluation proof:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators and mutation qualification pass; executable target effects remain Phase 8. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
 
-We now have an integrated discovery proof, not yet an independently self-correcting migration system.
+The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). The current branch proves independent correction and synthetic skill rollback; fork `main` remains at the merged coordinate named there. Do not infer delivery state from historical phase prose.
 
 ```text
 A0 Tool agent                 strong
@@ -168,15 +170,13 @@ A1 Stateful worker            strong mechanics; governed memory M2
 A2 Durable mission            durable kernel M2/M3
 A3 Specialist orchestration   isolated typed/contained proof M2
 A4 Evidence seeking           integrated discovery proof M3
-A5 Self-correction            product acceptance + diagnosis + fixed-contract V2 correction
-A6 Self-improvement           success/failure candidates quarantined; certification next
+A5 Self-correction            independent fixed-contract correction passes
+A6 Self-improvement           synthetic certification/revocation/rollback M2
 A7 Bounded execution          state semantics only; no target effect
 A8 Integrated substrate       not assembled
-A9 Migration capability       discovery M3; build/evaluation pending
+A9 Migration capability       discovery and independent evaluation pass
 A10 Working prototype         not assembled
 ```
-
-`P7-EVAL-01` through `P7-EVAL-10` close evaluator breadth and the first closed correction loop. `P7-EVAL-11` must now require held-out improvement, hard gates, protected slices, cost/latency envelope and rollback before any skill certification.
 
 ## Working prototype definition
 
@@ -485,10 +485,10 @@ Failure route: `L-DISC-01`.
 | `DONE` | `P7-EVAL-08` | Implement failed-result diagnosis. | Failed measures map to typed causes, component paths, evidence and open gaps; generic retry is forbidden. |
 | `DONE` | `P7-EVAL-09` | Implement correction loop. | A new V2 proposal fixes the attributed scope, preserves the exact evaluator/thresholds and independently passes with delta/usage/history. |
 | `DONE` | `P7-EVAL-10` | Implement learning-candidate creation. | Success and failure create only attributable quarantined/no-use candidates. Registry 86, migration 016, 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests pass. |
-| `CURRENT` | `P7-EVAL-11` | Implement skill certification. | Frozen baseline, held-out corpus, safety, cost, latency, envelope, and rollback are required. |
-| `WAIT` | `P7-EVAL-12` | Implement skill demotion/revocation. | Injected regression prevents new assignment and restores prior version. |
-| `WAIT` | `P7-EVAL-13` | Run mutation evaluator experiment. | EXP-08 catches every seeded critical defect within false-rejection limit. |
-| `WAIT` | `P7-EVAL-14` | Run skill lifecycle experiment. | EXP-09 proves promotion, drift detection, demotion, revocation, and rollback. |
+| `DONE` | `P7-EVAL-11` | Implement skill certification. | Immutable certification pins baseline/candidate artifacts, distinct selection/held-out/adversarial corpora, exact evaluator results, hard improvement, protected/safety slices, cost/latency envelope, repetitions/seeds, unchanged authority, and rollback. |
+| `DONE` | `P7-EVAL-12` | Implement skill demotion/revocation. | Product-owned active-pointer lineage promotes only passed certification; an attributed regression atomically revokes the candidate, blocks new resolution, records affected uses/outputs, and restores the certified predecessor. Registry 89, migration 017, 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests pass. |
+| `DONE` | `P7-EVAL-13` | Run mutation evaluator experiment. | Sealed `EXP-08` seed 708 kills all 7 schema/mapping/delete/precision/identity/security/recovery defects with exact measure/evidence attribution and rejects 0/4 benign mutations. |
+| `DONE` | `P7-EVAL-14` | Run skill lifecycle experiment. | Sealed `EXP-09` seed 709 proves certification, promotion, injected drift detection, automatic demotion, revocation, impact trace, assignment blocking, and rollback. |
 
 ### `G7-EVAL` — Independent correction gate
 
@@ -500,6 +500,8 @@ Pass when:
 - a failed artifact is diagnosed, changed, and independently re-evaluated;
 - a regressed skill is automatically stopped and rolled back;
 - learning candidates remain quarantined until measured improvement.
+
+**Gate status: `DONE`.** Product-only acceptance and independent coordination prevent producer self-review; evaluator failure remains unaccepted while unrelated work continues; typed diagnosis drives a scoped V2 correction under the unchanged contract; learning candidates remain quarantined/no-use; `EXP-08` kills 7/7 critical mutations with zero benign false rejection; and `EXP-09` revokes the regressed skill and restores its predecessor. Evidence: 89 schemas, 17 migrations / 17 tables, fingerprint `49954cda…1fa28125`, 41 unit files / 217 tests, 24 PostgreSQL files / 59 tests, and verified sealed `EXP-08`/`09`.
 
 Failure route: `L-EVAL-01`.
 
@@ -661,13 +663,15 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
-| Phase 7 — Evaluation | `G7-EVAL` | `CURRENT` at `P7-EVAL-11`; `P7-EVAL-01`–`10` done |
-| Phase 8 — Execution | `G8-EXEC` | `WAIT` |
+| Phase 7 — Evaluation | `G7-EVAL` | `DONE` on the current branch; fork delivery pending |
+| Phase 8 — Execution | `G8-EXEC` | `WAIT` until the Phase 7 branch merges |
 | Phase 9 — Integration | `G9-INTEG` | `WAIT` |
 | Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
 
-## Immediate next three coordinates
+## Next roadmap coordinates after current delivery
 
-1. **`P7-EVAL-11`** — Implement held-out skill certification.
-2. **`P7-EVAL-12`** — Implement skill demotion/revocation.
-3. **`P7-EVAL-13`** — Run mutation evaluator experiment.
+The [canonical handoff](./agentic-substrate-current-handoff.md) owns the immediate action. After Phase 7 merges:
+
+1. **`P8-EXEC-01`** — Implement effect-intent contract.
+2. **`P8-EXEC-02`** — Implement policy/effect gate.
+3. **`P8-EXEC-03`** — Implement capability envelope.

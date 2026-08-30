@@ -169,6 +169,6 @@ Revisit the runtime cut if:
 
 Do not reverse based on benchmark folklore or OMP’s runtime alone.
 
-## Next coordinate
+## Live continuation
 
-`P7-EVAL-11` — implement skill certification without adding a permanent Python service.
+The runtime decision is stable. Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current delivery state and next coordinate.

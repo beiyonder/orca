@@ -1,5 +1,7 @@
 import { execFileSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
+// Serena requires its hidden project configuration at the repository root.
+const PERMITTED_TOOL_ROOTS = { '.serena': true }
 
 function readRootEntries(sha) {
   // Why: a git pathname is arbitrary bytes, and 'utf8' folds every invalid
@@ -21,7 +23,9 @@ function checkRootDirectoryEntries(argv) {
 
   const [baseSha, headSha] = argv
   const baseEntries = new Set(readRootEntries(baseSha))
-  const blockedEntries = readRootEntries(headSha).filter((entry) => !baseEntries.has(entry))
+  const blockedEntries = readRootEntries(headSha).filter(
+    (entry) => !baseEntries.has(entry) && !Object.hasOwn(PERMITTED_TOOL_ROOTS, entry)
+  )
 
   if (blockedEntries.length === 0) {
     console.log('Root directory guard passed: no new root-level files or folders.')

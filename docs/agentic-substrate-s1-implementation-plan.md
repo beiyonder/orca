@@ -885,6 +885,6 @@ correct it under an unchanged independent evaluator, quarantine the lesson,
 and recover from crashes without duplicating accepted state.
 ```
 
-## Next coordinate
+## Live continuation
 
-`P7-EVAL-11` — certify only held-out, bounded, rollback-ready skills.
+The S1 contract remains authoritative. Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current delivery state and next coordinate.

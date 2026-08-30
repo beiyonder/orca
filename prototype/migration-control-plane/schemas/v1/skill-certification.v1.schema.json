@@ -1,0 +1,592 @@
+{
+  "$id": "urn:orca:migration-control-plane:skill-certification.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "acceptanceAuthority": {
+      "const": "skill-registry-only",
+      "type": "string"
+    },
+    "baselineArtifactDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "baselineSkillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "candidateArtifactDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "certifiedAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "certifiedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "corpora": {
+      "additionalProperties": false,
+      "properties": {
+        "adversarial": {
+          "additionalProperties": false,
+          "properties": {
+            "bytes": {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "mediaType": {
+              "maxLength": 255,
+              "minLength": 3,
+              "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "span": {
+              "default": {
+                "kind": "whole"
+              },
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "whole",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "endLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    },
+                    "kind": {
+                      "const": "text-lines",
+                      "type": "string"
+                    },
+                    "startLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["kind", "startLine", "endLine"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "json-pointer",
+                      "type": "string"
+                    },
+                    "pointer": {
+                      "maxLength": 4096,
+                      "pattern": "^(?:\\/[^/]*)*$",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind", "pointer"],
+                  "type": "object"
+                }
+              ]
+            },
+            "uri": {
+              "maxLength": 4096,
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9+.-]*:",
+              "type": "string"
+            }
+          },
+          "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+          "type": "object"
+        },
+        "heldOut": {
+          "additionalProperties": false,
+          "properties": {
+            "bytes": {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "mediaType": {
+              "maxLength": 255,
+              "minLength": 3,
+              "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "span": {
+              "default": {
+                "kind": "whole"
+              },
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "whole",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "endLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    },
+                    "kind": {
+                      "const": "text-lines",
+                      "type": "string"
+                    },
+                    "startLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["kind", "startLine", "endLine"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "json-pointer",
+                      "type": "string"
+                    },
+                    "pointer": {
+                      "maxLength": 4096,
+                      "pattern": "^(?:\\/[^/]*)*$",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind", "pointer"],
+                  "type": "object"
+                }
+              ]
+            },
+            "uri": {
+              "maxLength": 4096,
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9+.-]*:",
+              "type": "string"
+            }
+          },
+          "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+          "type": "object"
+        },
+        "selection": {
+          "additionalProperties": false,
+          "properties": {
+            "bytes": {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "mediaType": {
+              "maxLength": 255,
+              "minLength": 3,
+              "pattern": "^[a-z0-9!#$&^_.+-]+\\/[a-z0-9!#$&^_.+-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "span": {
+              "default": {
+                "kind": "whole"
+              },
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "whole",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "endLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    },
+                    "kind": {
+                      "const": "text-lines",
+                      "type": "string"
+                    },
+                    "startLine": {
+                      "exclusiveMinimum": 0,
+                      "maximum": 9007199254740991,
+                      "type": "integer"
+                    }
+                  },
+                  "required": ["kind", "startLine", "endLine"],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "json-pointer",
+                      "type": "string"
+                    },
+                    "pointer": {
+                      "maxLength": 4096,
+                      "pattern": "^(?:\\/[^/]*)*$",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kind", "pointer"],
+                  "type": "object"
+                }
+              ]
+            },
+            "uri": {
+              "maxLength": 4096,
+              "minLength": 3,
+              "pattern": "^[a-z][a-z0-9+.-]*:",
+              "type": "string"
+            }
+          },
+          "required": ["uri", "sha256", "mediaType", "bytes", "span"],
+          "type": "object"
+        }
+      },
+      "required": ["selection", "heldOut", "adversarial"],
+      "type": "object"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "envelope": {
+      "additionalProperties": false,
+      "properties": {
+        "dataClasses": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "type": "array"
+        },
+        "modelFamily": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "runtime": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "taskClasses": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 128,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": ["taskClasses", "dataClasses", "runtime", "modelFamily"],
+      "type": "object"
+    },
+    "evaluationResultIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 19,
+        "pattern": "^evaluation_result_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "evaluatorContracts": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "digest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "id": {
+            "maxLength": 128,
+            "minLength": 21,
+            "pattern": "^evaluation_contract_[a-z0-9][a-z0-9_-]{0,111}$",
+            "type": "string"
+          },
+          "version": {
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": "integer"
+          }
+        },
+        "required": ["id", "version", "digest"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^certification_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "kind": {
+      "const": "skill-certification",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "metrics": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "baseline": {
+            "type": "number"
+          },
+          "candidate": {
+            "type": "number"
+          },
+          "hard": {
+            "type": "boolean"
+          },
+          "minimumDelta": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "enum": ["pass", "fail"],
+            "type": "string"
+          }
+        },
+        "required": ["name", "baseline", "candidate", "minimumDelta", "hard", "status"],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "performance": {
+      "additionalProperties": false,
+      "properties": {
+        "baselineCostUsd": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "baselineLatencyMs": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "candidateCostUsd": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "candidateLatencyMs": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "maximumCostUsd": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "maximumLatencyMs": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "baselineCostUsd",
+        "candidateCostUsd",
+        "maximumCostUsd",
+        "baselineLatencyMs",
+        "candidateLatencyMs",
+        "maximumLatencyMs"
+      ],
+      "type": "object"
+    },
+    "protectedSlices": {
+      "additionalProperties": {
+        "enum": ["pass", "fail", "unknown"],
+        "type": "string"
+      },
+      "propertyNames": {
+        "maxLength": 128,
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "repetitions": {
+      "exclusiveMinimum": 0,
+      "maximum": 10000,
+      "type": "integer"
+    },
+    "rollbackSkillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "safetyGates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": ["name", "passed"],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1,
+      "type": "number"
+    },
+    "seeds": {
+      "items": {
+        "maximum": 9007199254740991,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "maxItems": 10000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "skillId": {
+      "maxLength": 128,
+      "minLength": 7,
+      "pattern": "^skill_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "skillVersionId": {
+      "maxLength": 128,
+      "minLength": 15,
+      "pattern": "^skill_version_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": ["passed", "failed"],
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "createdAt",
+    "skillId",
+    "skillVersionId",
+    "baselineSkillVersionId",
+    "candidateArtifactDigest",
+    "baselineArtifactDigest",
+    "corpora",
+    "evaluatorContracts",
+    "evaluationResultIds",
+    "metrics",
+    "protectedSlices",
+    "safetyGates",
+    "envelope",
+    "performance",
+    "repetitions",
+    "seeds",
+    "rollbackSkillVersionId",
+    "status",
+    "certifiedAt",
+    "certifiedBy",
+    "limitations",
+    "acceptanceAuthority"
+  ],
+  "title": "skill-certification.v1",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "skill-certification.v1"
+  }
+}

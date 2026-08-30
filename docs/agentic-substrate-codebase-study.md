@@ -429,12 +429,10 @@ Those arrive only after the core correction loop is real.
 6. Memory candidate is quarantined and never influences the same run.
 7. Complete state/evidence trace is inspectable from one run ID.
 
-## Phase 1 through `P7-EVAL-10` closeout
+## Phase 1 through `G7-EVAL` closeout
 
-`P1-RSCH-01` through `P7-EVAL-10` are complete. Evaluator breadth now feeds product-only acceptance, typed failure diagnosis, fixed-contract new-version correction and quarantined/no-use learning candidates.
+`P1-RSCH-01` through `P7-EVAL-14` and `G7-EVAL` are complete. Evaluation now spans deterministic structure, migrated data, clean artifacts and held-out semantics; product-only acceptance drives typed fixed-contract correction; learning remains quarantined; and certified skill activation has automatic regression revocation and rollback. Sealed `EXP-08` kills 7/7 critical mutations with 0/4 benign false rejections, while `EXP-09` proves promotion, drift detection, demotion, revocation and predecessor restoration.
 
-Next:
+## Live continuation
 
-1. `P7-EVAL-11` — certify skills against frozen held-out and protected slices.
-2. `P7-EVAL-12` — demote/revoke regressions and restore predecessor.
-3. `P7-EVAL-13` — run the mutation evaluator experiment.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md) for the current branch, merge state and next coordinate. This closeout remains historical evidence.

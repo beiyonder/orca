@@ -93,6 +93,16 @@ describe('root directory guard', () => {
     expect(result.stdout).toContain('no new root-level files or folders')
   })
 
+  it('allows the hidden Serena project context root', () => {
+    const fixture = makeFixture()
+    const head = commitFiles(fixture.root, [['.serena/project.yml', 'project_name: fixture\n']])
+
+    const result = runGuard({ ...fixture, head })
+
+    expect(result.status).toBe(0)
+    expect(result.stdout).toContain('no new root-level files or folders')
+  })
+
   it('rejects a new root-level file with the landing-page message', () => {
     const fixture = makeFixture()
     const head = commitFiles(fixture.root, [['new-root.md', 'too prominent\n']])

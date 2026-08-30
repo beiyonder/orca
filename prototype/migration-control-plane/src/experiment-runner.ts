@@ -36,6 +36,8 @@ const EXPERIMENT_ARMS: Record<string, readonly ExperimentArm[]> = {
   'EXP-05': ['baseline'],
   'EXP-06': ['baseline'],
   'EXP-07': ['baseline'],
+  'EXP-08': ['baseline'],
+  'EXP-09': ['baseline'],
   'DUR-EXP-01': ['baseline']
 }
 

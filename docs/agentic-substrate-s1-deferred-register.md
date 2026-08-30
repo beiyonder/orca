@@ -153,6 +153,16 @@ Review outcome:
 - evaluation/semantic-judge/expert-panel and skill promotion items remain deferred until Phase 7 calibration/correction evidence fires their triggers;
 - next mandatory review is `G7-EVAL`; any earlier scope change must use the promotion procedure below.
 
+## `G7-EVAL` gate review
+
+Review outcome:
+
+- all 52 items were reviewed against independent evaluation, specialized deterministic oracles, product-only acceptance, typed fixed-contract correction, quarantined learning, held-out skill certification and sealed `EXP-08`/`EXP-09`;
+- no deferred capability is promoted, replaced or dropped: the synthetic technical corpus does not trigger a production expert panel or general LLM judge, one local evaluator does not justify a production evaluator fleet, and no optimizer generated the certified candidate;
+- certification, activation, regression impact and automatic rollback seams are now executable, but production shadow/canary rollout remains deferred until eligible traffic and `IMPR-EXP-05/08/10` satisfy `S1-DEF-048`;
+- cross-tenant learning, adaptive memory, production optimization, executable learned tools, generated curricula and production evaluator operations remain deferred;
+- next mandatory review is `G8-EXEC`; any earlier scope change must use the promotion procedure below.
+
 ## Promotion procedure
 
 When a trigger fires:

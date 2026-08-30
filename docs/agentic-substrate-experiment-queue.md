@@ -9,8 +9,8 @@
 - Queue schema and runner contract: `IMPLEMENTED` for the Phase 2 baseline.
 - Experiment runner: `prototype/migration-control-plane/scripts/migration-control-plane-lab.mjs`, implemented by `P2-LAB-12`.
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
-- First dependency-ready roadmap coordinate: `P7-EVAL-11`.
-- `G2-LAB` through `G6-DISC` and `P7-EVAL-01`–`10` are complete; held-out skill certification is next.
+- Live delivery and next-coordinate state: [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md).
+- Completed experiment evidence remains in this queue; the generated handoff decides what may run next.
 - Source, evaluation and improvement research cards remain authoritative.
 
 This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
@@ -32,6 +32,8 @@ Local sealed runs under ignored `.runs/`:
 | `EXP-10` | 412 | `passed` | `exp-10-3040f76381e7a97eaa2d` |
 | `EXP-06` | 506 | `passed` | `exp-06-506-baseline-none-run_000000_b9160260c6af7df3` |
 | `EXP-07` | 507 | `passed` | `exp-07-507-baseline-none-run_000000_81c0168e84e967df` |
+| `EXP-08` | 708 | `passed` | `exp-08-708-baseline-none-run_000000_54cd70722ee5bcc1` |
+| `EXP-09` | 709 | `passed` | `exp-09-709-baseline-none-run_000000_61461415d7d39480` |
 
 Gate verification:
 
@@ -253,6 +255,23 @@ Gate verification:
 - an effect-capable V1 proposal fails, a scoped V2 fixes only diagnosed paths, and the same evaluator/threshold contract independently passes while failed history, delta and usage remain;
 - success and failure lessons create only attributable quarantined candidates with `usePolicy: none` and zero authority delta;
 - migration 016 registers acceptance/diagnosis/correction snapshots; registry 86, migrations 16 / tables 17, fingerprint `e1ef3246…d783ba38`; verification passes 39 unit files / 212 tests and 23 PostgreSQL files / 58 tests.
+
+## `P7-EVAL-11` through `P7-EVAL-14` skill-lifecycle and qualification evidence
+
+- immutable certification binds exact baseline/candidate artifacts, distinct selection/held-out/adversarial corpora, evaluator contracts/results, hard improvement, protected and safety gates, cost/latency limits, task/data/runtime/model envelope, unique repetition seeds and exact rollback;
+- active-pointer lineage permits only a frozen V1 baseline or passed certified candidate; tenant, version, predecessor, authority and tool invariants fail closed, and invalid regression records cannot partially advance the pointer;
+- attributed drift creates immutable regression, revocation lifecycle and rollback pointer records; new candidate resolution stops while affected uses/outputs and re-evaluation evidence remain queryable;
+- sealed `EXP-08` seed 708 exercises real identity, CDC and semantic evaluators: 7/7 schema/mapping/delete/precision/identity/security/recovery mutations are killed with exact measure/evidence attribution and 0/4 benign false rejections;
+- sealed `EXP-09` seed 709 proves held-out certification, promotion, injected drift detection, automatic demotion, revocation, affected-output trace, new-assignment blocking and predecessor restoration;
+- migration 017 registers three immutable lifecycle schemas; registry 89, migrations 17 / tables 17, fingerprint `49954cda…1fa28125`; verification passes 41 unit files / 217 tests and 24 PostgreSQL files / 59 tests.
+
+## `G7-EVAL` independent-correction gate evidence
+
+- producer/evaluator records never carry acceptance authority; product reconciliation alone accepts;
+- unavailable/failed evaluation keeps its subject unaccepted while unrelated coordination continues;
+- failed V1 history remains immutable, diagnosis localizes exact paths/evidence/gaps, and V2 passes the unchanged evaluator and thresholds;
+- both success and failure learning candidates remain quarantined with `usePolicy: none`;
+- `EXP-08` proves seeded critical detection without benign over-rejection, and `EXP-09` proves automatic regression stop and rollback.
 
 ## Queue classes
 
@@ -507,4 +526,4 @@ Every state change records:
 
 ## Next queue action
 
-Begin `P7-EVAL-11`: require frozen held-out baseline/candidate comparison, hard gates, protected slices, cost/latency envelope and rollback before skill certification.
+Read [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md); do not infer the next action from historical queue entries.

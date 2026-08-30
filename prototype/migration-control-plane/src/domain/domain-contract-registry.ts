@@ -101,6 +101,11 @@ import {
   SemanticEvaluationReportV1Schema,
   SemanticLabeledCorpusV1Schema
 } from './semantic-evaluator-contracts.js'
+import {
+  SkillActivePointerV1Schema,
+  SkillCertificationV1Schema,
+  SkillRegressionV1Schema
+} from './skill-certification-contracts.js'
 import { SkillLifecycleEventV1Schema, SkillVersionV1Schema } from './skill-contracts.js'
 import {
   SourceAccessEnvelopeV1Schema,
@@ -187,7 +192,10 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'retrieval-trace.v1': RetrievalTraceV1Schema,
   'secret-lease.v1': SecretLeaseV1Schema,
   'safe-probe-plan.v1': SafeProbePlanV1Schema,
+  'skill-active-pointer.v1': SkillActivePointerV1Schema,
+  'skill-certification.v1': SkillCertificationV1Schema,
   'skill-lifecycle-event.v1': SkillLifecycleEventV1Schema,
+  'skill-regression.v1': SkillRegressionV1Schema,
   'skill-version.v1': SkillVersionV1Schema,
   'subject-acceptance.v1': SubjectAcceptanceV1Schema,
   'source-access-envelope.v1': SourceAccessEnvelopeV1Schema,

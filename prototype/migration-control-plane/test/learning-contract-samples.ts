@@ -1,3 +1,5 @@
+import { SKILL_CERTIFICATION_CONTRACT_SAMPLES } from './skill-certification-contract-samples.js'
+
 const tenantId = 'tenant_s1'
 const missionId = 'mission_s1'
 const createdAt = '2026-01-01T00:00:00.000Z'
@@ -36,6 +38,7 @@ const tool = {
 }
 
 export const LEARNING_CONTRACT_SAMPLES = {
+  ...SKILL_CERTIFICATION_CONTRACT_SAMPLES,
   'learning-candidate.v1': {
     schemaVersion: 1,
     kind: 'learning-candidate',
