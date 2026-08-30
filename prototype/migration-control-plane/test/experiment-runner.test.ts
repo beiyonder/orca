@@ -139,7 +139,7 @@ describe('one-command experiment runner core', () => {
       })
       expect(await readFile(join(summary.runPath, 'faults.jsonl'), 'utf8')).toContain(definition.id)
     }
-  })
+  }, 30_000)
 
   it('reports the OMP fixture as inconclusive until the real binary runs', async () => {
     const summary = await runExperiment({

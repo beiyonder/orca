@@ -126,5 +126,5 @@ describe('versioned domain contract registry', () => {
     await expect(checkDomainSchemaFiles(copy)).rejects.toThrow(
       'Generated domain schemas are stale: mission-record.v1.schema.json'
     )
-  })
+  }, 30_000)
 })

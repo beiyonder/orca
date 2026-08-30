@@ -22,6 +22,8 @@ export async function probePostCancellationToolGate(
   }
   const argumentsValue = { evidenceId: 'evidence_profile' }
   const parameterDigest = sha256Text(canonicalJson(argumentsValue))
+  const expectedPreStateDigest = sha256Text(canonicalJson({ admitted: true }))
+  const runnerDigest = '4'.repeat(64)
   const reference = {
     name: 'evidence_read',
     version: '1',
@@ -45,7 +47,7 @@ export async function probePostCancellationToolGate(
     costLimitUsd: 1
   }
   const policyDecision = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'policy-decision',
     id: 'policy_containment',
     tenantId: 'tenant_s1',
@@ -60,11 +62,16 @@ export async function probePostCancellationToolGate(
     grant: {
       target,
       adapterName: 'fixture-evidence',
+      adapterVersion: '1',
       adapterMethod: 'read',
       parameterDigest,
+      expectedPreStateDigest,
+      subjectVersion: 'evidence-profile-v1',
+      runnerDigest,
       toolNames: ['evidence_read'],
       networkDestinations: [],
       secretScopes: [],
+      budget,
       maxUses: 1,
       expiresAt
     },
@@ -75,7 +82,7 @@ export async function probePostCancellationToolGate(
     expiresAt
   }
   const capabilityEnvelope = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'capability-envelope',
     id: 'envelope_containment',
     tenantId: 'tenant_s1',
@@ -88,12 +95,18 @@ export async function probePostCancellationToolGate(
       assignmentId: 'assignment_reconstruction',
       attemptId: 'attempt_reconstruction',
       fence: 5,
+      issuer: 'spiffe://migration-lab',
+      subject: 'spiffe://migration-lab/omp-containment',
       audience: 'omp:specialist'
     },
     target,
     adapterName: 'fixture-evidence',
+    adapterVersion: '1',
     adapterMethod: 'read',
     parameterDigest,
+    expectedPreStateDigest,
+    subjectVersion: 'evidence-profile-v1',
+    runnerDigest,
     allowedTools: [reference],
     allowedNetworkDestinations: [],
     dataClasses: ['synthetic'],
@@ -111,6 +124,11 @@ export async function probePostCancellationToolGate(
       assignmentId: 'assignment_reconstruction',
       attemptId: 'attempt_reconstruction',
       fence: 5,
+      issuer: 'spiffe://migration-lab',
+      subject: 'spiffe://migration-lab/omp-containment',
+      audience: 'omp:specialist',
+      subjectVersion: 'evidence-profile-v1',
+      runnerDigest,
       status: 'running'
     },
     capabilityEnvelope,

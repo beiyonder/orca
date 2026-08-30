@@ -22,6 +22,8 @@ export const parameters = {
 }
 export const allowedArguments = { evidenceId: 'evidence_s1' }
 const parameterDigest = sha256Text(canonicalJson(allowedArguments))
+const expectedPreStateDigest = sha256Text(canonicalJson({ admitted: true }))
+const runnerDigest = '4'.repeat(64)
 const reference = {
   name: 'evidence_read',
   version: '1',
@@ -38,7 +40,7 @@ export const budget = {
 
 export function policy(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'policy-decision',
     id: 'policy_s1',
     tenantId: 'tenant_s1',
@@ -53,11 +55,16 @@ export function policy(overrides: Record<string, unknown> = {}): Record<string, 
     grant: {
       target,
       adapterName: 'fixture-evidence',
+      adapterVersion: '1',
       adapterMethod: 'read',
       parameterDigest,
+      expectedPreStateDigest,
+      subjectVersion: 'evidence-s1-v1',
+      runnerDigest,
       toolNames: ['evidence_read'],
       networkDestinations: [],
       secretScopes: [],
+      budget,
       maxUses: 2,
       expiresAt
     },
@@ -72,7 +79,7 @@ export function policy(overrides: Record<string, unknown> = {}): Record<string, 
 
 export function envelope(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     kind: 'capability-envelope',
     id: 'envelope_s1',
     tenantId: 'tenant_s1',
@@ -85,12 +92,18 @@ export function envelope(overrides: Record<string, unknown> = {}): Record<string
       assignmentId: 'assignment_s1',
       attemptId: 'attempt_s1',
       fence: 4,
+      issuer: 'spiffe://migration-lab',
+      subject: 'spiffe://migration-lab/omp-s1',
       audience: 'omp:specialist'
     },
     target,
     adapterName: 'fixture-evidence',
+    adapterVersion: '1',
     adapterMethod: 'read',
     parameterDigest,
+    expectedPreStateDigest,
+    subjectVersion: 'evidence-s1-v1',
+    runnerDigest,
     allowedTools: [reference],
     allowedNetworkDestinations: [],
     dataClasses: ['synthetic'],
@@ -114,6 +127,11 @@ export function authorityInput(
       assignmentId: 'assignment_s1',
       attemptId: 'attempt_s1',
       fence: 4,
+      issuer: 'spiffe://migration-lab',
+      subject: 'spiffe://migration-lab/omp-s1',
+      audience: 'omp:specialist',
+      subjectVersion: 'evidence-s1-v1',
+      runnerDigest,
       status: 'running'
     },
     capabilityEnvelope: envelope(),

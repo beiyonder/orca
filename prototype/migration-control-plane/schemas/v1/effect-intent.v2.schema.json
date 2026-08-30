@@ -1,0 +1,556 @@
+{
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema0"
+          },
+          "propertyNames": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "urn:orca:migration-control-plane:effect-intent.v2",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "adapter": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["name", "version", "method"],
+      "type": "object"
+    },
+    "allowedNetworkDestinations": {
+      "items": {
+        "maxLength": 4096,
+        "minLength": 3,
+        "pattern": "^[a-z][a-z0-9+.-]*:",
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "authority": {
+      "additionalProperties": false,
+      "properties": {
+        "assignmentId": {
+          "maxLength": 128,
+          "minLength": 12,
+          "pattern": "^assignment_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "attemptId": {
+          "maxLength": 128,
+          "minLength": 9,
+          "pattern": "^attempt_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        "fence": {
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991,
+          "type": "integer"
+        },
+        "planRevisionId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "skill": {
+          "additionalProperties": false,
+          "properties": {
+            "digest": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            "version": {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["name", "version", "digest"],
+          "type": "object"
+        },
+        "subjectVersion": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "taskId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "workloadIdentity": {
+          "additionalProperties": false,
+          "properties": {
+            "audience": {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            "issuer": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            "subject": {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": ["issuer", "subject", "audience"],
+          "type": "object"
+        }
+      },
+      "required": [
+        "planRevisionId",
+        "taskId",
+        "assignmentId",
+        "attemptId",
+        "fence",
+        "subjectVersion",
+        "workloadIdentity",
+        "skill"
+      ],
+      "type": "object"
+    },
+    "blastRadius": {
+      "additionalProperties": false,
+      "properties": {
+        "maxChangedBytes": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "maxChangedRows": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "targetCount": {
+          "exclusiveMinimum": 0,
+          "maximum": 1000,
+          "type": "integer"
+        }
+      },
+      "required": ["targetCount", "maxChangedRows", "maxChangedBytes"],
+      "type": "object"
+    },
+    "budget": {
+      "additionalProperties": false,
+      "properties": {
+        "costLimitUsd": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "outputByteLimit": {
+          "exclusiveMinimum": 0,
+          "maximum": 67108864,
+          "type": "integer"
+        },
+        "timeLimitMs": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400000,
+          "type": "integer"
+        },
+        "tokenLimit": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "toolCallLimit": {
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": ["tokenLimit", "timeLimitMs", "toolCallLimit", "outputByteLimit", "costLimitUsd"],
+      "type": "object"
+    },
+    "compensationId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 14,
+          "pattern": "^compensation_[a-z0-9][a-z0-9_-]{0,111}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "dataClasses": {
+      "items": {
+        "enum": ["synthetic", "public", "internal", "confidential", "restricted", "phi"],
+        "type": "string"
+      },
+      "maxItems": 6,
+      "minItems": 1,
+      "type": "array"
+    },
+    "desiredPostState": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "evaluatorContractIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 21,
+        "pattern": "^evaluation_contract_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 128,
+      "minItems": 1,
+      "type": "array"
+    },
+    "evidenceRecordIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 10,
+        "pattern": "^evidence_[a-z0-9][a-z0-9_-]{0,111}$",
+        "type": "string"
+      },
+      "maxItems": 10000,
+      "minItems": 1,
+      "type": "array"
+    },
+    "expectedPreState": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "expectedTargetVersion": {
+      "anyOf": [
+        {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "expiresAt": {
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^effect_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "idempotency": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": ["none", "provider-key", "natural-key", "compare-and-set"],
+          "type": "string"
+        },
+        "parameterDigest": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "retentionExpiresAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": ["kind", "key", "retentionExpiresAt", "parameterDigest"],
+      "type": "object"
+    },
+    "kind": {
+      "const": "effect-intent",
+      "type": "string"
+    },
+    "missionId": {
+      "maxLength": 128,
+      "minLength": 9,
+      "pattern": "^mission_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    },
+    "operationClass": {
+      "enum": [
+        "pure-read",
+        "local-artifact",
+        "declarative-ensure",
+        "idempotent-create",
+        "non-idempotent-mutation",
+        "destructive-irreversible"
+      ],
+      "type": "string"
+    },
+    "parameterDigest": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/$defs/__schema0"
+    },
+    "proposedBy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": ["system", "operator", "apex", "specialist", "evaluator", "adapter"],
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["kind", "id"],
+      "type": "object"
+    },
+    "recovery": {
+      "additionalProperties": false,
+      "properties": {
+        "blindRetryAllowed": {
+          "type": "boolean"
+        },
+        "inspectionMethod": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "strategy": {
+          "enum": ["read-reconcile", "compensate", "none"],
+          "type": "string"
+        }
+      },
+      "required": ["strategy", "inspectionMethod", "blindRetryAllowed"],
+      "type": "object"
+    },
+    "requiredSecretScopes": {
+      "items": {
+        "maxLength": 256,
+        "minLength": 1,
+        "type": "string"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "requiredTools": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "approval": {
+            "enum": ["read", "write", "exec"],
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          },
+          "schemaDigest": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "version": {
+            "maxLength": 128,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": ["name", "version", "schemaDigest", "approval"],
+        "type": "object"
+      },
+      "maxItems": 128,
+      "type": "array"
+    },
+    "reversible": {
+      "type": "boolean"
+    },
+    "schemaVersion": {
+      "const": 2,
+      "type": "number"
+    },
+    "target": {
+      "additionalProperties": false,
+      "properties": {
+        "account": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "project": {
+          "anyOf": [
+            {
+              "maxLength": 256,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resourceId": {
+          "anyOf": [
+            {
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "resourceType": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": ["provider", "account", "project", "region", "resourceType", "resourceId"],
+      "type": "object"
+    },
+    "tenantId": {
+      "maxLength": 128,
+      "minLength": 8,
+      "pattern": "^tenant_[a-z0-9][a-z0-9_-]{0,111}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "tenantId",
+    "missionId",
+    "createdAt",
+    "authority",
+    "operationClass",
+    "adapter",
+    "target",
+    "parameters",
+    "parameterDigest",
+    "expectedPreState",
+    "desiredPostState",
+    "expectedTargetVersion",
+    "idempotency",
+    "requiredTools",
+    "allowedNetworkDestinations",
+    "requiredSecretScopes",
+    "dataClasses",
+    "budget",
+    "blastRadius",
+    "recovery",
+    "expiresAt",
+    "reversible",
+    "compensationId",
+    "evaluatorContractIds",
+    "evidenceRecordIds",
+    "proposedBy"
+  ],
+  "title": "effect-intent.v2",
+  "type": "object",
+  "x-orca-contract": {
+    "registryVersion": 1,
+    "runtimeInvariantValidationRequired": true,
+    "schemaName": "effect-intent.v2"
+  }
+}

@@ -34,6 +34,8 @@ Local sealed runs under ignored `.runs/`:
 | `EXP-07` | 507 | `passed` | `exp-07-507-baseline-none-run_000000_81c0168e84e967df` |
 | `EXP-08` | 708 | `passed` | `exp-08-708-baseline-none-run_000000_54cd70722ee5bcc1` |
 | `EXP-09` | 709 | `passed` | `exp-09-709-baseline-none-run_000000_61461415d7d39480` |
+| `EXP-11` | 811 | `passed` | `exp-11-811-baseline-none-run_000000_be3568a87d7d8573` |
+| `EXP-12` | 812 | `passed` | `exp-12-812-baseline-none-run_000000_86c94f0cb38fa0c9` |
 
 Gate verification:
 
@@ -272,6 +274,18 @@ Gate verification:
 - failed V1 history remains immutable, diagnosis localizes exact paths/evidence/gaps, and V2 passes the unchanged evaluator and thresholds;
 - both success and failure learning candidates remain quarantined with `usePolicy: none`;
 - `EXP-08` proves seeded critical detection without benign over-rejection, and `EXP-09` proves automatic regression stop and rollback.
+
+## `G8-EXEC` safe-effect gate evidence
+
+- `effect-intent.v2`, `policy-decision.v2`, and `capability-envelope.v2` preserve immutable V1 history while binding exact plan/task/workload/fence, target/state, adapter/runner, scope, budget, expiry, evidence and recovery authority;
+- Ed25519 capability, dispatch, secret-lease, upload-grant and receipt verification rejects modification, unknown keys, wrong relay/workload/tenant, revocation and expiry;
+- the authenticated sequenced gateway durably accepts bounded work without calling acceptance target success; the execution relay reconstructs dispatch/request journals and signed receipts across object restarts;
+- a fixed digest-pinned VM runner has no filesystem/process/network globals and enforces CPU-time, input, output and retained-memory limits; production hostile-code sandbox selection remains deferred;
+- the versioned PostgreSQL marker adapter provides natural-key idempotency plus prepare/apply/inspect/reconcile/cleanup and independently classifies applied, absent, changed-by-other and inaccessible;
+- sealed `EXP-11` seed 811 passes 50/50 kill cases with 50 signed receipts, 50 verified evidence pairs, 50 rows / 50 distinct effects and no duplicate target mutation;
+- sealed `EXP-12` seed 812 denies 100/100 attributable policy attacks; relay/sandbox/evidence/signature checks pass with zero cross-tenant effects and zero durable raw secrets;
+- `EXP-11` qualifies `ACT-EXP-03/04/05/06/08`; `EXP-12` qualifies `ACT-EXP-01/02/07/09/10`; therefore all ten `PRE-EFFECT` contracts required by this queue have executed before `G8-EXEC` closure;
+- registry 92, migrations 18 / tables 17, fingerprint `3686f99d…dd1dd8f`; verification passes 42 unit files / 221 tests and 25 PostgreSQL files / 61 tests.
 
 ## Queue classes
 

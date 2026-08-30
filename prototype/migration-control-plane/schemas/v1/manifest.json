@@ -1,5 +1,5 @@
 {
-  "registryDigest": "a3a645d3932f206b0fde9ab84660b8b88acff7774ccae8f72a8ea7043289469b",
+  "registryDigest": "2e49040ba91b70ea05b89d8f24acf082ba9788895a622187ac83e10f0dbd9b6a",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -56,6 +56,12 @@
       "file": "capability-envelope.v1.schema.json",
       "name": "capability-envelope.v1",
       "sha256": "de34db9f856f22a2c0fce89d6be9c09bf67088770be75a1cfb56ed59e4521d95"
+    },
+    {
+      "bytes": 9040,
+      "file": "capability-envelope.v2.schema.json",
+      "name": "capability-envelope.v2",
+      "sha256": "482b6ccfb7c3a5a78b276957c6e96bc96e8712ebb5f93f511022c67dfd0482b0"
     },
     {
       "bytes": 11510,
@@ -182,6 +188,12 @@
       "file": "effect-intent.v1.schema.json",
       "name": "effect-intent.v1",
       "sha256": "2c09e1d53356e780bec6811e8fc41a962d48b8c31fad4e6293c98d973cd452b4"
+    },
+    {
+      "bytes": 13860,
+      "file": "effect-intent.v2.schema.json",
+      "name": "effect-intent.v2",
+      "sha256": "dcc93ef89ed390b0f3815741e6501405befedf769f6cee4e3ba40e5c37a39c17"
     },
     {
       "bytes": 12911,
@@ -344,6 +356,12 @@
       "file": "policy-decision.v1.schema.json",
       "name": "policy-decision.v1",
       "sha256": "4b3c84237afd25018b75f1a576c21c31375bc7ceff2977128a1f36da7863fe26"
+    },
+    {
+      "bytes": 9846,
+      "file": "policy-decision.v2.schema.json",
+      "name": "policy-decision.v2",
+      "sha256": "b32edfa391c8f243bd06ca5f74e5f6333053c8ad487decfd2d10f0bd3a7201e9"
     },
     {
       "bytes": 3936,
