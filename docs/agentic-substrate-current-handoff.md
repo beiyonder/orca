@@ -13,12 +13,12 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 ## Delivery state
 
 - Branch: `product/p8-exec-01-13-safe-effects`.
-- Status: **`local-not-pushed`**.
+- Status: **`pull-request-open`**.
 - Implemented through: `G8-EXEC`.
 - Merged through: `G7-EVAL`.
-- Current coordinate: `G8-EXEC` (`qualification-passed-ready-for-delivery`).
+- Current coordinate: `G8-EXEC` (`pull-request-open-awaiting-checks`).
 - Next coordinate after merge: `P9-INTEG-01`.
-- Fork pull request: none.
+- Fork pull request: https://github.com/beiyonder/orca/pull/22.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
@@ -37,14 +37,14 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
-- `p8-delivery`: **local-only** — P7 merged through PR 21. P8 is qualified, rebased onto origin/main, and remains local until its exact fork push and pull request are authorized.
+- `p8-delivery`: **pull-request-open** — P7 merged through PR 21. Qualified P8 is open as beiyonder/orca PR 22 against main; wait for exact-head checks before any merge.
 
 ## Next actions
 
-1. Do not push, create, or merge the P8 pull request until the user explicitly authorizes that exact GitHub action.
-2. Deliver product/p8-exec-01-13-safe-effects only to beiyonder/orca with base main.
-3. Before delivery, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.
-4. After the P8 fork pull request merges, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff.
+1. Wait for every required check on beiyonder/orca pull request 22 to pass at the exact P8 head.
+2. Before merge, verify repository owner, main base, P8 head SHA, mergeability, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.
+3. Merge pull request 22 only after explicit point-of-risk authorization.
+4. After the P8 merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff.
 
 ## New-session bootstrap
 

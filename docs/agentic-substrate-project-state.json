@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-30T13:39:00Z",
+  "updatedAt": "2026-08-30T16:41:13Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,15 +11,15 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
+    "status": "pull-request-open",
     "currentBranch": "product/p8-exec-01-13-safe-effects",
     "baseRef": "origin/main",
     "implementedThrough": "G8-EXEC",
     "mergedThrough": "G7-EVAL",
     "currentCoordinate": "G8-EXEC",
-    "currentCoordinateStatus": "qualification-passed-ready-for-delivery",
+    "currentCoordinateStatus": "pull-request-open-awaiting-checks",
     "nextCoordinateAfterMerge": "P9-INTEG-01",
-    "forkPullRequest": null,
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/22",
     "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/21",
     "userApprovalRequiredBeforePullRequest": true
   },
@@ -81,14 +81,14 @@
     },
     {
       "id": "p8-delivery",
-      "status": "local-only",
-      "note": "P7 merged through PR 21. P8 is qualified, rebased onto origin/main, and remains local until its exact fork push and pull request are authorized."
+      "status": "pull-request-open",
+      "note": "P7 merged through PR 21. Qualified P8 is open as beiyonder/orca PR 22 against main; wait for exact-head checks before any merge."
     }
   ],
   "nextActions": [
-    "Do not push, create, or merge the P8 pull request until the user explicitly authorizes that exact GitHub action.",
-    "Deliver product/p8-exec-01-13-safe-effects only to beiyonder/orca with base main.",
-    "Before delivery, verify repository owner, origin/main base, head/tracking branch, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
-    "After the P8 fork pull request merges, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
+    "Wait for every required check on beiyonder/orca pull request 22 to pass at the exact P8 head.",
+    "Before merge, verify repository owner, main base, P8 head SHA, mergeability, and exact commit/file range; stop on wrong owner, 403, conflict, or unexpected count.",
+    "Merge pull request 22 only after explicit point-of-risk authorization.",
+    "After the P8 merge, update this state to merged, advance the current coordinate to P9-INTEG-01, and regenerate the handoff."
   ]
 }
