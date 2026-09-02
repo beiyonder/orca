@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-30T17:15:02Z",
+  "updatedAt": "2026-09-02T18:03:30Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,16 +11,16 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "merged",
-    "currentBranch": "main",
+    "status": "local-not-pushed",
+    "currentBranch": "research/p9-process-completeness",
     "baseRef": "origin/main",
     "implementedThrough": "G8-EXEC",
     "mergedThrough": "G8-EXEC",
-    "currentCoordinate": "P9-INTEG-01",
-    "currentCoordinateStatus": "ready-to-start",
-    "nextCoordinateAfterMerge": "P9-INTEG-01",
-    "forkPullRequest": "https://github.com/beiyonder/orca/pull/22",
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/22",
+    "currentCoordinate": "P9-INTEG-00",
+    "currentCoordinateStatus": "research-complete-local-not-pushed",
+    "nextCoordinateAfterMerge": "P9-INTEG-00",
+    "forkPullRequest": null,
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/24",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
@@ -83,12 +83,17 @@
       "id": "p8-production-hardening",
       "status": "deferred",
       "note": "G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred."
+    },
+    {
+      "id": "process-completeness-gap",
+      "status": "promoted",
+      "note": "Post-G8 audit found that declared work is strongly validated but required work never instantiated is not generically visible. P9-INTEG-00 and EXP-13 now precede the public mission API."
     }
   ],
   "nextActions": [
-    "Review the merged G8 evidence and original Phase 9 plan before implementing P9-INTEG-01.",
-    "Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.",
-    "Preserve the P8 production-hardening boundaries; do not treat the disposable marker qualification as production authority.",
-    "A stablyai Project 13 member should remove or archive the residual PR 17224 project item if it remains."
+    "Review the local P9-INTEG-00 research card, roadmap, experiment, maturity, deferred and architecture decisions as one focused documentation pull request.",
+    "Create no process-obligation schema or runtime code until the research pull request is accepted.",
+    "After research merge, implement versioned obligation contracts and append-only migration 019 before lifecycle, monitor and EXP-13 pull requests.",
+    "Resume P9-INTEG-01 only after EXP-13 qualifies process completeness."
   ]
 }

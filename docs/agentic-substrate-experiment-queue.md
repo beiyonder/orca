@@ -11,9 +11,9 @@
 - Runtime: Node 24+ with strict TypeScript; OMP/DBOS/Inspect remain process-isolated worker/challenger runtimes.
 - Live delivery and next-coordinate state: [`agentic-substrate-current-handoff.md`](./agentic-substrate-current-handoff.md).
 - Completed experiment evidence remains in this queue; the generated handoff decides what may run next.
-- Source, evaluation and improvement research cards remain authoritative.
+- Source, evaluation, improvement, bounded-action, and process-completeness research cards remain authoritative.
 
-This queue contains all 70 experiments defined by the eight Phase 1 research cards plus six integration/harness experiments introduced by the code audits, gap decisions and S1 contract.
+This queue contains all 70 experiments defined by the eight Phase 1 research cards, six integration/harness experiments introduced by the code audits, gap decisions and S1 contract, plus post-G8 `EXP-13` process-completeness qualification: 77 experiments total.
 
 ## `G2-LAB` execution evidence
 
@@ -296,6 +296,7 @@ Gate verification:
 | `POST-S1` | Important next capability proof but not required for S1. |
 | `TRIGGERED` | Runs only when its documented deferred-register trigger fires. |
 | `PRE-EFFECT` | Must pass before the first non-production external target effect. |
+| `PRE-INTEGRATION` | Must pass before the public mission API and end-to-end P9 assembly. |
 
 ## Execution contract
 
@@ -480,6 +481,14 @@ Rules:
 | `ACT-EXP-09` | Compensation and irreversibility | `PRE-EFFECT` | reversible adapter/runbook | `docs/agentic-substrate-bounded-action-research.md` |
 | `ACT-EXP-10` | Identity, tenant and supply-chain isolation | `PRE-EFFECT` | workload identity + signed runner candidate | `docs/agentic-substrate-bounded-action-research.md` |
 
+### Wave 10 — Before integrated mission interfaces
+
+| ID | Experiment | Queue class | Depends on | Source contract |
+| --- | --- | --- | --- | --- |
+| `EXP-13` | Process obligation completeness campaign | `PRE-INTEGRATION` | `G8-EXEC` + obligation contracts/lifecycle/monitor | `docs/agentic-substrate-process-completeness-research.md` |
+
+`EXP-13` mutation-tests obligation instantiation, missing completion, forged heartbeat, proof identity/version/fence, late/duplicate completion, monitor crash/replay, waiver authority, plan supersession, tenant isolation, and unknown-effect response policy. Pass requires 100% critical omission detection, zero critical false negatives, zero benign false positives in the seeded set, zero duplicate logical breaches, exact replay, bounded detection latency, and no blind external-effect retry.
+
 ## S1 gate closure order
 
 The dependency-respecting critical path is:
@@ -535,7 +544,7 @@ Every state change records:
 - `G6-DISC`: contradiction, hidden-estate, denial, CDC replay and cited proposal experiments.
 - `G7-EVAL`: evaluation/correction/improvement experiments.
 - `G8-EXEC`: all `PRE-EFFECT` experiments.
-- `G9-INTEG`: `S1-E2E-01` plus expanded integrated scenario.
+- `G9-INTEG`: `EXP-13`, `S1-E2E-01`, and the expanded integrated scenario.
 - `G10-PROTOTYPE`: domain pressure, complete dry run and production qualification experiments.
 
 ## Next queue action
