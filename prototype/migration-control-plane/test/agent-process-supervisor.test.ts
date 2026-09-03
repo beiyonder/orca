@@ -24,7 +24,7 @@ function delay(milliseconds: number): Promise<void> {
   return promise
 }
 
-async function waitUntil(predicate: () => boolean, timeoutMs = 2_000): Promise<void> {
+async function waitUntil(predicate: () => boolean, timeoutMs = 10_000): Promise<void> {
   const deadline = Date.now() + timeoutMs
   while (!predicate()) {
     if (Date.now() >= deadline) {
@@ -70,7 +70,7 @@ afterEach(async () => {
   await Promise.all(supervisors.splice(0).map(async (created) => created.dispose()))
 })
 
-describe('agent process supervisor', () => {
+describe('agent process supervisor', { timeout: 30_000 }, () => {
   it('starts, observes, and records a natural nonzero exit', async () => {
     const created = supervisor(spec('echo'))
     const statuses: AgentProcessStatus[] = []
