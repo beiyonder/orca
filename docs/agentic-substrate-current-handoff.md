@@ -12,13 +12,13 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `main`.
-- Status: **`merged`**.
+- Branch: `research/p9-process-completeness`.
+- Status: **`local-not-pushed`**.
 - Implemented through: `G8-EXEC`.
 - Merged through: `G8-EXEC`.
-- Current coordinate: `P9-INTEG-01` (`ready-to-start`).
-- Next coordinate after merge: `P9-INTEG-01`.
-- Fork pull request: https://github.com/beiyonder/orca/pull/22.
+- Current coordinate: `P9-INTEG-00` (`research-complete-local-not-pushed`).
+- Next coordinate after merge: `P9-INTEG-00`.
+- Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
@@ -38,13 +38,14 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
 - `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
+- `process-completeness-gap`: **promoted** — Post-G8 audit found that declared work is strongly validated but required work never instantiated is not generically visible. P9-INTEG-00 and EXP-13 now precede the public mission API.
 
 ## Next actions
 
-1. Review the merged G8 evidence and original Phase 9 plan before implementing P9-INTEG-01.
-2. Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.
-3. Preserve the P8 production-hardening boundaries; do not treat the disposable marker qualification as production authority.
-4. A stablyai Project 13 member should remove or archive the residual PR 17224 project item if it remains.
+1. Review the local P9-INTEG-00 research card, roadmap, experiment, maturity, deferred and architecture decisions as one focused documentation pull request.
+2. Create no process-obligation schema or runtime code until the research pull request is accepted.
+3. After research merge, implement versioned obligation contracts and append-only migration 019 before lifecycle, monitor and EXP-13 pull requests.
+4. Resume P9-INTEG-01 only after EXP-13 qualifies process completeness.
 
 ## New-session bootstrap
 

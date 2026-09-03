@@ -17,6 +17,7 @@ Current artifacts already exist:
 - `docs/agentic-substrate-evaluation-research.md`
 - `docs/agentic-substrate-self-improvement-research.md`
 - `docs/agentic-substrate-bounded-action-research.md`
+- `docs/agentic-substrate-process-completeness-research.md`
 - `docs/agentic-substrate-omp-audit.md`
 - `docs/agentic-substrate-orca-audit.md`
 - `docs/agentic-substrate-capability-code-map.md`
@@ -155,14 +156,14 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A4 — Evidence-seeking intelligence` | Distinguishes facts/claims/gaps, researches, probes, cites, and abstains. | **M3 discovery proof:** bounded source observations feed claim comparison, contradiction preservation, ranked gaps, safe probes and explicit human exceptions; EXP-02/03 pass without treating denial as absence. |
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Closed synthetic correction proof:** product acceptance, exact failed-measure diagnosis and new-version correction under an unchanged contract pass; mutation/overfit experiments and broader integration remain. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Synthetic governed lifecycle M2:** candidates remain quarantined; held-out certification, product-owned activation, regression revocation and predecessor rollback pass. Optimizer-generated candidates and production canary traffic remain deferred. |
-| `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **State-semantics proof plus Orca patterns:** capability/effect/fence/unknown/recovery contracts pass without granting an external target effect; real adapters/relay/sandbox remain Phase 8 work. |
-| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery/evaluation proof:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators and mutation qualification pass; executable target effects remain Phase 8. |
+| `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **Isolated safe-effect proof M2:** signed V2 authority, durable relay/request journals, bounded evidence, PostgreSQL marker adapter, independent readback, 50/50 kill cases and 100/100 isolation attacks pass; deployed relay, hostile-code sandbox and production targets remain deferred. |
+| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** Post-G8 audit identified missing cross-cutting process completeness: declared work is strongly validated, but required work never instantiated is not generically detected. `P9-INTEG-00` is now the integration prerequisite. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery, evaluation and bounded-effect proofs:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators, mutation qualification and one disposable target effect pass; broader migration/domain capability remains ahead. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
 
-The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). The current branch proves independent correction and synthetic skill rollback; fork `main` remains at the merged coordinate named there. Do not infer delivery state from historical phase prose.
+The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). Fork `main` is merged through `G8-EXEC`; `P9-INTEG-00` researches and implements process completeness before the public mission API. Do not infer delivery state from historical phase prose.
 
 ```text
 A0 Tool agent                 strong
@@ -172,9 +173,9 @@ A3 Specialist orchestration   isolated typed/contained proof M2
 A4 Evidence seeking           integrated discovery proof M3
 A5 Self-correction            independent fixed-contract correction passes
 A6 Self-improvement           synthetic certification/revocation/rollback M2
-A7 Bounded execution          state semantics only; no target effect
-A8 Integrated substrate       not assembled
-A9 Migration capability       discovery and independent evaluation pass
+A7 Bounded execution          signed disposable target effect and reconciliation pass M2
+A8 Integrated substrate       not assembled; process-completeness prerequisite identified
+A9 Migration capability       discovery, independent evaluation, and bounded effect pass
 A10 Working prototype         not assembled
 ```
 
@@ -550,6 +551,7 @@ Failure route: `L-EXEC-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
+| `READY` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with zero critical omissions or benign false positives. |
 | `WAIT` | `P9-INTEG-01` | Implement public mission API. | Create/read/command endpoints are versioned, authenticated, idempotent, and paginated. |
 | `WAIT` | `P9-INTEG-02` | Implement durable activity stream. | SSE reconnects from cursor without losing or duplicating logical events. |
 | `WAIT` | `P9-INTEG-03` | Implement loose-goal intake view. | User submits outcome, access, priorities, artifacts, and known exceptions without technical design. |
@@ -571,6 +573,7 @@ Pass when:
 - every displayed fact resolves to evidence;
 - current mission state survives complete service restart;
 - all earlier experiment gates still pass through integrated interfaces.
+- every applicable critical process obligation is explicit, evidence-backed and either satisfied, failed, waived, cancelled or durably breached within its bound;
 
 Failure route: `L-INTEG-01`.
 

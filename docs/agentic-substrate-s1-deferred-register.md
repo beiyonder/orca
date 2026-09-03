@@ -94,6 +94,7 @@ Update this register whenever:
 | `S1-DEF-050` | `DEFERRED` | SPIFFE/SPIRE workload identity and trust-domain federation | S1 has one local process topology; enterprise workload attestation/federation would add infrastructure without changing the capability contract. | Every assignment, capability, relay, runner, receipt and evaluator carries workload/audience identity independent of implementation. | Customer-zone/multi-service deployment needs short-lived federated workload identity and ACT-EXP-10 passes. | `P8-EXEC-02`, production identity phase |
 | `S1-DEF-051` | `DEFERRED` | Signed runner/adapter images with SLSA-style build provenance and runtime attestation | S1 authors no deployable customer-zone adapter image and can pin local source/digests directly. | Capability and receipt schemas carry artifact digest, builder/provenance/signer and revocation refs. | First executable connector/adapter artifact crosses a trust boundary. | `P8-EXEC-03`–`06`, supply-chain qualification |
 | `S1-DEF-052` | `DEFERRED` | Automated destructive, irreversible, or semantically lossy migration effects | These cannot be made safe by a generic retry/rollback story and S1 performs no target mutation. | Effect intent classifies reversibility, prerequisites, blast radius, compensation limits, exception policy and evaluator. | Read-only/declarative non-production effects pass ACT-EXP-01 through 10 and a concrete customer runbook proves necessity/recovery. | Post-`G8-EXEC`, explicit product decision |
+| `S1-DEF-053` | `PROMOTED` | Cross-cutting process-obligation ledger and completeness monitor | S1 and P3–P8 prioritized component safety; they validate declared work but do not generically detect a semantically required step never instantiated. | Append-only trigger events, transactional projections/outbox, task/effect proof records, deadlines, leases, fences, replay and restart reconciliation provide the native seam. | Post-`G8-EXEC` audit confirms required-but-omitted work can remain invisible before integrated APIs/UI make the gap harder to repair. | `P9-INTEG-00`, `EXP-13` |
 
 ## `G1-RSCH` gate review
 
@@ -174,6 +175,18 @@ Review outcome:
 - `S1-DEF-052` remains deferred: destructive/irreversible authority is denied, and `ACT-EXP-09` proves fail-closed policy plus exact cleanup rather than authorizing destructive automation;
 - production RLS/enterprise identity, remote relay deployment, real secret manager, cloud target breadth and hostile-code isolation remain deferred;
 - next mandatory review is `G9-INTEG`; any earlier scope change must use the promotion procedure below.
+
+## Post-`G8-EXEC` process-completeness preflight
+
+Review outcome:
+
+- `S1-DEF-053` is a late-discovered item and does not retroactively change the historical 52-item gate reviews above;
+- the repository audit confirms strong admission, evaluation and recovery for declared work, plus narrow liveness controls, but no generic durable registry/projection/monitor for required process occurrences;
+- `S1-DEF-053` is `PROMOTED` before P9 because obligation identity must exist before the public mission API, activity stream and operator views freeze incomplete semantics;
+- the selected baseline is native PostgreSQL process obligations created atomically with trigger transitions, satisfied only by authoritative proof, and monitored through existing lease/fence/replay patterns;
+- Temporal/Cadence, a general runtime-verification engine and LLM process-reward models remain challengers or deferred alternatives, not product authority;
+- `EXP-13` must detect every seeded critical omission with zero benign false positives before `P9-INTEG-01` begins;
+- no other deferred item is promoted, replaced or dropped by this preflight.
 
 ## Promotion procedure
 
