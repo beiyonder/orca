@@ -64,6 +64,7 @@ import {
   ProcessObligationV1Schema,
   ProcessObligationWaiverV1Schema
 } from './process-obligation-contracts.js'
+import { ProcessObligationTransitionV1Schema } from './process-obligation-transition-contracts.js'
 import {
   CorrectionRequestV1Schema,
   CorrectionResultV1Schema,
@@ -197,6 +198,7 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'policy-decision.v2': PolicyDecisionV2Schema,
   'process-obligation-breach.v1': ProcessObligationBreachV1Schema,
   'process-obligation-definition.v1': ProcessObligationDefinitionV1Schema,
+  'process-obligation-transition.v1': ProcessObligationTransitionV1Schema,
   'process-obligation-waiver.v1': ProcessObligationWaiverV1Schema,
   'process-obligation.v1': ProcessObligationV1Schema,
   'semantic-evaluation-report.v1': SemanticEvaluationReportV1Schema,

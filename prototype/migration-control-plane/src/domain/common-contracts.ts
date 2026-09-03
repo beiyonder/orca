@@ -88,6 +88,8 @@ export const ProcessObligationBreachIdSchema =
   opaqueId('obligation_breach').brand<'ProcessObligationBreachId'>()
 export const ProcessObligationWaiverIdSchema =
   opaqueId('obligation_waiver').brand<'ProcessObligationWaiverId'>()
+export const ProcessObligationTransitionIdSchema =
+  opaqueId('obligation_transition').brand<'ProcessObligationTransitionId'>()
 
 export const RevisionSchema = z.number().int().nonnegative().max(MAX_SAFE_REVISION)
 export const PositiveVersionSchema = z.number().int().positive().max(MAX_SAFE_REVISION)

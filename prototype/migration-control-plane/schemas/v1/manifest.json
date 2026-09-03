@@ -1,5 +1,5 @@
 {
-  "registryDigest": "c7542a37b87f29ea483fe5c7da31693f041e58621e116c7654580af7f199a736",
+  "registryDigest": "083366a12a1e92bd387b504559962ada82a37f17faf118f051f198e54511b851",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -386,6 +386,12 @@
       "file": "process-obligation-definition.v1.schema.json",
       "name": "process-obligation-definition.v1",
       "sha256": "697e152a6a5dcd8c7f4cd76a88246d96ff969d91450d8fc8c8ed36e3b2cd35fd"
+    },
+    {
+      "bytes": 6364,
+      "file": "process-obligation-transition.v1.schema.json",
+      "name": "process-obligation-transition.v1",
+      "sha256": "06a1b2b90ab5cdc63a14660b6b7911761deb3867acd4763c03e27f2db2aa3974"
     },
     {
       "bytes": 5418,
