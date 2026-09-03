@@ -206,6 +206,7 @@ export async function reconcileProcessObligationsOnRestart(
       `UPDATE control_plane.process_obligations
        SET monitor_claimed_by = NULL,
            monitor_claim_id = NULL,
+           monitor_claimed_at = NULL,
            monitor_claim_expires_at = NULL,
            updated_at = transaction_timestamp()
        WHERE tenant_id = $1 AND mission_id = $2
