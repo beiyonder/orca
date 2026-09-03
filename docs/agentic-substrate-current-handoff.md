@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p9-process-obligation-exp13`.
-- Status: **`local-not-pushed`**.
+- Branch: `main`.
+- Status: **`merged`**.
 - Implemented through: `P9-INTEG-00-QUALIFIED`.
-- Merged through: `P9-INTEG-00-MONITOR`.
-- Current coordinate: `P9-INTEG-00` (`exp-13-passed-local-not-pushed`).
+- Merged through: `P9-INTEG-00-QUALIFIED`.
+- Current coordinate: `P9-INTEG-01` (`ready-to-start`).
 - Next coordinate after merge: `P9-INTEG-01`.
-- Fork pull request: none.
+- Fork pull request: https://github.com/beiyonder/orca/pull/29.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-03T10:29:56Z`.
+- Verified at: `2026-09-03T10:39:14Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
@@ -39,13 +39,12 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
 - `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
-- `process-completeness-gap`: **qualification-passed-local-not-pushed** — Contracts, lifecycle authority and monitor are merged through PR 28. Sealed EXP-13 seed 913 passes locally with 16/16 critical omissions detected and 0/8 benign false positives; qualification delivery remains.
 
 ## Next actions
 
-1. Review and deliver sealed EXP-13 as the final P9-INTEG-00 pull request.
-2. After EXP-13 merge, advance canonical delivery state to P9-INTEG-01.
-3. Begin public mission API/activity integration only from the synchronized P9-INTEG-01 state.
+1. Review the public mission API contract and existing transport/auth patterns before implementing P9-INTEG-01.
+2. Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.
+3. Expose qualified process-obligation state without making API clients authoritative.
 
 ## New-session bootstrap
 
