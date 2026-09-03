@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-03T10:41:08Z",
+  "updatedAt": "2026-09-03T11:33:45Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,23 +11,24 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "merged",
-    "currentBranch": "main",
+    "status": "local-not-pushed",
+    "currentBranch": "product/p9-public-mission-api",
     "baseRef": "origin/main",
-    "implementedThrough": "P9-INTEG-00-QUALIFIED",
+    "implementedThrough": "P9-INTEG-01",
     "mergedThrough": "P9-INTEG-00-QUALIFIED",
     "currentCoordinate": "P9-INTEG-01",
-    "currentCoordinateStatus": "ready-to-start",
-    "nextCoordinateAfterMerge": "P9-INTEG-01",
-    "forkPullRequest": "https://github.com/beiyonder/orca/pull/29",
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/29",
+    "currentCoordinateStatus": "mission-api-complete-local-not-pushed",
+    "nextCoordinateAfterMerge": "P9-INTEG-02",
+    "forkPullRequest": null,
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/30",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-03T10:39:14Z",
+    "lastVerifiedAt": "2026-09-03T11:33:45Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> pnpm experiment --experiment EXP-13 --seed 913 --arm baseline --fault none --output <run-output>",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "pnpm run check:react-doctor:changed -- origin/main",
@@ -39,8 +40,8 @@
     "schemaFingerprint": "28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e",
     "unitTestFiles": 44,
     "unitTests": 230,
-    "postgresTestFiles": 29,
-    "postgresTests": 74,
+    "postgresTestFiles": 30,
+    "postgresTests": 79,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -93,8 +94,8 @@
     }
   ],
   "nextActions": [
-    "Review the public mission API contract and existing transport/auth patterns before implementing P9-INTEG-01.",
-    "Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.",
-    "Expose qualified process-obligation state without making API clients authoritative."
+    "Review and deliver the authenticated public mission API as the P9-INTEG-01 pull request.",
+    "After mission API merge, advance canonical state to P9-INTEG-02.",
+    "Implement the durable reconnectable activity stream only from synchronized origin/main."
   ]
 }
