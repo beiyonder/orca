@@ -549,6 +549,14 @@ Failure route: `L-EXEC-01`.
 
 **Goal:** connect the proven pieces into one understandable mission flow without making the UI authoritative.
 
+`P9-INTEG-01` public V1 contract:
+
+- `POST /api/v1/missions`, `GET /api/v1/missions`, `GET /api/v1/missions/:id`, `POST /api/v1/missions/:id/commands`, and `GET /api/v1/missions/:id/obligations`;
+- an injected bearer authenticator owns credential verification and returns the server-trusted tenant, actor and `mission:read`/`mission:write` permissions;
+- state-changing requests require stable `Idempotency-Key` and `issuedAt`; the server derives command, event, outbox, mission and obligation identities and instantiates every applicable obligation;
+- reads validate stored projection digests, isolate tenant misses behind the same 404, and paginate with signed tenant/resource-bound cursors;
+- request bodies, page sizes and error disclosure are bounded; the API sets no cookies or CORS authority.
+
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |

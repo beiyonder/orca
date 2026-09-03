@@ -110,6 +110,35 @@ function validateInstantiations(
   })
 }
 
+export async function commitMissionTransitionWithApplicableMissionObligations(
+  client: PoolClient,
+  command: MissionCommandEnvelopeV1,
+  input: MissionTransitionInput
+): Promise<MissionTransitionWithObligationsResult> {
+  const event = MissionEventEnvelopeV1Schema.parse(input.event)
+  const rows = await applicableDefinitions(client, command.tenantId, event.eventType)
+  return commitMissionTransitionWithObligations(client, command, {
+    ...input,
+    obligations: rows.map((row) => ({
+      obligationId: `obligation_${sha256Text(
+        canonicalJson({
+          tenantId: command.tenantId,
+          missionId: command.missionId,
+          eventId: event.id,
+          definitionId: row.definition_id
+        })
+      ).slice(0, 32)}`,
+      definitionId: row.definition_id,
+      scope: {
+        kind: 'mission',
+        id: command.missionId,
+        subjectVersion: String(event.aggregateRevision)
+      },
+      currentFence: 1
+    }))
+  })
+}
+
 export async function commitMissionTransitionWithObligations(
   client: PoolClient,
   command: MissionCommandEnvelopeV1,
