@@ -59,6 +59,12 @@ import { EvaluationCoordinationV1Schema } from './evaluation-coordination-contra
 import { EvaluatorDefinitionV2Schema } from './evaluation-definition-contracts-v2.js'
 import { EvaluationResultV2Schema } from './evaluation-result-contracts-v2.js'
 import {
+  ProcessObligationBreachV1Schema,
+  ProcessObligationDefinitionV1Schema,
+  ProcessObligationV1Schema,
+  ProcessObligationWaiverV1Schema
+} from './process-obligation-contracts.js'
+import {
   CorrectionRequestV1Schema,
   CorrectionResultV1Schema,
   EvaluationAssignmentV1Schema,
@@ -189,6 +195,10 @@ export const DOMAIN_SCHEMA_REGISTRY = {
   'plan-revision.v1': PlanRevisionV1Schema,
   'policy-decision.v1': PolicyDecisionV1Schema,
   'policy-decision.v2': PolicyDecisionV2Schema,
+  'process-obligation-breach.v1': ProcessObligationBreachV1Schema,
+  'process-obligation-definition.v1': ProcessObligationDefinitionV1Schema,
+  'process-obligation-waiver.v1': ProcessObligationWaiverV1Schema,
+  'process-obligation.v1': ProcessObligationV1Schema,
   'semantic-evaluation-report.v1': SemanticEvaluationReportV1Schema,
   'semantic-labeled-corpus.v1': SemanticLabeledCorpusV1Schema,
   'probe-request.v1': ProbeRequestV1Schema,

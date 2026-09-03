@@ -1,5 +1,5 @@
 {
-  "registryDigest": "2e49040ba91b70ea05b89d8f24acf082ba9788895a622187ac83e10f0dbd9b6a",
+  "registryDigest": "c7542a37b87f29ea483fe5c7da31693f041e58621e116c7654580af7f199a736",
   "registryVersion": 1,
   "schemaVersion": 1,
   "schemas": [
@@ -374,6 +374,30 @@
       "file": "probe-result.v1.schema.json",
       "name": "probe-result.v1",
       "sha256": "f5609f4a8998c5f05e872ef9a82b2cedee6b3f2a4e6c4859c215e1c1df55b26e"
+    },
+    {
+      "bytes": 7131,
+      "file": "process-obligation-breach.v1.schema.json",
+      "name": "process-obligation-breach.v1",
+      "sha256": "803cc97c41581cae8bb1afdb63e0572ee67c5754aebd0e6f8d210854d345c58b"
+    },
+    {
+      "bytes": 7457,
+      "file": "process-obligation-definition.v1.schema.json",
+      "name": "process-obligation-definition.v1",
+      "sha256": "697e152a6a5dcd8c7f4cd76a88246d96ff969d91450d8fc8c8ed36e3b2cd35fd"
+    },
+    {
+      "bytes": 5418,
+      "file": "process-obligation-waiver.v1.schema.json",
+      "name": "process-obligation-waiver.v1",
+      "sha256": "287373c057c0647814778d5b047006fa3333dfa101aea441c1c69198825b2480"
+    },
+    {
+      "bytes": 10264,
+      "file": "process-obligation.v1.schema.json",
+      "name": "process-obligation.v1",
+      "sha256": "2d932b4de5c49dd6a624d8bd4e5ab1b16ccdd0cfd7ad15e4f1fccee1dad7b54b"
     },
     {
       "bytes": 3397,

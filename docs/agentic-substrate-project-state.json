@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-02T18:03:30Z",
+  "updatedAt": "2026-09-03T08:34:01Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -12,34 +12,33 @@
   },
   "delivery": {
     "status": "local-not-pushed",
-    "currentBranch": "research/p9-process-completeness",
+    "currentBranch": "product/p9-process-obligation-contracts",
     "baseRef": "origin/main",
-    "implementedThrough": "G8-EXEC",
+    "implementedThrough": "P9-INTEG-00-CONTRACTS",
     "mergedThrough": "G8-EXEC",
     "currentCoordinate": "P9-INTEG-00",
-    "currentCoordinateStatus": "research-complete-local-not-pushed",
+    "currentCoordinateStatus": "contracts-complete-local-not-pushed",
     "nextCoordinateAfterMerge": "P9-INTEG-00",
     "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/24",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/25",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-08-30T17:13:16Z",
+    "lastVerifiedAt": "2026-09-03T08:34:01Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
-      "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> node scripts/migration-control-plane-lab.mjs experiment run --experiment EXP-11 --seed 811 --arm baseline --fault none --output .runs/p8-v2",
-      "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> node scripts/migration-control-plane-lab.mjs experiment run --experiment EXP-12 --seed 812 --arm baseline --fault none --output .runs/p8-v2",
+      "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
     ],
-    "domainSchemas": 92,
-    "migrations": 18,
-    "tables": 17,
-    "schemaFingerprint": "3686f99d21f0a2ea83758a0d4049c24a61cf673c15ff5120b3e54af36dd1dd8f",
-    "unitTestFiles": 42,
-    "unitTests": 221,
-    "postgresTestFiles": 25,
-    "postgresTests": 61,
+    "domainSchemas": 96,
+    "migrations": 19,
+    "tables": 19,
+    "schemaFingerprint": "1823aaa279342fa1e14219b0fc16e4280881a707251c6c2a0e453293a318a0be",
+    "unitTestFiles": 43,
+    "unitTests": 227,
+    "postgresTestFiles": 26,
+    "postgresTests": 64,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -86,14 +85,14 @@
     },
     {
       "id": "process-completeness-gap",
-      "status": "promoted",
-      "note": "Post-G8 audit found that declared work is strongly validated but required work never instantiated is not generically visible. P9-INTEG-00 and EXP-13 now precede the public mission API."
+      "status": "in-progress",
+      "note": "Versioned obligation definition/instance/breach/waiver contracts and migration 019 persistence are implemented locally. Atomic trigger lifecycle, completeness monitoring and EXP-13 remain."
     }
   ],
   "nextActions": [
-    "Review the local P9-INTEG-00 research card, roadmap, experiment, maturity, deferred and architecture decisions as one focused documentation pull request.",
-    "Create no process-obligation schema or runtime code until the research pull request is accepted.",
-    "After research merge, implement versioned obligation contracts and append-only migration 019 before lifecycle, monitor and EXP-13 pull requests.",
+    "Review and deliver the versioned obligation contracts plus append-only migration 019 as the next focused pull request.",
+    "After contract merge, implement atomic trigger instantiation, proof admission, waiver, supersession, replay and restart reconciliation.",
+    "Implement the fenced completeness monitor and EXP-13 only after lifecycle authority passes.",
     "Resume P9-INTEG-01 only after EXP-13 qualifies process completeness."
   ]
 }

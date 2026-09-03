@@ -12,22 +12,22 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `research/p9-process-completeness`.
+- Branch: `product/p9-process-obligation-contracts`.
 - Status: **`local-not-pushed`**.
-- Implemented through: `G8-EXEC`.
+- Implemented through: `P9-INTEG-00-CONTRACTS`.
 - Merged through: `G8-EXEC`.
-- Current coordinate: `P9-INTEG-00` (`research-complete-local-not-pushed`).
+- Current coordinate: `P9-INTEG-00` (`contracts-complete-local-not-pushed`).
 - Next coordinate after merge: `P9-INTEG-00`.
 - Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-08-30T17:13:16Z`.
-- Registry: 92 schemas; 18 migrations / 17 tables.
-- Fingerprint: `3686f99d21f0a2ea83758a0d4049c24a61cf673c15ff5120b3e54af36dd1dd8f`.
-- Unit: 42 files / 221 tests.
-- PostgreSQL: 25 files / 61 tests.
+- Verified at: `2026-09-03T08:34:01Z`.
+- Registry: 96 schemas; 19 migrations / 19 tables.
+- Fingerprint: `1823aaa279342fa1e14219b0fc16e4280881a707251c6c2a0e453293a318a0be`.
+- Unit: 43 files / 227 tests.
+- PostgreSQL: 26 files / 64 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
 - `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
@@ -38,13 +38,13 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
 - `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
-- `process-completeness-gap`: **promoted** — Post-G8 audit found that declared work is strongly validated but required work never instantiated is not generically visible. P9-INTEG-00 and EXP-13 now precede the public mission API.
+- `process-completeness-gap`: **in-progress** — Versioned obligation definition/instance/breach/waiver contracts and migration 019 persistence are implemented locally. Atomic trigger lifecycle, completeness monitoring and EXP-13 remain.
 
 ## Next actions
 
-1. Review the local P9-INTEG-00 research card, roadmap, experiment, maturity, deferred and architecture decisions as one focused documentation pull request.
-2. Create no process-obligation schema or runtime code until the research pull request is accepted.
-3. After research merge, implement versioned obligation contracts and append-only migration 019 before lifecycle, monitor and EXP-13 pull requests.
+1. Review and deliver the versioned obligation contracts plus append-only migration 019 as the next focused pull request.
+2. After contract merge, implement atomic trigger instantiation, proof admission, waiver, supersession, replay and restart reconciliation.
+3. Implement the fenced completeness monitor and EXP-13 only after lifecycle authority passes.
 4. Resume P9-INTEG-01 only after EXP-13 qualifies process completeness.
 
 ## New-session bootstrap
