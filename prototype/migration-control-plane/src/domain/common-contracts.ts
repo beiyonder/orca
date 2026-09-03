@@ -81,6 +81,13 @@ export const TargetObservationIdSchema =
   opaqueId('target_observation').brand<'TargetObservationId'>()
 export const RecoveryDispositionIdSchema = opaqueId('recovery').brand<'RecoveryDispositionId'>()
 export const CompensationIdSchema = opaqueId('compensation').brand<'CompensationId'>()
+export const ProcessObligationDefinitionIdSchema =
+  opaqueId('obligation_definition').brand<'ProcessObligationDefinitionId'>()
+export const ProcessObligationIdSchema = opaqueId('obligation').brand<'ProcessObligationId'>()
+export const ProcessObligationBreachIdSchema =
+  opaqueId('obligation_breach').brand<'ProcessObligationBreachId'>()
+export const ProcessObligationWaiverIdSchema =
+  opaqueId('obligation_waiver').brand<'ProcessObligationWaiverId'>()
 
 export const RevisionSchema = z.number().int().nonnegative().max(MAX_SAFE_REVISION)
 export const PositiveVersionSchema = z.number().int().positive().max(MAX_SAFE_REVISION)
