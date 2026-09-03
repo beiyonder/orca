@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-03T10:29:56Z",
+  "updatedAt": "2026-09-03T10:41:08Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,23 +11,24 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
-    "currentBranch": "product/p9-process-obligation-exp13",
+    "status": "merged",
+    "currentBranch": "main",
     "baseRef": "origin/main",
     "implementedThrough": "P9-INTEG-00-QUALIFIED",
-    "mergedThrough": "P9-INTEG-00-MONITOR",
-    "currentCoordinate": "P9-INTEG-00",
-    "currentCoordinateStatus": "exp-13-passed-local-not-pushed",
+    "mergedThrough": "P9-INTEG-00-QUALIFIED",
+    "currentCoordinate": "P9-INTEG-01",
+    "currentCoordinateStatus": "ready-to-start",
     "nextCoordinateAfterMerge": "P9-INTEG-01",
-    "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/28",
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/29",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/29",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-03T10:29:56Z",
+    "lastVerifiedAt": "2026-09-03T10:39:14Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> pnpm experiment --experiment EXP-13 --seed 913 --arm baseline --fault none --output <run-output>",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "pnpm run check:react-doctor:changed -- origin/main",
       "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
@@ -89,16 +90,11 @@
       "id": "p8-production-hardening",
       "status": "deferred",
       "note": "G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred."
-    },
-    {
-      "id": "process-completeness-gap",
-      "status": "qualification-passed-local-not-pushed",
-      "note": "Contracts, lifecycle authority and monitor are merged through PR 28. Sealed EXP-13 seed 913 passes locally with 16/16 critical omissions detected and 0/8 benign false positives; qualification delivery remains."
     }
   ],
   "nextActions": [
-    "Review and deliver sealed EXP-13 as the final P9-INTEG-00 pull request.",
-    "After EXP-13 merge, advance canonical delivery state to P9-INTEG-01.",
-    "Begin public mission API/activity integration only from the synchronized P9-INTEG-01 state."
+    "Review the public mission API contract and existing transport/auth patterns before implementing P9-INTEG-01.",
+    "Begin P9-INTEG-01 only on a new branch from origin/main in beiyonder/orca.",
+    "Expose qualified process-obligation state without making API clients authoritative."
   ]
 }

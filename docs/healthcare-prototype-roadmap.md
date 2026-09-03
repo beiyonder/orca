@@ -157,13 +157,13 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Closed synthetic correction proof:** product acceptance, exact failed-measure diagnosis and new-version correction under an unchanged contract pass; mutation/overfit experiments and broader integration remain. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Synthetic governed lifecycle M2:** candidates remain quarantined; held-out certification, product-owned activation, regression revocation and predecessor rollback pass. Optimizer-generated candidates and production canary traffic remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **Isolated safe-effect proof M2:** signed V2 authority, durable relay/request journals, bounded evidence, PostgreSQL marker adapter, independent readback, 50/50 kill cases and 100/100 isolation attacks pass; deployed relay, hostile-code sandbox and production targets remain deferred. |
-| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled.** Post-G8 audit identified missing cross-cutting process completeness: declared work is strongly validated, but required work never instantiated is not generically detected. `P9-INTEG-00` is now the integration prerequisite. |
+| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled; completeness M2 qualified.** Process obligations now detect required work omitted after a declared trigger with atomic instantiation, authoritative proof, fenced monitoring and exact replay. Public mission interfaces and the end-to-end composition remain. |
 | `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery, evaluation and bounded-effect proofs:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators, mutation qualification and one disposable target effect pass; broader migration/domain capability remains ahead. |
 | `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
 
 ### Honest current position
 
-The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). Fork `main` is merged through `G8-EXEC`; `P9-INTEG-00` researches and implements process completeness before the public mission API. Do not infer delivery state from historical phase prose.
+The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). Fork `main` is merged through qualified `P9-INTEG-00`; `P9-INTEG-01` is ready to implement the public mission API. Do not infer delivery state from historical phase prose.
 
 ```text
 A0 Tool agent                 strong
@@ -174,7 +174,7 @@ A4 Evidence seeking           integrated discovery proof M3
 A5 Self-correction            independent fixed-contract correction passes
 A6 Self-improvement           synthetic certification/revocation/rollback M2
 A7 Bounded execution          signed disposable target effect and reconciliation pass M2
-A8 Integrated substrate       not assembled; process-completeness prerequisite identified
+A8 Integrated substrate       not assembled; process completeness passes isolated M2
 A9 Migration capability       discovery, independent evaluation, and bounded effect pass
 A10 Working prototype         not assembled
 ```
@@ -551,8 +551,8 @@ Failure route: `L-EXEC-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `READY` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with zero critical omissions or benign false positives. |
-| `WAIT` | `P9-INTEG-01` | Implement public mission API. | Create/read/command endpoints are versioned, authenticated, idempotent, and paginated. |
+| `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |
+| `READY` | `P9-INTEG-01` | Implement public mission API. | Create/read/command endpoints are versioned, authenticated, idempotent, paginated, and expose qualified obligation state without making clients authoritative. |
 | `WAIT` | `P9-INTEG-02` | Implement durable activity stream. | SSE reconnects from cursor without losing or duplicating logical events. |
 | `WAIT` | `P9-INTEG-03` | Implement loose-goal intake view. | User submits outcome, access, priorities, artifacts, and known exceptions without technical design. |
 | `WAIT` | `P9-INTEG-04` | Implement estate and evidence view. | Assets, relationships, coverage, provenance, and freshness are navigable. |
@@ -563,6 +563,8 @@ Failure route: `L-EXEC-01`.
 | `WAIT` | `P9-INTEG-09` | Implement exception channel. | Only irreducible questions block dependent work; unrelated work continues. |
 | `WAIT` | `P9-INTEG-10` | Implement restart/resume behavior. | Closing UI and restarting services preserves mission and current coordinate. |
 | `WAIT` | `P9-INTEG-11` | Assemble first end-to-end scenario. | Loose brief flows through discovery, gap resolution, build, evaluation, effect, reconciliation, and evidence. |
+
+`P9-INTEG-00` gate evidence: contracts and migrations 019–021, atomic lifecycle authority, leased/fenced monitoring, immutable breaches, health signals and sealed `EXP-13` seed 913 are merged. Process completeness is an isolated M2 proof; `P9-INTEG-01` is the only ready implementation coordinate.
 
 ### `G9-INTEG` — Integrated mission gate
 
