@@ -196,6 +196,7 @@ export async function settlePostgresProcessObligation(
            terminal_at = $8,
            monitor_claimed_by = NULL,
            monitor_claim_id = NULL,
+           monitor_claimed_at = NULL,
            monitor_claim_expires_at = NULL,
            updated_at = transaction_timestamp()
        WHERE tenant_id = $1 AND mission_id = $2 AND obligation_id = $3
