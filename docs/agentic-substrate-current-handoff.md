@@ -12,39 +12,40 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p9-process-obligation-monitor`.
+- Branch: `product/p9-process-obligation-exp13`.
 - Status: **`local-not-pushed`**.
-- Implemented through: `P9-INTEG-00-MONITOR`.
-- Merged through: `P9-INTEG-00-LIFECYCLE`.
-- Current coordinate: `P9-INTEG-00` (`monitor-complete-local-not-pushed`).
-- Next coordinate after merge: `P9-INTEG-00`.
+- Implemented through: `P9-INTEG-00-QUALIFIED`.
+- Merged through: `P9-INTEG-00-MONITOR`.
+- Current coordinate: `P9-INTEG-00` (`exp-13-passed-local-not-pushed`).
+- Next coordinate after merge: `P9-INTEG-01`.
 - Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-03T09:42:37Z`.
+- Verified at: `2026-09-03T10:29:56Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
-- PostgreSQL: 28 files / 73 tests.
+- PostgreSQL: 29 files / 74 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
 - `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
 - `EXP-12` seed 812: **passed** — 100/100 seeded attacks denied with zero cross-tenant effects and zero durable raw secrets.
+- `EXP-13` seed 913: **passed** — 16/16 critical process omissions detected; 0/8 benign controls falsely rejected; safety, replay, bounded detection and response-policy invariants passed.
 
 ## Known residuals
 
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
 - `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
-- `process-completeness-gap`: **in-progress** — Contracts and lifecycle authority are merged through PR 27. The leased/fenced overdue monitor, immutable breach commit, response outbox and health projection are implemented locally; EXP-13 remains.
+- `process-completeness-gap`: **qualification-passed-local-not-pushed** — Contracts, lifecycle authority and monitor are merged through PR 28. Sealed EXP-13 seed 913 passes locally with 16/16 critical omissions detected and 0/8 benign false positives; qualification delivery remains.
 
 ## Next actions
 
-1. Review and deliver the process-obligation completeness monitor as the next focused pull request.
-2. After monitor merge, implement and seal EXP-13 omission and benign-control campaigns.
-3. Resume P9-INTEG-01 only after EXP-13 qualifies process completeness.
+1. Review and deliver sealed EXP-13 as the final P9-INTEG-00 pull request.
+2. After EXP-13 merge, advance canonical delivery state to P9-INTEG-01.
+3. Begin public mission API/activity integration only from the synchronized P9-INTEG-01 state.
 
 ## New-session bootstrap
 

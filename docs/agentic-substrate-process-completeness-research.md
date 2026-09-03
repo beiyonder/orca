@@ -481,6 +481,10 @@ It must accept benign cases:
 
 The experiment must separately report definition coverage, obligation instantiation, proof admission, breach detection, response selection, and monitor recovery. A single aggregate pass boolean is insufficient.
 
+### Qualification result
+
+Sealed `EXP-13` seed 913 passes: 16/16 critical omissions detected, 0/8 benign false positives, zero cross-tenant effects, zero unauthorized waivers, zero duplicate logical breaches, exact rebuild, bounded detection and no generic retry. The artifact reports definition coverage, obligation instantiation, proof admission, breach detection, response selection and monitor recovery separately.
+
 ## Selected hypothesis
 
 If every critical product transition atomically creates versioned, bounded, evidence-backed process obligations, and a fenced idempotent completeness monitor emits durable breaches for overdue obligations, then silent omission of required work becomes visible and attributable without constraining the LLM's internal reasoning strategy.

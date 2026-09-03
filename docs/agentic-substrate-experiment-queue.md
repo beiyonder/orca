@@ -36,6 +36,7 @@ Local sealed runs under ignored `.runs/`:
 | `EXP-09` | 709 | `passed` | `exp-09-709-baseline-none-run_000000_61461415d7d39480` |
 | `EXP-11` | 811 | `passed` | `exp-11-811-baseline-none-run_000000_be3568a87d7d8573` |
 | `EXP-12` | 812 | `passed` | `exp-12-812-baseline-none-run_000000_86c94f0cb38fa0c9` |
+| `EXP-13` | 913 | `passed` | `exp-13-913-baseline-none-run_000000_85578791c49ab210` |
 
 Gate verification:
 
@@ -286,6 +287,15 @@ Gate verification:
 - sealed `EXP-12` seed 812 denies 100/100 attributable policy attacks; relay/sandbox/evidence/signature checks pass with zero cross-tenant effects and zero durable raw secrets;
 - `EXP-11` qualifies `ACT-EXP-03/04/05/06/08`; `EXP-12` qualifies `ACT-EXP-01/02/07/09/10`; therefore all ten `PRE-EFFECT` contracts required by this queue have executed before `G8-EXEC` closure;
 - registry 92, migrations 18 / tables 17, fingerprint `3686f99d…dd1dd8f`; verification passes 42 unit files / 221 tests and 25 PostgreSQL files / 61 tests.
+
+## `P9-INTEG-00` process-completeness gate evidence
+
+- process-obligation definitions, instances, breaches, waivers and transitions are versioned durable contracts;
+- trigger transitions and all applicable obligations commit atomically; proof admission binds tenant, mission, kind, schema, digest, age and fence;
+- the database-clock monitor uses leased `SKIP LOCKED` claims and monotonic fences, emits one immutable breach/transition and one policy-specific response, and recovers before-commit and after-commit crashes without duplication;
+- sealed `EXP-13` seed 913 detects 16/16 critical omissions with 0/8 benign false positives, zero cross-tenant effects, zero unauthorized waivers, zero duplicate logical breaches, exact rebuild, bounded detection and no generic retry;
+- definition coverage, obligation instantiation, proof admission, breach detection, response selection and monitor recovery are reported separately;
+- registry 97, migrations 21 / tables 20, fingerprint `28ff7a15…646f4e`; verification passes 44 unit files / 230 tests and 29 PostgreSQL files / 74 tests.
 
 ## Queue classes
 

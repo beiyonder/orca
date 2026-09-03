@@ -7,6 +7,7 @@ import {
 import type { ExperimentResult } from './experiment-contracts.js'
 import { runEvaluationMutationExperiment } from './evaluation-mutation-experiment.js'
 import { runMemoryHelpHarmExperiment } from './memory-help-harm-experiment.js'
+import { runProcessObligationCompletenessExperiment } from './process-obligation-completeness-experiment.js'
 import { runRetrievalBenchmarkExperiment } from './retrieval-benchmark-experiment.js'
 import {
   runSafeEffectIsolationExperiment,
@@ -56,6 +57,13 @@ export async function executePhaseExperiment(
       return experimentId === 'EXP-11'
         ? runSafeEffectKillPointExperiment(connectionString, seed)
         : runSafeEffectIsolationExperiment(connectionString, seed)
+    }
+    case 'EXP-13': {
+      const connectionString = process.env.MIGRATION_CONTROL_TARGET_DATABASE_URL
+      if (!connectionString) {
+        throw new Error('MIGRATION_CONTROL_TARGET_DATABASE_URL is required for EXP-13')
+      }
+      return runProcessObligationCompletenessExperiment(connectionString, seed)
     }
     case 'DUR-EXP-01': {
       const connectionString = process.env.MIGRATION_CONTROL_DATABASE_URL

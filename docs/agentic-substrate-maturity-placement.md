@@ -467,19 +467,19 @@ Low maturity at the product center:
 
 Decision: build the center through S1; do not rebuild the mature edges and do not overstate their domain maturity.
 
-## Post-`G8-EXEC` reassessment
+## Post-`P9-INTEG-00` reassessment
 
-This appendix preserves the historical P1 placement above while recording evidence merged through P8.
+This appendix preserves the historical P1 placement above while recording evidence merged through the process-completeness prerequisite.
 
 - Product A2 durable mission state has isolated/integration-level kernel evidence across commands, events, projections, attempts, effects, replay and restart.
 - Product A3–A6 have bounded specialist, discovery, correction, governed memory and skill-lifecycle proofs, but not one complete mission composition.
 - Product A7 is promoted from `M1` to **`M2` isolated proof**: one signed, natural-keyed disposable PostgreSQL effect passes policy, relay journal, bounded runner, receipt, readback, 50 kill cases and 100 isolation attacks.
-- Product A8 remains **`M0` as an assembled system**: P3–P8 components have not run as one public-API/operator mission, and required-but-omitted process steps lack a generic completeness control.
-- Process completeness is **`M1` researched** by `P9-INTEG-00`: bounded response, process-obligation identity, atomic trigger instantiation, authoritative proof, waiver, breach, replay and monitor recovery are specified but not implemented.
+- Product A8 remains **`M0` as an assembled system**: P3–P8 components and the completeness control have not yet run as one public-API/operator mission.
+- Process completeness is promoted to **`M2` isolated proof**: contracts, atomic trigger instantiation, authoritative proof, waiver/cancellation, immutable breach history, leased/fenced monitoring, replay and restart recovery pass the seeded PostgreSQL qualification.
 - Product A9 has discovery/evaluation/effect breadth for the selected fixtures, not domain-pressure maturity across real migration targets.
 
-`EXP-13` must promote process completeness to `M2` before P9 freezes mission API/activity/UI semantics. This is a prerequisite inside A8 integration, not a new progression level.
+Sealed `EXP-13` seed 913 detects 16/16 critical omissions with 0/8 benign false positives and satisfies the prerequisite for `P9-INTEG-01`; it does not by itself promote assembled Product A8.
 
 ## Next coordinate
 
-`P1-RSCH-14` — select strongest external gap fillers only for gaps confirmed by this placement.
+`P9-INTEG-01` — expose the qualified obligation state through the public mission API and activity contract.

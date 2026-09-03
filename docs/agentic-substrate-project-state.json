@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-03T09:42:37Z",
+  "updatedAt": "2026-09-03T10:29:56Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -12,19 +12,19 @@
   },
   "delivery": {
     "status": "local-not-pushed",
-    "currentBranch": "product/p9-process-obligation-monitor",
+    "currentBranch": "product/p9-process-obligation-exp13",
     "baseRef": "origin/main",
-    "implementedThrough": "P9-INTEG-00-MONITOR",
-    "mergedThrough": "P9-INTEG-00-LIFECYCLE",
+    "implementedThrough": "P9-INTEG-00-QUALIFIED",
+    "mergedThrough": "P9-INTEG-00-MONITOR",
     "currentCoordinate": "P9-INTEG-00",
-    "currentCoordinateStatus": "monitor-complete-local-not-pushed",
-    "nextCoordinateAfterMerge": "P9-INTEG-00",
+    "currentCoordinateStatus": "exp-13-passed-local-not-pushed",
+    "nextCoordinateAfterMerge": "P9-INTEG-01",
     "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/27",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/28",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-03T09:42:37Z",
+    "lastVerifiedAt": "2026-09-03T10:29:56Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -38,8 +38,8 @@
     "schemaFingerprint": "28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e",
     "unitTestFiles": 44,
     "unitTests": 230,
-    "postgresTestFiles": 28,
-    "postgresTests": 73,
+    "postgresTestFiles": 29,
+    "postgresTests": 74,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -64,6 +64,12 @@
         "seed": 812,
         "status": "passed",
         "summary": "100/100 seeded attacks denied with zero cross-tenant effects and zero durable raw secrets."
+      },
+      {
+        "id": "EXP-13",
+        "seed": 913,
+        "status": "passed",
+        "summary": "16/16 critical process omissions detected; 0/8 benign controls falsely rejected; safety, replay, bounded detection and response-policy invariants passed."
       }
     ]
   },
@@ -86,13 +92,13 @@
     },
     {
       "id": "process-completeness-gap",
-      "status": "in-progress",
-      "note": "Contracts and lifecycle authority are merged through PR 27. The leased/fenced overdue monitor, immutable breach commit, response outbox and health projection are implemented locally; EXP-13 remains."
+      "status": "qualification-passed-local-not-pushed",
+      "note": "Contracts, lifecycle authority and monitor are merged through PR 28. Sealed EXP-13 seed 913 passes locally with 16/16 critical omissions detected and 0/8 benign false positives; qualification delivery remains."
     }
   ],
   "nextActions": [
-    "Review and deliver the process-obligation completeness monitor as the next focused pull request.",
-    "After monitor merge, implement and seal EXP-13 omission and benign-control campaigns.",
-    "Resume P9-INTEG-01 only after EXP-13 qualifies process completeness."
+    "Review and deliver sealed EXP-13 as the final P9-INTEG-00 pull request.",
+    "After EXP-13 merge, advance canonical delivery state to P9-INTEG-01.",
+    "Begin public mission API/activity integration only from the synchronized P9-INTEG-01 state."
   ]
 }
