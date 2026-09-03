@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-03T08:34:01Z",
+  "updatedAt": "2026-09-03T09:08:00Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -12,33 +12,34 @@
   },
   "delivery": {
     "status": "local-not-pushed",
-    "currentBranch": "product/p9-process-obligation-contracts",
+    "currentBranch": "product/p9-process-obligation-lifecycle",
     "baseRef": "origin/main",
-    "implementedThrough": "P9-INTEG-00-CONTRACTS",
+    "implementedThrough": "P9-INTEG-00-LIFECYCLE",
     "mergedThrough": "G8-EXEC",
     "currentCoordinate": "P9-INTEG-00",
-    "currentCoordinateStatus": "contracts-complete-local-not-pushed",
+    "currentCoordinateStatus": "lifecycle-complete-local-not-pushed",
     "nextCoordinateAfterMerge": "P9-INTEG-00",
     "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/25",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/26",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-03T08:34:01Z",
+    "lastVerifiedAt": "2026-09-03T09:08:00Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
+      "pnpm run check:react-doctor:changed -- origin/main",
       "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
     ],
-    "domainSchemas": 96,
-    "migrations": 19,
+    "domainSchemas": 97,
+    "migrations": 20,
     "tables": 19,
-    "schemaFingerprint": "1823aaa279342fa1e14219b0fc16e4280881a707251c6c2a0e453293a318a0be",
-    "unitTestFiles": 43,
-    "unitTests": 227,
-    "postgresTestFiles": 26,
-    "postgresTests": 64,
+    "schemaFingerprint": "e3b9a92705ed8e6095835bb981bd29d554651e639191fd0d69ba16da8deed4e4",
+    "unitTestFiles": 44,
+    "unitTests": 230,
+    "postgresTestFiles": 27,
+    "postgresTests": 70,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -86,13 +87,13 @@
     {
       "id": "process-completeness-gap",
       "status": "in-progress",
-      "note": "Versioned obligation definition/instance/breach/waiver contracts and migration 019 persistence are implemented locally. Atomic trigger lifecycle, completeness monitoring and EXP-13 remain."
+      "note": "Contracts and persistence are merged through PR 26. Atomic trigger instantiation, product proof admission, waiver/cancellation, immutable transitions, replay and restart reconciliation are implemented locally; the completeness monitor and EXP-13 remain."
     }
   ],
   "nextActions": [
-    "Review and deliver the versioned obligation contracts plus append-only migration 019 as the next focused pull request.",
-    "After contract merge, implement atomic trigger instantiation, proof admission, waiver, supersession, replay and restart reconciliation.",
-    "Implement the fenced completeness monitor and EXP-13 only after lifecycle authority passes.",
+    "Review and deliver the atomic process-obligation lifecycle as the next focused pull request.",
+    "After lifecycle merge, implement leased/fenced overdue claims, immutable breach transitions and type-specific response policy.",
+    "Implement and seal EXP-13 only after monitor authority passes.",
     "Resume P9-INTEG-01 only after EXP-13 qualifies process completeness."
   ]
 }

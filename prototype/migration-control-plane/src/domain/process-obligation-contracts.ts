@@ -286,6 +286,7 @@ export const ProcessObligationWaiverV1Schema = z
     }
   })
 
+export type ProcessObligationScope = z.infer<typeof ProcessObligationScopeSchema>
 export type ProcessObligationDefinitionV1 = z.infer<typeof ProcessObligationDefinitionV1Schema>
 export type ProcessObligationV1 = z.infer<typeof ProcessObligationV1Schema>
 export type ProcessObligationBreachV1 = z.infer<typeof ProcessObligationBreachV1Schema>

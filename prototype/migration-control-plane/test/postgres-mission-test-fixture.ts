@@ -96,32 +96,32 @@ export async function createMissionFixture(pool: Pool): Promise<void> {
   )
 }
 
-export async function advanceMissionFixture(
-  pool: Pool,
-  options: {
-    suffix: string
-    expectedRevision?: number
-    nextRevision?: number
-    outboxId?: string
-  }
-) {
+export type MissionAdvanceFixtureOptions = {
+  suffix: string
+  expectedRevision?: number
+  nextRevision?: number
+  outboxId?: string
+}
+
+export function buildMissionAdvanceFixture(options: MissionAdvanceFixtureOptions) {
   const expectedRevision = options.expectedRevision ?? 1
   const nextRevision = options.nextRevision ?? expectedRevision + 1
   const payload = { evidenceId: `evidence_${options.suffix}` }
   const nextMission = mission(nextRevision)
-  const input = command({
+  const commandInput = command({
     id: `command_${options.suffix}`,
     type: 'record-evidence',
     expectedRevision,
     payload,
     issuedAt: timestampForRevision(nextRevision)
   })
-  return executeIdempotentMissionCommand(pool, input, async (client, parsed) =>
-    commitMissionTransition(client, parsed, {
+  return {
+    command: commandInput,
+    transition: {
       mission: nextMission,
       event: event({
         id: `event_${options.suffix}`,
-        commandId: parsed.id,
+        commandId: commandInput.id as string,
         revision: nextRevision,
         type: 'evidence-recorded',
         payload: { change: payload, mission: nextMission }
@@ -131,6 +131,13 @@ export async function advanceMissionFixture(
         `event_${options.suffix}`,
         nextRevision
       )
-    })
+    }
+  }
+}
+
+export async function advanceMissionFixture(pool: Pool, options: MissionAdvanceFixtureOptions) {
+  const fixture = buildMissionAdvanceFixture(options)
+  return executeIdempotentMissionCommand(pool, fixture.command, async (client, parsed) =>
+    commitMissionTransition(client, parsed, fixture.transition)
   )
 }

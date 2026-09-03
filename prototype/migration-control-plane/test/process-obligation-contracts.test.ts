@@ -5,6 +5,7 @@ import {
   ProcessObligationV1Schema,
   ProcessObligationWaiverV1Schema
 } from '../src/domain/process-obligation-contracts.js'
+import { ProcessObligationTransitionV1Schema } from '../src/domain/process-obligation-transition-contracts.js'
 import { PROCESS_OBLIGATION_CONTRACT_SAMPLES } from './process-obligation-contract-samples.js'
 
 describe('process obligation contracts', () => {
@@ -23,6 +24,11 @@ describe('process obligation contracts', () => {
         PROCESS_OBLIGATION_CONTRACT_SAMPLES['process-obligation-breach.v1']
       ).response
     ).toBe('block')
+    expect(
+      ProcessObligationTransitionV1Schema.parse(
+        PROCESS_OBLIGATION_CONTRACT_SAMPLES['process-obligation-transition.v1']
+      ).transition
+    ).toBe('satisfy')
     expect(
       ProcessObligationWaiverV1Schema.parse(
         PROCESS_OBLIGATION_CONTRACT_SAMPLES['process-obligation-waiver.v1']
