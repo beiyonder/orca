@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p9-public-mission-api`.
-- Status: **`local-not-pushed`**.
+- Branch: `main`.
+- Status: **`merged`**.
 - Implemented through: `P9-INTEG-01`.
-- Merged through: `P9-INTEG-00-QUALIFIED`.
-- Current coordinate: `P9-INTEG-01` (`mission-api-complete-local-not-pushed`).
+- Merged through: `P9-INTEG-01`.
+- Current coordinate: `P9-INTEG-02` (`ready-to-start`).
 - Next coordinate after merge: `P9-INTEG-02`.
-- Fork pull request: none.
+- Fork pull request: https://github.com/beiyonder/orca/pull/31.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-03T11:33:45Z`.
+- Verified at: `2026-09-03T13:53:49Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review and deliver the authenticated public mission API as the P9-INTEG-01 pull request.
-2. After mission API merge, advance canonical state to P9-INTEG-02.
-3. Implement the durable reconnectable activity stream only from synchronized origin/main.
+1. Review mission event/outbox cursor semantics and HTTP disconnect behavior before implementing P9-INTEG-02.
+2. Begin P9-INTEG-02 only on a new branch from origin/main in beiyonder/orca.
+3. Keep PostgreSQL events authoritative; SSE clients may resume observation but never mutate activity state.
 
 ## New-session bootstrap
 

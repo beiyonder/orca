@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-03T11:33:45Z",
+  "updatedAt": "2026-09-03T13:54:00Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
-    "currentBranch": "product/p9-public-mission-api",
+    "status": "merged",
+    "currentBranch": "main",
     "baseRef": "origin/main",
     "implementedThrough": "P9-INTEG-01",
-    "mergedThrough": "P9-INTEG-00-QUALIFIED",
-    "currentCoordinate": "P9-INTEG-01",
-    "currentCoordinateStatus": "mission-api-complete-local-not-pushed",
+    "mergedThrough": "P9-INTEG-01",
+    "currentCoordinate": "P9-INTEG-02",
+    "currentCoordinateStatus": "ready-to-start",
     "nextCoordinateAfterMerge": "P9-INTEG-02",
-    "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/30",
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/31",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/31",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-03T11:33:45Z",
+    "lastVerifiedAt": "2026-09-03T13:53:49Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -94,8 +94,8 @@
     }
   ],
   "nextActions": [
-    "Review and deliver the authenticated public mission API as the P9-INTEG-01 pull request.",
-    "After mission API merge, advance canonical state to P9-INTEG-02.",
-    "Implement the durable reconnectable activity stream only from synchronized origin/main."
+    "Review mission event/outbox cursor semantics and HTTP disconnect behavior before implementing P9-INTEG-02.",
+    "Begin P9-INTEG-02 only on a new branch from origin/main in beiyonder/orca.",
+    "Keep PostgreSQL events authoritative; SSE clients may resume observation but never mutate activity state."
   ]
 }

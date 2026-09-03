@@ -560,8 +560,8 @@ Failure route: `L-EXEC-01`.
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |
-| `READY` | `P9-INTEG-01` | Implement public mission API. | Create/read/command endpoints are versioned, authenticated, idempotent, paginated, and expose qualified obligation state without making clients authoritative. |
-| `WAIT` | `P9-INTEG-02` | Implement durable activity stream. | SSE reconnects from cursor without losing or duplicating logical events. |
+| `DONE` | `P9-INTEG-01` | Implement public mission API. | Versioned authenticated create/read/command and obligation endpoints pass stable sequential/concurrent idempotency, tenant isolation, signed pagination, server-owned obligation instantiation, bounded input and restart tests. |
+| `READY` | `P9-INTEG-02` | Implement durable activity stream. | SSE reconnects from cursor without losing or duplicating logical events. |
 | `WAIT` | `P9-INTEG-03` | Implement loose-goal intake view. | User submits outcome, access, priorities, artifacts, and known exceptions without technical design. |
 | `WAIT` | `P9-INTEG-04` | Implement estate and evidence view. | Assets, relationships, coverage, provenance, and freshness are navigable. |
 | `WAIT` | `P9-INTEG-05` | Implement gap and hypothesis view. | Claims, contradictions, competing hypotheses, tests, and unresolved exceptions are visible. |
