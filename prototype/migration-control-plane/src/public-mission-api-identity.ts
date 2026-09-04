@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import { z } from 'zod'
 import { canonicalJson, sha256Text } from './canonical-json.js'
-import { MissionIdSchema, TenantIdSchema } from './domain/common-contracts.js'
+import { MissionIdSchema, RevisionSchema, TenantIdSchema } from './domain/common-contracts.js'
 
 const CursorPayloadSchema = z.strictObject({
   version: z.literal(1),
@@ -9,6 +9,14 @@ const CursorPayloadSchema = z.strictObject({
   tenantId: TenantIdSchema,
   missionId: MissionIdSchema.nullable(),
   lastId: z.string().min(1).max(128)
+})
+
+const ActivityCursorPayloadSchema = z.strictObject({
+  version: z.literal(1),
+  kind: z.literal('activity'),
+  tenantId: TenantIdSchema,
+  missionId: MissionIdSchema,
+  lastRevision: RevisionSchema
 })
 
 type CursorPayload = z.input<typeof CursorPayloadSchema>
@@ -61,6 +69,48 @@ export function decodeMissionApiCursor(
       payload.tenantId !== expected.tenantId ||
       payload.missionId !== expected.missionId
     ) {
+      throw new MissionApiCursorError()
+    }
+    return payload
+  } catch (error) {
+    if (error instanceof MissionApiCursorError) {
+      throw error
+    }
+    throw new MissionApiCursorError()
+  }
+}
+
+export function encodeMissionActivityCursor(
+  secret: string | Buffer,
+  payload: z.input<typeof ActivityCursorPayloadSchema>
+): string {
+  const parsed = ActivityCursorPayloadSchema.parse(payload)
+  const encoded = Buffer.from(canonicalJson(parsed), 'utf8').toString('base64url')
+  return `${encoded}.${signature(secret, encoded).toString('base64url')}`
+}
+
+export function decodeMissionActivityCursor(
+  secret: string | Buffer,
+  token: string,
+  expected: { tenantId: string; missionId: string }
+): z.output<typeof ActivityCursorPayloadSchema> {
+  try {
+    const [encoded, encodedSignature, extra] = token.split('.')
+    if (!encoded || !encodedSignature || extra !== undefined) {
+      throw new MissionApiCursorError()
+    }
+    const supplied = Buffer.from(encodedSignature, 'base64url')
+    const expectedSignature = signature(secret, encoded)
+    if (
+      supplied.length !== expectedSignature.length ||
+      !timingSafeEqual(supplied, expectedSignature)
+    ) {
+      throw new MissionApiCursorError()
+    }
+    const payload = ActivityCursorPayloadSchema.parse(
+      JSON.parse(Buffer.from(encoded, 'base64url').toString('utf8')) as unknown
+    )
+    if (payload.tenantId !== expected.tenantId || payload.missionId !== expected.missionId) {
       throw new MissionApiCursorError()
     }
     return payload

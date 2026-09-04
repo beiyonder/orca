@@ -7,6 +7,10 @@ import {
   CommandResultIntegrityError
 } from './database/postgres-command-idempotency.js'
 import { PublicMissionProjectionIntegrityError } from './database/postgres-public-mission-query.js'
+import {
+  streamPublicMissionActivity,
+  type PublicMissionActivityStreamOptions
+} from './public-mission-activity-stream.js'
 import type {
   MissionApiAuthenticator,
   MissionApiPrincipal
@@ -36,6 +40,9 @@ export type PublicMissionApiServerOptions = {
   authenticate: MissionApiAuthenticator
   cursorSecret: string | Buffer
   maxBodyBytes?: number
+  activityBatchSize?: number
+  activityPollIntervalMs?: number
+  activityHeartbeatIntervalMs?: number
   onInternalError?: (error: unknown) => void
 }
 
@@ -95,7 +102,8 @@ async function executeRoute(
   request: IncomingMessage,
   url: URL,
   response: ServerResponse,
-  maxBodyBytes: number
+  maxBodyBytes: number,
+  activityOptions: PublicMissionActivityStreamOptions
 ): Promise<void> {
   switch (route.kind) {
     case 'create': {
@@ -132,6 +140,16 @@ async function executeRoute(
           route.missionId,
           publicMissionQueryInput(url)
         )
+      )
+      return
+    case 'activity':
+      await service.readMission(principal, route.missionId)
+      await streamPublicMissionActivity(
+        request,
+        response,
+        principal,
+        route.missionId,
+        activityOptions
       )
   }
 }
@@ -217,7 +235,22 @@ export function createPublicMissionApiServer(options: PublicMissionApiServerOpti
         return
       }
       requirePublicMissionPermission(principal, route.permission)
-      await executeRoute(service, route, principal, request, url, response, maxBodyBytes)
+      await executeRoute(service, route, principal, request, url, response, maxBodyBytes, {
+        pool: options.pool,
+        cursorSecret: options.cursorSecret,
+        ...(options.activityBatchSize === undefined
+          ? {}
+          : { batchSize: options.activityBatchSize }),
+        ...(options.activityPollIntervalMs === undefined
+          ? {}
+          : { pollIntervalMs: options.activityPollIntervalMs }),
+        ...(options.activityHeartbeatIntervalMs === undefined
+          ? {}
+          : { heartbeatIntervalMs: options.activityHeartbeatIntervalMs }),
+        ...(options.onInternalError === undefined
+          ? {}
+          : { onInternalError: options.onInternalError })
+      })
     } catch (error) {
       handleError(response, error, options.onInternalError)
     }
