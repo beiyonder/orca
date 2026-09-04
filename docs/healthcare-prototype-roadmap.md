@@ -557,6 +557,14 @@ Failure route: `L-EXEC-01`.
 - reads validate stored projection digests, isolate tenant misses behind the same 404, and paginate with signed tenant/resource-bound cursors;
 - request bodies, page sizes and error disclosure are bounded; the API sets no cookies or CORS authority.
 
+`P9-INTEG-02` durable activity contract:
+
+- `GET /api/v1/missions/:id/activity` uses the existing bearer `mission:read` boundary and publishes `text/event-stream`;
+- `control_plane.mission_events` remains the only authority, ordered by tenant, mission and aggregate revision;
+- each SSE `id` is an HMAC-signed tenant/mission-bound revision cursor; `Last-Event-ID` resumes strictly after that revision;
+- initial history and offline commits replay in bounded batches before live polling; committed events are never inferred from client connection state;
+- event identity plus event/payload digests are validated before publication; polling, heartbeat, backpressure and disconnect handling are bounded.
+
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |
@@ -572,7 +580,7 @@ Failure route: `L-EXEC-01`.
 | `WAIT` | `P9-INTEG-10` | Implement restart/resume behavior. | Closing UI and restarting services preserves mission and current coordinate. |
 | `WAIT` | `P9-INTEG-11` | Assemble first end-to-end scenario. | Loose brief flows through discovery, gap resolution, build, evaluation, effect, reconciliation, and evidence. |
 
-`P9-INTEG-00` gate evidence: contracts and migrations 019–021, atomic lifecycle authority, leased/fenced monitoring, immutable breaches, health signals and sealed `EXP-13` seed 913 are merged. Process completeness is an isolated M2 proof; `P9-INTEG-01` is the only ready implementation coordinate.
+`P9-INTEG-00` process completeness and `P9-INTEG-01` public mission API are merged. `P9-INTEG-02` adds durable observation without changing PostgreSQL mission authority.
 
 ### `G9-INTEG` — Integrated mission gate
 

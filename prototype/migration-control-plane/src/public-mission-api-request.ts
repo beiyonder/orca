@@ -29,6 +29,7 @@ export type MissionApiRoute =
   | { kind: 'read'; permission: 'mission:read'; missionId: string }
   | { kind: 'command'; permission: 'mission:write'; missionId: string }
   | { kind: 'obligations'; permission: 'mission:read'; missionId: string }
+  | { kind: 'activity'; permission: 'mission:read'; missionId: string }
 
 export function publicMissionApiRoute(request: IncomingMessage, url: URL): MissionApiRoute | null {
   if (url.pathname === `${MISSION_API_PREFIX}/missions`) {
@@ -40,7 +41,9 @@ export function publicMissionApiRoute(request: IncomingMessage, url: URL): Missi
     }
     return null
   }
-  const match = /^\/api\/v1\/missions\/([^/]+)(?:\/(commands|obligations))?$/.exec(url.pathname)
+  const match = /^\/api\/v1\/missions\/([^/]+)(?:\/(commands|obligations|activity))?$/.exec(
+    url.pathname
+  )
   if (!match) {
     return null
   }
@@ -58,6 +61,9 @@ export function publicMissionApiRoute(request: IncomingMessage, url: URL): Missi
   }
   if (match[2] === 'obligations' && request.method === 'GET') {
     return { kind: 'obligations', permission: 'mission:read', missionId }
+  }
+  if (match[2] === 'activity' && request.method === 'GET') {
+    return { kind: 'activity', permission: 'mission:read', missionId }
   }
   if (match[2] === undefined && request.method === 'GET') {
     return { kind: 'read', permission: 'mission:read', missionId }

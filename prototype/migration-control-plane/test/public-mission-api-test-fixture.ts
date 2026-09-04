@@ -69,13 +69,16 @@ async function closeServer(server: Server): Promise<void> {
 }
 
 export async function createMissionApiTestHarness(
-  maxBodyBytes = 64 * 1024
+  maxBodyBytes = 64 * 1024,
+  activityPollIntervalMs = 20
 ): Promise<MissionApiTestHarness> {
   const context = await createPostgresKernelTestContext()
   let server = createPublicMissionApiServer({
     pool: context.pool,
     cursorSecret: CURSOR_SECRET,
     maxBodyBytes,
+    activityPollIntervalMs,
+    activityHeartbeatIntervalMs: Math.max(40, activityPollIntervalMs),
     authenticate: async (token) => principals[token as keyof typeof principals] ?? null
   })
   let baseUrl = await listen(server)
@@ -118,6 +121,8 @@ export async function createMissionApiTestHarness(
         pool: context.pool,
         cursorSecret: CURSOR_SECRET,
         maxBodyBytes,
+        activityPollIntervalMs,
+        activityHeartbeatIntervalMs: Math.max(40, activityPollIntervalMs),
         authenticate: async (token) => principals[token as keyof typeof principals] ?? null
       })
       baseUrl = await listen(server)

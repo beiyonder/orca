@@ -12,22 +12,22 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `main`.
-- Status: **`merged`**.
-- Implemented through: `P9-INTEG-01`.
+- Branch: `product/p9-durable-activity-stream`.
+- Status: **`local-not-pushed`**.
+- Implemented through: `P9-INTEG-02`.
 - Merged through: `P9-INTEG-01`.
-- Current coordinate: `P9-INTEG-02` (`ready-to-start`).
-- Next coordinate after merge: `P9-INTEG-02`.
-- Fork pull request: https://github.com/beiyonder/orca/pull/31.
+- Current coordinate: `P9-INTEG-02` (`activity-stream-complete-local-not-pushed`).
+- Next coordinate after merge: `P9-INTEG-03`.
+- Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-03T13:53:49Z`.
+- Verified at: `2026-09-04T13:47:28Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
-- PostgreSQL: 30 files / 79 tests.
+- PostgreSQL: 31 files / 84 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
 - `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review mission event/outbox cursor semantics and HTTP disconnect behavior before implementing P9-INTEG-02.
-2. Begin P9-INTEG-02 only on a new branch from origin/main in beiyonder/orca.
-3. Keep PostgreSQL events authoritative; SSE clients may resume observation but never mutate activity state.
+1. Review and deliver the durable reconnectable activity stream as the P9-INTEG-02 pull request.
+2. After activity stream merge, advance canonical state to P9-INTEG-03.
+3. Implement the loose-goal intake view only from synchronized origin/main.
 
 ## New-session bootstrap
 
