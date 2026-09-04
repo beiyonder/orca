@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p9-durable-activity-stream`.
-- Status: **`local-not-pushed`**.
+- Branch: `main`.
+- Status: **`merged`**.
 - Implemented through: `P9-INTEG-02`.
-- Merged through: `P9-INTEG-01`.
-- Current coordinate: `P9-INTEG-02` (`activity-stream-complete-local-not-pushed`).
+- Merged through: `P9-INTEG-02`.
+- Current coordinate: `P9-INTEG-03` (`ready-to-start`).
 - Next coordinate after merge: `P9-INTEG-03`.
-- Fork pull request: none.
+- Fork pull request: https://github.com/beiyonder/orca/pull/33.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-04T13:47:28Z`.
+- Verified at: `2026-09-04T13:55:39Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review and deliver the durable reconnectable activity stream as the P9-INTEG-02 pull request.
-2. After activity stream merge, advance canonical state to P9-INTEG-03.
-3. Implement the loose-goal intake view only from synchronized origin/main.
+1. Review the product design system and public mission create contract before implementing P9-INTEG-03.
+2. Begin P9-INTEG-03 only on a new branch from origin/main in beiyonder/orca.
+3. Keep loose-goal intake declarative; the view must not invent technical design or bypass server-owned mission authority.
 
 ## New-session bootstrap
 
