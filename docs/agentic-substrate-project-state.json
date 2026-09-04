@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-04T13:47:28Z",
+  "updatedAt": "2026-09-04T13:57:03Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
-    "currentBranch": "product/p9-durable-activity-stream",
+    "status": "merged",
+    "currentBranch": "main",
     "baseRef": "origin/main",
     "implementedThrough": "P9-INTEG-02",
-    "mergedThrough": "P9-INTEG-01",
-    "currentCoordinate": "P9-INTEG-02",
-    "currentCoordinateStatus": "activity-stream-complete-local-not-pushed",
+    "mergedThrough": "P9-INTEG-02",
+    "currentCoordinate": "P9-INTEG-03",
+    "currentCoordinateStatus": "ready-to-start",
     "nextCoordinateAfterMerge": "P9-INTEG-03",
-    "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/32",
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/33",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/33",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-04T13:47:28Z",
+    "lastVerifiedAt": "2026-09-04T13:55:39Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -95,8 +95,8 @@
     }
   ],
   "nextActions": [
-    "Review and deliver the durable reconnectable activity stream as the P9-INTEG-02 pull request.",
-    "After activity stream merge, advance canonical state to P9-INTEG-03.",
-    "Implement the loose-goal intake view only from synchronized origin/main."
+    "Review the product design system and public mission create contract before implementing P9-INTEG-03.",
+    "Begin P9-INTEG-03 only on a new branch from origin/main in beiyonder/orca.",
+    "Keep loose-goal intake declarative; the view must not invent technical design or bypass server-owned mission authority."
   ]
 }
