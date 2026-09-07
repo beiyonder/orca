@@ -579,17 +579,17 @@ Failure route: `L-EXEC-01`.
 | `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |
 | `DONE` | `P9-INTEG-01` | Implement public mission API. | Versioned authenticated create/read/command and obligation endpoints pass stable sequential/concurrent idempotency, tenant isolation, signed pagination, server-owned obligation instantiation, bounded input and restart tests. |
 | `DONE` | `P9-INTEG-02` | Implement durable activity stream. | Authenticated SSE publishes digest-validated PostgreSQL mission events in revision order and resumes strictly after signed tenant/mission-bound `Last-Event-ID` across disconnects, offline commits, backpressure and server restart. |
-| `READY` | `P9-INTEG-03` | Implement loose-goal intake view. | User submits outcome, access, priorities, artifacts, and known exceptions without technical design. |
-| `WAIT` | `P9-INTEG-04` | Implement estate and evidence view. | Assets, relationships, coverage, provenance, and freshness are navigable. |
-| `WAIT` | `P9-INTEG-05` | Implement gap and hypothesis view. | Claims, contradictions, competing hypotheses, tests, and unresolved exceptions are visible. |
-| `WAIT` | `P9-INTEG-06` | Implement decision and plan view. | Rationale, alternatives, evidence, reversal condition, tasks, proof, and recovery are shown. |
-| `WAIT` | `P9-INTEG-07` | Implement agent and task activity view. | Apex/specialist assignments, budgets, status, outputs, and failures are inspectable. |
-| `WAIT` | `P9-INTEG-08` | Implement evaluation and evidence view. | Measures, thresholds, evaluator versions, verdicts, receipts, and artifacts are linked. |
-| `WAIT` | `P9-INTEG-09` | Implement exception channel. | Only irreducible questions block dependent work; unrelated work continues. |
-| `WAIT` | `P9-INTEG-10` | Implement restart/resume behavior. | Closing UI and restarting services preserves mission and current coordinate. |
-| `WAIT` | `P9-INTEG-11` | Assemble first end-to-end scenario. | Loose brief flows through discovery, gap resolution, build, evaluation, effect, reconciliation, and evidence. |
+| `DONE` | `P9-INTEG-03` | Implement loose-goal intake view. | Versioned idempotent intake records outcome, access references, priorities, artifacts, and known exceptions without accepting technical design. |
+| `DONE` | `P9-INTEG-04` | Implement estate and evidence view. | Schema- and digest-validated source, corpus, context and evidence records are tenant/mission scoped and paginated. |
+| `DONE` | `P9-INTEG-05` | Implement gap and hypothesis view. | Propositions, assertions, contradictions, gaps, probes, findings and rankings are visible from canonical records. |
+| `DONE` | `P9-INTEG-06` | Implement decision and plan view. | Decisions, plan revisions and migration proposals retain canonical rationale/evidence lineage. |
+| `DONE` | `P9-INTEG-07` | Implement agent and task activity view. | Tasks, assignments, attempts and results remain observable while exceptions block only named scope. |
+| `DONE` | `P9-INTEG-08` | Implement evaluation and evidence view. | Artifacts, evaluations, corrections, learning candidates, effect receipts and recovery records are linked. |
+| `DONE` | `P9-INTEG-09` | Implement exception channel. | Read-only unresolved gap scope names blocked decisions/tasks; no client write route exists. |
+| `DONE` | `P9-INTEG-10` | Implement restart/resume behavior. | Signed view/activity cursors and mission revision survive complete API service restart without duplicate records/events. |
+| `DONE` | `P9-INTEG-11` | Assemble first end-to-end scenario. | One API-created loose-goal mission reconstructs discovery, gap, plan, assignment, build, evaluation, correction, effect, recovery and evidence state. |
 
-`P9-INTEG-00` process completeness and `P9-INTEG-01` public mission API are merged. `P9-INTEG-02` adds durable observation without changing PostgreSQL mission authority.
+`P9-INTEG-00` through `P9-INTEG-11` are merged. The initial operator surface is the authenticated API/minimal inspector authorized by S1-DEF-005; production Electron console work remains deferred.
 
 ### `G9-INTEG` — Integrated mission gate
 
@@ -602,6 +602,8 @@ Pass when:
 - all earlier experiment gates still pass through integrated interfaces.
 - every applicable critical process obligation is explicit, evidence-backed and either satisfied, failed, waived, cancelled or durably breached within its bound;
 
+**Gate status: `DONE`.** Public mission writes remain idempotent and server-authoritative; durable SSE survives disconnect/restart; every inspector record is schema/digest/tenant/mission validated; exceptions expose bounded scope without blocking unrelated work; the integrated mission scenario and all earlier PostgreSQL/component gates pass together.
+
 Failure route: `L-INTEG-01`.
 
 ---
@@ -612,7 +614,7 @@ Failure route: `L-INTEG-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `WAIT` | `P10-QUAL-01` | Create clean installation profile. | New machine/environment starts required services and fixtures using documented commands. |
+| `READY` | `P10-QUAL-01` | Create clean installation profile. | New machine/environment starts required services and fixtures using documented commands. |
 | `WAIT` | `P10-QUAL-02` | Freeze prototype versions and seeds. | Code, model, prompt, skill, corpus, fixture, schema, and configuration versions recorded. |
 | `WAIT` | `P10-QUAL-03` | Run golden end-to-end mission. | All working-prototype criteria pass with a complete evidence packet. |
 | `WAIT` | `P10-QUAL-04` | Run integrated fault campaign. | Process, database, object, relay, model, evaluator, target, and restart faults preserve invariants. |
@@ -695,15 +697,13 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 4 — Agents | `G4-AGNT` | `DONE`; reopens through `L-AGNT-01` |
 | Phase 5 — Knowledge | `G5-KNOW` | `DONE`; reopens through `L-KNOW-01` |
 | Phase 6 — Discovery | `G6-DISC` | `DONE`; reopens through `L-DISC-01` |
-| Phase 7 — Evaluation | `G7-EVAL` | `DONE` on the current branch; fork delivery pending |
-| Phase 8 — Execution | `G8-EXEC` | `WAIT` until the Phase 7 branch merges |
-| Phase 9 — Integration | `G9-INTEG` | `WAIT` |
-| Phase 10 — Qualification | `G10-PROTOTYPE` | `WAIT` |
+| Phase 7 — Evaluation | `G7-EVAL` | `DONE`; reopens through `L-EVAL-01` |
+| Phase 8 — Execution | `G8-EXEC` | `DONE`; reopens through `L-EXEC-01` |
+| Phase 9 — Integration | `G9-INTEG` | `DONE`; reopens through `L-INTEG-01` |
+| Phase 10 — Qualification | `G10-PROTOTYPE` | `READY` at `P10-QUAL-01` |
 
-## Next roadmap coordinates after current delivery
+## Next roadmap coordinate
 
-The [canonical handoff](./agentic-substrate-current-handoff.md) owns the immediate action. After Phase 7 merges:
+The [canonical handoff](./agentic-substrate-current-handoff.md) owns the immediate action.
 
-1. **`P8-EXEC-01`** — Implement effect-intent contract.
-2. **`P8-EXEC-02`** — Implement policy/effect gate.
-3. **`P8-EXEC-03`** — Implement capability envelope.
+1. **`P10-QUAL-01`** — Create and verify the clean installation profile.

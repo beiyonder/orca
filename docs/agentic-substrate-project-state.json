@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T10:24:44Z",
+  "updatedAt": "2026-09-07T11:57:35Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
-    "currentBranch": "product/p9-integrated-mission-workspace",
+    "status": "merged",
+    "currentBranch": "main",
     "baseRef": "origin/main",
-    "implementedThrough": "P9-INTEG-11",
-    "mergedThrough": "P9-INTEG-02",
-    "currentCoordinate": "P9-INTEG-03",
-    "currentCoordinateStatus": "remaining-p9-complete-local-not-pushed",
-    "nextCoordinateAfterMerge": "G9-INTEG",
-    "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/34",
+    "implementedThrough": "G9-INTEG",
+    "mergedThrough": "G9-INTEG",
+    "currentCoordinate": "P10-QUAL-01",
+    "currentCoordinateStatus": "ready-to-start",
+    "nextCoordinateAfterMerge": "P10-QUAL-01",
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/35",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/35",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-07T10:24:44Z",
+    "lastVerifiedAt": "2026-09-07T10:31:10Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -97,8 +97,8 @@
     }
   ],
   "nextActions": [
-    "Review and deliver the consolidated P9-INTEG-03 through P9-INTEG-11 mission workspace inspector.",
-    "After the workspace merge, close G9-INTEG from the green integrated gate evidence.",
-    "Advance to P10-QUAL-01 only after canonical P9 state is synchronized."
+    "Review clean-install requirements and existing lab setup scripts before implementing P10-QUAL-01.",
+    "Begin P10-QUAL-01 only on a new branch from origin/main in beiyonder/orca.",
+    "Preserve the P9 API/minimal-inspector authority boundary; production Electron operator console remains deferred."
   ]
 }
