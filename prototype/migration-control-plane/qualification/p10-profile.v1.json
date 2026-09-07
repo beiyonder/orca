@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "profileId": "p10-qualification-v1",
+  "environment": {
+    "node": "24",
+    "pnpm": "10.24.0",
+    "postgres": "16.15",
+    "pagila": "3.1.0",
+    "omp": "18.0.6"
+  },
+  "fixtures": {
+    "identity": "fixtures/s1-identity-key/fixture-manifest.json",
+    "pagila": "fixtures/p6-pagila-v3.1.0/fixture-manifest.json"
+  },
+  "contracts": {
+    "domainSchemas": 97,
+    "migrations": 21,
+    "tables": 20,
+    "schemaFingerprint": "28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e",
+    "registryDigest": "083366a12a1e92bd387b504559962ada82a37f17faf118f051f198e54511b851"
+  },
+  "configuration": {
+    "apiVersion": "v1",
+    "maxBodyBytes": 65536,
+    "maxPageSize": 100,
+    "activityBatchSize": 100,
+    "activityPollIntervalMs": 1000,
+    "activityHeartbeatIntervalMs": 15000
+  },
+  "models": ["deterministic-loopback-v1", "no-production-model"],
+  "prompts": ["fixture-owned-contracts"],
+  "skills": ["pinned-omp-18.0.6"],
+  "seeds": {
+    "baseline": 1,
+    "durable": 103,
+    "discoveryContradiction": 602,
+    "discoveryEstate": 603,
+    "discoveryCdc": 604,
+    "specialist": 413,
+    "retrieval": 506,
+    "memory": 507,
+    "evaluation": 708,
+    "skillLifecycle": 709,
+    "safeEffect": 811,
+    "isolation": 812,
+    "processCompleteness": 913
+  },
+  "repeatRuns": 10,
+  "load": {
+    "missions": 50,
+    "agentSlots": 100,
+    "controlEventsPerMission": 3
+  },
+  "faultPoints": [
+    "database.before_commit",
+    "database.after_commit",
+    "process.worker_started",
+    "process.worker_result_ready",
+    "network.before_dispatch",
+    "network.after_dispatch",
+    "object.before_write",
+    "object.after_write",
+    "evaluator.before_run",
+    "evaluator.after_verdict",
+    "target.before_request",
+    "target.after_response",
+    "memory.after_candidate",
+    "mission.before_terminal"
+  ]
+}

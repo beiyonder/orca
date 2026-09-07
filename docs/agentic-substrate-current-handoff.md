@@ -12,22 +12,22 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `main`.
-- Status: **`merged`**.
-- Implemented through: `G9-INTEG`.
+- Branch: `product/p10-prototype-qualification`.
+- Status: **`local-not-pushed`**.
+- Implemented through: `P10-QUAL-12`.
 - Merged through: `G9-INTEG`.
-- Current coordinate: `P10-QUAL-01` (`ready-to-start`).
-- Next coordinate after merge: `P10-QUAL-01`.
-- Fork pull request: https://github.com/beiyonder/orca/pull/35.
+- Current coordinate: `P10-QUAL-01` (`p10-qualification-passed-local-not-pushed`).
+- Next coordinate after merge: `G10-PROTOTYPE`.
+- Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-07T10:31:10Z`.
+- Verified at: `2026-09-07T13:04:48Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
-- Unit: 44 files / 230 tests.
-- PostgreSQL: 32 files / 88 tests.
+- Unit: 45 files / 233 tests.
+- PostgreSQL: 33 files / 89 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
 - `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review clean-install requirements and existing lab setup scripts before implementing P10-QUAL-01.
-2. Begin P10-QUAL-01 only on a new branch from origin/main in beiyonder/orca.
-3. Preserve the P9 API/minimal-inspector authority boundary; production Electron operator console remains deferred.
+1. Review and deliver the P10 qualification harness, profile, CI job, runbook and accepted evidence.
+2. After qualification merge, close G10-PROTOTYPE from the exact-revision CI bundle.
+3. Start production-boundary discovery only after canonical prototype-complete state is synchronized.
 
 ## New-session bootstrap
 

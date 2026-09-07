@@ -79,7 +79,8 @@ function usage() {
   node scripts/migration-control-plane-lab.mjs verify
   node scripts/migration-control-plane-lab.mjs contracts generate|check
   node scripts/migration-control-plane-lab.mjs database migrate|fingerprint|verify
-  node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm <baseline|candidate> --fault <name|none> --output <path>`)
+  node scripts/migration-control-plane-lab.mjs experiment run --experiment <ID> --seed <N> --arm <baseline|candidate> --fault <name|none> --output <path>
+  node scripts/migration-control-plane-lab.mjs qualification run --profile <path> --output <path>`)
   return 2
 }
 
@@ -133,6 +134,20 @@ switch (command) {
     status = runPnpmScript('build:internal')
     if (status === 0) {
       status = run(node, [join(labRoot, 'dist', 'cli.js'), ...args])
+    }
+    break
+  }
+  case 'qualification': {
+    if (args[0] !== 'run') {
+      status = usage()
+      break
+    }
+    status = verify()
+    if (status === 0) {
+      status = runPnpmScript('test:postgres:internal')
+    }
+    if (status === 0) {
+      status = run(node, [join(labRoot, 'dist', 'prototype-qualification-cli.js'), ...args])
     }
     break
   }

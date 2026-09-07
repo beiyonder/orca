@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T11:57:35Z",
+  "updatedAt": "2026-09-07T13:04:48Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "merged",
-    "currentBranch": "main",
+    "status": "local-not-pushed",
+    "currentBranch": "product/p10-prototype-qualification",
     "baseRef": "origin/main",
-    "implementedThrough": "G9-INTEG",
+    "implementedThrough": "P10-QUAL-12",
     "mergedThrough": "G9-INTEG",
     "currentCoordinate": "P10-QUAL-01",
-    "currentCoordinateStatus": "ready-to-start",
-    "nextCoordinateAfterMerge": "P10-QUAL-01",
-    "forkPullRequest": "https://github.com/beiyonder/orca/pull/35",
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/35",
+    "currentCoordinateStatus": "p10-qualification-passed-local-not-pushed",
+    "nextCoordinateAfterMerge": "G10-PROTOTYPE",
+    "forkPullRequest": null,
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/36",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-07T10:31:10Z",
+    "lastVerifiedAt": "2026-09-07T13:04:48Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -33,6 +33,7 @@
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts test/public-mission-activity.integration.test.ts test/public-mission-workspace.integration.test.ts",
       "pnpm test src/main/artifacts/artifact-cloud-service.test.ts src/main/artifacts/artifact-cloud-service-races.test.ts src/main/artifacts/artifact-cloud-recovery.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> pnpm experiment --experiment EXP-13 --seed 913 --arm baseline --fault none --output <run-output>",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<control-url> MIGRATION_CONTROL_TARGET_DATABASE_URL=<target-url> PAGILA_DISCOVERY_DATABASE_URL=<pagila-url> pnpm dlx node@24 scripts/migration-control-plane-lab.mjs qualification run --profile qualification/p10-profile.v1.json --output .runs/p10-qualification",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "pnpm run check:react-doctor:changed -- origin/main",
       "node .github/scripts/agentic-substrate-context/check-agentic-substrate-context.mjs --local"
@@ -41,10 +42,10 @@
     "migrations": 21,
     "tables": 20,
     "schemaFingerprint": "28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e",
-    "unitTestFiles": 44,
-    "unitTests": 230,
-    "postgresTestFiles": 32,
-    "postgresTests": 88,
+    "unitTestFiles": 45,
+    "unitTests": 233,
+    "postgresTestFiles": 33,
+    "postgresTests": 89,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -97,8 +98,8 @@
     }
   ],
   "nextActions": [
-    "Review clean-install requirements and existing lab setup scripts before implementing P10-QUAL-01.",
-    "Begin P10-QUAL-01 only on a new branch from origin/main in beiyonder/orca.",
-    "Preserve the P9 API/minimal-inspector authority boundary; production Electron operator console remains deferred."
+    "Review and deliver the P10 qualification harness, profile, CI job, runbook and accepted evidence.",
+    "After qualification merge, close G10-PROTOTYPE from the exact-revision CI bundle.",
+    "Start production-boundary discovery only after canonical prototype-complete state is synchronized."
   ]
 }

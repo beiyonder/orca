@@ -612,6 +612,13 @@ Failure route: `L-INTEG-01`.
 
 **Goal:** prove the prototype works from a clean environment, under faults, with repeatable evidence.
 
+`P10` qualification contract:
+
+- one frozen profile pins runtimes, fixtures, contract fingerprint/registry, configuration, seeds, all 14 fault points, ten repeats, and the 50-mission/100-assignment load;
+- one qualification command reruns static/unit/database gates, the golden experiment set, exact fault artifacts, ten fresh-database durable repeats, load measurement, bundle integrity, and aggregate review;
+- the indexed evidence bundle publishes criteria, coordinate, environment/resource, security, reconstruction, baseline, capability, limitation, and review reports;
+- acceptance is `accept-with-limitations` only inside the fixed-code disposable non-production boundary.
+
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `READY` | `P10-QUAL-01` | Create clean installation profile. | New machine/environment starts required services and fixtures using documented commands. |
