@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p10-prototype-qualification`.
-- Status: **`local-not-pushed`**.
-- Implemented through: `P10-QUAL-12`.
-- Merged through: `G9-INTEG`.
-- Current coordinate: `P10-QUAL-01` (`p10-qualification-passed-local-not-pushed`).
+- Branch: `main`.
+- Status: **`merged`**.
+- Implemented through: `G10-PROTOTYPE`.
+- Merged through: `G10-PROTOTYPE`.
+- Current coordinate: `G10-PROTOTYPE` (`completed-accepted-with-limitations`).
 - Next coordinate after merge: `G10-PROTOTYPE`.
-- Fork pull request: none.
+- Fork pull request: https://github.com/beiyonder/orca/pull/37.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-07T13:04:48Z`.
+- Verified at: `2026-09-07T13:15:13Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 45 files / 233 tests.
@@ -39,12 +39,13 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 - `wrong-upstream-pr-17224`: **closed-unmerged** — The closed PR, bot comment, workflow log, and notifications remain as GitHub history; no upstream code or branch changed. [Record](https://github.com/stablyai/orca/pull/17224)
 - `upstream-project-item-17224`: **unverified** — The upstream workflow added PR 17224 to private stablyai Project 13. A project member must remove or archive it if it remains.
 - `p8-production-hardening`: **deferred** — G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred.
+- `post-prototype-production-boundary`: **not-authorized** — G10 accepts only the pinned fixed-code disposable non-production prototype. Production PHI/mutation, HA/RLS, hostile-code isolation, deployed relay, enterprise identity and broad connector coverage require a new explicit roadmap decision.
 
 ## Next actions
 
-1. Review and deliver the P10 qualification harness, profile, CI job, runbook and accepted evidence.
-2. After qualification merge, close G10-PROTOTYPE from the exact-revision CI bundle.
-3. Start production-boundary discovery only after canonical prototype-complete state is synchronized.
+1. Review the accepted P10 evidence bundle and limitations before authorizing any new investment loop.
+2. Create a new roadmap coordinate before production-boundary discovery or hardening begins.
+3. Do not treat G10 acceptance as authority for production data, credentials, effects, deployment, or availability claims.
 
 ## New-session bootstrap
 
