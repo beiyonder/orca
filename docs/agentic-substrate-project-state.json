@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T09:48:34Z",
+  "updatedAt": "2026-09-07T10:24:44Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -24,13 +24,14 @@
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-07T09:48:34Z",
+    "lastVerifiedAt": "2026-09-07T10:24:44Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts test/public-mission-activity.integration.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts test/public-mission-activity.integration.test.ts test/public-mission-workspace.integration.test.ts",
+      "pnpm test src/main/artifacts/artifact-cloud-service.test.ts src/main/artifacts/artifact-cloud-service-races.test.ts src/main/artifacts/artifact-cloud-recovery.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> pnpm experiment --experiment EXP-13 --seed 913 --arm baseline --fault none --output <run-output>",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "pnpm run check:react-doctor:changed -- origin/main",

@@ -23,7 +23,7 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Last verified evidence
 
-- Verified at: `2026-09-07T09:48:34Z`.
+- Verified at: `2026-09-07T10:24:44Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
