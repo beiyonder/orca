@@ -8,8 +8,26 @@ import {
   RecordLabelsSchema,
   ShortTextSchema,
   TenantIdSchema,
+  UriSchema,
   uniqueIdArray
 } from './domain/common-contracts.js'
+
+const MissionIntakeAccessSchema = z.strictObject({
+  system: z.string().min(1).max(256),
+  level: z.enum(['read', 'write']),
+  reference: UriSchema
+})
+
+const MissionIntakeArtifactSchema = z.strictObject({
+  name: ShortTextSchema,
+  reference: UriSchema
+})
+
+const MissionIntakeExceptionSchema = z.strictObject({
+  summary: ShortTextSchema,
+  impact: z.enum(['low', 'medium', 'high', 'critical']),
+  blocking: z.boolean()
+})
 
 export const MissionApiPermissionSchema = z.enum(['mission:read', 'mission:write'])
 
@@ -28,6 +46,9 @@ export const CreateMissionRequestV1Schema = z.strictObject({
   priorities: z.array(ShortTextSchema).max(32),
   dataClass: DataClassSchema,
   labels: RecordLabelsSchema,
+  access: z.array(MissionIntakeAccessSchema).max(64).default([]),
+  artifacts: z.array(MissionIntakeArtifactSchema).max(128).default([]),
+  knownExceptions: z.array(MissionIntakeExceptionSchema).max(64).default([]),
   issuedAt: IsoDateTimeSchema
 })
 

@@ -12,22 +12,22 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `main`.
-- Status: **`merged`**.
-- Implemented through: `P9-INTEG-02`.
+- Branch: `product/p9-integrated-mission-workspace`.
+- Status: **`local-not-pushed`**.
+- Implemented through: `P9-INTEG-11`.
 - Merged through: `P9-INTEG-02`.
-- Current coordinate: `P9-INTEG-03` (`ready-to-start`).
-- Next coordinate after merge: `P9-INTEG-03`.
-- Fork pull request: https://github.com/beiyonder/orca/pull/33.
+- Current coordinate: `P9-INTEG-03` (`remaining-p9-complete-local-not-pushed`).
+- Next coordinate after merge: `G9-INTEG`.
+- Fork pull request: none.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-04T13:55:39Z`.
+- Verified at: `2026-09-07T10:24:44Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
-- PostgreSQL: 31 files / 84 tests.
+- PostgreSQL: 32 files / 88 tests.
 - `EXP-08` seed 708: **passed** — 7/7 critical mutations killed; 0/4 benign mutations falsely rejected.
 - `EXP-09` seed 709: **passed** — Certified candidate promoted; injected drift detected; candidate revoked and baseline restored.
 - `EXP-11` seed 811: **passed** — 50/50 effect kill points recovered; 50 signed receipts and evidence pairs verified; 50 rows retained 50 distinct effect identities.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review the product design system and public mission create contract before implementing P9-INTEG-03.
-2. Begin P9-INTEG-03 only on a new branch from origin/main in beiyonder/orca.
-3. Keep loose-goal intake declarative; the view must not invent technical design or bypass server-owned mission authority.
+1. Review and deliver the consolidated P9-INTEG-03 through P9-INTEG-11 mission workspace inspector.
+2. After the workspace merge, close G9-INTEG from the green integrated gate evidence.
+3. Advance to P10-QUAL-01 only after canonical P9 state is synchronized.
 
 ## New-session bootstrap
 

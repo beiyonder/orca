@@ -297,6 +297,15 @@ Gate verification:
 - definition coverage, obligation instantiation, proof admission, breach detection, response selection and monitor recovery are reported separately;
 - registry 97, migrations 21 / tables 20, fingerprint `28ff7a15…646f4e`; verification passes 44 unit files / 230 tests and 29 PostgreSQL files / 74 tests.
 
+## `G9-INTEG` integrated interface evidence
+
+- the authenticated public V1 API owns mission creation/commands and server-derived obligation instantiation; signed pagination and tenant-scoped 404s prevent client authority or cross-tenant reads;
+- durable SSE replays digest-validated mission events in revision order and resumes exactly after disconnect, offline commit and server restart;
+- the expanded `S1-E2E-01` inspector scenario creates one loose-goal mission and reconstructs canonical source/evidence, gap/contradiction/probe/finding, decision/plan, task/assignment, artifact/evaluation/correction/learning, effect receipt, recovery and exception records under that mission ID;
+- the exception channel exposes only unresolved product-owned gap scope and has no write route, while unrelated agent/task records remain observable;
+- signed section cursors restore after service restart without duplicate records; every published record is schema-validated, digest-checked and tenant/mission-bound;
+- full verification reruns the earlier kernel, discovery, evaluation, correction, learning, process-completeness and bounded-effect authorities alongside the integrated scenario: 44 unit files / 230 tests and 32 PostgreSQL files / 88 tests.
+
 ## Queue classes
 
 | Class | Meaning |

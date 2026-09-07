@@ -142,6 +142,18 @@ async function executeRoute(
         )
       )
       return
+    case 'workspace':
+      sendData(
+        response,
+        200,
+        await service.readMissionWorkspace(
+          principal,
+          route.missionId,
+          route.section,
+          publicMissionQueryInput(url)
+        )
+      )
+      return
     case 'activity':
       await service.readMission(principal, route.missionId)
       await streamPublicMissionActivity(

@@ -565,6 +565,15 @@ Failure route: `L-EXEC-01`.
 - initial history and offline commits replay in bounded batches before live polling; committed events are never inferred from client connection state;
 - event identity plus event/payload digests are validated before publication; polling, heartbeat, backpressure and disconnect handling are bounded.
 
+`P9-INTEG-03` through `P9-INTEG-11` inspector contract:
+
+- loose intake adds access references, artifacts and known exceptions to the versioned idempotent create intent without accepting technical design;
+- authenticated `/views/intake|estate|gaps|decisions|agents|evaluation|exceptions` reads expose canonical records grouped by the product workflow;
+- each returned record is parsed by its registered domain schema, checked against its stored digest, and bound to the authenticated tenant and mission;
+- workspace pagination uses signed tenant/mission/section-bound cursors and resumes without duplicate records after server restart;
+- exceptions are a read-only projection of unresolved product-owned gaps and expose only blocked decision/task scope, so unrelated assignments remain visible and runnable;
+- the integrated PostgreSQL scenario creates one public mission and reconstructs its intake, source/evidence, epistemic gaps, decisions/plans, tasks/assignments, artifacts/evaluations/corrections, effect receipt, recovery and unresolved exception state.
+
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
 | `DONE` | `P9-INTEG-00` | Implement process completeness prerequisite. | Versioned process obligations instantiate atomically with triggers; authoritative proof, waiver, supersession, overdue breach, replay and fenced monitoring pass `EXP-13` with 16/16 critical omissions detected and 0/8 benign false positives. |

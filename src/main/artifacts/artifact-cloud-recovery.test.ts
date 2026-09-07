@@ -336,7 +336,7 @@ function createResponseBody(slug: string): object {
       renderedContentType: 'text/html',
       createdAt: '2026-08-06T00:00:00.000Z',
       updatedAt: '2026-08-06T00:00:00.000Z',
-      expiresAt: '2026-09-06T00:00:00.000Z',
+      expiresAt: '2099-09-06T00:00:00.000Z',
       byteSize: 17,
       deletedAt: null
     },
