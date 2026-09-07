@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-04T13:57:03Z",
+  "updatedAt": "2026-09-07T09:48:34Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,25 +11,26 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "merged",
-    "currentBranch": "main",
+    "status": "local-not-pushed",
+    "currentBranch": "product/p9-integrated-mission-workspace",
     "baseRef": "origin/main",
-    "implementedThrough": "P9-INTEG-02",
+    "implementedThrough": "P9-INTEG-11",
     "mergedThrough": "P9-INTEG-02",
     "currentCoordinate": "P9-INTEG-03",
-    "currentCoordinateStatus": "ready-to-start",
-    "nextCoordinateAfterMerge": "P9-INTEG-03",
-    "forkPullRequest": "https://github.com/beiyonder/orca/pull/33",
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/33",
+    "currentCoordinateStatus": "remaining-p9-complete-local-not-pushed",
+    "nextCoordinateAfterMerge": "G9-INTEG",
+    "forkPullRequest": null,
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/34",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-04T13:55:39Z",
+    "lastVerifiedAt": "2026-09-07T09:48:34Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts test/public-mission-activity.integration.test.ts",
+      "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm exec vitest run --config vitest.postgres.config.ts test/public-mission-api.integration.test.ts test/public-mission-activity.integration.test.ts test/public-mission-workspace.integration.test.ts",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_TARGET_DATABASE_URL=<postgres-url> pnpm experiment --experiment EXP-13 --seed 913 --arm baseline --fault none --output <run-output>",
       "pnpm dlx node@24 config/scripts/check-changed-code-quality.mjs -- origin/main",
       "pnpm run check:react-doctor:changed -- origin/main",
@@ -41,8 +42,8 @@
     "schemaFingerprint": "28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e",
     "unitTestFiles": 44,
     "unitTests": 230,
-    "postgresTestFiles": 31,
-    "postgresTests": 84,
+    "postgresTestFiles": 32,
+    "postgresTests": 88,
     "sealedExperiments": [
       {
         "id": "EXP-08",
@@ -95,8 +96,8 @@
     }
   ],
   "nextActions": [
-    "Review the product design system and public mission create contract before implementing P9-INTEG-03.",
-    "Begin P9-INTEG-03 only on a new branch from origin/main in beiyonder/orca.",
-    "Keep loose-goal intake declarative; the view must not invent technical design or bypass server-owned mission authority."
+    "Review and deliver the consolidated P9-INTEG-03 through P9-INTEG-11 mission workspace inspector.",
+    "After the workspace merge, close G9-INTEG from the green integrated gate evidence.",
+    "Advance to P10-QUAL-01 only after canonical P9 state is synchronized."
   ]
 }

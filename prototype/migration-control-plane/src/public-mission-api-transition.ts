@@ -35,7 +35,10 @@ function createPayload(input: CreateMissionRequestV1) {
     objective: input.objective,
     priorities: input.priorities,
     dataClass: input.dataClass,
-    labels: input.labels
+    labels: input.labels,
+    access: input.access,
+    artifacts: input.artifacts,
+    knownExceptions: input.knownExceptions
   }
 }
 

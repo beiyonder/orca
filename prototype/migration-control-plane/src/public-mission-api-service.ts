@@ -6,6 +6,11 @@ import {
   listPublicMissions,
   readPublicMission
 } from './database/postgres-public-mission-query.js'
+import {
+  listPublicMissionExceptions,
+  listPublicMissionWorkspaceRecords,
+  readPublicMissionIntake
+} from './database/postgres-public-mission-workspace.js'
 import type { MissionRecordV1 } from './domain/mission-contracts.js'
 import {
   ChangeMissionStateRequestV1Schema,
@@ -14,11 +19,17 @@ import {
   type MissionApiPageQuery,
   type MissionApiPrincipal
 } from './public-mission-api-contracts.js'
-import { decodeMissionApiCursor, encodeMissionApiCursor } from './public-mission-api-identity.js'
+import {
+  decodeMissionApiCursor,
+  decodeMissionWorkspaceCursor,
+  encodeMissionApiCursor,
+  encodeMissionWorkspaceCursor
+} from './public-mission-api-identity.js'
 import {
   buildPublicMissionCreateTransition,
   buildPublicMissionStateTransition
 } from './public-mission-api-transition.js'
+import type { MissionWorkspaceSection } from './public-mission-workspace-contracts.js'
 
 export class PublicMissionNotFoundError extends Error {
   constructor() {
@@ -136,6 +147,61 @@ export class PublicMissionApiService {
               kind: 'obligations',
               tenantId: principal.tenantId,
               missionId,
+              lastId: page.nextLastId
+            })
+    }
+  }
+
+  async readMissionWorkspace(
+    principal: MissionApiPrincipal,
+    missionId: string,
+    section: MissionWorkspaceSection,
+    rawQuery: unknown
+  ) {
+    await this.readMission(principal, missionId)
+    if (section === 'intake') {
+      return {
+        section,
+        intake: await readPublicMissionIntake(this.#pool, principal.tenantId, missionId)
+      }
+    }
+    const query = MissionApiPageQuerySchema.parse(rawQuery)
+    const lastId = query.cursor
+      ? decodeMissionWorkspaceCursor(this.#cursorSecret, query.cursor, {
+          tenantId: principal.tenantId,
+          missionId,
+          section
+        }).lastId
+      : null
+    const page =
+      section === 'exceptions'
+        ? await listPublicMissionExceptions(
+            this.#pool,
+            principal.tenantId,
+            missionId,
+            query.limit,
+            lastId
+          )
+        : await listPublicMissionWorkspaceRecords(
+            this.#pool,
+            principal.tenantId,
+            missionId,
+            section,
+            query.limit,
+            lastId
+          )
+    return {
+      section,
+      items: page.items,
+      nextCursor:
+        page.nextLastId === null
+          ? null
+          : encodeMissionWorkspaceCursor(this.#cursorSecret, {
+              version: 1,
+              kind: 'workspace',
+              tenantId: principal.tenantId,
+              missionId,
+              section,
               lastId: page.nextLastId
             })
     }

@@ -6,6 +6,10 @@ import {
   type MissionApiPermission,
   type MissionApiPrincipal
 } from './public-mission-api-contracts.js'
+import {
+  MissionWorkspaceSectionSchema,
+  type MissionWorkspaceSection
+} from './public-mission-workspace-contracts.js'
 import { PublicMissionNotFoundError } from './public-mission-api-service.js'
 
 export const MISSION_API_PREFIX = '/api/v1'
@@ -30,6 +34,12 @@ export type MissionApiRoute =
   | { kind: 'command'; permission: 'mission:write'; missionId: string }
   | { kind: 'obligations'; permission: 'mission:read'; missionId: string }
   | { kind: 'activity'; permission: 'mission:read'; missionId: string }
+  | {
+      kind: 'workspace'
+      permission: 'mission:read'
+      missionId: string
+      section: MissionWorkspaceSection
+    }
 
 export function publicMissionApiRoute(request: IncomingMessage, url: URL): MissionApiRoute | null {
   if (url.pathname === `${MISSION_API_PREFIX}/missions`) {
@@ -41,9 +51,10 @@ export function publicMissionApiRoute(request: IncomingMessage, url: URL): Missi
     }
     return null
   }
-  const match = /^\/api\/v1\/missions\/([^/]+)(?:\/(commands|obligations|activity))?$/.exec(
-    url.pathname
-  )
+  const match =
+    /^\/api\/v1\/missions\/([^/]+)(?:(?:\/(commands|obligations|activity))|(?:\/views\/([^/]+)))?$/.exec(
+      url.pathname
+    )
   if (!match) {
     return null
   }
@@ -64,6 +75,12 @@ export function publicMissionApiRoute(request: IncomingMessage, url: URL): Missi
   }
   if (match[2] === 'activity' && request.method === 'GET') {
     return { kind: 'activity', permission: 'mission:read', missionId }
+  }
+  if (match[3] !== undefined && request.method === 'GET') {
+    const section = MissionWorkspaceSectionSchema.safeParse(match[3])
+    return section.success
+      ? { kind: 'workspace', permission: 'mission:read', missionId, section: section.data }
+      : null
   }
   if (match[2] === undefined && request.method === 'GET') {
     return { kind: 'read', permission: 'mission:read', missionId }
