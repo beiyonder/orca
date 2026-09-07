@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-07T13:04:48Z",
+  "updatedAt": "2026-09-07T13:27:55Z",
   "authority": {
     "authoritativeRepository": "beiyonder/orca",
     "writeRemote": "origin",
@@ -11,20 +11,20 @@
     "githubWriteAllowlist": ["beiyonder/orca"]
   },
   "delivery": {
-    "status": "local-not-pushed",
-    "currentBranch": "product/p10-prototype-qualification",
+    "status": "merged",
+    "currentBranch": "main",
     "baseRef": "origin/main",
-    "implementedThrough": "P10-QUAL-12",
-    "mergedThrough": "G9-INTEG",
-    "currentCoordinate": "P10-QUAL-01",
-    "currentCoordinateStatus": "p10-qualification-passed-local-not-pushed",
+    "implementedThrough": "G10-PROTOTYPE",
+    "mergedThrough": "G10-PROTOTYPE",
+    "currentCoordinate": "G10-PROTOTYPE",
+    "currentCoordinateStatus": "completed-accepted-with-limitations",
     "nextCoordinateAfterMerge": "G10-PROTOTYPE",
-    "forkPullRequest": null,
-    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/36",
+    "forkPullRequest": "https://github.com/beiyonder/orca/pull/37",
+    "lastMergedForkPullRequest": "https://github.com/beiyonder/orca/pull/37",
     "userApprovalRequiredBeforePullRequest": true
   },
   "verification": {
-    "lastVerifiedAt": "2026-09-07T13:04:48Z",
+    "lastVerifiedAt": "2026-09-07T13:15:13Z",
     "commands": [
       "cd prototype/migration-control-plane && pnpm verify",
       "cd prototype/migration-control-plane && MIGRATION_CONTROL_DATABASE_URL=<postgres-url> pnpm database:verify",
@@ -95,11 +95,16 @@
       "id": "p8-production-hardening",
       "status": "deferred",
       "note": "G8 proves the disposable fixed-code PostgreSQL lab contract. Production hostile-code isolation, enterprise identity/RLS, deployed remote relay, cloud target breadth, and destructive automation remain deferred."
+    },
+    {
+      "id": "post-prototype-production-boundary",
+      "status": "not-authorized",
+      "note": "G10 accepts only the pinned fixed-code disposable non-production prototype. Production PHI/mutation, HA/RLS, hostile-code isolation, deployed relay, enterprise identity and broad connector coverage require a new explicit roadmap decision."
     }
   ],
   "nextActions": [
-    "Review and deliver the P10 qualification harness, profile, CI job, runbook and accepted evidence.",
-    "After qualification merge, close G10-PROTOTYPE from the exact-revision CI bundle.",
-    "Start production-boundary discovery only after canonical prototype-complete state is synchronized."
+    "Review the accepted P10 evidence bundle and limitations before authorizing any new investment loop.",
+    "Create a new roadmap coordinate before production-boundary discovery or hardening begins.",
+    "Do not treat G10 acceptance as authority for production data, credentials, effects, deployment, or availability claims."
   ]
 }

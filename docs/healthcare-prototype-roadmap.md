@@ -157,13 +157,13 @@ Every major capability should carry both a roadmap coordinate and a maturity lev
 | `A5 — Self-correcting system` | Independent evaluation detects failure, diagnoses cause, revises work, and re-tests. | **Closed synthetic correction proof:** product acceptance, exact failed-measure diagnosis and new-version correction under an unchanged contract pass; mutation/overfit experiments and broader integration remain. |
 | `A6 — Self-improving system` | Accepted outcomes create candidate memory/skills/routes that are held-out tested, promoted, monitored, and demoted. | **Synthetic governed lifecycle M2:** candidates remain quarantined; held-out certification, product-owned activation, regression revocation and predecessor rollback pass. Optimizer-generated candidates and production canary traffic remain deferred. |
 | `A7 — Bounded autonomous executor` | Performs real actions with identity, policy, idempotency, receipts, reconciliation, and rollback/repair. | **Isolated safe-effect proof M2:** signed V2 authority, durable relay/request journals, bounded evidence, PostgreSQL marker adapter, independent readback, 50/50 kill cases and 100/100 isolation attacks pass; deployed relay, hostile-code sandbox and production targets remain deferred. |
-| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **Not assembled; completeness M2 qualified.** Process obligations now detect required work omitted after a declared trigger with atomic instantiation, authoritative proof, fenced monitoring and exact replay. Public mission interfaces and the end-to-end composition remain. |
-| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Discovery, evaluation and bounded-effect proofs:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators, mutation qualification and one disposable target effect pass; broader migration/domain capability remains ahead. |
-| `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Not started.** |
+| `A8 — Integrated agentic substrate` | A0–A7 operate as one replayable, observable, secure system. | **M3 integrated non-production proof:** process completeness, public mission authority, durable activity, evidence-backed inspector views, bounded exceptions, restart/resume, and one integrated mission pass together. |
+| `A9 — Migration capability pack` | Substrate gains discovery, CDC, mapping, platform, semantic, and migration-evaluation skills. | **Qualified fixture capability:** Pagila discovery, exact CDC replay, cited proposal, data/artifact/semantic evaluators, mutation qualification and one disposable target effect pass; broader migration/domain pressure remains unsupported. |
+| `A10 — Working migration prototype` | One loose goal becomes a discovered, built, evaluated, executed, recovered, evidenced migration POC. | **Accepted with limitations:** all 14 working-prototype criteria and P10-QUAL-01 through 12 pass under the frozen fixed-code disposable non-production profile. |
 
 ### Honest current position
 
-The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). Fork `main` is merged through qualified `P9-INTEG-00`; `P9-INTEG-01` is ready to implement the public mission API. Do not infer delivery state from historical phase prose.
+The latest capability and delivery state lives only in the [generated current handoff](./agentic-substrate-current-handoff.md). `G10-PROTOTYPE` is complete with an `accept-with-limitations` decision; no production authority follows without a new explicit roadmap decision.
 
 ```text
 A0 Tool agent                 strong
@@ -174,9 +174,9 @@ A4 Evidence seeking           integrated discovery proof M3
 A5 Self-correction            independent fixed-contract correction passes
 A6 Self-improvement           synthetic certification/revocation/rollback M2
 A7 Bounded execution          signed disposable target effect and reconciliation pass M2
-A8 Integrated substrate       not assembled; process completeness passes isolated M2
-A9 Migration capability       discovery, independent evaluation, and bounded effect pass
-A10 Working prototype         not assembled
+A8 Integrated substrate       integrated non-production proof M3
+A9 Migration capability       qualified pinned fixture capability
+A10 Working prototype         accepted with explicit limitations
 ```
 
 ## Working prototype definition
@@ -621,22 +621,24 @@ Failure route: `L-INTEG-01`.
 
 | Status | Coordinate | Task | Exit evidence |
 | --- | --- | --- | --- |
-| `READY` | `P10-QUAL-01` | Create clean installation profile. | New machine/environment starts required services and fixtures using documented commands. |
-| `WAIT` | `P10-QUAL-02` | Freeze prototype versions and seeds. | Code, model, prompt, skill, corpus, fixture, schema, and configuration versions recorded. |
-| `WAIT` | `P10-QUAL-03` | Run golden end-to-end mission. | All working-prototype criteria pass with a complete evidence packet. |
-| `WAIT` | `P10-QUAL-04` | Run integrated fault campaign. | Process, database, object, relay, model, evaluator, target, and restart faults preserve invariants. |
-| `WAIT` | `P10-QUAL-05` | Run repeatability campaign. | Ten clean runs produce equivalent accepted target state and no unexplained divergence. |
-| `WAIT` | `P10-QUAL-06` | Run planning-envelope load test. | 50 missions/100 agents/control-event assumptions measured or revised with bottlenecks named. |
-| `WAIT` | `P10-QUAL-07` | Run security/isolation campaign. | Cross-tenant, secret, prompt-injection, artifact, tool, and model-route cases pass. |
-| `WAIT` | `P10-QUAL-08` | Audit evidence reconstruction. | Cold reviewer reconstructs who/what/why/when for the complete mission. |
-| `WAIT` | `P10-QUAL-09` | Measure baseline comparison. | Prototype compared with scripts/manual baseline on correctness, questions, time, cost, and recovery. |
-| `WAIT` | `P10-QUAL-10` | Document capability envelope and gaps. | Supported fixture/versions/actions and explicit unsupported claims published. |
-| `WAIT` | `P10-QUAL-11` | Create prototype runbook and demo. | One operator can reproduce normal and failure scenarios without hidden setup. |
-| `WAIT` | `P10-QUAL-12` | Conduct prototype review. | Accept, rework, or stop decision recorded with next investment loop. |
+| `DONE` | `P10-QUAL-01` | Create clean installation profile. | The pinned CI job creates control, target, and Pagila databases and runs qualification from an isolated dependency install. |
+| `DONE` | `P10-QUAL-02` | Freeze prototype versions and seeds. | Profile digest `8f11bb69…b2d3ec3` pins runtimes, fixtures, schemas, configuration, seeds, faults, repeats, and load. |
+| `DONE` | `P10-QUAL-03` | Run golden end-to-end mission. | Thirteen normal experiments and all 14 working-prototype criteria pass with indexed evidence. |
+| `DONE` | `P10-QUAL-04` | Run integrated fault campaign. | All 14 registered fault points produce the exact expected failed-run artifact with valid integrity indexes. |
+| `DONE` | `P10-QUAL-05` | Run repeatability campaign. | Ten fresh PostgreSQL durable mission runs produce one canonical accepted output. |
+| `DONE` | `P10-QUAL-06` | Run planning-envelope load test. | 50 missions, 100 assignment records, 50 events, and 71,450 event bytes are measured with bottlenecks named. |
+| `DONE` | `P10-QUAL-07` | Run security/isolation campaign. | EXP-12/13 security, tenant, secret, prompt-injection, waiver, and completeness invariants pass. |
+| `DONE` | `P10-QUAL-08` | Audit evidence reconstruction. | Cold verification succeeds across all 408 indexed bundle files and reconstructs actor/action/rationale/time/fault/recovery/verdict/usage. |
+| `DONE` | `P10-QUAL-09` | Measure baseline comparison. | Correctness, questions, elapsed time, zero model cost, bounded effects, and recovery cases are recorded. |
+| `DONE` | `P10-QUAL-10` | Document capability envelope and gaps. | Supported fixtures/actions/interfaces and all unsupported production claims are explicit. |
+| `DONE` | `P10-QUAL-11` | Create prototype runbook and demo. | One command plus the documented disposable database setup reproduces normal and failure evidence. |
+| `DONE` | `P10-QUAL-12` | Conduct prototype review. | Review decision is `accept-with-limitations`; next loop is production-boundary discovery and hardening. |
 
 ### `G10-PROTOTYPE` — Working prototype gate
 
 Pass only when all 14 working-prototype criteria at the top of this document pass.
+
+**Gate status: `DONE`.** Exact-revision CI bundle `p10-8f11bb69128c4b43-eaddc78c501c` passed all 14 working-prototype criteria, all 12 qualification coordinates, every normal/fault/repeat/load campaign, integrity reconstruction, and review boundary.
 
 Failure route: `L-PROT-01`.
 
@@ -707,10 +709,8 @@ A completed coordinate remains historically completed, but its phase gate become
 | Phase 7 — Evaluation | `G7-EVAL` | `DONE`; reopens through `L-EVAL-01` |
 | Phase 8 — Execution | `G8-EXEC` | `DONE`; reopens through `L-EXEC-01` |
 | Phase 9 — Integration | `G9-INTEG` | `DONE`; reopens through `L-INTEG-01` |
-| Phase 10 — Qualification | `G10-PROTOTYPE` | `READY` at `P10-QUAL-01` |
+| Phase 10 — Qualification | `G10-PROTOTYPE` | `DONE`; accepted with limitations |
 
-## Next roadmap coordinate
+## Next investment loop
 
-The [canonical handoff](./agentic-substrate-current-handoff.md) owns the immediate action.
-
-1. **`P10-QUAL-01`** — Create and verify the clean installation profile.
+The [canonical handoff](./agentic-substrate-current-handoff.md) owns current status. Production-boundary discovery and hardening require a new explicit roadmap decision; this qualification creates no production authority.
