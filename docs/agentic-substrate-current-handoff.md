@@ -12,18 +12,18 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Delivery state
 
-- Branch: `product/p9-integrated-mission-workspace`.
-- Status: **`local-not-pushed`**.
-- Implemented through: `P9-INTEG-11`.
-- Merged through: `P9-INTEG-02`.
-- Current coordinate: `P9-INTEG-03` (`remaining-p9-complete-local-not-pushed`).
-- Next coordinate after merge: `G9-INTEG`.
-- Fork pull request: none.
+- Branch: `main`.
+- Status: **`merged`**.
+- Implemented through: `G9-INTEG`.
+- Merged through: `G9-INTEG`.
+- Current coordinate: `P10-QUAL-01` (`ready-to-start`).
+- Next coordinate after merge: `P10-QUAL-01`.
+- Fork pull request: https://github.com/beiyonder/orca/pull/35.
 - Pull request creation requires explicit user approval.
 
 ## Last verified evidence
 
-- Verified at: `2026-09-07T10:24:44Z`.
+- Verified at: `2026-09-07T10:31:10Z`.
 - Registry: 97 schemas; 21 migrations / 20 tables.
 - Fingerprint: `28ff7a157325c5047694bb6244187c409933c62654112731ba3123af46446f4e`.
 - Unit: 44 files / 230 tests.
@@ -42,9 +42,9 @@ Canonical source: [`agentic-substrate-project-state.json`](./agentic-substrate-p
 
 ## Next actions
 
-1. Review and deliver the consolidated P9-INTEG-03 through P9-INTEG-11 mission workspace inspector.
-2. After the workspace merge, close G9-INTEG from the green integrated gate evidence.
-3. Advance to P10-QUAL-01 only after canonical P9 state is synchronized.
+1. Review clean-install requirements and existing lab setup scripts before implementing P10-QUAL-01.
+2. Begin P10-QUAL-01 only on a new branch from origin/main in beiyonder/orca.
+3. Preserve the P9 API/minimal-inspector authority boundary; production Electron operator console remains deferred.
 
 ## New-session bootstrap
 
